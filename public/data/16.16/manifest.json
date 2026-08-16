@@ -1,0 +1,1489 @@
+{
+  "schemaVersion": 1,
+  "patch": "16.16",
+  "gameVersion": "16.16.8049184+branch.releases-16-16.content.release",
+  "generatedAt": "2026-08-16T21:13:27.287Z",
+  "locale": "en_US",
+  "championCount": 173,
+  "itemCount": 248,
+  "runeCount": 69,
+  "spellCoverage": {
+    "estimated": 551,
+    "non-damaging": 127,
+    "modeled": 7,
+    "unsupported": 7
+  },
+  "unsupportedSpells": [
+    {
+      "champion": "Dr. Mundo",
+      "key": "E",
+      "name": "Blunt Force Trauma",
+      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+    },
+    {
+      "champion": "Vayne",
+      "key": "R",
+      "name": "Final Hour",
+      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+    },
+    {
+      "champion": "Fiora",
+      "key": "R",
+      "name": "Grand Challenge",
+      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+    },
+    {
+      "champion": "Camille",
+      "key": "R",
+      "name": "The Hextech Ultimatum",
+      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+    },
+    {
+      "champion": "Yuumi",
+      "key": "E",
+      "name": "Zoomies",
+      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+    },
+    {
+      "champion": "Nilah",
+      "key": "W",
+      "name": "Jubilant Veil",
+      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+    },
+    {
+      "champion": "Naafiri",
+      "key": "R",
+      "name": "Hounds' Pursuit",
+      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+    }
+  ],
+  "itemCoverage": {
+    "stat-only": 120,
+    "unsupported": 122,
+    "modeled": 6
+  },
+  "runeCoverage": {
+    "irrelevant": 53,
+    "unsupported": 9,
+    "stat-only": 3,
+    "modeled": 4
+  },
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/latest/compat-version-metadata.json",
+      "sha256": "362c0c748f7afe0ddba7c2e4847b99f90bab7b8daa9551d8f8c2e5372fe751fb"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/api/versions.json",
+      "sha256": "c2eede780ca5a85ab58877fcadcd6af3b43bafaddc4f6169840c18142e5ac382"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json",
+      "sha256": "caf42a58dea431cd62c7593852ece004371b58543dacd9919498e16b3c75dda2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json",
+      "sha256": "fcb6464532b8ab995766c2484837179d9dd7a38bc48ca9291c9d67b000be4a4f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "sha256": "7e6afebec267cb2623ef91a9bad6370da1fec1bc85fe36c20fa8a3d34d99c162"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json",
+      "sha256": "aa6bebc26efebd49587530d2284e84202686ea4c67febcc2f8d8b29b7d91a81b"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/champion.json",
+      "sha256": "970c2b0ead25bd132ff9df260a42130c02e4d1cf3adbeb62f32bc3dc8178a324"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/item.json",
+      "sha256": "a91318b7e18e1bf9516aa0ea403740af6e683f5c7aed55655d9408b07edb0dc0"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/1.json",
+      "sha256": "272ec6a4404ac8103fa7a915323c292731954afee3580af4cbccbf38af3a1f76"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/2.json",
+      "sha256": "4519d3c4e6415fc05817e7aa223458a9204a513583c157e80feb8012b4490758"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/3.json",
+      "sha256": "8e85534cfb519370aaf7a0108b7c3e4118cef2d2ca9099c98da8e39aed0dc9ed"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/4.json",
+      "sha256": "ea4dc5ab5a676baebdad48f5e2154d1d72e4ecb9cc873dd713fc16922d4326a7"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/5.json",
+      "sha256": "3dd9e682c389fa83e1a3b5c08a184a77854c206c21650774a777b9c30ce226d2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/6.json",
+      "sha256": "347b96f5a3019017d3e0fe38894800cb8bb7d2ab35f656b4ab8f3c028fd9d0e7"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/7.json",
+      "sha256": "57df3955c80bedddcc4be1f5c2376940984b15bc1add5c33392e5d5fed5f865b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/8.json",
+      "sha256": "aa21c8b96d8932faec12e6c56fe56ef02004d24b34834ae6a475f4899fda173b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/9.json",
+      "sha256": "d26d96853d4fd2a36a13b5c7b4fa8b293e0b2a3586f28912be8609a0f5d9e373"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/10.json",
+      "sha256": "340bef63de8d30b084be2a9653584dcd4a4bfd82091afe8d25e10b7d52a10f17"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/11.json",
+      "sha256": "aab8297ccce88c84fbfb59bf97125fd2f674296f2abc154357eaa7ab6b364d54"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/12.json",
+      "sha256": "5cb0130f3041731ed05d9a15ecf1bf41bbdd33263e27abfdc9302fb5cf456714"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/13.json",
+      "sha256": "0066421debe3dffc6d9375c2eebd8f25dd48ddb23621ccb6f56fa24e568fcd59"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/14.json",
+      "sha256": "83903eb539944a1e2bdeb19da5d9d92dce924ebe21baf440e4c4fb1d9d17e6d2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/15.json",
+      "sha256": "185d5e9d14f59b9249fabd676e1dd077b2505010277dc06c44b4f3cc1166f9e7"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/16.json",
+      "sha256": "de9c31a33f3f75aa1e02d378140d57e1b724f8d50bcdd95d4ab28b26899a36d9"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/17.json",
+      "sha256": "f977b60c0ae96cdefad0d2c3a7ead8296c1d6a571f915ec0f154b1905b3a1b08"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/18.json",
+      "sha256": "324e1959122a84989c2c076187643ebbc905827d940893dcef6e8656d5af56c3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/19.json",
+      "sha256": "58b7fd67ba1010fd0a38bdd299972a08c85289ee8fda07cbf2966d4e51b44fd6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/20.json",
+      "sha256": "5fe0e4712dda0c0f76c942702ab9a6d003fb8e76185ee77c44056d25ebad692f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/21.json",
+      "sha256": "2dd130ce4566c8fc309117c79e8d233731edf76476dbfd5bb2500dfb5247795a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/22.json",
+      "sha256": "5301c33ad038fd0046abed4b9f5153b2d6e5995b601e06114ef41f04b5a54b11"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/23.json",
+      "sha256": "abd8f6105a79fdb4028ab74bdac825682335fd680a2a23f2757df9bc76586298"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/24.json",
+      "sha256": "a46192a8bbc7b5162cd59898d6c4712e6b04518a2fd71e171c95d100e9c3d8b3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/25.json",
+      "sha256": "210bb3c3944eab52dbf43910f9239e3d84b718f6ab8ae0b029140c3c2f7bc6ae"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/26.json",
+      "sha256": "1e9bb82bf3df64ae5f91ab2412db8c18e030f1a2414b4424c12b331cd2dd4e71"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/27.json",
+      "sha256": "e016916f1ea7579348e2d60f8d5dc21c7f716cc9d010346f1db3f32aba39bcc1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/28.json",
+      "sha256": "1612f5962fc0e44d3a6e0ecef80fabc31f7d24fc517c67734a8ed4e1ffcaac82"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/29.json",
+      "sha256": "703233401cabdd0fc80bba5920863318be6aeda694692029376486d845bdd538"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/30.json",
+      "sha256": "6dfa28c8e10eec4dd70fb1dc7b7c6ffe15372ea7977a1cb854fdb6ed6b2ea438"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/31.json",
+      "sha256": "35ee141ffca546c460eb7259b3945f769b6aa45b9a99e29820e970bcf5e46ad2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/32.json",
+      "sha256": "98bef55966a27719231d791e747f060a5121bd2963ad67f7d13f4bd89390df69"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/33.json",
+      "sha256": "a593c7042fb57f29211002b6ac79e225b98d811b581f58955e5998a126ab0950"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/34.json",
+      "sha256": "3d6fae4097562ea00d0b635e7f7d400dc50f49e018a143887a955a57f39428be"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/35.json",
+      "sha256": "f4615a56f1b1246850a360f4ff46892e86806646c2fd4031d5d70a4c7698edc0"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/36.json",
+      "sha256": "df47d1f0259752fc5ff1f621edba28a4559404f68b84e315e5a442b55f85e678"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/37.json",
+      "sha256": "df2f616043010abb16b67335cdf9992b2b08d57f0b0319f7fe13e6eb32deb2ac"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/38.json",
+      "sha256": "ddab967b672fe4396d3121fe29960779508c788732636f4942e6c0fca9171d06"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/39.json",
+      "sha256": "796c71460c075e19aa247cb071aefbdfa134aba6873ee901ccb154275c9a5f0e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/40.json",
+      "sha256": "e0ef0c879e6715f9a626d973cca0cf3ab8849739e23ad35146d259e6af926935"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/41.json",
+      "sha256": "f2a70233905adc3b35644629ac7df87c804c10728bbacea1e2375819071e7063"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/42.json",
+      "sha256": "41ad4bb9963445652553461ef8e63ee960eab32c7443de78a979b0ebf8f07468"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/43.json",
+      "sha256": "454195c90b7998b586189845d3a935c1b2bc9e1ad128923d951b96988598c078"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/44.json",
+      "sha256": "adedaee3fc192e91110153e1c4bc55787e2fd527731742e27642d5b45ea1b4db"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/45.json",
+      "sha256": "d41536325ebd7ca06f7be67ada27dcf42f5f08ec7c071253efda79aab346eedd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/48.json",
+      "sha256": "63be80d3e7e926b7d97fd2a9fd36c77da1bc50afa85244f41a470cba7f155839"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/50.json",
+      "sha256": "b1da971cf22665cc7a38f2b33f6e802e5d0a5be3680acc731c880fc33386c685"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/51.json",
+      "sha256": "dac24577de504355ff576e7896ad5b2fb6c147bce0ef7b35914a8588f191417f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/53.json",
+      "sha256": "1a1aa793247764a47eaef9663a04ab38d6476d02d852d510532749b438a6fa4a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/54.json",
+      "sha256": "35a032b532fa8dd8098253eb121deaff9edabb3910d71888c39a5e78116d8945"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/55.json",
+      "sha256": "35cb7d3a6b8639831ba7e434dcece699c78ddc69c2d4a86b6685d173e2a1cd19"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/56.json",
+      "sha256": "1c310f98f7763b7dcc395d5f8e40277548e58d727c1bde6d21502451a00297f3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/57.json",
+      "sha256": "ab72fa23eba6ed4065e3f70255fbb6c8ca7fa5e772f14f27af92cdd612b0f052"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/58.json",
+      "sha256": "49fe9b7ddf074904ccc14f1ae1c0c5c64193d9e1380ad46209f751266809c84b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/59.json",
+      "sha256": "3df06abc82856503cf0aa22596b878d77d739ff8258a8d5084e1f60d642679b9"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/60.json",
+      "sha256": "fd3912a03493bf2efcf375a39b99e1529e3f8e991596797287bdc1a6e462abac"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/61.json",
+      "sha256": "df24e066bb039ceee5073644c97f70f53f1aef035afdce3911fc37e4b62d9082"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/62.json",
+      "sha256": "0b000c1365ce55a2e9eba65d235e1e234e3be8e59a62e58d4e9a3888f324dbce"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/63.json",
+      "sha256": "b24252cc81f202a152ed175925681e1229b23966c5899caf5cc053717678c090"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/64.json",
+      "sha256": "f8dac17ade692bbcbd931847bbbe19da783d43e041763ce871b8e36f1131914e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/67.json",
+      "sha256": "c58bcb142d45bd835d4010b67798a0ac5fbfa9fb91eb0a44452e517e8a328a8a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/68.json",
+      "sha256": "39813f84d7e6580425a50ef183b1c41a75b43496c362f99ffbc15adaea1e06ad"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/69.json",
+      "sha256": "e9e582054c585d2cea61077315694a005ef84f833ea1a9cc8bcce3cb7c8020ef"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/72.json",
+      "sha256": "7994ba6f1b2f16c108ac6d906d8970bd983618f0bc5986fc825c82ebbe40be78"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/74.json",
+      "sha256": "207dfdb42c1f37dd4c3cd945acde3228a517911a761c0a89e36c5005c650ec19"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/75.json",
+      "sha256": "b49d6d9120f6b8f762b1acfcf131a99cab8528b2c561b21ba17685561b1668d5"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/76.json",
+      "sha256": "f61bee7eea1c48b67ad2afbe7f4849835796055cc9ea407182b760c9ef1d3bd2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/77.json",
+      "sha256": "37aa326986acb6dbe25b4fc32c4db42168327d4e5d9f3e8ede2bf33222830521"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/78.json",
+      "sha256": "d701283f7c65cf1d8059e580c2d772fc9e01ca36fbde6998188dad8092de4ecc"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/79.json",
+      "sha256": "7834e64010a51ab83347bb9ca72a80ee1d9b0e6b90143464e19a13f110f0189e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/80.json",
+      "sha256": "da90be781ee39f9f4ca79e23d2d32f56df65f608f5d76c830990797d7ba5ea8b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/81.json",
+      "sha256": "e9ef6f8ef3f193db016d29a17723a93dce31058858aee4d47384985ba4ed1911"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/82.json",
+      "sha256": "89a86f723511664c2c9874a812effc96815bbde469b6854e919f94897dd7ed16"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/83.json",
+      "sha256": "c9f6313b6bdd9276c09d28bf1d042c4e127d825a41d283bd6c935fff125c110c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/84.json",
+      "sha256": "715e041c7cf3bc93612c3e79597e8f3d0e5709dc8cf0618acd7d74d310724695"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/85.json",
+      "sha256": "d09583f94978f9d615eb2913310ef99884f65ddc5a53e7fe9d48fdd58438c58c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/86.json",
+      "sha256": "f28f5c9a12310f888404015f21e6615b8ecf688d41ff248b7a0e6166b36b4110"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/89.json",
+      "sha256": "f42f78e8c73ce77257165bd4d6e8a2a1fbd0c9e66715edc0c7d9fdf712d7618f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/90.json",
+      "sha256": "30404c492b8f6ae9125564df46aa33a0266bc58179f3eb56aa659c3307c20dff"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/91.json",
+      "sha256": "50f58f04cf16c091e9714781d4e915407ffbab7614d32147aa42f04a7de81390"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/92.json",
+      "sha256": "7478594b5cf083e934041a1bb060fbfc81311b261e98c416daa9b01fdf8997dd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/96.json",
+      "sha256": "62bcfa36459582c057656178c68db776e8d8a4e472b6e06bec7cc75093c5e3cd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/98.json",
+      "sha256": "b77372f4f9c15a1a769b8d4135a13426212a31f205b3f23e98f6ed8d61cb9b23"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/99.json",
+      "sha256": "5c219966f12d3eed1563d1c86aef2db03811caab465c3f4ca4be47d4c29624b4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/101.json",
+      "sha256": "f3c229f5b426722e8f0e3f093b1c6def44caf87a3afa8e8534c3b1c84c34fd1e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/102.json",
+      "sha256": "4190a626fefa9813a3d7d821412ab5572879822e8cba67f4b8a5e13f0a1925d4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/103.json",
+      "sha256": "c50bfc7446179e9825b9cdfadf1859df9e892c3dc7df94ef7642139501a24bd6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/104.json",
+      "sha256": "007dd5ab18c1e0476a009d60f74b2783a268ce185fb5ba46a4167bb2a43ab5c7"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/105.json",
+      "sha256": "da4ffce52eb7a54e2f8b8d31db624ac2ede386868b2e8cac0668abd40180eb14"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/106.json",
+      "sha256": "e5cc3affd9de23b8da5f9ecbf083bfd16455b78345d8ee0950ca6cd589d2374a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/107.json",
+      "sha256": "75823d3c1dd20f26308b8b85c12aa0495ad6cb88cc9169e2e2bb87eadb723cc4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/110.json",
+      "sha256": "57d221899f6e9d0350cd506b1455f9ae83d33340a28835274db5d49e76d893aa"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/111.json",
+      "sha256": "d803ed75071a6af9c3d09dfd55dfa8c0e60bf9ccc771a8dcb5baf724754b921c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/112.json",
+      "sha256": "1a7fced9afa19171848f6f6f8438bc5a29b6a01a050e3490adae387b52f5aa02"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/113.json",
+      "sha256": "a57ab9ead16ac468646793740de56d8bdaf2ef265e45c9d3cbe0082cd715b9ef"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/114.json",
+      "sha256": "c056c85d64b6f55799d3dac163bca0146b8a6014d4406ea84971e10c3addc41d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/115.json",
+      "sha256": "44e112328d3d5d51211ffa35ac6aece0bb9a19765abdb9ebae1960b5f01fe80e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/117.json",
+      "sha256": "ce50e61e191129957bf440b1832276dc68b62b1ab0c17bcb8056b21ea3b095a3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/119.json",
+      "sha256": "66b2820df8025c583d9c6629e46f495ad39ab6c7abc54af2b619a1ba852c588c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/120.json",
+      "sha256": "b1d52e1900475cc4976d878444120f822e00fd86cca8c3ce9c75fb0ef7588790"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/121.json",
+      "sha256": "aef2cb6d961933731b3ad24c37a786e2f243884914124496c42be597661ae727"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/122.json",
+      "sha256": "05816da1c626130a235e1a5e33539cf16ff4eef35c02acb7a21e7083adf4bfc3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/126.json",
+      "sha256": "094d99f554f1a5a92103d51c5340e976122ec1da6d56d8b10840659b33252a47"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/127.json",
+      "sha256": "f1e8bc60ad13172cab13586ff431cb06d7c33666a084ccc65bcdc43bfd288e17"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/131.json",
+      "sha256": "67a4cbb80efceefdd9775b1ce550e200b0afc7bf52f6f303dd23bbf48d6988c5"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/133.json",
+      "sha256": "beb0500e31fc315bea600fa4fdbbd84210f41de24470f93801d27915d5a9ef21"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/134.json",
+      "sha256": "1fcfda11fe8a5a3ed886b0820dde67c97052f13e2850f6ccf077cc0e2638c6f9"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/136.json",
+      "sha256": "d000a632d0181a7d6ab3822b41f9892a09552d5a79e33f06b389dbd145e0db61"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/141.json",
+      "sha256": "c4d1c2f62a1c63972ec6f64d8b6e07b4af1446b9489ddf8e8a7b77402d9584be"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/142.json",
+      "sha256": "beea46979b7e4a00d5efaea82463c7c3755e30e7d24b86bf7059b96618fe2338"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/143.json",
+      "sha256": "c122117307356c30c87b0545295941fdebcff17b25da7717d26f37654d670142"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/145.json",
+      "sha256": "37c079a5b2b2d98a03489c23a358e5ce0b0c5c1d88c7b9380b2db0e291cba340"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/147.json",
+      "sha256": "d0ffce9b850ebfd373fdfe773cb4daa48b17d2a5a451ce3cab7af76d5f27ff58"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/150.json",
+      "sha256": "c465ee86ea793ec6ed45fd9bd7d47e03cdd2c935b721f84a473d99bb6e03dd8e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/154.json",
+      "sha256": "eb5c6f4f1cca8a2076420235817d06fcb7a96d58c7c0d7e913d636b9bc114fde"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/157.json",
+      "sha256": "4fef9a9f1294a5c0b131fa4dcd1161e76fa20019057e485455436cc8557b33f1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/161.json",
+      "sha256": "e0c233aeaf411c9981970cf14d496fd7093cae2f0b9b63bd043147a2ea6f6068"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/163.json",
+      "sha256": "2aaaf03de1e2ab05a4216013d3718ebc35259a876bd921a4cc05c5653a5d676b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/164.json",
+      "sha256": "e017e5be398c768c3cad701a5893e8a98cc00cb6f4549e8175b1f8ff806048c3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/166.json",
+      "sha256": "6d93d5365da660a3b1f9769fcb70df3a975704f04ef651e1d645da6251c09d9c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/200.json",
+      "sha256": "ec1a7a55e87c6ee6981030165c9228d4905a2d1ecd2c8d7eee7f90d2221fdbe3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/201.json",
+      "sha256": "01c3719124a3d08072eba3dec0dd6c06ef4bf2e20c0c62ffffbc3e71aa681209"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/202.json",
+      "sha256": "92140427d9be2b7fedfbcfa3b9945b7da1a4d10e8cb3bcd47ef3cb2090350e7d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/203.json",
+      "sha256": "48e2716aad75a60fdfda85bc74fb3a814d19946dfc37cdf83d03160f1df241d4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/221.json",
+      "sha256": "c19b3fba9db978266d0f2e3b83c47e0dea398aaa7c25422e8eb463b6659fadf1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/222.json",
+      "sha256": "4252e5a93d2f19321d79f8a9678bb22626d9061de7223a3fe923503d320d47b2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/223.json",
+      "sha256": "b4628d2b9e0ff0251c7796bff9add00818694556e26f741291b7fd0a71013a80"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/233.json",
+      "sha256": "7cf47b100d6648037274e40af3fc4e4a517d842dc0a9650a60bbced346bf2e4f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/234.json",
+      "sha256": "f5f511c25a7abc4756c6c58391af481fbd30ae6be6900d6ded1fa8421038f770"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/235.json",
+      "sha256": "50d10d7bee2dff13a478472a93f84a30e481d7a2a65f69bc08dbcce218669fdc"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/236.json",
+      "sha256": "73a32685674beed0b6844a27e10222745605c395aecc683788c9d1f933ee1202"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/238.json",
+      "sha256": "3b372cb7f78d39e032eac73a2a801bc0de177cdb9f2676518b336fb98acacc4c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/240.json",
+      "sha256": "cac69704411f6a498d6c8054c0497fcd0568b1840f0ef1885aeb50f40c551268"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/245.json",
+      "sha256": "153f54afe0746f28f8b21537faffcb4d80e9726f83d61d4642071cea7d82aee1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/246.json",
+      "sha256": "889f8f12790d36b6b295ee99e6027c6f8a294c3b39fee5f1b5f3bf10a819279c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/254.json",
+      "sha256": "e7b54e146d6d8985958f000bdc66e158d2d0a4f14a12f2b5d2177c57e78c8c7b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/266.json",
+      "sha256": "0a4e9a03fae0b70512e9524475a4e4f724cc88a91651c8217acac510f644a606"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/267.json",
+      "sha256": "c566dc878f26d938edfb75ec58f3b4419b0f934139b215bf2939b32b781264ea"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/268.json",
+      "sha256": "5267b4d106c988eee81a445b6eb852f9b86c4efb4e028ee7f3253140e2f2e8e2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/350.json",
+      "sha256": "b59d054c1bb2454716941c22966d401afa02de4c19dac41b4a4f6b4336820cf2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/360.json",
+      "sha256": "69c4bb71a88da34575c58986b5a88f0e294b8a8af83a2dd66a6e25e26b22ad36"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/412.json",
+      "sha256": "9b4331c857c22d6e8267700d41f8cafaddf00bcafa9931f81b3d13e920dd6584"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/420.json",
+      "sha256": "24fe888026cc7f2a1202ac8dea06875a80d68bf0f77aa5535e722f4aed9f1bd7"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/421.json",
+      "sha256": "5d4c667bf152cf748d295e5546a2448698b2fa77b426b9a7598793bb46af7ad3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/427.json",
+      "sha256": "9ef0513700450c6e471fa89eece047ef443969a4746167da28dc4e425214e7a0"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/429.json",
+      "sha256": "9f520bfb6c900b6fc84268724ecdfc142a5bd874ddefee86bda1fb2892b7ad86"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/432.json",
+      "sha256": "79d944fd7a1f62c923d0ae65ff56530ee51ad1788bdef1bd6e2040187224ea69"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/497.json",
+      "sha256": "140924c1193b551e1ba27008d85b6078132ce46a0bb98e22c658443d36c76335"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/498.json",
+      "sha256": "23654ed88e3560d3f9329d8d4ed490b901e90349ee5b25ae2e96a47737fa307b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/516.json",
+      "sha256": "5902978f959f561c285dcb1c20adc62294eab30e882b09b9da5a1d04be87a87b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/517.json",
+      "sha256": "6906ee5a7543997764239e2860726aef1d10932310f3f25f29cd40e38e047169"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/518.json",
+      "sha256": "87724da279d74b1c1e35225bb5cca1c5a971e595854b6a34862e2b0e89c74e27"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/523.json",
+      "sha256": "5458394de2967871b5a307522ecc434989731e73ec2a7ca52b78032725a1a641"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/526.json",
+      "sha256": "a91d045c75b973529a4dd462ec5544083ca2c5ae93712b861a195cba97847e7d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/555.json",
+      "sha256": "eb3e4139d5c8eb0485a92b4f2201a04b70454efaf6f730e69414d7204456b9d2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/711.json",
+      "sha256": "a14582361d863d44d7d28066ffc733d6c4bbdf98cc7ffbc458dab8f4cbe094b2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/777.json",
+      "sha256": "ff6aec371eb336d25c48e5bf7cdfc89c94a6d6eb6ccdecaf47de80a15c35af01"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/799.json",
+      "sha256": "b46537678d49c162a5e397963f0907ab999145a8ad9ca7e0068439f16adb849a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/800.json",
+      "sha256": "5252c06f8d8f5a24de3ae93ff5e83e947a3f18e6b46f12f1384f7c87a872b718"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/804.json",
+      "sha256": "7dc2f7833e8528d87f8e308581d181a6c9c68d05f29b1d193aa69480d3489458"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/805.json",
+      "sha256": "1bcb198ff17955474944c061cdb06fef9816175ea4bfb8762828b427d4b538b3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/875.json",
+      "sha256": "536445e5b2e3bcd1d245353d392951542f9020c524be28f441f36e4b9864e74e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/876.json",
+      "sha256": "353957d63cf967a4d9d352cf83eea584b394432013a8d4259b1cf2f7a765fe22"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/887.json",
+      "sha256": "c06a01fe8395855dd44e483ba144389ef37f3e81ff9ec6cefc1ab5ac47533341"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/888.json",
+      "sha256": "432e3413381341e7edb403a7e88d826695ec764571668362e48768199770a548"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/893.json",
+      "sha256": "0a0566fcebb4aec0b1a15ed8f2d0e311582bb2d0a59c43d0def92a6bd18891e6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/895.json",
+      "sha256": "0cb7a6c6b75b8344442de02c90c7d9b51ede217cfb9ac25cff90d373574b8da3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/897.json",
+      "sha256": "7032c1404900737143005041f91ed3fe6e00f48a69146c52723e0bd349f3cf5c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/901.json",
+      "sha256": "4cf627ac70ac83f3c8ec0d721e63db7b464d0b8d2ce48ceaabac6e35a4417a6f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/902.json",
+      "sha256": "0a7e959d54f0bd403d593d37f9cb9941f3decd272252ed02479ba2839dfa29b3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/904.json",
+      "sha256": "d88dfd3d2f0e96447a8ecd2dc82e40543a9708bc553f561b9915b59e0116b89f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/910.json",
+      "sha256": "31ae421ce881e2508b393ec5f60c169bbd79e15efe96fe4c00d7d4a8f30a724e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/950.json",
+      "sha256": "83893b4a0590c7df0f35c0a7e495d93385e5a0e58421dfe52fa3b9146de21dbe"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/annie/annie.bin.json",
+      "sha256": "9882e63dae1b437b7d18040b251ffbb20e09f7b18db3a7c6464e01de8737a4ae"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/olaf/olaf.bin.json",
+      "sha256": "3e91f7daa1c1c77a2f378f150a9e54c0942c21a3ddea63281abf8b43c0d468cc"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/galio/galio.bin.json",
+      "sha256": "0a8ac3fe51819a70e7616c9a87afb3de1df4409c362f19a6705b2259f91f1d07"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/twistedfate/twistedfate.bin.json",
+      "sha256": "142efd4a6c4b4356e9568758f51ce331f3fe5a80a5e4d73f12f5dd22465a2d2f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/xinzhao/xinzhao.bin.json",
+      "sha256": "1d9bf57415098d1ceeb09cebc2f45bf39b7067fb58c3b9eb049a97772af380f4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/urgot/urgot.bin.json",
+      "sha256": "5af62396c283f73235de0bfb13bba355763229527cb8e4a9e13b26492b193334"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/leblanc/leblanc.bin.json",
+      "sha256": "54a7b31fd9c996b9841dc825c16167dc74eff58dbe9efc364befbdfaa08f3f18"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/vladimir/vladimir.bin.json",
+      "sha256": "3f815191ebc0cec2596faece7823aa50d928415563e966db448f385a00f5d73c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/fiddlesticks/fiddlesticks.bin.json",
+      "sha256": "896437ee9e102288f7577f2a3d8bf20bd398ddb758559c79d7de5d29a42c62fa"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kayle/kayle.bin.json",
+      "sha256": "63f06c6966e17bceb8e88f416b3e05356778c333fcc9dce57999856769bc745e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/masteryi/masteryi.bin.json",
+      "sha256": "797d027690b6fb9164ec3d5466f3a6796d054aa8c68fe9b60c1e82333e8f5496"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/alistar/alistar.bin.json",
+      "sha256": "2dd42b534d8000f75ca0317eb08386591b8aa9b62ef4f1058c8707866e162c9c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ryze/ryze.bin.json",
+      "sha256": "04f6c91dd4858f818d9b544296f60f47577d106e88d0dca46f388f7e9308f55e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/sion/sion.bin.json",
+      "sha256": "71c157eb6f2ebe8dc1065c91e8a750acdde15cbf75804b83ac09f60abe11eab8"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/sivir/sivir.bin.json",
+      "sha256": "f11b79bb72b3c50a5e2f76f9398062be88e9c58324f8800b294e15be9c9a6d29"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/soraka/soraka.bin.json",
+      "sha256": "b2e146766625801b46e1d0d332ad007bad031793bff7fea658d239d30317a815"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/teemo/teemo.bin.json",
+      "sha256": "ae096fce5940c7ff81f4ec13e33cf37d11d134e91b9eee9eed3355dabeffe9ea"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/tristana/tristana.bin.json",
+      "sha256": "c6b079ac0796d840d07e42328b64bd57c84eeb724c90201b74619adad5fb534c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/warwick/warwick.bin.json",
+      "sha256": "25f5d63424b067bbb5d96b7c257dd6f39a15ff97a8fb9fa29b220f28eda7c28f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/nunu/nunu.bin.json",
+      "sha256": "514e9607d83401efc071a959ce8e9cde91692f4abf2724e22fa8839da17638a2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/missfortune/missfortune.bin.json",
+      "sha256": "c3df97951e5e795577bb530c41de8cd31dfe9a13336e50ea189942b724bbb92c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ashe/ashe.bin.json",
+      "sha256": "102b9437b9534fdc64dfa77c0428fb46efac81670e68b914f561e2155cf3754d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/tryndamere/tryndamere.bin.json",
+      "sha256": "56223a481d8bcf952bd925dd11f820aff73127538c47022a7516ba20f2d1e505"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/jax/jax.bin.json",
+      "sha256": "190407cd77274f6ac489279a6cb2c98a4c212c56acf0735520aeef6aea8e3cdb"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/morgana/morgana.bin.json",
+      "sha256": "852fc06fd59fcf4ff6b8d8dd71c077511fc05a090fa3d28e7e5ad840cca30f9b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/zilean/zilean.bin.json",
+      "sha256": "69c424f8af378e628a2139b6aff5578b5e87b6dc9cafc149ed81ea8951e3d7e1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/singed/singed.bin.json",
+      "sha256": "29a03f31a230d7563a9c36583183f6e683aa5dc34dc669a738eeaf5b5a99f5da"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/evelynn/evelynn.bin.json",
+      "sha256": "68ddb3e2b19dc02420628050f759c96907bca8f0040c90a17125aba551f49f1f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/twitch/twitch.bin.json",
+      "sha256": "c326d14d0fab48c565b8f4537179a98d2b620244c16d1857b0303841ec608bf1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/karthus/karthus.bin.json",
+      "sha256": "6bd56ffc62f1d4321c8fa4e1fa6f9bf0abb41215a4b57a3d364705c06134a820"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/chogath/chogath.bin.json",
+      "sha256": "179a31b32f3a860b1f619b26ea660167e77335d9da2bc0809f0924706727a110"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/amumu/amumu.bin.json",
+      "sha256": "075acfdfc5cdc920ebb200c3ca332ea3c3480ab1352a898f82df635e0e0549e2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/rammus/rammus.bin.json",
+      "sha256": "9c5d94a3fb3e36a8a21506c5206b9f69774b097b0ae9002799b37ede43352ebd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/anivia/anivia.bin.json",
+      "sha256": "bd0585187443203525457dbc5807335c09de1db6b1e0ff907ff3610cce3e8990"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/shaco/shaco.bin.json",
+      "sha256": "492194f377cc45fe49bb16dd1a5563b89864bd7cee31bc5360692862e73990bb"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/drmundo/drmundo.bin.json",
+      "sha256": "df9fcf4f0128d5858381f91a15aa2eca6c9b15184ebbfe6a1082bf56c68cc572"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/sona/sona.bin.json",
+      "sha256": "d92777cdbf081e5dd9c45901b3961d60169c93019961fdcbe0dfde5b574f2c06"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kassadin/kassadin.bin.json",
+      "sha256": "c5ae5a3b8d1afdeff26017477e3693e1fc6e869767865593acfd654fa2b47f96"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/irelia/irelia.bin.json",
+      "sha256": "903dbc7f4abb485a7e184c00e2d148fe30d3ba76cfddac9dd57c2c9d1739e74a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/janna/janna.bin.json",
+      "sha256": "7b09567c5f1d0644722d8c907f6ed67b84b72c60802bcd2287eed2de64c9b976"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/gangplank/gangplank.bin.json",
+      "sha256": "8ee8f5ac4c3d564478f819df659670a2c6049eb0331da5b5917d02ba97abccb4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/corki/corki.bin.json",
+      "sha256": "2ba9364f7e13b631cf7e785a7aeb677c81cb831277b027e17ad01829fce2c351"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/karma/karma.bin.json",
+      "sha256": "fb3af9be45fc54d271933dd8b157a4c1a9c46aeb607715a1d40ef9e7289b8118"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/taric/taric.bin.json",
+      "sha256": "028686b08deb485fb2bd93f372b586cbbfe38df5d12d766df573ffc521ffb8cd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/veigar/veigar.bin.json",
+      "sha256": "7ff9ef4d50f4b9d24563a9ef3f035930fa955a1d57f4112493ac889c6dfaf2b2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/trundle/trundle.bin.json",
+      "sha256": "645b9144251ebe2caef206c433124b5d1da5bb1d346bb8db7b94c94052c7cd01"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/swain/swain.bin.json",
+      "sha256": "e8eef92c8c4723cb44a31a239d419a523af3e2e0ea384998f24f829317759060"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/caitlyn/caitlyn.bin.json",
+      "sha256": "e7667030324dd72fc09d9f2026e15e1e560dd65cef9ca5771559857b97685044"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/blitzcrank/blitzcrank.bin.json",
+      "sha256": "056fc501180c25af58fb7525530b124f8f584089e66f92adc6df8af46ba50171"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/malphite/malphite.bin.json",
+      "sha256": "ddd24f5408a6e17e80ad8b0b62691f5be1c8e43bf3cf0118c065b0eadbf92bd6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/katarina/katarina.bin.json",
+      "sha256": "fc91046865d402d91f6c79cf761c405cf6e28c73926c6d026988f29f8fd4ebd8"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/nocturne/nocturne.bin.json",
+      "sha256": "8749492333e6d69658fc1f70b06a5b957864a15ae3e53b23b97df3b914f884ff"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/maokai/maokai.bin.json",
+      "sha256": "30d86f86375c1f3b97a4f36445e85c056dec309a97cecbc4e40de4e5cf9a9993"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/renekton/renekton.bin.json",
+      "sha256": "235b8412ad6211d36e48b8c6c15b3a8d1d37b3ec0c71eeefe50d9d4bc2a45ae1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/jarvaniv/jarvaniv.bin.json",
+      "sha256": "e61d9bf726ea8ae6ab32a1df598b5a7b0eee17eff60eafc76323c04d226f6036"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/elise/elise.bin.json",
+      "sha256": "b2fbfe6916dc7cf6d35976e8e4064a85265fcbee2ceb0557caeeb933466aa43e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/orianna/orianna.bin.json",
+      "sha256": "3877f56036655d14598cf1f7ab9a2306ea04694cefa2c83e3227a46afdd930e1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/monkeyking/monkeyking.bin.json",
+      "sha256": "f5b7dc5bd74c7e99c675ca58b420af97c0408404e330dea4b0ac705edef0d7ed"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/brand/brand.bin.json",
+      "sha256": "35a2c2bc9a4b9c9847a7cd29b9a8ef440e61087f1bd5fd729591f8750de3e542"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/leesin/leesin.bin.json",
+      "sha256": "5a6db856a1c9eb5359747836fbb83e02bee8f1d4894e7820f4667dc0c2285055"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/vayne/vayne.bin.json",
+      "sha256": "8edced0f1e70f79e23d4f43bff1f29bc84b09374ad57f54be7d512591ebbd2c7"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/rumble/rumble.bin.json",
+      "sha256": "4e25e5113984540a8870d933c21ef88ea5632f420fe5d168ceb3d11f1c9ec8d1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/cassiopeia/cassiopeia.bin.json",
+      "sha256": "17fd888a866f4949c716f3ee41c4679bbeea90cf3c37c6754a3a20654cddcd5b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/skarner/skarner.bin.json",
+      "sha256": "d259d291d99fdd6b823ca17d8b3b7796f924ca0a361fbe68bb1737c6fbab0efd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/heimerdinger/heimerdinger.bin.json",
+      "sha256": "067893fb070cd46bcb186d51bcfd5fdedfdeacc6facf2e6034c855d87878aa95"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/nasus/nasus.bin.json",
+      "sha256": "f61c41c4bd6e5f51a64a25612be62375eb1b1705b6733adc889cd9abb78aaffc"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/nidalee/nidalee.bin.json",
+      "sha256": "60bddb6fce0f6825fb454e0556536e54412b7c6dec16fe738d394c655f52b54c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/udyr/udyr.bin.json",
+      "sha256": "5d7363ffcfaef12ca4fcc7f05b933affe4fcf761477a5e906a0bc326022ff47c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/poppy/poppy.bin.json",
+      "sha256": "53fc501a59881229ecfe271f625dc25610302446507c6ac4a58c049cafb802dd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/gragas/gragas.bin.json",
+      "sha256": "80fa0e9bde7a6a280aac5ccdd22bf91a5db0acb92aafba6a5f4cc65641617755"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/pantheon/pantheon.bin.json",
+      "sha256": "36d4ac54a9eaeeb4dd9c9a52a47273bc19db806796080a3c0340ba24fc3e55ad"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ezreal/ezreal.bin.json",
+      "sha256": "8b0056e18fe0be6b41d63261a4bb1cc7021a8015743a5d88d034896fed5dd3b5"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/mordekaiser/mordekaiser.bin.json",
+      "sha256": "93f246ef6693615be30c7c443ae76799a85ae209b3fd067b55f3e9a9c9a4b28e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/yorick/yorick.bin.json",
+      "sha256": "7f5c84f9cc5d0540b071592a65830809d61a0bceea35f6629cf4540ffc863ab3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/akali/akali.bin.json",
+      "sha256": "d666ed2cf03fac3505d6985748205fb90c06dfd7c7a5d1b98057790131ca5d12"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kennen/kennen.bin.json",
+      "sha256": "a8e1521a3571d2d133c6d3f5b9daee601502acf5f9d4a6c91ec8e5b3786d87f6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/garen/garen.bin.json",
+      "sha256": "e90de14339ee0d31017cd0134f4f1f13d8dd01b7427412f0e080d50ff4a9cf18"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/leona/leona.bin.json",
+      "sha256": "9cb270545c38c188fa36622068ff3975aa428db8631151bfc06258e64f0e0bfb"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/malzahar/malzahar.bin.json",
+      "sha256": "b100545429fc3084501dc7136753d6e8676150c5050ce9c29016ea12fa360280"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/talon/talon.bin.json",
+      "sha256": "7af1e5ea0cc2e75370533872944aa8e75eeff2d92d564766c1fd2e10c8056e8d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/riven/riven.bin.json",
+      "sha256": "b9ae2508d486c11bbb8edfba9d7ae887e2c5b4d2f9b8177d09a14a35efcb1fb4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kogmaw/kogmaw.bin.json",
+      "sha256": "796412c0a16aeb222eea75a4b46d08c9aa504ee0f688ba7a45a4b0f3803fbb04"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/shen/shen.bin.json",
+      "sha256": "a651a8634b3bb5c57f42e1b6993275a266cea0f5c936e47f08878022ed9351ab"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/lux/lux.bin.json",
+      "sha256": "9f620d2c05abcd401dd5c2776187cb8b80e1b1389b89ed785f0ba0e7ae7e62d5"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/xerath/xerath.bin.json",
+      "sha256": "4ca05159042b5557f31b73bf525b8c07570202dbcf59a931e3c6a5461e31d259"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/shyvana/shyvana.bin.json",
+      "sha256": "1d06c19bda8c130661a3e58b81013bf6c27f9cef5850536744da5a553c440f3b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ahri/ahri.bin.json",
+      "sha256": "cf0803fb26546e6791795d47c8f8629eea6926dcabc8c10a7d021e9c5a6f9332"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/graves/graves.bin.json",
+      "sha256": "abdc3a9119148838c010df0738ca014179ff6beee15f9099058b8ce7d5f99c71"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/fizz/fizz.bin.json",
+      "sha256": "d55d752a4ae85ec25448db0a5e0e8e26a3f4407cc9ea818e916906949d1a03b2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/volibear/volibear.bin.json",
+      "sha256": "1cc8de00c6f2e64d3d77530219f62a472816c9ea717bd6f0d11afb16935e1e1e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/rengar/rengar.bin.json",
+      "sha256": "c0cab7a10d370e61532098b5d1b0286fbafefca739775ae0ea1d2359d754a7cb"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/varus/varus.bin.json",
+      "sha256": "2928aa35e5df83d11102ae53a00bf27a2f3c5c22f1523bfa665af6144ea44f28"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/nautilus/nautilus.bin.json",
+      "sha256": "d80d008e06bf3d01604e2fe433edfd26d246aaff4ce556f42cb50294def62d5f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/viktor/viktor.bin.json",
+      "sha256": "bc50dbc685cdd58a97beb45fd0a1c41ed6a5f969fdc54ad32239bdaf75efb470"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/sejuani/sejuani.bin.json",
+      "sha256": "585a987e5824d9c5b44acf674807bc9abe178e930f8a719ef32773d7b9efb617"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/fiora/fiora.bin.json",
+      "sha256": "7879eaa854d5d97b94107c2b0f5c24e0fa4cf5e54ba1046d5477f50be4d153a1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ziggs/ziggs.bin.json",
+      "sha256": "29f4898b3fff2467844406e352aba41ab297398f439438a21a6940069822bf81"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/lulu/lulu.bin.json",
+      "sha256": "b0d96fb6c1594d6a127c504e15d23f291e91efce3fa252d75078c9dc39b51f9a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/draven/draven.bin.json",
+      "sha256": "f59e3e064c6eed5e91ac102fa9c0c1a3b2282a95b9bdc80bb701ad086cdc0b82"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/hecarim/hecarim.bin.json",
+      "sha256": "4a803418774ff3f6978aad1d15e7ac06632b452c150bce54908706b4e2c52c5c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/khazix/khazix.bin.json",
+      "sha256": "197c968ae3cded10546a3980e75430a0daafde2ba7f9d584cd69d60d8d9dd83c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/darius/darius.bin.json",
+      "sha256": "f89a1fb96317d0188db7e5d4a386f64ab8a9be97e36b6195063af6db5baf5735"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/jayce/jayce.bin.json",
+      "sha256": "ab40e0af7dc0fd5503ef9fd6f392095e94dbf4fb3a5de4111584c25bb5fe2e6b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/lissandra/lissandra.bin.json",
+      "sha256": "c41515930562bfa71d95e22d2899a2277508c01158e46d036cb2ac81256d8c7a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/diana/diana.bin.json",
+      "sha256": "4a8990044a36dfa011a2a8df494b8f4c760cb6c21fa3531c9e021cd72e3fe6a3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/quinn/quinn.bin.json",
+      "sha256": "51f81eb0f16d63334af0388dd92f7bb430a279e54ed68b5bf43550383e3a33f4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/syndra/syndra.bin.json",
+      "sha256": "67d718217f727d023311d533db7786e905dff1e34121cb4f99023ccd1272c269"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/aurelionsol/aurelionsol.bin.json",
+      "sha256": "356dc383f6deba3a6e48b5a06d85edfb7ec772173413e1954338681a61021c14"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kayn/kayn.bin.json",
+      "sha256": "716b43e68ec9f665c04b28e4900c16676e88fdf8d1d75d7bc3efdf4fb8fabb01"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/zoe/zoe.bin.json",
+      "sha256": "059fc3d0df85900414669c4eb7c0641377e24f99047ba8d4f4c7a13bf0052a12"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/zyra/zyra.bin.json",
+      "sha256": "65712399ec3c8e58da13a3910bccee61faea128c433e1b64a03bf0cffb3808ee"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kaisa/kaisa.bin.json",
+      "sha256": "88958a793a51a4dd8a39ddc15d9dd12267b85e49cb16ac98131551a519ff772b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/seraphine/seraphine.bin.json",
+      "sha256": "7fc3c077a98c08785a4188f77d9ab5df5a60e4ae4ee2d35c278aa65838ddbde7"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/gnar/gnar.bin.json",
+      "sha256": "eaa550eee9f57c7587fe4ee0d7af1a932de62c98ce6684395aa00ee1319b2dfa"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/zac/zac.bin.json",
+      "sha256": "029144f3de771bd90910097a58cca96b87d90618601bd36acb049f6a20666414"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/yasuo/yasuo.bin.json",
+      "sha256": "184b09884ad73e797d6f8b2d4616edc8e5abadda82f3ee336b91a4e75479fef1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/velkoz/velkoz.bin.json",
+      "sha256": "a4d091ece986bbc02c6efc96ac8ece506cad91a4a8c822350ac9cd39d04ec1ab"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/taliyah/taliyah.bin.json",
+      "sha256": "c4a9390fde7ae6af39fac582953094bf346a4418f7e0c3871ed5d82cd8257234"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/camille/camille.bin.json",
+      "sha256": "060525d12697b1c4a18c13f14bdec0fce37e91aa58d41ec96b1912237bc779a4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/akshan/akshan.bin.json",
+      "sha256": "b2529fe0e7160b178728db8b90997fe3491d7dab6fbf27b6a655327bae48f1b2"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/belveth/belveth.bin.json",
+      "sha256": "6a5e63ae4d8448c4dabdc86bf5b029dd41c6406636883c242a8841e9da0966ed"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/braum/braum.bin.json",
+      "sha256": "c870b57c3c7f2adf19639bfd6d29626e099e6e1031e836ee050f52065bf8494f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/jhin/jhin.bin.json",
+      "sha256": "b4145acabe53a76c3fe040d993b6b8d5519d2362a83a2cdef19507d99b7d91b9"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kindred/kindred.bin.json",
+      "sha256": "0a5c34b6bd10611d7b3e425a5aa5e03bc2904321dfa0095beb4c4357d3527986"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/zeri/zeri.bin.json",
+      "sha256": "1fa6089c0341ab0a136bab2486c1d0e87de37ee26ee84025d9e84f2f477576e1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/jinx/jinx.bin.json",
+      "sha256": "8f247ccca2b234e534f1dcaa95fd625f2e12ca452b2bd6ee4aa38e127b5c8822"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/tahmkench/tahmkench.bin.json",
+      "sha256": "9c405bfc3b72871dce142b11c3f7470a33f82d0479673d5f26cbcb607c454c2b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/briar/briar.bin.json",
+      "sha256": "016f8fcf998a6c456625579d30f867598e40109b5cd814b5d0449a5c6695d0a4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/viego/viego.bin.json",
+      "sha256": "05f6ac606f4f8e154b06c7c84a1b9fa4d15194e4f4d362e12a8d8aca85d466a1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/senna/senna.bin.json",
+      "sha256": "8a9216edf50494250b0c8b33b69d58ddd6b6e99f6923c9ebdb70dfe5e6ea3f77"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/lucian/lucian.bin.json",
+      "sha256": "0fa422acbf2c87c98fa0c4578de8834e520b8550447e618b7b3075079841430e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/zed/zed.bin.json",
+      "sha256": "1ea9a84d2d91b0cf36b8e95b442769c11ce5d989aebe037c17f64590b0c88b46"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kled/kled.bin.json",
+      "sha256": "137d031775e160977c02d17f439ef5cc76ec8c20d376e89ffd34d022dcf7fe4f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ekko/ekko.bin.json",
+      "sha256": "ca6fb4a90fe8b1c9b82dbb2dce5faf68c187a588a5a233f12c75837d0918bfe6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/qiyana/qiyana.bin.json",
+      "sha256": "0cb360ebe6bd2f07793bd36574d6c132093a41b684339311bfc9196bedcf1f2c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/vi/vi.bin.json",
+      "sha256": "b67114797298839230dcbef9820c7b8b7a4d8dfaae5c143ff04ace4a6caca357"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/aatrox/aatrox.bin.json",
+      "sha256": "2a1fa06a9e2a00a4ebc439ebf128bfad9ccea1baa79e5995a963b749bbe5d270"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/nami/nami.bin.json",
+      "sha256": "43fd9a74a839a4bcfccf5f36b6ccfb6a91bea244794a9b239230a37138eaf6fd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/azir/azir.bin.json",
+      "sha256": "0f7579cf14fd851581d2d603c430e16ceba29952313df6c569ff36b5e5c1a305"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/yuumi/yuumi.bin.json",
+      "sha256": "ce2423177444a9077a3bf76077e33de341fb8b8fcc27bb7cea2d413fdd6be9e8"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/samira/samira.bin.json",
+      "sha256": "b5417dd41951b2f269cba9e90c2b89c54c831fa84bfcf7ea2aab161af3c97d6d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/thresh/thresh.bin.json",
+      "sha256": "a526f267eba548e18e03e4eb160f0d42502082f6a27c8a56d357150c3f1b0b1f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/illaoi/illaoi.bin.json",
+      "sha256": "1265c962dc6487c8b1eb802fd4a2597e74d2d0e949f5ab44250dde30a8bc5847"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/reksai/reksai.bin.json",
+      "sha256": "e7c0d5d7727baf9649ab1cabaee99493069f2000c818020dd1f13479c70df666"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ivern/ivern.bin.json",
+      "sha256": "372dc98948951ffd93e262fc7b030719d4d19e5a3fbdf5eebd08070c64d1e57e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/kalista/kalista.bin.json",
+      "sha256": "882c8b5b9f07a8cb0323a813e612fb5f489fda0b7f5dbe8a571b6c64daf22c4c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/bard/bard.bin.json",
+      "sha256": "06f668729b3d39bd2a2939b10fc1db55a87e384dfa7abb04e87c3bdacd1b6493"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/rakan/rakan.bin.json",
+      "sha256": "632d5ab39f38108181f8c482136a7f2b43c69e86a08d95d49ad3e62abb10ff51"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/xayah/xayah.bin.json",
+      "sha256": "23c7ab741b67c25c9db1081216051dbc36843bf2be0d6231365bf4c8463f8f87"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ornn/ornn.bin.json",
+      "sha256": "562dab30a0c2949411c6f248cebfd2b532fda730ec5d10c41804e14cd3a87643"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/sylas/sylas.bin.json",
+      "sha256": "70aaf40811d303200f9fe70eb7c21095f557bc622b123d8ab7310ece6a09a885"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/neeko/neeko.bin.json",
+      "sha256": "1d0a5dc2d91a8f5a739bf55f6aec76ac408d10be4970f60d1c5c364b4c22e87b"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/aphelios/aphelios.bin.json",
+      "sha256": "1f757cc057c64ea1ed67271d9b45d7839e4d45c615ac6b170bb02d344e282792"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/rell/rell.bin.json",
+      "sha256": "92ef1e65bd1e5a6ff529a240d21cdf059068d101741ce0fde55f3f4280c9c9fd"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/pyke/pyke.bin.json",
+      "sha256": "7194c8f3315d987753de3554e7031a3ea4e30f752529b4a986e7ddf52fe4cbfa"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/vex/vex.bin.json",
+      "sha256": "599bba919deea46eb28355b81cfa8508176cb42ada48ca4afb0c8faf499e9f7c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/yone/yone.bin.json",
+      "sha256": "46c60d6cf6efb1aacd38ecc9d9f7d8c5a825f3c37cadd04e738777f00e1279e1"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ambessa/ambessa.bin.json",
+      "sha256": "0b16994e9a44741c16371c3cd135e5acf7c62c3427ce79bfdfefc3e257038524"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/mel/mel.bin.json",
+      "sha256": "c0a314554d12fce88b695cd90b5450eca68cdf1c5e6cc0aa62ca326c3cf1bd6d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/yunara/yunara.bin.json",
+      "sha256": "25c83a6f518b51f3204097d9c55e312792f37b5a37a68e5753fb7c5a33281bc9"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/locke/locke.bin.json",
+      "sha256": "b3727b3b633e94dd5c80a8a997726cdd24cae846cf32727cdaf766b08147131a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/sett/sett.bin.json",
+      "sha256": "1b632f59ad6ed5714281ce2a268d84b7f8ac31ca8526d52565571f7bff6bf3a3"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/lillia/lillia.bin.json",
+      "sha256": "d60b500d1bc494e5696bea5aaced83febad9d069182ecea725d919d2361f61ce"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/gwen/gwen.bin.json",
+      "sha256": "2f0b74b99a6e80e67644089a6dd3d44afb39b4943b8677f457c260dee53290d5"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/renata/renata.bin.json",
+      "sha256": "d05e6d6eabc614f8821be6ec4c01e09018f6606c6b94eee1712ca04f00e4211e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/aurora/aurora.bin.json",
+      "sha256": "9b7a43b2f01b8db6ed0ca384ab8732a148e44f2b8301d394eb526ec5a25262a4"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/nilah/nilah.bin.json",
+      "sha256": "b3f1b9ebe2576b0bdb7238c910271d10c20411cc912e0dad10a15ac7e4a02cb0"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/ksante/ksante.bin.json",
+      "sha256": "bca67c5a431463c27cce67600c61c9145f67a5abe8a01e9b6e0e67295d668197"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/smolder/smolder.bin.json",
+      "sha256": "7e8394c23b901c14b0e96592e79be4118bdc3cec595676302f0bd38629fb1abf"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/milio/milio.bin.json",
+      "sha256": "1c1bf40ed59552a6867f987347d0bed95c504cf87d70ea89cff2956524bb4f85"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/zaahen/zaahen.bin.json",
+      "sha256": "0ff0154d57bc1f3db6c3da9306c78f9b1101c67810aaee434d3bf22925a3ed82"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/hwei/hwei.bin.json",
+      "sha256": "62a27f7a16e496d8efad25d51d059050909cc2122cbd69889dcc40656df1ea7e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/latest/game/data/characters/naafiri/naafiri.bin.json",
+      "sha256": "5e24febebb23bf87d6f79f3630a7ed70c7341434ccfa1b60702a93ee7f2fb1fe"
+    }
+  ]
+}

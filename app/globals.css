@@ -1,0 +1,708 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #080d11;
+  --foreground: #edf5f2;
+  --card: #11191e;
+  --card-foreground: #edf5f2;
+  --popover: #141d22;
+  --popover-foreground: #edf5f2;
+  --primary: #42d2b9;
+  --primary-foreground: #06110f;
+  --secondary: #1b272d;
+  --secondary-foreground: #dce8e5;
+  --muted: #192328;
+  --muted-foreground: #8d9da0;
+  --accent: #26353c;
+  --accent-foreground: #edf5f2;
+  --destructive: #ff7258;
+  --border: #28363d;
+  --input: #304149;
+  --ring: #42d2b9;
+  --chart-1: #f28a55;
+  --chart-2: #9b7cff;
+  --chart-3: #edf5f2;
+  --chart-4: #42d2b9;
+  --chart-5: #f2bc55;
+  --radius: 0.72rem;
+  --sidebar: #0e1519;
+  --sidebar-foreground: #edf5f2;
+  --sidebar-primary: #42d2b9;
+  --sidebar-primary-foreground: #06110f;
+  --sidebar-accent: #1b272d;
+  --sidebar-accent-foreground: #edf5f2;
+  --sidebar-border: #28363d;
+  --sidebar-ring: #42d2b9;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    min-width: 320px;
+    background-image:
+      radial-gradient(circle at 13% 4%, rgba(66, 210, 185, 0.08), transparent 28rem),
+      radial-gradient(circle at 84% 16%, rgba(155, 124, 255, 0.07), transparent 28rem);
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer components {
+  .lab-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    background-image:
+      linear-gradient(rgba(104, 137, 139, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(104, 137, 139, 0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(to bottom, black, transparent 90%);
+  }
+
+  .brand-mark {
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    color: var(--primary);
+    border: 1px solid color-mix(in srgb, var(--primary) 45%, transparent);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    clip-path: polygon(18% 0, 82% 0, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0 82%, 0 18%);
+  }
+
+  .lab-card {
+    position: relative;
+    backdrop-filter: blur(20px);
+  }
+
+  .lab-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 3.5rem;
+    height: 1px;
+    background: var(--primary);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--primary) 55%, transparent);
+  }
+
+  .scan-line {
+    position: absolute;
+    right: 1.5rem;
+    top: 0;
+    width: 4rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(242, 138, 85, 0.8), transparent);
+  }
+
+  .lab-eyebrow {
+    width: fit-content;
+    border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+    background: color-mix(in srgb, var(--primary) 7%, transparent);
+    color: var(--primary);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .champion-frame {
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    flex: none;
+    border: 1px solid color-mix(in srgb, var(--primary) 55%, var(--border));
+    background: var(--muted);
+    padding: 3px;
+    clip-path: polygon(0 14%, 14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%);
+  }
+
+  .health-track {
+    height: 0.34rem;
+    overflow: hidden;
+    background: #1c2928;
+  }
+
+  .health-fill {
+    width: 86%;
+    height: 100%;
+    background: linear-gradient(90deg, #2aa889, var(--primary));
+    box-shadow: 0 0 10px rgba(66, 210, 185, 0.35);
+  }
+
+  .stat-cell {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.2rem;
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    background: rgba(3, 8, 10, 0.24);
+    padding: 0.55rem 0.4rem;
+    text-align: center;
+  }
+
+  .stat-cell span {
+    color: var(--muted-foreground);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+  }
+
+  .stat-cell strong {
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.82rem;
+  }
+
+  .ability-rank-control {
+    display: grid;
+    min-width: 0;
+    justify-items: center;
+    gap: 0.4rem;
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    background: rgba(3, 8, 10, 0.3);
+    padding: 0.4rem;
+  }
+
+  .ability-rank-icon {
+    position: relative;
+    display: block;
+    width: 2.15rem;
+    height: 2.15rem;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--primary) 45%, var(--border));
+    background: var(--muted);
+    clip-path: polygon(0 16%, 16% 0, 100% 0, 100% 84%, 84% 100%, 0 100%);
+  }
+
+  .ability-rank-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ability-rank-icon > span {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    width: 0.9rem;
+    height: 0.9rem;
+    place-items: center;
+    background: rgba(4, 11, 13, 0.9);
+    color: var(--primary);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+  }
+
+  .ability-rank-input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding-block: 0;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .item-slot {
+    display: grid;
+    aspect-ratio: 1;
+    place-items: center;
+    color: var(--muted-foreground);
+    border: 1px dashed color-mix(in srgb, var(--border) 90%, transparent);
+    background: rgba(3, 8, 10, 0.25);
+    transition: 150ms ease;
+  }
+
+  .item-slot:hover,
+  .item-slot:focus-visible {
+    border-color: var(--primary);
+    color: var(--primary);
+    outline: none;
+  }
+
+  .rune-page-dialog {
+    background-image:
+      radial-gradient(circle at 16% 16%, rgba(66, 210, 185, 0.08), transparent 18rem),
+      radial-gradient(circle at 82% 28%, rgba(155, 124, 255, 0.08), transparent 20rem);
+  }
+
+  .rune-style-option {
+    --rune-accent: var(--primary);
+    display: inline-flex;
+    min-width: 2.55rem;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    border-radius: 999px;
+    background: rgba(4, 10, 13, 0.38);
+    padding: 0.28rem;
+    color: var(--muted-foreground);
+    transition: 150ms ease;
+  }
+
+  .rune-style-option img {
+    width: 1.9rem;
+    height: 1.9rem;
+    object-fit: contain;
+    filter: grayscale(0.85);
+    opacity: 0.7;
+  }
+
+  .rune-style-option span {
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.72rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: 150ms ease;
+  }
+
+  .rune-style-option:hover:not(:disabled),
+  .rune-style-option:focus-visible,
+  .rune-style-option.is-selected {
+    border-color: color-mix(in srgb, var(--rune-accent) 65%, var(--border));
+    box-shadow: 0 0 18px color-mix(in srgb, var(--rune-accent) 12%, transparent);
+    color: var(--foreground);
+    outline: none;
+  }
+
+  .rune-style-option.is-selected {
+    gap: 0.4rem;
+    padding-right: 0.75rem;
+    background: color-mix(in srgb, var(--rune-accent) 9%, rgba(4, 10, 13, 0.7));
+  }
+
+  .rune-style-option.is-selected img {
+    filter: none;
+    opacity: 1;
+  }
+
+  .rune-style-option.is-selected span {
+    max-width: 6rem;
+    opacity: 1;
+  }
+
+  .rune-style-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.25;
+  }
+
+  .rune-tree {
+    --tree-accent: var(--primary);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--tree-accent) 28%, var(--border));
+    background: rgba(4, 10, 13, 0.52);
+    padding: 1rem;
+    clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 0 100%);
+  }
+
+  .rune-tree::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 5rem;
+    height: 1px;
+    background: var(--tree-accent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--tree-accent) 55%, transparent);
+  }
+
+  .rune-tree-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  }
+
+  .rune-tree-emblem {
+    display: grid;
+    width: 2.6rem;
+    height: 2.6rem;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--tree-accent) 55%, var(--border));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tree-accent) 8%, transparent);
+  }
+
+  .rune-tree-emblem img {
+    width: 1.8rem;
+    height: 1.8rem;
+    object-fit: contain;
+  }
+
+  .rune-tree-heading small,
+  .rune-tree-heading strong {
+    display: block;
+  }
+
+  .rune-tree-heading small {
+    color: var(--muted-foreground);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .rune-tree-heading strong {
+    margin-top: 0.1rem;
+    color: var(--tree-accent);
+    font-size: 1rem;
+  }
+
+  .rune-tree-rail {
+    position: relative;
+    padding-left: 1.05rem;
+  }
+
+  .rune-tree-rail::before {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    top: 0;
+    bottom: 1.6rem;
+    width: 1px;
+    background: linear-gradient(var(--tree-accent), color-mix(in srgb, var(--tree-accent) 18%, transparent));
+  }
+
+  .rune-row {
+    position: relative;
+    min-height: 5rem;
+    padding: 0.75rem 0 0.6rem 0.75rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 52%, transparent);
+  }
+
+  .rune-row:last-child {
+    border-bottom: 0;
+  }
+
+  .rune-row > p {
+    margin-bottom: 0.55rem;
+    color: var(--muted-foreground);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .rune-node {
+    position: absolute;
+    left: -1.07rem;
+    top: 1.05rem;
+    width: 0.62rem;
+    height: 0.62rem;
+    border: 1px solid var(--tree-accent);
+    border-radius: 999px;
+    background: var(--background);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--tree-accent) 30%, transparent);
+  }
+
+  .rune-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .rune-option {
+    --rune-accent: var(--primary);
+    position: relative;
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    border-radius: 999px;
+    background: #121b20;
+    padding: 0.25rem;
+    transition: 150ms ease;
+  }
+
+  .rune-option img {
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    object-fit: contain;
+    filter: grayscale(0.78) saturate(0.45);
+    opacity: 0.55;
+    transition: 150ms ease;
+  }
+
+  .rune-option:hover,
+  .rune-option:focus-visible {
+    border-color: color-mix(in srgb, var(--rune-accent) 62%, var(--border));
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  .rune-option:hover img,
+  .rune-option:focus-visible img,
+  .rune-option.is-selected img {
+    filter: none;
+    opacity: 1;
+  }
+
+  .rune-option.is-selected {
+    border-color: var(--rune-accent);
+    background: color-mix(in srgb, var(--rune-accent) 12%, #121b20);
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--rune-accent) 18%, transparent),
+      0 0 18px color-mix(in srgb, var(--rune-accent) 22%, transparent);
+  }
+
+  .rune-check {
+    position: absolute;
+    right: -0.15rem;
+    bottom: -0.05rem;
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--rune-accent);
+    color: #06110f;
+  }
+
+  .rune-check svg {
+    width: 0.7rem;
+    height: 0.7rem;
+    stroke-width: 3;
+  }
+
+  .rune-option.is-selected .rune-check {
+    display: grid;
+  }
+
+  .shard-panel {
+    border: 1px solid color-mix(in srgb, #f2bc55 22%, var(--border));
+    background: rgba(4, 10, 13, 0.46);
+    padding: 1rem;
+  }
+
+  .shard-row {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--border) 68%, transparent);
+    background: rgba(3, 8, 10, 0.28);
+    padding: 0.65rem;
+  }
+
+  .shard-row > span {
+    color: var(--muted-foreground);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+  }
+
+  .shard-row .rune-options {
+    flex-wrap: nowrap;
+    gap: 0.45rem;
+  }
+
+  .shard-row .rune-option {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+
+  .combo-list {
+    padding: 0.75rem;
+  }
+
+  .combo-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.65rem;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  }
+
+  .combo-row:last-child {
+    border-bottom: 0;
+  }
+
+  .step-index {
+    color: #53666b;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.62rem;
+  }
+
+  .action-glyph {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    place-items: center;
+    border: 1px solid currentColor;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.64rem;
+    font-weight: 700;
+    clip-path: polygon(0 20%, 20% 0, 100% 0, 100% 80%, 80% 100%, 0 100%);
+  }
+
+  .action-glyph.physical { color: #f28a55; }
+  .action-glyph.magic { color: #9b7cff; }
+  .action-glyph.utility { color: #7f9398; }
+
+  .damage-summary {
+    border-top: 1px solid var(--border);
+    background: rgba(5, 10, 13, 0.6);
+    padding: 1.15rem 1.25rem 1.3rem;
+  }
+
+  .damage-summary > div:first-child {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .damage-summary span {
+    color: var(--muted-foreground);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+
+  .damage-summary strong {
+    color: #fff;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .damage-bars {
+    display: flex;
+    height: 0.42rem;
+    margin-top: 1rem;
+    gap: 2px;
+    overflow: hidden;
+  }
+
+  .damage-bars span { display: block; height: 100%; }
+  .physical-bar { background: #f28a55; }
+  .magic-bar { background: #9b7cff; }
+  .true-bar { background: #edf5f2; }
+
+  .damage-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .damage-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    letter-spacing: 0;
+  }
+
+  .damage-legend i {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+  }
+
+  .physical-dot { background: #f28a55; }
+  .magic-dot { background: #9b7cff; }
+  .true-dot { background: #edf5f2; }
+
+  .result-stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.3rem 0.55rem;
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    background: rgba(3, 8, 10, 0.25);
+    padding: 0.8rem;
+  }
+
+  .result-stat > svg {
+    width: 1rem;
+    height: 1rem;
+    color: var(--primary);
+  }
+
+  .result-stat > span:not(.damage-chip) {
+    color: var(--muted-foreground);
+    font-size: 0.68rem;
+  }
+
+  .result-stat strong {
+    grid-column: 1 / -1;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 1.2rem;
+  }
+
+  .damage-chip {
+    display: grid;
+    width: 1rem;
+    height: 1rem;
+    place-items: center;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.55rem;
+    font-weight: 800;
+  }
+
+  .damage-chip.physical { color: #f28a55; border: 1px solid #f28a55; }
+  .damage-chip.magic { color: #a58aff; border: 1px solid #a58aff; }
+}

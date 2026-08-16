@@ -130,13 +130,13 @@ function RuneTree({
         <span><small>{heading}</small><strong>{style.name}</strong></span>
       </div>
       <div className="rune-tree-rail">
-        {slots.map((slot, rowIndex) => {
+        {slots.map((slot) => {
           const rowRunes = slot.runeIds.map((id) => runes.get(id)).filter(Boolean) as RuneDefinition[];
-          const rowLabel = slot.type === "kKeyStone" ? "Keystone" : secondary ? `Choice ${rowIndex + 1}` : `Branch ${rowIndex}`;
+          const rowLabel = slot.type === "kKeyStone" ? "Keystone" : null;
           return (
             <div className="rune-row" key={`${style.id}-${slot.index}`}>
               <span className="rune-node" aria-hidden="true" />
-              <p>{rowLabel}</p>
+              {rowLabel && <p>{rowLabel}</p>}
               <div className="rune-options">
                 {rowRunes.map((rune) => (
                   <RuneOption
@@ -275,7 +275,7 @@ export function RunePageDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="rune-page-dialog w-[min(96vw,68rem)] max-w-[68rem] gap-0 overflow-hidden border border-border bg-popover/98 p-0 shadow-2xl shadow-black/60">
+      <DialogContent className="rune-page-dialog w-[min(97vw,88rem)] max-w-[88rem] gap-0 overflow-hidden border border-border bg-popover/98 p-0 shadow-2xl shadow-black/60 sm:max-w-[88rem]">
         <DialogHeader className="border-b border-border px-5 py-4 pr-14">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>

@@ -380,7 +380,7 @@ async function main() {
   }
 
   const cdragonItems = new Map(itemsResult.data.map((item) => [String(item.id), item]));
-  const items = Object.entries<any>(ddragonItems.data.data ?? {})
+  const itemCandidates = Object.entries<any>(ddragonItems.data.data ?? {})
     .filter(([, item]) => item.maps?.["11"] && item.gold?.purchasable && item.gold?.total > 0)
     .map(([id, item]) => {
       const cdragon = cdragonItems.get(id) as any;
@@ -394,8 +394,12 @@ async function main() {
         stats: itemStats(item.stats, description),
         classification: itemClassification(cdragon?.name ?? item.name, cleanHtml(description)),
       };
-    })
-    .sort((a, b) => a.name.localeCompare(b.name));
+    });
+  const items = [...new Map(
+    itemCandidates
+      .sort((left, right) => right.id - left.id)
+      .map((item) => [item.name.toLocaleLowerCase("en-US"), item]),
+  ).values()].sort((a, b) => a.name.localeCompare(b.name));
 
   const perkSlots = new Map<number, { styleId: number; styleName: string; slot: number; slotType: string }>();
   const perkStyles = Array.isArray((stylesResult.data as any).styles) ? (stylesResult.data as any).styles : stylesResult.data;

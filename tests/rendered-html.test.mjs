@@ -36,3 +36,20 @@ test("removes starter-only preview assets and dependencies", async () => {
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
   await assert.rejects(access(new URL("../app/_sites-preview/preview.css", import.meta.url)));
 });
+
+test("uses the intended application typography and spacious rune editor", async () => {
+  const [styles, runeDialog] = await Promise.all([
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/rune-page-dialog.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(styles, /Segoe UI Variable/);
+  assert.doesNotMatch(styles, /font-geist|Times New Roman/);
+  assert.match(runeDialog, /sm:max-w-\[88rem\]/);
+  assert.doesNotMatch(runeDialog, /Branch \$|Choice \$/);
+});
+
+test("bundled Summoner's Rift items have unique display names", async () => {
+  const items = JSON.parse(await readFile(new URL("../public/data/16.16/items.json", import.meta.url), "utf8"));
+  const names = items.map((item) => item.name.toLocaleLowerCase("en-US"));
+  assert.equal(new Set(names).size, names.length);
+});

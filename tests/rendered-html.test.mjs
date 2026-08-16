@@ -53,3 +53,11 @@ test("bundled Summoner's Rift items have unique display names", async () => {
   const names = items.map((item) => item.name.toLocaleLowerCase("en-US"));
   assert.equal(new Set(names).size, names.length);
 });
+
+test("restores browser scenarios only after the hydration-safe first render", async () => {
+  const damageLab = await readFile(new URL("../src/features/calculator/damage-lab.tsx", import.meta.url), "utf8");
+  assert.match(damageLab, /useState<ScenarioV1>\(\(\) => defaultScenario\(""\)\)/);
+  assert.match(damageLab, /window\.setTimeout\(\(\) => \{\s+const restored = restoredScenario\(\)/);
+  assert.doesNotMatch(damageLab, /useState<ScenarioV1 \| null>\(\(\) => restoredScenario\(\)\)/);
+  assert.match(damageLab, /!restorationComplete \|\| !activeScenario\.patch/);
+});

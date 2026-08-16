@@ -19,7 +19,7 @@ export type SnapshotManifest = {
 };
 
 export function useGameData(initialPatch?: string) {
-  const [patch, setPatch] = useState(initialPatch ?? "");
+  const [patch, setPatch] = useState("");
   const [manifest, setManifest] = useState<SnapshotManifest | null>(null);
   const [champions, setChampions] = useState<ChampionSummary[]>([]);
   const [items, setItems] = useState<ItemDefinition[]>([]);

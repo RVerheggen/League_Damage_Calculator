@@ -4,7 +4,6 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Check, CircleAlert, RotateCcw, Sparkles } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -50,12 +49,23 @@ function RuneOption({
         <img src={rune.icon} alt="" />
         <span className="rune-check" aria-hidden="true"><Check /></span>
       </TooltipTrigger>
-      <TooltipContent side="top" className="max-w-64 space-y-1.5">
-        <div className="flex items-center justify-between gap-3">
-          <strong>{rune.name}</strong>
-          <Badge variant="outline" className="text-[9px] uppercase">{rune.classification}</Badge>
+      <TooltipContent
+        side="top"
+        sideOffset={10}
+        className="grid w-80 max-w-[calc(100vw-2rem)] items-stretch gap-0 overflow-hidden rounded-xl border border-border/90 bg-popover p-0 text-popover-foreground shadow-2xl shadow-black/50"
+        arrowClassName="bg-popover fill-popover"
+      >
+        <div className="flex min-w-0 items-center gap-3 border-b border-border/70 bg-background/35 p-3">
+          <span className="rune-tooltip-icon" style={{ "--rune-accent": accent } as CSSProperties}>
+            <img src={rune.icon} alt="" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <strong className="block truncate text-sm text-foreground">{rune.name}</strong>
+            <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.13em] text-muted-foreground">{rune.styleName}</span>
+          </span>
+          <span className="rounded-full border border-primary/25 bg-primary/8 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.1em] text-primary">{rune.classification}</span>
         </div>
-        <p className="text-xs leading-5 text-muted-foreground">{rune.description}</p>
+        <p className="p-3 text-left text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere]">{rune.description}</p>
       </TooltipContent>
     </Tooltip>
   );

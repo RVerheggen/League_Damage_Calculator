@@ -36,15 +36,28 @@ function restoredScenario() {
 }
 
 export function DamageLab() {
-  const [restored] = useState<ScenarioV1 | null>(() => restoredScenario());
-  const [scenario, setScenario] = useState<ScenarioV1>(() => restored ?? defaultScenario(""));
-  const data = useGameData(restored?.patch);
+  const [scenario, setScenario] = useState<ScenarioV1>(() => defaultScenario(""));
+  const [requestedPatch, setRequestedPatch] = useState<string>();
+  const [restorationComplete, setRestorationComplete] = useState(false);
+  const data = useGameData(requestedPatch);
   const dataPatch = data.patch;
   const loadChampion = data.loadChampion;
   const [attackerChampion, setAttackerChampion] = useState<ChampionDefinition | null>(null);
   const [defenderChampion, setDefenderChampion] = useState<ChampionDefinition | null>(null);
   const [championError, setChampionError] = useState<string | null>(null);
   const [shared, setShared] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const restored = restoredScenario();
+      if (restored) {
+        setScenario(restored);
+        setRequestedPatch(restored.patch || undefined);
+      }
+      setRestorationComplete(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (!dataPatch) return;
@@ -66,10 +79,10 @@ export function DamageLab() {
   );
 
   useEffect(() => {
-    if (!activeScenario.patch) return;
+    if (!restorationComplete || !activeScenario.patch) return;
     const timer = window.setTimeout(() => localStorage.setItem(STORAGE_KEY, JSON.stringify(activeScenario)), 180);
     return () => window.clearTimeout(timer);
-  }, [activeScenario]);
+  }, [activeScenario, restorationComplete]);
 
   const itemIndex = useMemo(() => new Map(data.items.map((item) => [item.id, item])), [data.items]);
   const runeIndex = useMemo(() => new Map(data.runes.map((rune) => [rune.id, rune])), [data.runes]);

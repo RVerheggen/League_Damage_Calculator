@@ -36,6 +36,16 @@ function cleanHtml(value = "") {
     .trim();
 }
 
+function itemTextSections(value = "") {
+  const statsMatch = value.match(/<stats\b[^>]*>([\s\S]*?)<\/stats>/i);
+  const statsText = statsMatch?.[1]
+    .split(/<br\s*\/?>/i)
+    .map((line) => cleanHtml(line))
+    .filter(Boolean) ?? [];
+  const effectText = cleanHtml(statsMatch ? value.replace(statsMatch[0], "") : value);
+  return { statsText, effectText };
+}
+
 function assetUrl(assetPath = "") {
   if (!assetPath) return "";
   const normalized = assetPath
@@ -284,16 +294,22 @@ function itemStats(stats: any, description: string) {
 function runeClassification(name: string) {
   const modeled = new Set(["Press the Attack", "Electrocute", "Scorch", "Coup de Grace"]);
   const statOnly = new Set(["Adaptive Force", "Health", "Health Scaling"]);
-  const unsupported = new Set([
-    "Dark Harvest", "Arcane Comet", "Cut Down", "First Strike", "Sudden Impact", "Cheap Shot",
-    "Absolute Focus", "Conditioning", "Overgrowth", "Eyeball Collection",
+  const irrelevant = new Set([
+    "Taste of Blood", "Deep Ward", "Grisly Mementos", "Sixth Sense", "Relentless Hunter", "Treasure Hunter",
+    "Glacial Augment", "Unsealed Spellbook", "Cash Back", "Hextech Flashtraption", "Magical Footwear",
+    "Time Warp Tonic", "Approach Velocity", "Fleet Footwork", "Absorb Life", "Presence of Mind", "Triumph",
+    "Guardian", "Demolish", "Font of Life", "Second Wind", "Stormraider's Surge", "Nimbus Cloak", "Celerity",
+    "Move Speed", "Tenacity and Slow Resist",
   ]);
-  return modeled.has(name) ? "modeled" : statOnly.has(name) ? "stat-only" : unsupported.has(name) ? "unsupported" : "irrelevant";
+  if (modeled.has(name)) return "modeled";
+  if (statOnly.has(name)) return "stat-only";
+  if (irrelevant.has(name)) return "irrelevant";
+  return "unsupported";
 }
 
 function itemClassification(name: string, description: string) {
   if (/Sheen|Trinity Force|Lich Bane|Iceborn Gauntlet|Blade of The Ruined King|Nashor's Tooth/i.test(name)) return "modeled";
-  if (/\bdeal(?:s|ing)?\b|on-hit|spellblade|burn|wound|shield|detonat|explode|immolate|lifeline|stasis|invulnerab|reduce incoming|damage reduction/i.test(description)) return "unsupported";
+  if (/\bdeal(?:s|ing)?\b|on-hit|spellblade|burn|wound|shield|detonat|explode|immolate|lifeline|stasis|invulnerab|reduce incoming|damage reduction|take(?:s)?\s+\d+(?:\.\d+)?%\s+more\s+(?:physical|magic|true|adaptive)?\s*damage|amplif(?:y|ies)|increased?\s+(?:physical|magic|true|adaptive)?\s*damage/i.test(description)) return "unsupported";
   return "stat-only";
 }
 
@@ -389,6 +405,7 @@ async function main() {
         id: Number(id),
         name: cdragon?.name ?? item.name,
         description: cleanHtml(description),
+        ...itemTextSections(description),
         icon: cdragon ? assetUrl(cdragon.iconPath) : `${CDRAGON}/${resolvedAssetPatch}/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/${id}.png`,
         price: Number(item.gold.total),
         stats: itemStats(item.stats, description),

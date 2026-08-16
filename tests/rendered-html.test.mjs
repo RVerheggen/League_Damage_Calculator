@@ -54,6 +54,31 @@ test("bundled Summoner's Rift items have unique display names", async () => {
   assert.equal(new Set(names).size, names.length);
 });
 
+test("combat-relevant effects are never mislabeled as irrelevant", async () => {
+  const [items, runes] = await Promise.all([
+    readFile(new URL("../public/data/16.16/items.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/runes.json", import.meta.url), "utf8").then(JSON.parse),
+  ]);
+  assert.equal(items.find((item) => item.name === "Abyssal Mask")?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.name === "Conqueror")?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.name === "Hail of Blades")?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.name === "Last Stand")?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.name === "Bone Plating")?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.name === "Axiom Arcanist")?.classification, "unsupported");
+});
+
+test("item details are available in equipped builds and the item picker", async () => {
+  const [combatantPanel, pickerDialog, tooltip] = await Promise.all([
+    readFile(new URL("../src/features/calculator/combatant-panel.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/picker-dialog.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/item-details-tooltip.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(combatantPanel, /ItemDetailsTooltipContent/);
+  assert.match(pickerDialog, /ItemDetailsTooltipContent/);
+  assert.match(tooltip, /Passives and actives/);
+  assert.match(tooltip, /Stats/);
+});
+
 test("restores browser scenarios only after the hydration-safe first render", async () => {
   const damageLab = await readFile(new URL("../src/features/calculator/damage-lab.tsx", import.meta.url), "utf8");
   assert.match(damageLab, /useState<ScenarioV1>\(\(\) => defaultScenario\(""\)\)/);

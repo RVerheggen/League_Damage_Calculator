@@ -71,6 +71,8 @@ export type ItemDefinition = {
   id: number;
   name: string;
   description: string;
+  statsText?: string[];
+  effectText?: string;
   icon: string;
   price: number;
   stats: ItemStats;

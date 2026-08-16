@@ -159,6 +159,7 @@ export function DamageLab() {
                     <p><Badge variant="secondary" className="mr-2">Estimated</Badge> CommunityDragon exposes a primary ratio and base values, but a complex subcast may need a selected assumption.</p>
                     <p><Badge variant="outline" className="mr-2">Stat-only</Badge> Stats are applied, but no separate combat proc exists.</p>
                     <p><Badge variant="outline" className="mr-2">Irrelevant</Badge> The effect has no direct duel damage, shield, or mitigation impact.</p>
+                    <p><Badge variant="outline" className="mr-2 border-[#f2bc55]/40 text-[#f2bc55]">Unsupported</Badge> The effect matters to the duel, but is not simulated yet. Its tooltip remains visible and the result shows a warning.</p>
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-center text-xs">
                     <div className="rounded-lg border border-border bg-background/25 p-3"><strong className="block font-mono text-lg text-[#f2bc55]">{data.manifest?.itemCoverage.unsupported ?? 0}</strong>item effects visibly unsupported</div>

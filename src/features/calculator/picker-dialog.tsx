@@ -16,6 +16,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
+import type { ItemDefinition } from "@/src/domain/model";
+import { ItemDetailsTooltipContent } from "./item-details-tooltip";
 
 export type PickerEntity = {
   id: number;
@@ -23,7 +26,44 @@ export type PickerEntity = {
   icon: string;
   subtitle?: string;
   badge?: string;
+  item?: ItemDefinition;
 };
+
+function PickerOption({
+  entity,
+  selected,
+  onSelect,
+}: {
+  entity: PickerEntity;
+  selected: boolean;
+  onSelect: () => void;
+}) {
+  const option = (
+    <CommandItem
+      value={`${entity.name} ${entity.subtitle ?? ""}`}
+      data-checked={selected}
+      onSelect={onSelect}
+      className="min-h-12 gap-3"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={entity.icon} alt="" className="size-8 border border-border bg-muted object-cover" />
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-medium">{entity.name}</span>
+        {entity.subtitle && <span className="block truncate text-xs text-muted-foreground">{entity.subtitle}</span>}
+      </span>
+      {entity.badge && <Badge variant="outline" className="mr-6 text-[10px] uppercase">{entity.badge}</Badge>}
+    </CommandItem>
+  );
+
+  if (!entity.item) return option;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger render={option} />
+      <ItemDetailsTooltipContent item={entity.item} side="right" />
+    </Tooltip>
+  );
+}
 
 export function PickerDialog({
   open,
@@ -55,21 +95,12 @@ export function PickerDialog({
             <CommandEmpty>No matching entry found.</CommandEmpty>
             <CommandGroup>
               {entities.map((entity) => (
-                <CommandItem
+                <PickerOption
                   key={entity.id}
-                  value={`${entity.name} ${entity.subtitle ?? ""}`}
-                  data-checked={selectedIds.includes(entity.id)}
+                  entity={entity}
+                  selected={selectedIds.includes(entity.id)}
                   onSelect={() => onSelect(entity.id)}
-                  className="min-h-12 gap-3"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={entity.icon} alt="" className="size-8 border border-border bg-muted object-cover" />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-medium">{entity.name}</span>
-                    {entity.subtitle && <span className="block truncate text-xs text-muted-foreground">{entity.subtitle}</span>}
-                  </span>
-                  {entity.badge && <Badge variant="outline" className="mr-6 text-[10px] uppercase">{entity.badge}</Badge>}
-                </CommandItem>
+                />
               ))}
             </CommandGroup>
           </CommandList>

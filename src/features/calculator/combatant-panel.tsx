@@ -23,6 +23,7 @@ import type {
 } from "@/src/domain/model";
 import type { ChampionSummary } from "./use-game-data";
 import { PickerDialog } from "./picker-dialog";
+import { ItemDetailsTooltipContent } from "./item-details-tooltip";
 import { RunePageDialog } from "./rune-page-dialog";
 
 const overrideFields: Array<{ key: keyof StatOverrides; label: string; min?: number; max?: number }> = [
@@ -82,7 +83,7 @@ export function CombatantPanel({
   const pickerEntities = picker === "champion"
     ? champions.map((entry) => ({ id: entry.id, name: entry.name, icon: entry.icon, subtitle: entry.title, badge: entry.roles[0] }))
     : picker === "item"
-      ? items.map((item) => ({ id: item.id, name: item.name, icon: item.icon, subtitle: `${item.price.toLocaleString()} gold`, badge: item.classification }))
+      ? items.map((item) => ({ id: item.id, name: item.name, icon: item.icon, subtitle: `${item.price.toLocaleString()} gold`, badge: item.classification, item }))
       : [];
 
   const handlePick = (id: number) => {
@@ -189,7 +190,7 @@ export function CombatantPanel({
                   >
                     {item ? <img src={item.icon} alt="" className="size-full object-cover" /> : <Plus className="size-3.5" />}
                   </TooltipTrigger>
-                  <TooltipContent>{item?.name ?? "Add item"}</TooltipContent>
+                  {item ? <ItemDetailsTooltipContent item={item} /> : <TooltipContent>Add item</TooltipContent>}
                 </Tooltip>
               );
             })}

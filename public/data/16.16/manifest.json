@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "patch": "16.16",
   "gameVersion": "16.16.8049184+branch.releases-16-16.content.release",
-  "generatedAt": "2026-08-16T22:17:43.905Z",
+  "generatedAt": "2026-08-16T22:55:50.571Z",
   "locale": "en_US",
   "championCount": 173,
   "itemCount": 222,
@@ -58,13 +58,13 @@
     }
   ],
   "itemCoverage": {
-    "stat-only": 110,
-    "unsupported": 106,
+    "unsupported": 108,
+    "stat-only": 108,
     "modeled": 6
   },
   "runeCoverage": {
-    "irrelevant": 53,
-    "unsupported": 9,
+    "unsupported": 36,
+    "irrelevant": 26,
     "stat-only": 3,
     "modeled": 4
   },

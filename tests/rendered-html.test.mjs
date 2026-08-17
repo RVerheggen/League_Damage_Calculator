@@ -76,6 +76,20 @@ test("item details are available in equipped builds and the item picker", async 
   assert.match(tooltip, /Stats/);
 });
 
+test("ability rank icons expose detailed tooltips", async () => {
+  const [combatantPanel, tooltip] = await Promise.all([
+    readFile(new URL("../src/features/calculator/combatant-panel.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/ability-details-tooltip.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(combatantPanel, /AbilityDetailsTooltipContent/);
+  assert.match(combatantPanel, /View \${spell\.name} Details/);
+  assert.match(tooltip, /Selected Rank/);
+  assert.match(tooltip, /Base Damage/);
+  assert.match(tooltip, /Cooldown/);
+  assert.match(tooltip, /Scaling/);
+  assert.match(tooltip, /spell\.coverageNote/);
+});
+
 test("equipped items can be removed one slot at a time", async () => {
   const combatantPanel = await readFile(new URL("../src/features/calculator/combatant-panel.tsx", import.meta.url), "utf8");
   assert.match(combatantPanel, /aria-label={`Remove \${item\.name}`}/);

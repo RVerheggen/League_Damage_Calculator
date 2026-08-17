@@ -20,6 +20,7 @@ import type {
   StatOverrides,
 } from "@/src/domain/model";
 import type { ChampionSummary } from "./use-game-data";
+import { AbilityDetailsTooltipContent } from "./ability-details-tooltip";
 import { PickerDialog } from "./picker-dialog";
 import { ItemDetailsTooltipContent } from "./item-details-tooltip";
 import { RunePageDialog } from "./rune-page-dialog";
@@ -153,14 +154,19 @@ export function CombatantPanel({
             </div>
             <div className="grid grid-cols-4 gap-2">
               {champion.spells.slice(0, 4).map((spell) => (
-                <label key={spell.key} htmlFor={`${side}-${spell.key}-rank`} className="ability-rank-control" title={spell.name}>
-                  <span className="ability-rank-icon">
-                    <img src={spell.icon} alt="" />
-                    <span>{spell.key}</span>
-                  </span>
+                <div key={spell.key} className="ability-rank-control">
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={<button type="button" className="ability-rank-icon cursor-help transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label={`View ${spell.name} Details`} />}
+                    >
+                      <img src={spell.icon} alt="" />
+                      <span>{spell.key}</span>
+                    </TooltipTrigger>
+                    <AbilityDetailsTooltipContent spell={spell} rank={config.abilityRanks[spell.key] ?? 0} />
+                  </Tooltip>
                   <Input
                     id={`${side}-${spell.key}-rank`}
-                    aria-label={`${spell.name} rank`}
+                    aria-label={`${spell.name} Rank`}
                     type="number"
                     min={0}
                     max={spell.key === "R" ? 3 : 5}
@@ -168,7 +174,7 @@ export function CombatantPanel({
                     onChange={(event) => onChange({ ...config, abilityRanks: { ...config.abilityRanks, [spell.key]: Number(event.target.value) } })}
                     className="ability-rank-input h-8 px-0 text-center font-mono leading-none tabular-nums [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   />
-                </label>
+                </div>
               ))}
             </div>
           </div>

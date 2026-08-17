@@ -1,0 +1,106 @@
+"use client";
+
+import { TooltipContent } from "@/components/ui/tooltip";
+import type { SpellDefinition } from "@/src/domain/model";
+
+type TooltipSide = "top" | "right" | "bottom" | "left";
+
+const coverageCopy: Record<SpellDefinition["classification"], string> = {
+  modeled: "This ability has an explicit damage packet in the simulation.",
+  estimated: "The primary values are modeled, while complex subcasts may use a visible assumption.",
+  "non-damaging": "This cast does not create a champion damage packet.",
+  unsupported: "This ability matters to combat, but its damage structure is not simulated yet.",
+};
+
+function formatNumber(value: number) {
+  return Number.isInteger(value) ? value.toLocaleString() : Number(value.toFixed(2)).toLocaleString();
+}
+
+function rankValue(values: number[], rank: number) {
+  if (rank <= 0 || values.length === 0) return null;
+  return values[Math.min(values.length - 1, rank - 1)] ?? null;
+}
+
+export function AbilityDetailsTooltipContent({
+  spell,
+  rank,
+  side = "top",
+}: {
+  spell: SpellDefinition;
+  rank: number;
+  side?: TooltipSide;
+}) {
+  const maxRank = spell.key === "R" ? 3 : 5;
+  const selectedRank = Math.max(0, Math.min(maxRank, rank));
+  const baseDamage = rankValue(spell.baseDamage, selectedRank);
+  const cooldown = rankValue(spell.cooldown, selectedRank);
+  const damageLabel = spell.damageType
+    ? `${spell.damageType.charAt(0).toUpperCase()}${spell.damageType.slice(1)} Damage`
+    : "Non-Damaging";
+  const scaling = [
+    spell.ratioAD ? `${formatNumber(spell.ratioAD * 100)}% Total AD` : null,
+    spell.ratioAP ? `${formatNumber(spell.ratioAP * 100)}% AP` : null,
+    spell.ratioArmor ? `${formatNumber(spell.ratioArmor * 100)}% Armor` : null,
+    spell.ratioMagicResist ? `${formatNumber(spell.ratioMagicResist * 100)}% Magic Resist` : null,
+  ].filter((entry): entry is string => Boolean(entry));
+
+  return (
+    <TooltipContent
+      side={side}
+      sideOffset={10}
+      className="grid w-[23rem] max-w-[calc(100vw-2rem)] items-stretch gap-0 overflow-hidden rounded-xl border border-border/90 bg-popover p-0 text-popover-foreground shadow-2xl shadow-black/55"
+      arrowClassName="bg-popover fill-popover"
+    >
+      <div className="flex min-w-0 items-center gap-3 border-b border-border/70 bg-background/35 p-3">
+        <span className="relative size-12 shrink-0 overflow-hidden border border-primary/30 bg-muted p-0.5">
+          <img src={spell.icon} alt="" className="size-full object-cover" />
+          <span className="absolute bottom-0 right-0 grid size-4 place-items-center bg-background/90 font-mono text-[9px] font-bold text-primary">{spell.key}</span>
+        </span>
+        <span className="min-w-0 flex-1 text-left">
+          <strong className="block truncate text-sm text-foreground">{spell.name}</strong>
+          <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.13em] text-muted-foreground">{damageLabel}</span>
+        </span>
+        <span className="rounded-full border border-primary/25 bg-primary/8 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.1em] text-primary">
+          {spell.classification}
+        </span>
+      </div>
+
+      <div className="space-y-3 p-3 text-left">
+        <p className="text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere]">{spell.description}</p>
+
+        <section className="border-t border-border/70 pt-3">
+          <h4 className="mb-2 font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">Selected Rank</h4>
+          <div className="grid grid-cols-3 gap-1.5">
+            <span className="border border-border/70 bg-background/35 px-2 py-1.5 text-[11px] text-foreground">
+              <small className="block text-[9px] uppercase text-muted-foreground">Rank</small>
+              {selectedRank} / {maxRank}
+            </span>
+            <span className="border border-border/70 bg-background/35 px-2 py-1.5 text-[11px] text-foreground">
+              <small className="block text-[9px] uppercase text-muted-foreground">Base Damage</small>
+              {baseDamage === null ? "Unranked" : formatNumber(baseDamage)}
+            </span>
+            <span className="border border-border/70 bg-background/35 px-2 py-1.5 text-[11px] text-foreground">
+              <small className="block text-[9px] uppercase text-muted-foreground">Cooldown</small>
+              {cooldown === null ? "Unranked" : `${formatNumber(cooldown)}s`}
+            </span>
+          </div>
+        </section>
+
+        <section className="border-t border-border/70 pt-3">
+          <h4 className="mb-2 font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">Scaling</h4>
+          {scaling.length ? (
+            <div className="flex flex-wrap gap-1.5">
+              {scaling.map((ratio) => <span key={ratio} className="border border-border/70 bg-background/35 px-2 py-1 text-[11px] text-foreground">{ratio}</span>)}
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground">No scaling ratio is available in the patch data.</p>
+          )}
+        </section>
+
+        <p className="border-t border-border/70 pt-2 text-[10px] leading-4 text-muted-foreground">
+          {coverageCopy[spell.classification]} {spell.coverageNote}
+        </p>
+      </div>
+    </TooltipContent>
+  );
+}

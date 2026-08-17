@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { TooltipContent } from "@/components/ui/tooltip";
 import type { ItemDefinition } from "@/src/domain/model";
 

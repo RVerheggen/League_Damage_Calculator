@@ -2,39 +2,36 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-  return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
-    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
-    { waitUntil() {}, passThroughOnException() {} },
-  );
-}
+const repositoryName = process.env.GITHUB_REPOSITORY?.split("/").at(-1);
+const expectedBase = process.env.GITHUB_ACTIONS === "true" && repositoryName
+  ? `/${repositoryName}/`
+  : "/";
 
-test("server-renders the Damage Lab application shell", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-  const html = await response.text();
+test("builds a static Damage Lab application shell", async () => {
+  const html = await readFile(new URL("../dist/index.html", import.meta.url), "utf8");
   assert.match(html, /<title>Damage Lab - League Combat Calculator<\/title>/i);
-  assert.match(html, /Damage Lab/);
-  assert.match(html, /Build the hit\. Trace the outcome\./);
-  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
+  assert.match(html, /<div id="root"><\/div>/);
+  assert.match(html, new RegExp(`(?:src|href)="${expectedBase}assets/`));
+  assert.match(html, /https:\/\/rverheggen\.github\.io\/League_Damage_Calculator\/damage-lab-social\.png/);
+  assert.doesNotMatch(html, /_vinext|codex-preview|react-loading-skeleton/i);
+  await access(new URL("../dist/data/current.json", import.meta.url));
+  await access(new URL("../dist/.nojekyll", import.meta.url));
 });
 
-test("removes starter-only preview assets and dependencies", async () => {
-  const [page, layout, packageJson] = await Promise.all([
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+test("uses Vite and contains no Sites or server runtime", async () => {
+  const [entry, viteConfig, packageJson, dataHook] = await Promise.all([
+    readFile(new URL("../src/main.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../vite.config.ts", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/use-game-data.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(page, /<DamageLab \/>/);
-  assert.match(layout, /Damage Lab - League Combat Calculator/);
-  assert.doesNotMatch(packageJson, /react-loading-skeleton/);
-  await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
-  await assert.rejects(access(new URL("../app/_sites-preview/preview.css", import.meta.url)));
+  assert.match(entry, /createRoot\(root\)\.render/);
+  assert.match(viteConfig, /GITHUB_REPOSITORY/);
+  assert.match(dataHook, /import\.meta\.env\.BASE_URL/);
+  assert.doesNotMatch(dataHook, /fetch\("\/data\//);
+  assert.doesNotMatch(packageJson, /vinext|@openai\/sites|@cloudflare\/vite|wrangler/);
+  await assert.rejects(access(new URL("../.openai/hosting.json", import.meta.url)));
+  await assert.rejects(access(new URL("../worker/index.ts", import.meta.url)));
 });
 
 test("uses the intended application typography and spacious rune editor", async () => {
@@ -79,10 +76,9 @@ test("item details are available in equipped builds and the item picker", async 
   assert.match(tooltip, /Stats/);
 });
 
-test("restores browser scenarios only after the hydration-safe first render", async () => {
+test("restores saved and shared scenarios in the client application", async () => {
   const damageLab = await readFile(new URL("../src/features/calculator/damage-lab.tsx", import.meta.url), "utf8");
-  assert.match(damageLab, /useState<ScenarioV1>\(\(\) => defaultScenario\(""\)\)/);
-  assert.match(damageLab, /window\.setTimeout\(\(\) => \{\s+const restored = restoredScenario\(\)/);
-  assert.doesNotMatch(damageLab, /useState<ScenarioV1 \| null>\(\(\) => restoredScenario\(\)\)/);
-  assert.match(damageLab, /!restorationComplete \|\| !activeScenario\.patch/);
+  assert.match(damageLab, /decodeScenario\(window\.location\.hash\)/);
+  assert.match(damageLab, /localStorage\.getItem\(STORAGE_KEY\)/);
+  assert.match(damageLab, /localStorage\.setItem\(STORAGE_KEY/);
 });

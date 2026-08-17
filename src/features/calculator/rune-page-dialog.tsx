@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Check, CircleAlert, RotateCcw, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";

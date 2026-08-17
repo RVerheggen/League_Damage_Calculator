@@ -18,6 +18,8 @@ export type SnapshotManifest = {
   runeCoverage: Record<string, number>;
 };
 
+const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 export function useGameData(initialPatch?: string) {
   const [patch, setPatch] = useState("");
   const [manifest, setManifest] = useState<SnapshotManifest | null>(null);
@@ -34,9 +36,9 @@ export function useGameData(initialPatch?: string) {
     async function load() {
       setLoading(true);
       try {
-        const current = await fetch("/data/current.json").then((response) => response.json()) as { patch: string };
+        const current = await fetch(assetUrl("data/current.json")).then((response) => response.json()) as { patch: string };
         const requestedPatch = initialPatch || current.patch;
-        const base = `/data/${requestedPatch}`;
+        const base = assetUrl(`data/${requestedPatch}`);
         const [manifestData, championData, itemData, runeData, runeStyleData] = await Promise.all([
           fetch(`${base}/manifest.json`).then((response) => {
             if (!response.ok) throw new Error(`Patch ${requestedPatch} is not bundled.`);
@@ -69,7 +71,7 @@ export function useGameData(initialPatch?: string) {
     const cached = cache.current.get(championId);
     if (cached) return cached;
     if (!patch) throw new Error("The patch index is not ready.");
-    const response = await fetch(`/data/${patch}/champions/${championId}.json`);
+    const response = await fetch(assetUrl(`data/${patch}/champions/${championId}.json`));
     if (!response.ok) throw new Error(`Champion ${championId} is missing from patch ${patch}.`);
     const champion = await response.json() as ChampionDefinition;
     cache.current.set(championId, champion);

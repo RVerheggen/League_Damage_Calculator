@@ -45,7 +45,6 @@ function PickerOption({
       onSelect={onSelect}
       className="min-h-12 gap-3"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={entity.icon} alt="" className="size-8 border border-border bg-muted object-cover" />
       <span className="min-w-0 flex-1">
         <span className="block truncate font-medium">{entity.name}</span>

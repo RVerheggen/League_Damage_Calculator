@@ -58,7 +58,17 @@ npm run build
 npm test
 ```
 
-The interface uses React, TypeScript, Tailwind CSS, and customized shadcn/ui components on the Sites Vinext runtime.
+The interface uses React, TypeScript, Tailwind CSS, Vite, and customized shadcn/ui components. It is built as a static application for GitHub Pages.
+
+## GitHub Pages
+
+Pushes to `main` run `.github/workflows/deploy-pages.yml`. The workflow validates the calculator, builds the static Vite output with the repository base path, and publishes `dist/` through GitHub Pages.
+
+For the first deployment, open the repository's **Settings > Pages** page and select **GitHub Actions** as the source. The expected public URL is:
+
+```text
+https://rverheggen.github.io/League_Damage_Calculator/
+```
 
 ## Source credit
 

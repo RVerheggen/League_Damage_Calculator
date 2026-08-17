@@ -81,6 +81,7 @@ export function PickerDialog({
   selectedIds?: number[];
   onSelect: (id: number) => void;
 }) {
+  const searchLabel = title === "Choose Champion" ? "Champions" : title === "Choose Item" ? "Items" : "Entries";
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[min(94vw,44rem)] max-w-[44rem] gap-0 overflow-hidden border border-border bg-popover/98 p-0 shadow-2xl shadow-black/50">
@@ -89,7 +90,7 @@ export function PickerDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <Command className="rounded-none bg-transparent p-2">
-          <CommandInput placeholder={`Search ${title.toLowerCase()}...`} className="h-9" />
+          <CommandInput placeholder={`Search ${searchLabel}...`} className="h-9" />
           <CommandList className="max-h-[55vh]">
             <CommandEmpty>No matching entry found.</CommandEmpty>
             <CommandGroup>

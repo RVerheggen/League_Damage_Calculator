@@ -287,7 +287,7 @@ export function RunePageDialog({
         <DialogHeader className="border-b border-border px-5 py-4 pr-14">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <DialogTitle className="flex items-center gap-2"><Sparkles className="size-4 text-primary" /> Configure rune page</DialogTitle>
+              <DialogTitle className="flex items-center gap-2"><Sparkles className="size-4 text-primary" /> Configure Rune Page</DialogTitle>
               <DialogDescription className="mt-1">Choose one primary path, a different secondary path, and one option in each shard row.</DialogDescription>
             </div>
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
@@ -299,8 +299,8 @@ export function RunePageDialog({
         <ScrollArea className="max-h-[78vh]">
           <div className="space-y-5 p-4 sm:p-5">
             <div className="grid gap-4 lg:grid-cols-2">
-              <StyleSelector label="Primary path" styles={orderedStyles} selectedId={primaryStyleId} onSelect={setPrimaryStyle} />
-              <StyleSelector label="Secondary path" styles={orderedStyles} selectedId={secondaryStyleId} disabledId={primaryStyleId} onSelect={setSecondaryStyle} />
+              <StyleSelector label="Primary Path" styles={orderedStyles} selectedId={primaryStyleId} onSelect={setPrimaryStyle} />
+              <StyleSelector label="Secondary Path" styles={orderedStyles} selectedId={secondaryStyleId} disabledId={primaryStyleId} onSelect={setSecondaryStyle} />
             </div>
 
             <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
@@ -311,10 +311,10 @@ export function RunePageDialog({
             <section className="shard-panel">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">Stat calibration</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">Stat Calibration</p>
                   <h3 className="mt-1 text-base font-semibold">Shards</h3>
                 </div>
-                <p className="flex items-center gap-1.5 text-xs text-muted-foreground"><CircleAlert className="size-3.5" /> One shard from each row</p>
+                <p className="flex items-center gap-1.5 text-xs text-muted-foreground"><CircleAlert className="size-3.5" /> One Shard From Each Row</p>
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {shardRows.map(({ rowIndex, runes: rowRunes }) => (
@@ -339,8 +339,8 @@ export function RunePageDialog({
         </ScrollArea>
 
         <div className="flex items-center justify-between gap-3 border-t border-border bg-background/35 px-5 py-3">
-          <Button variant="ghost" size="sm" onClick={() => { onSelectedIdsChange([]); onSelectedShardIdsChange([]); }} disabled={!selectedIds.length && !shardSelections}><RotateCcw /> Clear page</Button>
-          <Button size="sm" onClick={() => onOpenChange(false)}>Apply rune page</Button>
+          <Button variant="ghost" size="sm" onClick={() => { onSelectedIdsChange([]); onSelectedShardIdsChange([]); }} disabled={!selectedIds.length && !shardSelections}><RotateCcw /> Clear Page</Button>
+          <Button size="sm" onClick={() => onOpenChange(false)}>Apply Rune Page</Button>
         </div>
       </DialogContent>
     </Dialog>

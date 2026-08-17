@@ -7,6 +7,7 @@ import { decodeScenario, encodeScenario } from "../src/domain/scenario";
 import { simulate } from "../src/domain/simulate";
 import { growthMultiplier, resolveStats } from "../src/domain/stats";
 import { defaultScenario } from "../src/features/calculator/defaults";
+import { getActionControls, sanitizeComboForChampion } from "../src/features/calculator/action-controls";
 
 const champion = (id: number, alias: string): ChampionDefinition => ({
   id,
@@ -151,4 +152,25 @@ test("deterministic misses do not advance attack triggers or deal damage", () =>
   const result = simulate(scenario, new Map([[1, attacker], [2, target]]), new Map<number, ItemDefinition>(), new Map<number, RuneDefinition>());
   assert.equal(result.steps[0].preMitigation.total, 0);
   assert.equal(result.steps[0].healthDamage, 0);
+});
+
+test("combo controls and parameters follow the selected champion", () => {
+  const poppy = champion(78, "Poppy");
+  poppy.spells = [
+    poppy.spells[0],
+    { ...poppy.spells[0], key: "E", name: "Heroic Charge" },
+    { ...poppy.spells[0], key: "R", name: "Keeper's Verdict" },
+  ];
+  const olaf = { ...poppy, id: 2, alias: "Olaf", name: "Olaf" };
+  const combo = defaultScenario("test").combo;
+  const poppyE = combo.find((entry) => entry.key === "E")!;
+  const olafE = { ...poppyE, parameters: { wallCollision: true } };
+
+  assert.deepEqual(getActionControls(poppy, poppyE), ["wallCollision"]);
+  assert.deepEqual(getActionControls(olaf, olafE), []);
+
+  const sanitized = sanitizeComboForChampion(combo, olaf);
+  assert.equal(sanitized.some((entry) => entry.key === "Q2"), false);
+  assert.deepEqual(sanitized.find((entry) => entry.key === "E")?.parameters, {});
+  assert.deepEqual(sanitized.find((entry) => entry.key === "R")?.parameters, {});
 });

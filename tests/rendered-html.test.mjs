@@ -72,8 +72,15 @@ test("item details are available in equipped builds and the item picker", async 
   ]);
   assert.match(combatantPanel, /ItemDetailsTooltipContent/);
   assert.match(pickerDialog, /ItemDetailsTooltipContent/);
-  assert.match(tooltip, /Passives and actives/);
+  assert.match(tooltip, /Passives And Actives/);
   assert.match(tooltip, /Stats/);
+});
+
+test("equipped items can be removed one slot at a time", async () => {
+  const combatantPanel = await readFile(new URL("../src/features/calculator/combatant-panel.tsx", import.meta.url), "utf8");
+  assert.match(combatantPanel, /aria-label={`Remove \${item\.name}`}/);
+  assert.match(combatantPanel, /next\.splice\(index, 1\)/);
+  assert.match(combatantPanel, /itemIds: next/);
 });
 
 test("restores saved and shared scenarios in the client application", async () => {
@@ -81,4 +88,17 @@ test("restores saved and shared scenarios in the client application", async () =
   assert.match(damageLab, /decodeScenario\(window\.location\.hash\)/);
   assert.match(damageLab, /localStorage\.getItem\(STORAGE_KEY\)/);
   assert.match(damageLab, /localStorage\.setItem\(STORAGE_KEY/);
+});
+
+test("uses the Damage Lab favicon and handle-only combo dragging", async () => {
+  const [favicon, comboBuilder, actionControls] = await Promise.all([
+    readFile(new URL("../public/favicon.svg", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/combo-builder.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/action-controls.ts", import.meta.url), "utf8"),
+  ]);
+  assert.match(favicon, /#42D2B9/i);
+  assert.match(favicon, /M37\.3 13v14\.2/);
+  assert.equal((comboBuilder.match(/\bdraggable\b/g) ?? []).length, 1);
+  assert.match(comboBuilder, /getActionControls\(champion, entry\)/);
+  assert.match(actionControls, /Poppy:[\s\S]*wallCollision[\s\S]*chargePercent/);
 });

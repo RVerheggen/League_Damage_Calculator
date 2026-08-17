@@ -249,7 +249,7 @@ export function simulate(
     steps.push({
       id: action.id,
       timestamp,
-      label: action.label ?? (action.kind === "attack" ? "Basic attack" : action.kind === "wait" ? "Wait" : action.key),
+      label: action.label ?? (action.kind === "attack" ? "Basic Attack" : action.kind === "wait" ? "Wait" : action.key),
       preMitigation: pre,
       postMitigation: post,
       shieldAbsorbed: absorbed,

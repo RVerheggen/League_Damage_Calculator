@@ -25,16 +25,16 @@ import { ItemDetailsTooltipContent } from "./item-details-tooltip";
 import { RunePageDialog } from "./rune-page-dialog";
 
 const overrideFields: Array<{ key: keyof StatOverrides; label: string; min?: number; max?: number }> = [
-  { key: "maxHealth", label: "Max health", min: 1 },
+  { key: "maxHealth", label: "Max Health", min: 1 },
   { key: "attackDamage", label: "Total AD", min: 0 },
   { key: "abilityPower", label: "AP", min: 0 },
   { key: "armor", label: "Armor", min: -999 },
-  { key: "magicResist", label: "Magic resist", min: -999 },
+  { key: "magicResist", label: "Magic Resist", min: -999 },
   { key: "lethality", label: "Lethality", min: 0 },
-  { key: "percentArmorPen", label: "Armor pen %", min: 0, max: 100 },
-  { key: "flatMagicPen", label: "Flat magic pen", min: 0 },
-  { key: "percentMagicPen", label: "Magic pen %", min: 0, max: 100 },
-  { key: "critChance", label: "Crit chance %", min: 0, max: 100 },
+  { key: "percentArmorPen", label: "Armor Pen %", min: 0, max: 100 },
+  { key: "flatMagicPen", label: "Flat Magic Pen", min: 0 },
+  { key: "percentMagicPen", label: "Magic Pen %", min: 0, max: 100 },
+  { key: "critChance", label: "Crit Chance %", min: 0, max: 100 },
 ];
 
 export function CombatantPanel({
@@ -81,7 +81,7 @@ export function CombatantPanel({
   const pickerEntities = picker === "champion"
     ? champions.map((entry) => ({ id: entry.id, name: entry.name, icon: entry.icon, subtitle: entry.title, badge: entry.roles[0] }))
     : picker === "item"
-      ? items.map((item) => ({ id: item.id, name: item.name, icon: item.icon, subtitle: `${item.price.toLocaleString()} gold`, badge: item.classification, item }))
+      ? items.map((item) => ({ id: item.id, name: item.name, icon: item.icon, subtitle: `${item.price.toLocaleString()} Gold`, badge: item.classification, item }))
       : [];
 
   const handlePick = (id: number) => {
@@ -100,7 +100,7 @@ export function CombatantPanel({
     <Card className="lab-card h-fit overflow-hidden border-border/80 bg-card/86 shadow-2xl shadow-black/20">
       <CardHeader className="gap-4 border-b border-border/60 pb-4">
         <div className="flex items-center justify-between">
-          <Badge variant="outline" className="lab-eyebrow">{side}</Badge>
+          <Badge variant="outline" className="lab-eyebrow">{side === "attacker" ? "Attacker" : "Target"}</Badge>
           <span className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">LEVEL {config.level}</span>
         </div>
         <button className="group flex items-center gap-4 text-left" onClick={() => setPicker("champion")}>
@@ -108,9 +108,9 @@ export function CombatantPanel({
             {champion && <img src={champion.icon} alt="" className="size-full object-cover" />}
           </div>
           <div className="min-w-0 flex-1">
-            <CardTitle className="truncate text-2xl tracking-tight">{champion?.name ?? "Loading champion"}</CardTitle>
-            <p className="mt-1 truncate text-xs uppercase tracking-[0.12em] text-muted-foreground">
-              {champion?.roles.join(" / ") || "Snapshot lookup"}
+            <CardTitle className="truncate text-2xl tracking-tight">{champion?.name ?? "Loading Champion"}</CardTitle>
+            <p className="mt-1 truncate text-xs capitalize tracking-[0.12em] text-muted-foreground">
+              {champion?.roles.join(" / ") || "Snapshot Lookup"}
             </p>
           </div>
           <ChevronRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
@@ -149,7 +149,7 @@ export function CombatantPanel({
         {champion && (
           <div>
             <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
-              <span>ABILITY RANKS</span><span>Sandbox editable</span>
+              <span>ABILITY RANKS</span><span>Sandbox Editable</span>
             </div>
             <div className="grid grid-cols-4 gap-2">
               {champion.spells.slice(0, 4).map((spell) => (
@@ -180,27 +180,44 @@ export function CombatantPanel({
             {Array.from({ length: 6 }).map((_, index) => {
               const item = itemSlots[index];
               return (
-                <Tooltip key={index}>
-                  <TooltipTrigger
-                    className="item-slot relative overflow-hidden"
-                    onClick={() => { setItemSlot(index); setPicker("item"); }}
-                    aria-label={item ? `Replace ${item.name}` : `Add item ${index + 1}`}
-                  >
-                    {item ? <img src={item.icon} alt="" className="size-full object-cover" /> : <Plus className="size-3.5" />}
-                  </TooltipTrigger>
-                  {item ? <ItemDetailsTooltipContent item={item} /> : <TooltipContent>Add item</TooltipContent>}
-                </Tooltip>
+                <div key={index} className="group/item relative min-w-0">
+                  <Tooltip>
+                    <TooltipTrigger
+                      className="item-slot relative w-full overflow-hidden"
+                      onClick={() => { setItemSlot(index); setPicker("item"); }}
+                      aria-label={item ? `Replace ${item.name}` : `Add Item ${index + 1}`}
+                    >
+                      {item ? <img src={item.icon} alt="" className="size-full object-cover" /> : <Plus className="size-3.5" />}
+                    </TooltipTrigger>
+                    {item ? <ItemDetailsTooltipContent item={item} /> : <TooltipContent>Add Item</TooltipContent>}
+                  </Tooltip>
+                  {item && (
+                    <button
+                      type="button"
+                      aria-label={`Remove ${item.name}`}
+                      title={`Remove ${item.name}`}
+                      onClick={() => {
+                        const next = [...config.itemIds];
+                        next.splice(index, 1);
+                        onChange({ ...config, itemIds: next });
+                      }}
+                      className="absolute -right-1.5 -top-1.5 z-10 grid size-5 place-items-center rounded-full border border-border bg-background text-muted-foreground shadow-md transition-colors hover:border-destructive/60 hover:bg-destructive hover:text-white focus-visible:border-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/35"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  )}
+                </div>
               );
             })}
           </div>
           {selectedItems.length > 0 && (
-            <div className="mt-2 flex justify-end"><Button variant="ghost" size="xs" onClick={() => onChange({ ...config, itemIds: [] })}><RotateCcw /> Clear build</Button></div>
+            <div className="mt-2 flex justify-end"><Button variant="ghost" size="xs" onClick={() => onChange({ ...config, itemIds: [] })}><RotateCcw /> Clear Build</Button></div>
           )}
         </div>
 
         <div>
           <Button variant="outline" className="w-full justify-between border-border/70 bg-background/30" onClick={() => setPicker("rune")}>
-            <span className="flex items-center gap-2"><Sparkles className="size-4 text-primary" /> Runes and shards</span>
+            <span className="flex items-center gap-2"><Sparkles className="size-4 text-primary" /> Runes And Shards</span>
             <Badge variant="secondary">{selectedRunes.length}</Badge>
           </Button>
           {selectedRunes.length > 0 && (
@@ -230,15 +247,15 @@ export function CombatantPanel({
 
         <Accordion>
           <AccordionItem value="advanced" className="border-y border-border/60">
-            <AccordionTrigger className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Advanced stats and overrides</AccordionTrigger>
+            <AccordionTrigger className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Advanced Stats And Overrides</AccordionTrigger>
             <AccordionContent className="space-y-4 pt-2">
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1 text-xs text-muted-foreground">
-                  <label htmlFor={`${side}-current-health`}>Current health</label>
+                  <label htmlFor={`${side}-current-health`}>Current Health</label>
                   <Input id={`${side}-current-health`} type="number" min={0} value={config.currentHealth ?? ""} placeholder={stats ? Math.round(stats.maxHealth).toString() : "Derived"} onChange={(event) => onChange({ ...config, currentHealth: event.target.value === "" ? null : Number(event.target.value) })} />
                 </div>
                 <div className="space-y-1 text-xs text-muted-foreground">
-                  <label htmlFor={`${side}-starting-shield`}>Starting shield</label>
+                  <label htmlFor={`${side}-starting-shield`}>Starting Shield</label>
                   <Input id={`${side}-starting-shield`} type="number" min={0} value={config.startingShield} onChange={(event) => onChange({ ...config, startingShield: Number(event.target.value) || 0 })} />
                 </div>
               </div>
@@ -250,7 +267,7 @@ export function CombatantPanel({
                   </label>
                 ))}
               </div>
-              <Button variant="ghost" size="sm" onClick={() => onChange({ ...config, overrides: {} })}><RotateCcw /> Reset overrides</Button>
+              <Button variant="ghost" size="sm" onClick={() => onChange({ ...config, overrides: {} })}><RotateCcw /> Reset Overrides</Button>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -259,7 +276,7 @@ export function CombatantPanel({
       <PickerDialog
         open={picker === "champion" || picker === "item"}
         onOpenChange={(open) => { if (!open) setPicker(null); }}
-        title={picker === "champion" ? "Choose champion" : "Choose item"}
+        title={picker === "champion" ? "Choose Champion" : "Choose Item"}
         description="Search the versioned live patch snapshot."
         entities={pickerEntities}
         onSelect={handlePick}

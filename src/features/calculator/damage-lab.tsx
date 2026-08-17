@@ -17,6 +17,7 @@ import { simulate } from "@/src/domain/simulate";
 import { resolveStats } from "@/src/domain/stats";
 import { CombatantPanel } from "./combatant-panel";
 import { ComboBuilder } from "./combo-builder";
+import { sanitizeComboForChampion } from "./action-controls";
 import { defaultScenario } from "./defaults";
 import { ResultsPanel } from "./results-panel";
 import { useGameData } from "./use-game-data";
@@ -73,10 +74,11 @@ export function DamageLab() {
     return () => { cancelled = true; };
   }, [dataPatch, loadChampion, scenario.attacker.championId, scenario.defender.championId]);
 
-  const activeScenario = useMemo(
-    () => scenario.patch || !dataPatch ? scenario : { ...scenario, patch: dataPatch },
-    [scenario, dataPatch],
-  );
+  const activeScenario = useMemo(() => {
+    const patched = scenario.patch || !dataPatch ? scenario : { ...scenario, patch: dataPatch };
+    if (!attackerChampion || attackerChampion.id !== scenario.attacker.championId) return patched;
+    return { ...patched, combo: sanitizeComboForChampion(patched.combo, attackerChampion) };
+  }, [scenario, dataPatch, attackerChampion]);
 
   useEffect(() => {
     if (!restorationComplete || !activeScenario.patch) return;
@@ -119,7 +121,7 @@ export function DamageLab() {
   const targetPanel = (
     <CombatantPanel side="target" config={scenario.defender} champion={defenderChampion} champions={data.champions} items={data.items} runes={data.runes} runeStyles={data.runeStyles} stats={defenderStats} onChange={(defender) => setScenario((current) => ({ ...current, defender }))} />
   );
-  const comboPanel = <ComboBuilder combo={scenario.combo} champion={attackerChampion} onChange={(combo) => setScenario((current) => ({ ...current, combo }))} />;
+  const comboPanel = <ComboBuilder combo={activeScenario.combo} champion={attackerChampion} onChange={(combo) => setScenario((current) => ({ ...current, combo }))} />;
   const resultsPanel = <ResultsPanel result={calculation.result} error={calculation.error ?? championError ?? data.error} />;
 
   return (
@@ -131,21 +133,21 @@ export function DamageLab() {
             <div className="brand-mark"><FlaskConical className="size-5" /></div>
             <div>
               <div className="flex items-center gap-2"><span className="text-lg font-semibold tracking-tight">Damage Lab</span><Badge className="border-primary/30 bg-primary/10 text-primary">PATCH {data.patch || "..."}</Badge></div>
-              <p className="hidden text-xs text-muted-foreground sm:block">Live-patch League combat calculation workspace</p>
+              <p className="hidden text-xs text-muted-foreground sm:block">Live-Patch League Combat Calculation Workspace</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Sheet>
               <SheetTrigger render={<Button variant="ghost" size="sm" className="hidden sm:inline-flex" />}><Layers3 /> Coverage</SheetTrigger>
               <SheetContent className="border-border bg-popover sm:max-w-md">
-                <SheetHeader><SheetTitle>Patch coverage</SheetTitle><SheetDescription>Every imported effect carries an explicit coverage classification.</SheetDescription></SheetHeader>
+                <SheetHeader><SheetTitle>Patch Coverage</SheetTitle><SheetDescription>Every imported effect carries an explicit coverage classification.</SheetDescription></SheetHeader>
                 <div className="space-y-4 overflow-y-auto px-4 pb-6">
                   <Card><CardContent className="grid grid-cols-3 gap-2 pt-5 text-center">
-                    <div><strong className="block font-mono text-xl">{data.manifest?.championCount ?? 0}</strong><span className="text-xs text-muted-foreground">champions</span></div>
-                    <div><strong className="block font-mono text-xl">{data.manifest?.itemCount ?? 0}</strong><span className="text-xs text-muted-foreground">items</span></div>
-                    <div><strong className="block font-mono text-xl">{data.manifest?.runeCount ?? 0}</strong><span className="text-xs text-muted-foreground">perks</span></div>
+                    <div><strong className="block font-mono text-xl">{data.manifest?.championCount ?? 0}</strong><span className="text-xs text-muted-foreground">Champions</span></div>
+                    <div><strong className="block font-mono text-xl">{data.manifest?.itemCount ?? 0}</strong><span className="text-xs text-muted-foreground">Items</span></div>
+                    <div><strong className="block font-mono text-xl">{data.manifest?.runeCount ?? 0}</strong><span className="text-xs text-muted-foreground">Perks</span></div>
                   </CardContent></Card>
-                  <Alert><Database /><AlertTitle>Immutable source snapshot</AlertTitle><AlertDescription>CommunityDragon definitions and Riot static base stats are hashed and stored under patch {data.patch}. Share links keep that patch ID.</AlertDescription></Alert>
+                  <Alert><Database /><AlertTitle>Immutable Source Snapshot</AlertTitle><AlertDescription>CommunityDragon definitions and Riot static base stats are hashed and stored under patch {data.patch}. Share links keep that patch ID.</AlertDescription></Alert>
                   {data.manifest?.unsupportedSpells.length ? (
                     <div className="rounded-lg border border-[#f2bc55]/30 bg-[#f2bc55]/5 p-3">
                       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.1em] text-[#f2bc55]">Visible exceptions: {data.manifest.unsupportedSpells.length}</p>
@@ -157,7 +159,7 @@ export function DamageLab() {
                   <div className="space-y-3 text-sm text-muted-foreground">
                     <p><Badge className="mr-2 bg-primary/10 text-primary">Modeled</Badge> The engine has an explicit packet or state hook.</p>
                     <p><Badge variant="secondary" className="mr-2">Estimated</Badge> CommunityDragon exposes a primary ratio and base values, but a complex subcast may need a selected assumption.</p>
-                    <p><Badge variant="outline" className="mr-2">Stat-only</Badge> Stats are applied, but no separate combat proc exists.</p>
+                    <p><Badge variant="outline" className="mr-2">Stat-Only</Badge> Stats are applied, but no separate combat proc exists.</p>
                     <p><Badge variant="outline" className="mr-2">Irrelevant</Badge> The effect has no direct duel damage, shield, or mitigation impact.</p>
                     <p><Badge variant="outline" className="mr-2 border-[#f2bc55]/40 text-[#f2bc55]">Unsupported</Badge> The effect matters to the duel, but is not simulated yet. Its tooltip remains visible and the result shows a warning.</p>
                   </div>
@@ -176,21 +178,23 @@ export function DamageLab() {
       <div className="relative z-10 mx-auto max-w-[1740px] px-4 py-6 lg:px-8 lg:py-8">
         <section className="mb-6 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary"><Activity className="size-4" /> Live combat scenario</div>
-            <h1 className="text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">Build the hit. Trace the outcome.</h1>
+            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary"><Activity className="size-4" /> Live Combat Scenario</div>
+            <h1 className="text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">Build The Hit. Trace The Outcome.</h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Configure both champions, sequence each action, and inspect exact damage before and after mitigation.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border/70 bg-card/60 px-4 py-3 text-xs text-muted-foreground">
-            <ShieldCheck className="size-4 text-primary" /><span>Validated snapshot</span><Separator orientation="vertical" className="h-4" />
+            <ShieldCheck className="size-4 text-primary" /><span>Validated Snapshot</span><Separator orientation="vertical" className="h-4" />
             <Select value={scenario.randomnessMode} onValueChange={(randomnessMode) => setScenario((current) => ({ ...current, randomnessMode: randomnessMode as ScenarioV1["randomnessMode"] }))}>
-              <SelectTrigger size="sm" className="w-36"><SelectValue /></SelectTrigger>
-              <SelectContent><SelectItem value="deterministic">Deterministic</SelectItem><SelectItem value="expected">Expected value</SelectItem></SelectContent>
+              <SelectTrigger size="sm" className="w-36">
+                <SelectValue>{(value) => value === "expected" ? "Expected Value" : "Deterministic"}</SelectValue>
+              </SelectTrigger>
+              <SelectContent><SelectItem value="deterministic">Deterministic</SelectItem><SelectItem value="expected">Expected Value</SelectItem></SelectContent>
             </Select>
-            <div className="flex items-center gap-2"><Switch size="sm" aria-label="Continue after lethal" checked={scenario.settings.continueAfterLethal} onCheckedChange={(continueAfterLethal) => setScenario((current) => ({ ...current, settings: { ...current.settings, continueAfterLethal } }))} /> continue after lethal</div>
+            <div className="flex items-center gap-2"><Switch size="sm" aria-label="Continue After Lethal" checked={scenario.settings.continueAfterLethal} onCheckedChange={(continueAfterLethal) => setScenario((current) => ({ ...current, settings: { ...current.settings, continueAfterLethal } }))} /> Continue After Lethal</div>
           </div>
         </section>
 
-        {data.loading && <Alert className="mb-5"><Database /><AlertTitle>Loading patch snapshot</AlertTitle><AlertDescription>Preparing champion, item, and rune indexes.</AlertDescription></Alert>}
+        {data.loading && <Alert className="mb-5"><Database /><AlertTitle>Loading Patch Snapshot</AlertTitle><AlertDescription>Preparing champion, item, and rune indexes.</AlertDescription></Alert>}
 
         <div className="hidden grid-cols-[minmax(270px,0.78fr)_minmax(540px,1.5fr)_minmax(270px,0.78fr)] items-start gap-5 xl:grid">
           {attackerPanel}

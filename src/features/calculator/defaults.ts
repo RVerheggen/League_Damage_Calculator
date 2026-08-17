@@ -39,7 +39,7 @@ export function defaultScenario(patch: string): ScenarioV1 {
       action("attack", "AA", 0),
       action("ability", "Q", 0.12, { hitCount: 1 }),
       action("wait", "WAIT", 1),
-      { ...action("ability", "Q2", 0, { hitCount: 1 }), label: "Hammer Shock detonation" },
+      { ...action("ability", "Q2", 0, { hitCount: 1 }), label: "Hammer Shock Detonation" },
       action("attack", "AA", 0),
       action("ability", "E", 0.18, { wallCollision: true }),
       action("ability", "R", 0.3, { chargePercent: 0 }),

@@ -17,15 +17,15 @@ const coverageCopy: Record<ItemDefinition["classification"], string> = {
 const structuredStatLabels: Array<[keyof ItemDefinition["stats"], string, string]> = [
   ["health", "Health", ""],
   ["mana", "Mana", ""],
-  ["attackDamage", "Attack damage", ""],
-  ["abilityPower", "Ability power", ""],
+  ["attackDamage", "Attack Damage", ""],
+  ["abilityPower", "Ability Power", ""],
   ["armor", "Armor", ""],
-  ["magicResist", "Magic resist", ""],
-  ["attackSpeedPercent", "Attack speed", "%"],
-  ["critChancePercent", "Critical strike", "%"],
-  ["moveSpeedPercent", "Move speed", "%"],
+  ["magicResist", "Magic Resist", ""],
+  ["attackSpeedPercent", "Attack Speed", "%"],
+  ["critChancePercent", "Critical Strike", "%"],
+  ["moveSpeedPercent", "Move Speed", "%"],
   ["lethality", "Lethality", ""],
-  ["flatMagicPen", "Magic penetration", ""],
+  ["flatMagicPen", "Magic Penetration", ""],
 ];
 
 function fallbackStats(item: ItemDefinition) {
@@ -58,7 +58,7 @@ export function ItemDetailsTooltipContent({
         <span className="min-w-0 flex-1 text-left">
           <strong className="block truncate text-sm text-foreground">{item.name}</strong>
           <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.13em] text-muted-foreground">
-            {item.price.toLocaleString()} gold
+            {item.price.toLocaleString()} Gold
           </span>
         </span>
         <span className="rounded-full border border-primary/25 bg-primary/8 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.1em] text-primary">
@@ -83,7 +83,7 @@ export function ItemDetailsTooltipContent({
         </section>
 
         <section className="border-t border-border/70 pt-3">
-          <h4 className="mb-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">Passives and actives</h4>
+          <h4 className="mb-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">Passives And Actives</h4>
           <p className="text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere]">
             {effectText || "No active or passive text in the patch data."}
           </p>

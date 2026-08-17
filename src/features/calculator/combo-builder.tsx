@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Copy, GripVertical, Plus, Trash2, ArrowUp, ArrowDown, Clock3 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,10 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import type { ChampionDefinition, ComboAction } from "@/src/domain/model";
+import { getActionControls } from "./action-controls";
 import { action as createAction } from "./defaults";
 
 function actionName(action: ComboAction, champion: ChampionDefinition | null) {
-  if (action.kind === "attack") return "Basic attack";
+  if (action.label) return action.label;
+  if (action.kind === "attack") return "Basic Attack";
   if (action.kind === "wait") return "Wait";
   return champion?.spells.find((spell) => spell.key === action.key)?.name ?? action.key;
 }
@@ -25,6 +28,7 @@ export function ComboBuilder({
   champion: ChampionDefinition | null;
   onChange: (combo: ComboAction[]) => void;
 }) {
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const update = (id: string, next: Partial<ComboAction>) => onChange(combo.map((entry) => entry.id === id ? { ...entry, ...next } : entry));
   const move = (index: number, direction: -1 | 1) => {
     const target = index + direction;
@@ -53,7 +57,7 @@ export function ComboBuilder({
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <Badge variant="outline" className="lab-eyebrow mb-3">COMBO TIMELINE</Badge>
-            <CardTitle className="text-xl">Stateful combat sequence</CardTitle>
+            <CardTitle className="text-xl">Stateful Combat Sequence</CardTitle>
             <CardDescription className="mt-1">Drag actions or use the arrow controls. Delays advance buffs and cooldowns.</CardDescription>
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -61,7 +65,7 @@ export function ComboBuilder({
             {champion?.spells.slice(0, 4).map((spell) => (
               <Button key={spell.key} size="sm" variant="outline" onClick={() => add("ability", spell.key)}><Plus /> {spell.key}</Button>
             ))}
-            {champion?.alias === "Poppy" && <Button size="sm" variant="outline" onClick={() => onChange([...combo, { ...createAction("ability", "Q2", 1), label: "Hammer Shock detonation" }])}><Plus /> Q2</Button>}
+            {champion?.alias === "Poppy" && <Button size="sm" variant="outline" onClick={() => onChange([...combo, { ...createAction("ability", "Q2", 1), label: "Hammer Shock Detonation" }])}><Plus /> Q2</Button>}
             <Button size="sm" onClick={() => add("wait", "WAIT")}><Clock3 /> Wait</Button>
           </div>
         </div>
@@ -69,16 +73,38 @@ export function ComboBuilder({
       <CardContent className="p-0">
         <div className="divide-y divide-border/60">
           {combo.length === 0 && <div className="p-10 text-center text-sm text-muted-foreground">Add an attack, ability, or wait action to begin the trace.</div>}
-          {combo.map((entry, index) => (
+          {combo.map((entry, index) => {
+            const controls = new Set(getActionControls(champion, entry));
+            return (
             <div
               key={entry.id}
-              draggable
-              onDragStart={(event) => event.dataTransfer.setData("text/plain", String(index))}
-              onDragOver={(event) => event.preventDefault()}
-              onDrop={(event) => drop(Number(event.dataTransfer.getData("text/plain")), index)}
+              onDragOver={(event) => {
+                if (draggedIndex === null) return;
+                event.preventDefault();
+                event.dataTransfer.dropEffect = "move";
+              }}
+              onDrop={(event) => {
+                event.preventDefault();
+                const from = Number(event.dataTransfer.getData("text/plain"));
+                drop(Number.isInteger(from) ? from : draggedIndex ?? -1, index);
+                setDraggedIndex(null);
+              }}
               className="group grid grid-cols-[auto_auto_minmax(9rem,1fr)_auto] items-center gap-2 bg-background/10 px-2 py-3 transition-colors hover:bg-background/28 sm:grid-cols-[auto_auto_minmax(9rem,1fr)_auto_auto_auto]"
             >
-              <button className="cursor-grab p-1 text-muted-foreground active:cursor-grabbing" aria-label={`Drag action ${index + 1}`}><GripVertical className="size-4" /></button>
+              <button
+                type="button"
+                draggable
+                onDragStart={(event) => {
+                  event.dataTransfer.effectAllowed = "move";
+                  event.dataTransfer.setData("text/plain", String(index));
+                  event.dataTransfer.setDragImage(event.currentTarget, 8, 8);
+                  setDraggedIndex(index);
+                }}
+                onDragEnd={() => setDraggedIndex(null)}
+                className="cursor-grab touch-none p-1 text-muted-foreground active:cursor-grabbing"
+                aria-label={`Drag Action ${index + 1}`}
+                title="Drag To Reorder"
+              ><GripVertical className="size-4" /></button>
               <span className={`action-glyph ${entry.kind === "ability" ? "magic" : entry.kind === "wait" ? "utility" : "physical"}`}>{entry.key}</span>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
@@ -91,18 +117,18 @@ export function ComboBuilder({
                   </div>
                   {entry.kind === "attack" && (
                     <Select value={entry.outcome} onValueChange={(value) => update(entry.id, { outcome: value as ComboAction["outcome"] })}>
-                      <SelectTrigger size="sm" className="h-6 w-20 text-[10px]"><SelectValue /></SelectTrigger>
+                      <SelectTrigger size="sm" className="h-6 w-20 text-[10px]"><SelectValue>{(value) => typeof value === "string" ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : "Normal"}</SelectValue></SelectTrigger>
                       <SelectContent><SelectItem value="normal">Normal</SelectItem><SelectItem value="crit">Crit</SelectItem><SelectItem value="miss">Miss</SelectItem></SelectContent>
                     </Select>
                   )}
-                  {entry.kind === "ability" && (
-                    <div className="flex items-center gap-1">hits <Input aria-label="Ability hit count" type="number" min={1} max={20} value={entry.parameters.hitCount ?? 1} onChange={(event) => update(entry.id, { parameters: { ...entry.parameters, hitCount: Math.max(1, Math.min(20, Number(event.target.value) || 1)) } })} className="h-6 w-12 px-1 text-[10px]" /></div>
+                  {controls.has("hitCount") && (
+                    <div className="flex items-center gap-1">Hits <Input aria-label="Ability Hit Count" type="number" min={1} max={2} value={entry.parameters.hitCount ?? 1} onChange={(event) => update(entry.id, { parameters: { ...entry.parameters, hitCount: Math.max(1, Math.min(2, Number(event.target.value) || 1)) } })} className="h-6 w-12 px-1 text-[10px]" /></div>
                   )}
-                  {entry.key === "E" && entry.kind === "ability" && (
-                    <div className="flex items-center gap-1.5"><Switch size="sm" aria-label="Terrain collision" checked={entry.parameters.wallCollision ?? false} onCheckedChange={(checked) => update(entry.id, { parameters: { ...entry.parameters, wallCollision: checked } })} /> wall</div>
+                  {controls.has("wallCollision") && (
+                    <div className="flex items-center gap-1.5"><Switch size="sm" aria-label="Terrain Collision" checked={entry.parameters.wallCollision ?? false} onCheckedChange={(checked) => update(entry.id, { parameters: { ...entry.parameters, wallCollision: checked } })} /> Wall</div>
                   )}
-                  {entry.key === "R" && entry.kind === "ability" && (
-                    <div className="flex items-center gap-1">charge <Input aria-label="Charge percentage" type="number" min={0} max={100} value={entry.parameters.chargePercent ?? 0} onChange={(event) => update(entry.id, { parameters: { ...entry.parameters, chargePercent: Number(event.target.value) } })} className="h-6 w-14 px-1 text-[10px]" />%</div>
+                  {controls.has("chargePercent") && (
+                    <div className="flex items-center gap-1">Charge <Input aria-label="Charge Percentage" type="number" min={0} max={100} value={entry.parameters.chargePercent ?? 0} onChange={(event) => update(entry.id, { parameters: { ...entry.parameters, chargePercent: Number(event.target.value) } })} className="h-6 w-14 px-1 text-[10px]" />%</div>
                   )}
                 </div>
               </div>
@@ -116,7 +142,8 @@ export function ComboBuilder({
                 <Button variant="ghost" size="icon-xs" onClick={() => onChange(combo.filter((candidate) => candidate.id !== entry.id))} aria-label="Remove action"><Trash2 /></Button>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </CardContent>
     </Card>

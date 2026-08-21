@@ -241,6 +241,164 @@ test("combo controls and parameters follow the selected champion", () => {
   assert.deepEqual(sanitized.find((entry) => entry.key === "R")?.parameters, {});
 });
 
+test("reviewed empowered attacks arm on cast and preserve every rank", () => {
+  const target = champion(900, "Target");
+  const fixtures = [
+    { id: 24, key: "W", rankOne: damageVector(100, 50, 0), rankFive: damageVector(100, 250, 0) },
+    { id: 122, key: "W", rankOne: damageVector(140, 0, 0), rankFive: damageVector(160, 0, 0) },
+    { id: 86, key: "Q", rankOne: damageVector(180, 0, 0), rankFive: damageVector(300, 0, 0) },
+    { id: 53, key: "E", rankOne: damageVector(200, 0, 0), rankFive: damageVector(225, 0, 0) },
+    { id: 89, key: "Q", rankOne: damageVector(100, 10, 0), rankFive: damageVector(100, 140, 0) },
+  ];
+
+  for (const fixture of fixtures) {
+    const attacker = snapshotChampion(fixture.id);
+    const champions = new Map([[fixture.id, attacker], [900, target]]);
+    const scenario = duel(fixture.id, 900);
+    scenario.attacker.abilityRanks[fixture.key] = 1;
+    scenario.combo = [action("cast", "ability", fixture.key), action("attack", "attack", "AA", 0.1)];
+    const rankOne = simulate(scenario, champions, new Map(), new Map());
+    assert.equal(rankOne.steps[0].preMitigation.total, 0, `${attacker.name} cast damage`);
+    assert.deepEqual(rankOne.steps[1].preMitigation, fixture.rankOne, `${attacker.name} rank one`);
+    assert.ok(rankOne.steps[0].triggers.some((trigger) => trigger.kind === "state" && trigger.label.endsWith("Armed")));
+    assert.ok(rankOne.steps[1].triggers.some((trigger) => trigger.kind === "damage" && trigger.label.endsWith("Bonus Damage")));
+    assert.ok(rankOne.steps[1].triggers.some((trigger) => trigger.kind === "state" && trigger.label.endsWith("Consumed")));
+
+    const rankFiveScenario = structuredClone(scenario);
+    rankFiveScenario.attacker.abilityRanks[fixture.key] = 5;
+    rankFiveScenario.attacker.overrides.abilityPower = 100;
+    const rankFive = simulate(rankFiveScenario, champions, new Map(), new Map());
+    assert.deepEqual(rankFive.steps[1].preMitigation, fixture.rankFive, `${attacker.name} rank five`);
+  }
+});
+
+test("empowered attacks survive misses, expire on time, and replace instead of stacking", () => {
+  const garen = snapshotChampion(86);
+  const target = champion(900, "Target");
+  const champions = new Map([[86, garen], [900, target]]);
+
+  const missed = duel(86, 900);
+  missed.attacker.abilityRanks.Q = 1;
+  missed.combo = [
+    action("q", "ability", "Q"),
+    { ...action("miss", "attack", "AA", 0.1), outcome: "miss" },
+    action("hit", "attack", "AA", 0.1),
+  ];
+  const missedResult = simulate(missed, champions, new Map(), new Map());
+  assert.equal(missedResult.steps[1].preMitigation.total, 0);
+  assert.equal(missedResult.steps[2].preMitigation.physical, 180);
+  assert.equal(missedResult.steps[1].triggers.some((trigger) => trigger.label.endsWith("Consumed")), false);
+
+  const expired = duel(86, 900);
+  expired.attacker.abilityRanks.Q = 1;
+  expired.combo = [action("q", "ability", "Q"), action("wait", "wait", "WAIT", 4.5), action("hit", "attack", "AA", 0.1)];
+  const expiredResult = simulate(expired, champions, new Map(), new Map());
+  assert.equal(expiredResult.steps[2].preMitigation.physical, 100);
+  assert.ok(expiredResult.steps[1].triggers.some((trigger) => trigger.label === "Decisive Strike Expired"));
+
+  const replaced = duel(86, 900);
+  replaced.attacker.abilityRanks.Q = 1;
+  replaced.combo = [action("q-one", "ability", "Q"), action("q-two", "ability", "Q", 0.1), action("hit", "attack", "AA", 0.1)];
+  const replacedResult = simulate(replaced, champions, new Map(), new Map());
+  assert.equal(replacedResult.steps[2].preMitigation.physical, 180);
+  assert.equal(replacedResult.steps[2].triggers.filter((trigger) => trigger.label === "Decisive Strike - Bonus Damage").length, 1);
+});
+
+test("Jax Empower consumes on Leap Strike and only on a connected hit", () => {
+  const jax = snapshotChampion(24);
+  const target = champion(900, "Target");
+  const champions = new Map([[24, jax], [900, target]]);
+  const scenario = duel(24, 900);
+  scenario.attacker.abilityRanks.Q = 1;
+  scenario.attacker.abilityRanks.W = 1;
+  scenario.combo = [action("w", "ability", "W"), action("q", "ability", "Q", 0.1), action("attack", "attack", "AA", 0.1)];
+  const result = simulate(scenario, champions, new Map(), new Map());
+  assert.equal(result.steps[1].preMitigation.physical, 165);
+  assert.equal(result.steps[1].preMitigation.magic, 50);
+  assert.equal(result.steps[2].preMitigation.magic, 0);
+
+  const missed = structuredClone(scenario);
+  missed.combo[1].outcome = "miss";
+  const missedResult = simulate(missed, champions, new Map(), new Map());
+  assert.equal(missedResult.steps[1].preMitigation.total, 0);
+  assert.equal(missedResult.steps[2].preMitigation.magic, 50);
+});
+
+test("Crippling Strike shares the attack critical modifier while other bonus packets do not", () => {
+  const target = champion(900, "Target");
+  const darius = snapshotChampion(122);
+  const garen = snapshotChampion(86);
+  const blitzcrank = snapshotChampion(53);
+  const champions = new Map([[122, darius], [86, garen], [53, blitzcrank], [900, target]]);
+
+  const criticalDarius = duel(122, 900);
+  criticalDarius.attacker.abilityRanks.W = 1;
+  criticalDarius.attacker.overrides.critDamage = 200;
+  criticalDarius.combo = [action("w", "ability", "W"), { ...action("attack", "attack", "AA", 0.1), outcome: "crit" }];
+  assert.equal(simulate(criticalDarius, champions, new Map(), new Map()).steps[1].preMitigation.physical, 280);
+
+  criticalDarius.randomnessMode = "expected";
+  criticalDarius.attacker.overrides.critChance = 50;
+  assert.equal(simulate(criticalDarius, champions, new Map(), new Map()).steps[1].preMitigation.physical, 210);
+
+  const criticalGaren = duel(86, 900);
+  criticalGaren.attacker.abilityRanks.Q = 1;
+  criticalGaren.attacker.overrides.critDamage = 200;
+  criticalGaren.combo = [action("q", "ability", "Q"), { ...action("attack", "attack", "AA", 0.1), outcome: "crit" }];
+  assert.equal(simulate(criticalGaren, champions, new Map(), new Map()).steps[1].preMitigation.physical, 280);
+
+  const criticalBlitzcrank = duel(53, 900);
+  criticalBlitzcrank.attacker.abilityRanks.E = 1;
+  criticalBlitzcrank.attacker.overrides.critDamage = 200;
+  criticalBlitzcrank.combo = [action("e", "ability", "E"), { ...action("attack", "attack", "AA", 0.1), outcome: "crit" }];
+  assert.equal(simulate(criticalBlitzcrank, champions, new Map(), new Map()).steps[1].preMitigation.physical, 300);
+});
+
+test("Power Fist cooldown begins when its armed state resolves", () => {
+  const blitzcrank = snapshotChampion(53);
+  const target = champion(900, "Target");
+  const champions = new Map([[53, blitzcrank], [900, target]]);
+  const consumed = duel(53, 900);
+  consumed.attacker.abilityRanks.E = 1;
+  consumed.combo = [
+    action("e", "ability", "E"),
+    action("wait-before-hit", "wait", "WAIT", 4),
+    action("attack", "attack", "AA"),
+    action("wait-for-cooldown", "wait", "WAIT", 7),
+    action("e-ready", "ability", "E"),
+  ];
+  const consumedResult = simulate(consumed, champions, new Map(), new Map());
+  assert.equal(consumedResult.steps[4].warnings.some((warning) => warning.includes("before its modeled cooldown")), false);
+
+  const early = structuredClone(consumed);
+  early.combo[3].delay = 6.9;
+  const earlyResult = simulate(early, champions, new Map(), new Map());
+  assert.ok(earlyResult.steps[4].warnings.some((warning) => warning.includes("0.10 seconds before its modeled cooldown ended")));
+
+  const expired = duel(53, 900);
+  expired.attacker.abilityRanks.E = 1;
+  expired.combo = [action("e", "ability", "E"), action("expire", "wait", "WAIT", 5), action("cooldown", "wait", "WAIT", 7), action("e-ready", "ability", "E")];
+  const expiredResult = simulate(expired, champions, new Map(), new Map());
+  assert.ok(expiredResult.steps[1].triggers.some((trigger) => trigger.label === "Power Fist Expired"));
+  assert.equal(expiredResult.steps[3].warnings.some((warning) => warning.includes("before its modeled cooldown")), false);
+});
+
+test("empowered attack child packets expose their own mitigated damage", () => {
+  const leona = snapshotChampion(89);
+  const target = champion(900, "Target");
+  const scenario = duel(89, 900);
+  scenario.attacker.abilityRanks.Q = 1;
+  scenario.defender.overrides.armor = 100;
+  scenario.defender.overrides.magicResist = 100;
+  scenario.combo = [action("q", "ability", "Q"), action("attack", "attack", "AA", 0.1)];
+  const result = simulate(scenario, new Map([[89, leona], [900, target]]), new Map(), new Map());
+  assert.equal(result.steps[1].postMitigation.physical, 50);
+  assert.equal(result.steps[1].postMitigation.magic, 5);
+  const child = result.steps[1].triggers.find((trigger) => trigger.label === "Shield of Daybreak - Bonus Damage");
+  assert.equal(child?.preMitigation.magic, 10);
+  assert.equal(child?.postMitigation.magic, 5);
+});
+
 test("Vayne Tumble uses the selected rank, arms the next attack, and expires", () => {
   const vayne = snapshotChampion(67);
   const target = champion(900, "Target");

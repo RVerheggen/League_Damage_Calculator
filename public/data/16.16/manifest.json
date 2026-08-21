@@ -2,15 +2,15 @@
   "schemaVersion": 2,
   "patch": "16.16",
   "gameVersion": "16.16.8049184+branch.releases-16-16.content.release",
-  "generatedAt": "2026-08-20T22:42:43.583Z",
+  "generatedAt": "2026-08-21T21:56:30.059Z",
   "locale": "en_US",
   "championCount": 173,
   "itemCount": 222,
   "runeCount": 69,
   "spellCoverage": {
-    "partial": 549,
+    "partial": 544,
     "unsupported": 60,
-    "modeled": 12,
+    "modeled": 17,
     "out-of-scope": 71
   },
   "unsupportedSpells": [

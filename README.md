@@ -28,7 +28,7 @@ npm run data:sync
 
 The browser loads the champion index, item index, and rune index once. Full champion definitions are stored in separate files and loaded only for the selected attacker and target. Raw BIN files do not ship to the browser.
 
-Standard spell calculations are preserved as formula trees with complete rank arrays and base, bonus, or total stat scope. Abilities that still need deeper champion-specific interpretation are visibly marked as partially modeled or unsupported. Vayne, Olaf, Poppy, Taric, Dr. Mundo, Garen, and Ornn have reviewed effect modules for their listed reference mechanics. No effect is silently presented as fully modeled.
+Standard spell calculations are preserved as formula trees with complete rank arrays and base, bonus, or total stat scope. Abilities that still need deeper champion-specific interpretation are visibly marked as partially modeled or unsupported. Vayne, Olaf, Jax, Darius, Garen, Blitzcrank, Leona, Poppy, Taric, Dr. Mundo, and Ornn have reviewed effect modules for their listed reference mechanics. No effect is silently presented as fully modeled.
 
 ## Domain engine
 

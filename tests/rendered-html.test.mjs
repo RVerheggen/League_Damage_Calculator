@@ -67,11 +67,16 @@ test("combat-relevant effects are never mislabeled as irrelevant", async () => {
 });
 
 test("schema two snapshot preserves stateful reference modules and pinned sources", async () => {
-  const [current, manifest, vayne, olaf] = await Promise.all([
+  const [current, manifest, vayne, olaf, jax, darius, garen, blitzcrank, leona] = await Promise.all([
     readFile(new URL("../public/data/current.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/manifest.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/67.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/2.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/24.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/122.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/86.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/53.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/89.json", import.meta.url), "utf8").then(JSON.parse),
   ]);
   assert.equal(current.schemaVersion, 2);
   assert.equal(manifest.schemaVersion, 2);
@@ -90,6 +95,14 @@ test("schema two snapshot preserves stateful reference modules and pinned source
   assert.ok(condemn.actionParameters.some((parameter) => parameter.id === "wallCollision"));
   assert.ok(finalHour.effects.some((effect) => effect.kind === "stat-buff"));
   assert.ok(olaf.spells.find((spell) => spell.key === "R").effects.some((effect) => effect.id === "olaf-r-active"));
+  for (const [champion, key] of [[jax, "W"], [darius, "W"], [garen, "Q"], [blitzcrank, "E"], [leona, "Q"]]) {
+    const spell = champion.spells.find((candidate) => candidate.key === key);
+    assert.equal(spell.classification, "modeled");
+    assert.deepEqual(spell.baseDamage, [0, 0, 0, 0, 0]);
+    assert.ok(spell.effects.some((effect) => effect.kind === "next-attack" && effect.formula));
+  }
+  assert.equal(manifest.spellCoverage.modeled, 17);
+  assert.equal(manifest.spellCoverage.partial, 544);
 });
 
 test("item details are available in equipped builds and the item picker", async () => {

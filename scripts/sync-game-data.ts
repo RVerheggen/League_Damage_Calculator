@@ -494,6 +494,117 @@ function applyChampionSpellModule(alias: string, spell: any) {
       { id: "olaf-r-active", label: "Ragnarok Active", kind: "stat-buff", coverage: "modeled", description: "For 3 seconds, grants 10 / 20 / 30 plus 25% total attack damage. Basic attacks and Reckless Swing extend the duration by 2.5 seconds.", formulaLabel: "+10 / 20 / 30 + 25% total AD" },
       { id: "olaf-r-utility", label: "Crowd Control And Movement", kind: "utility", coverage: "out-of-scope", description: "Crowd-control immunity and movement speed do not change the supported damage result." },
     ]);
+  } else if (key === "Jax:W") {
+    spell.damageType = "magic";
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    modeled([
+      {
+        id: "jax-w-empower",
+        label: "Empowered Attack",
+        kind: "next-attack",
+        coverage: "modeled",
+        description: "For 10 seconds, the next successful basic attack or Leap Strike adds magic damage and consumes the buff.",
+        damageType: "magic",
+        formulaLabel: "50 / 85 / 120 / 155 / 190 + 60% AP",
+        formula: { type: "sum", nodes: [
+          { type: "ranked", values: [50, 85, 120, 155, 190] },
+          { type: "stat", key: "totalAbilityPower", coefficient: 0.6 },
+        ] },
+      },
+      { id: "jax-w-utility", label: "Attack Reset And Range", kind: "utility", coverage: "out-of-scope", description: "The attack reset and bonus range do not change a manually timed damage result." },
+    ]);
+  } else if (key === "Darius:W") {
+    spell.damageType = "physical";
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    modeled([
+      {
+        id: "darius-w-crippling-strike",
+        label: "Crippling Strike",
+        kind: "next-attack",
+        coverage: "modeled",
+        description: "For 4 seconds, the next successful basic attack deals rank-scaled total attack damage. Its bonus damage uses the attack's critical modifier.",
+        damageType: "physical",
+        formulaLabel: "+40 / 45 / 50 / 55 / 60% total AD, for 140 / 145 / 150 / 155 / 160% total AD before critical modifiers",
+        formula: { type: "product", nodes: [
+          { type: "ranked", values: [0.4, 0.45, 0.5, 0.55, 0.6] },
+          { type: "stat", key: "totalAttackDamage" },
+        ] },
+      },
+      { id: "darius-w-utility", label: "Slow And Kill Refund", kind: "utility", coverage: "out-of-scope", description: "The slow and post-kill mana and cooldown refund do not change the supported damage result against the same target." },
+    ]);
+  } else if (key === "Garen:Q") {
+    spell.damageType = "physical";
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    modeled([
+      {
+        id: "garen-q-decisive-strike",
+        label: "Decisive Strike",
+        kind: "next-attack",
+        coverage: "modeled",
+        description: "For 4.5 seconds, the next successful basic attack adds physical damage and consumes the buff. The bonus packet does not critically strike.",
+        damageType: "physical",
+        formulaLabel: "30 / 60 / 90 / 120 / 150 + 50% total AD",
+        formula: { type: "sum", nodes: [
+          { type: "ranked", values: [30, 60, 90, 120, 150] },
+          { type: "stat", key: "totalAttackDamage", coefficient: 0.5 },
+        ] },
+      },
+      { id: "garen-q-utility", label: "Movement And Silence", kind: "utility", coverage: "out-of-scope", description: "Slow cleansing, movement speed, the attack reset, and silence do not change a manually timed damage result." },
+    ]);
+  } else if (key === "Blitzcrank:E") {
+    spell.damageType = "physical";
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    modeled([
+      {
+        id: "blitzcrank-e-power-fist",
+        label: "Power Fist",
+        kind: "next-attack",
+        coverage: "modeled",
+        description: "For 5 seconds, the next successful basic attack adds physical damage and consumes the buff.",
+        damageType: "physical",
+        formulaLabel: "+100% total AD + 25% AP; the basic attack's separate 100% total AD can critically strike",
+        formula: { type: "sum", nodes: [
+          { type: "stat", key: "totalAttackDamage" },
+          { type: "stat", key: "totalAbilityPower", coefficient: 0.25 },
+        ] },
+      },
+      { id: "blitzcrank-e-cooldown", label: "Cooldown Timing", kind: "cooldown-modifier", coverage: "modeled", description: "The cooldown begins when Power Fist is consumed or when its 5-second armed state expires." },
+      { id: "blitzcrank-e-utility", label: "Knockup And Attack Reset", kind: "utility", coverage: "out-of-scope", description: "The knockup and attack reset do not change a manually timed damage result." },
+    ]);
+  } else if (key === "Leona:Q") {
+    spell.damageType = "magic";
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    modeled([
+      {
+        id: "leona-q-shield-of-daybreak",
+        label: "Shield Of Daybreak",
+        kind: "next-attack",
+        coverage: "modeled",
+        description: "For 6 seconds, the next successful basic attack adds magic damage and consumes the buff. The bonus packet does not critically strike.",
+        damageType: "magic",
+        formulaLabel: "10 / 35 / 60 / 85 / 110 + 30% AP",
+        formula: { type: "sum", nodes: [
+          { type: "ranked", values: [10, 35, 60, 85, 110] },
+          { type: "stat", key: "totalAbilityPower", coefficient: 0.3 },
+        ] },
+      },
+      { id: "leona-q-utility", label: "Stun And Attack Reset", kind: "utility", coverage: "out-of-scope", description: "The stun, bonus range, and attack reset do not change a manually timed damage result. Sunlight needs an ally to detonate and is outside one-on-one scope." },
+    ]);
   } else if (key === "Poppy:Q") {
     modeled(spell.effects ?? [], [{ id: "hitCount", type: "number", label: "Hits", defaultValue: 1, min: 1, max: 2, step: 1 }]);
   } else if (key === "Poppy:E") {
@@ -639,6 +750,12 @@ function validateSnapshot(champions: any[], items: any[], runes: any[]) {
   const vayneW = vayne?.spells.find((spell: any) => spell.key === "W");
   if (vayneQ?.scalings?.find((scaling: any) => scaling.stat === "attackDamage")?.values?.[4] !== 1.15) throw new Error("Vayne Tumble rank-five scaling was not preserved.");
   if (vayneQ?.baseDamage?.some(Boolean) || vayneW?.castable !== false) throw new Error("A stateful Vayne effect was represented as immediate cast damage.");
+  const empoweredAttackKeys = ["Jax:W", "Darius:W", "Garen:Q", "Blitzcrank:E", "Leona:Q"];
+  const malformedEmpoweredAttacks = champions.flatMap((champion) => champion.spells
+    .filter((spell: any) => empoweredAttackKeys.includes(`${champion.alias}:${spell.key}`))
+    .filter((spell: any) => spell.classification !== "modeled" || spell.baseDamage.some(Boolean) || !spell.effects.some((effect: any) => effect.kind === "next-attack" && effect.formula))
+    .map((spell: any) => `${champion.alias}:${spell.key}`));
+  if (malformedEmpoweredAttacks.length) throw new Error(`Empowered attacks must be modeled as structured next-attack state: ${malformedEmpoweredAttacks.join(", ")}`);
   if (items.find((item) => item.name === "Abyssal Mask")?.classification !== "modeled") throw new Error("Abyssal Mask must remain modeled.");
   if (runes.find((rune) => rune.name === "Conqueror")?.classification !== "modeled") throw new Error("Conqueror must remain modeled.");
   assertFiniteNumbers({ champions, items, runes });

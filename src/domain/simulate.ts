@@ -16,7 +16,14 @@ import {
 import { mitigateDamage } from "./mitigation";
 import { validateScenario } from "./scenario";
 import { resolveStats } from "./stats";
-import { championEffectModule, itemEffectModule, perkEffectModule } from "./effect-modules";
+import {
+  championEffectModule,
+  empoweredAttackDuration,
+  isEmpoweredAttackModule,
+  itemEffectModule,
+  perkEffectModule,
+  type EmpoweredAttackModuleId,
+} from "./effect-modules";
 import { evaluateFormula } from "./formula";
 
 type CombatState = {
@@ -32,6 +39,14 @@ type CombatState = {
   olafRagnarokExpiresAt: number;
   conquerorStacks: number;
   conquerorExpiresAt: number;
+  empoweredAttack: {
+    module: EmpoweredAttackModuleId;
+    spellKey: string;
+    label: string;
+    rank: number;
+    expiresAt: number;
+    cooldownDuration: number | null;
+  } | null;
   scheduledPackets: Array<{
     id: string;
     executeAt: number;
@@ -55,6 +70,7 @@ const createCombatState = (): CombatState => ({
   olafRagnarokExpiresAt: 0,
   conquerorStacks: 0,
   conquerorExpiresAt: 0,
+  empoweredAttack: null,
   scheduledPackets: [],
 });
 
@@ -125,6 +141,80 @@ function expireTimedState(state: CombatState, timestamp: number, triggers: StepT
     state.conquerorStacks = 0;
     triggers.push(stateTrigger("Conqueror Expired", "All adaptive force stacks expired.", "rune"));
   }
+  if (state.empoweredAttack && timestamp >= state.empoweredAttack.expiresAt) {
+    triggers.push(stateTrigger(`${state.empoweredAttack.label} Expired`, "The empowered-attack state ended before a successful attack consumed it."));
+    state.empoweredAttack = null;
+  }
+}
+
+function effectFormulaContext(
+  attacker: ResolvedStats,
+  defender: ResolvedStats,
+  targetCurrentHealth: number,
+  rank: number,
+  championLevel: number,
+) {
+  return {
+    spellRank: rank,
+    championLevel,
+    effects: {},
+    named: {},
+    stats: {
+      baseAttackDamage: attacker.baseAttackDamage,
+      bonusAttackDamage: attacker.bonusAttackDamage,
+      totalAttackDamage: attacker.attackDamage,
+      baseAbilityPower: 0,
+      bonusAbilityPower: attacker.abilityPower,
+      totalAbilityPower: attacker.abilityPower,
+      baseArmor: attacker.baseArmor ?? attacker.armor,
+      bonusArmor: attacker.bonusArmor ?? 0,
+      totalArmor: attacker.armor,
+      baseMagicResist: attacker.baseMagicResist ?? attacker.magicResist,
+      bonusMagicResist: attacker.bonusMagicResist ?? 0,
+      totalMagicResist: attacker.magicResist,
+    },
+    targetStats: {
+      currentHealth: targetCurrentHealth,
+      maxHealth: defender.maxHealth,
+      missingHealth: Math.max(0, defender.maxHealth - targetCurrentHealth),
+    },
+    conditions: {},
+  };
+}
+
+function consumeEmpoweredAttack(
+  champion: ChampionDefinition,
+  attacker: ResolvedStats,
+  defender: ResolvedStats,
+  targetCurrentHealth: number,
+  championLevel: number,
+  state: CombatState,
+  triggers: StepTrigger[],
+  timestamp: number,
+  criticalMultiplier = 1,
+) {
+  const armed = state.empoweredAttack;
+  if (!armed) return emptyDamage();
+  const spell = champion.spells.find((candidate) => candidate.key === armed.spellKey);
+  const effect = spell?.effects?.find((candidate) => candidate.kind === "next-attack" && candidate.formula && candidate.damageType);
+  if (!effect?.formula || !effect.damageType) return emptyDamage();
+  let amount = evaluateFormula(effect.formula, effectFormulaContext(attacker, defender, targetCurrentHealth, armed.rank, championLevel));
+  if (armed.module === "darius-crippling-strike") amount *= criticalMultiplier;
+  const raw = packet(effect.damageType, amount);
+  if (armed.cooldownDuration !== null) {
+    state.cooldownReadyAt[armed.spellKey] = timestamp + armed.cooldownDuration;
+  }
+  state.empoweredAttack = null;
+  triggers.push({
+    source: "champion",
+    label: `${armed.label} - Bonus Damage`,
+    kind: "damage",
+    preMitigation: raw,
+    postMitigation: emptyDamage(),
+    note: effect.formulaLabel,
+  });
+  triggers.push(stateTrigger(`${armed.label} Consumed`, "The next successful qualifying hit consumed the armed state."));
+  return raw;
 }
 
 function dynamicAttackerStats(
@@ -438,16 +528,33 @@ export function simulate(
         attackCountAdvanced = true;
         hitCountAdvanced = true;
         let attackDamage = attacker.attackDamage;
+        let attackCriticalMultiplier = 1;
         if (scenario.randomnessMode === "expected") {
-          attackDamage *= 1 + (Math.max(0, Math.min(100, attacker.critChance)) / 100) * (attacker.critDamage / 100 - 1);
+          attackCriticalMultiplier = 1 + (Math.max(0, Math.min(100, attacker.critChance)) / 100) * (attacker.critDamage / 100 - 1);
+          attackDamage *= attackCriticalMultiplier;
           formula = `Total AD weighted by ${attacker.critChance.toFixed(1)}% critical chance.`;
         } else if (action.outcome === "crit") {
-          attackDamage *= attacker.critDamage / 100;
+          attackCriticalMultiplier = attacker.critDamage / 100;
+          attackDamage *= attackCriticalMultiplier;
           formula = `Total AD x ${attacker.critDamage.toFixed(0)}% selected critical strike.`;
         } else {
           formula = "One basic attack using current total AD.";
         }
         pre = packet("physical", attackDamage);
+
+        if (state.empoweredAttack) {
+          pre = addDamage(pre, consumeEmpoweredAttack(
+            attackerChampion,
+            attacker,
+            defender,
+            health,
+            scenario.attacker.level,
+            state,
+            triggers,
+            timestamp,
+            attackCriticalMultiplier,
+          ));
+        }
 
         if (championEffectModule(attackerChampion.id, "Q") === "vayne-tumble" && state.vayneTumbleExpiresAt > timestamp) {
           const rank = Math.max(1, scenario.attacker.abilityRanks.Q ?? 1);
@@ -518,6 +625,20 @@ export function simulate(
           state.olafRagnarokExpiresAt = timestamp + 3;
           formula = `Applied Ragnarok's three-second attack damage buff.`;
           triggers.push(stateTrigger("Ragnarok", `Granted ${rankValue([10, 20, 30], rank)} + 25% current total AD as attack damage. Crowd control immunity and movement speed are outside damage scope.`));
+        } else if (isEmpoweredAttackModule(module)) {
+          const duration = empoweredAttackDuration(module);
+          const cooldownStartsOnConsumption = module === "blitzcrank-power-fist";
+          state.empoweredAttack = {
+            module,
+            spellKey,
+            label: castSpell.name,
+            rank,
+            expiresAt: timestamp + duration,
+            cooldownDuration: cooldownStartsOnConsumption ? cooldown : null,
+          };
+          if (cooldownStartsOnConsumption) state.cooldownReadyAt[spellKey] = timestamp + duration + cooldown;
+          formula = `Armed ${castSpell.name} for ${duration} seconds. The cast deals no immediate damage.`;
+          triggers.push(stateTrigger(`${castSpell.name} Armed`, `The next successful qualifying hit before ${duration} seconds adds the reviewed damage packet.${cooldownStartsOnConsumption ? " Cooldown starts when the attack consumes the buff or when the buff expires." : ""}`));
         } else if (module === "vayne-condemn") {
           connectedDamagingAbility = action.outcome !== "miss";
           if (connectedDamagingAbility) {
@@ -567,6 +688,23 @@ export function simulate(
             connectedDamagingAbility = pre.total > 0;
             if (castSpell.classification !== "modeled") stepWarnings.push(castSpell.coverageNote);
           }
+        }
+
+        if (
+          connectedDamagingAbility
+          && action.key === "Q"
+          && state.empoweredAttack?.module === "jax-empower"
+        ) {
+          pre = addDamage(pre, consumeEmpoweredAttack(
+            attackerChampion,
+            attacker,
+            defender,
+            health,
+            scenario.attacker.level,
+            state,
+            triggers,
+            timestamp,
+          ));
         }
 
         if (connectedDamagingAbility) {

@@ -20,8 +20,17 @@ This file is the durable source for combat effects that still need an engine mod
 - Olaf Ragnarok: passive defenses, dynamic active AD, timed expiry, and Attack or Reckless Swing extensions.
 - Abyssal Mask Unmake: contextual range input and magic-only incoming damage amplification.
 - Conqueror: melee and ranged stack rules, adaptive force, cap, later-action stat recalculation, and expiry. Healing remains visibly outside healing-analysis scope.
+- Single-use empowered attacks: Jax Empower, Darius Crippling Strike, Garen Decisive Strike, Blitzcrank Power Fist, and Leona Shield of Daybreak now arm timed state, survive misses, consume on a successful hit, expire, and emit nested damage and state traces. Jax Empower also consumes on Leap Strike, and Crippling Strike applies the attack's critical modifier to its bonus damage.
+
+The generated spell report now contains 17 Modeled, 544 Partially Modeled, 60 Unsupported, and 71 Out Of Scope abilities. Item and rune gaps remain tracked separately in the manifest.
 
 ## Priority work
+
+### P0: remaining champion buffs and on-hit passives
+
+- Timed on-hit buffs: Kog'Maw Bio-Arcane Barrage, Gwen Skip 'n Slash, and Fizz Seastone Trident.
+- Multi-attack states: Shen Twilight Assault, Kled Violent Tendencies, Draven Spinning Axe, and Malphite Thunderclap.
+- Conditional empowered attacks: Camille Precision Protocol, Renekton Ruthless Predator, Nasus Siphoning Strike, Trundle Chomp, and Wukong Crushing Blow.
 
 ### P0: remaining stacking offensive stats
 

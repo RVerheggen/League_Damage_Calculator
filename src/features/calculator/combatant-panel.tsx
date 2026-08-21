@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type {
   ChampionDefinition,
@@ -19,6 +20,7 @@ import type {
   RuneStyleDefinition,
   StatOverrides,
 } from "@/src/domain/model";
+import { itemEffectModule } from "@/src/domain/effect-modules";
 import type { ChampionSummary } from "./use-game-data";
 import { AbilityDetailsTooltipContent } from "./ability-details-tooltip";
 import { PickerDialog } from "./picker-dialog";
@@ -218,6 +220,20 @@ export function CombatantPanel({
           </div>
           {selectedItems.length > 0 && (
             <div className="mt-2 flex justify-end"><Button variant="ghost" size="xs" onClick={() => onChange({ ...config, itemIds: [] })}><RotateCcw /> Clear Build</Button></div>
+          )}
+          {selectedItems.some((item) => itemEffectModule(item.id) === "abyssal-mask-unmake") && (
+            <div className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-primary/20 bg-primary/5 px-3 py-2 text-xs">
+              <span>
+                <strong className="block text-foreground">Unmake Aura</strong>
+                <span className="text-muted-foreground">Opponent Within 700 Range</span>
+              </span>
+              <Switch
+                size="sm"
+                aria-label="Opponent Within 700 Range"
+                checked={Boolean(config.conditions?.abyssalMaskInRange)}
+                onCheckedChange={(abyssalMaskInRange) => onChange({ ...config, conditions: { ...config.conditions, abyssalMaskInRange } })}
+              />
+            </div>
           )}
         </div>
 

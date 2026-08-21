@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import type { ChampionDefinition, ComboAction } from "@/src/domain/model";
+import type { ActionParameterDefinition, ChampionDefinition, ComboAction } from "@/src/domain/model";
 import { getActionControls } from "./action-controls";
 import { action as createAction } from "./defaults";
 
@@ -18,6 +18,12 @@ function actionName(action: ComboAction, champion: ChampionDefinition | null) {
   if (action.kind === "wait") return "Wait";
   return champion?.spells.find((spell) => spell.key === action.key)?.name ?? action.key;
 }
+
+const fallbackParameterDefinitions: Record<string, ActionParameterDefinition> = {
+  hitCount: { id: "hitCount", type: "number", label: "Hits", defaultValue: 1, min: 1, max: 2, step: 1 },
+  wallCollision: { id: "wallCollision", type: "boolean", label: "Hits Terrain", defaultValue: false },
+  chargePercent: { id: "chargePercent", type: "number", label: "Charge", defaultValue: 0, min: 0, max: 100, step: 5 },
+};
 
 export function ComboBuilder({
   combo,
@@ -62,7 +68,7 @@ export function ComboBuilder({
           </div>
           <div className="flex flex-wrap gap-1.5">
             <Button size="sm" variant="outline" onClick={() => add("attack", "AA")}><Plus /> AA</Button>
-            {champion?.spells.slice(0, 4).map((spell) => (
+            {champion?.spells.slice(0, 4).filter((spell) => spell.castable !== false).map((spell) => (
               <Button key={spell.key} size="sm" variant="outline" onClick={() => add("ability", spell.key)}><Plus /> {spell.key}</Button>
             ))}
             {champion?.alias === "Poppy" && <Button size="sm" variant="outline" onClick={() => onChange([...combo, { ...createAction("ability", "Q2", 1), label: "Hammer Shock Detonation" }])}><Plus /> Q2</Button>}
@@ -75,6 +81,11 @@ export function ComboBuilder({
           {combo.length === 0 && <div className="p-10 text-center text-sm text-muted-foreground">Add an attack, ability, or wait action to begin the trace.</div>}
           {combo.map((entry, index) => {
             const controls = new Set(getActionControls(champion, entry));
+            const spellKey = entry.key === "Q2" ? "Q" : entry.key;
+            const spellParameters = champion?.spells.find((spell) => spell.key === spellKey)?.actionParameters;
+            const parameterDefinitions = spellParameters?.length
+              ? spellParameters.filter((parameter) => controls.has(parameter.id))
+              : [...controls].map((control) => fallbackParameterDefinitions[control]).filter(Boolean);
             return (
             <div
               key={entry.id}
@@ -121,15 +132,44 @@ export function ComboBuilder({
                       <SelectContent><SelectItem value="normal">Normal</SelectItem><SelectItem value="crit">Crit</SelectItem><SelectItem value="miss">Miss</SelectItem></SelectContent>
                     </Select>
                   )}
-                  {controls.has("hitCount") && (
-                    <div className="flex items-center gap-1">Hits <Input aria-label="Ability Hit Count" type="number" min={1} max={2} value={entry.parameters.hitCount ?? 1} onChange={(event) => update(entry.id, { parameters: { ...entry.parameters, hitCount: Math.max(1, Math.min(2, Number(event.target.value) || 1)) } })} className="h-6 w-12 px-1 text-[10px]" /></div>
-                  )}
-                  {controls.has("wallCollision") && (
-                    <div className="flex items-center gap-1.5"><Switch size="sm" aria-label="Terrain Collision" checked={entry.parameters.wallCollision ?? false} onCheckedChange={(checked) => update(entry.id, { parameters: { ...entry.parameters, wallCollision: checked } })} /> Wall</div>
-                  )}
-                  {controls.has("chargePercent") && (
-                    <div className="flex items-center gap-1">Charge <Input aria-label="Charge Percentage" type="number" min={0} max={100} value={entry.parameters.chargePercent ?? 0} onChange={(event) => update(entry.id, { parameters: { ...entry.parameters, chargePercent: Number(event.target.value) } })} className="h-6 w-14 px-1 text-[10px]" />%</div>
-                  )}
+                  {parameterDefinitions.map((parameter) => {
+                    const value = entry.parameters[parameter.id] ?? parameter.defaultValue;
+                    if (parameter.type === "boolean") {
+                      return <div key={parameter.id} className="flex items-center gap-1.5"><Switch size="sm" aria-label={parameter.label} checked={Boolean(value)} onCheckedChange={(checked) => update(entry.id, { parameters: { ...entry.parameters, [parameter.id]: checked } })} /> {parameter.label}</div>;
+                    }
+                    if (parameter.type === "select") {
+                      return (
+                        <div key={parameter.id} className="flex items-center gap-1">
+                          {parameter.label}
+                          <Select value={String(value)} onValueChange={(selected) => update(entry.id, { parameters: { ...entry.parameters, [parameter.id]: selected ?? String(parameter.defaultValue) } })}>
+                            <SelectTrigger size="sm" className="h-6 w-24 text-[10px]"><SelectValue /></SelectTrigger>
+                            <SelectContent>{parameter.options?.map((option) => <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>)}</SelectContent>
+                          </Select>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div key={parameter.id} className="flex items-center gap-1">
+                        {parameter.label}
+                        <Input
+                          aria-label={parameter.label}
+                          type="number"
+                          min={parameter.min}
+                          max={parameter.max}
+                          step={parameter.step}
+                          value={Number(value)}
+                          onChange={(event) => {
+                            const numeric = Number(event.target.value);
+                            const minimum = parameter.min ?? Number.NEGATIVE_INFINITY;
+                            const maximum = parameter.max ?? Number.POSITIVE_INFINITY;
+                            update(entry.id, { parameters: { ...entry.parameters, [parameter.id]: Math.max(minimum, Math.min(maximum, Number.isFinite(numeric) ? numeric : Number(parameter.defaultValue))) } });
+                          }}
+                          className="h-6 w-14 px-1 text-[10px]"
+                        />
+                        {parameter.id === "chargePercent" ? "%" : null}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               <Switch checked={entry.enabled} onCheckedChange={(checked) => update(entry.id, { enabled: checked })} aria-label={`Enable action ${index + 1}`} />

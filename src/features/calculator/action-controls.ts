@@ -1,6 +1,6 @@
 import type { ChampionDefinition, ComboAction } from "@/src/domain/model";
 
-export type ActionControl = "hitCount" | "wallCollision" | "chargePercent";
+export type ActionControl = string;
 
 const championActionControls: Record<string, Partial<Record<string, ActionControl[]>>> = {
   Poppy: {
@@ -12,11 +12,14 @@ const championActionControls: Record<string, Partial<Record<string, ActionContro
 
 export function getActionControls(champion: ChampionDefinition | null, action: ComboAction): ActionControl[] {
   if (!champion || action.kind !== "ability") return [];
+  const spellKey = action.key === "Q2" ? "Q" : action.key;
+  const spell = champion.spells.find((candidate) => candidate.key === spellKey);
+  if (spell?.actionParameters?.length) return spell.actionParameters.map((parameter) => parameter.id);
   return championActionControls[champion.alias]?.[action.key] ?? [];
 }
 
 export function sanitizeComboForChampion(combo: ComboAction[], champion: ChampionDefinition): ComboAction[] {
-  const allowedAbilityKeys = new Set(champion.spells.map((spell) => spell.key));
+  const allowedAbilityKeys = new Set(champion.spells.filter((spell) => spell.castable !== false).map((spell) => spell.key));
   if (champion.alias === "Poppy") allowedAbilityKeys.add("Q2");
 
   return combo
@@ -26,9 +29,9 @@ export function sanitizeComboForChampion(combo: ComboAction[], champion: Champio
 
       const controls = new Set(getActionControls(champion, entry));
       const parameters: ComboAction["parameters"] = {};
-      if (controls.has("hitCount") && entry.parameters.hitCount !== undefined) parameters.hitCount = entry.parameters.hitCount;
-      if (controls.has("wallCollision") && entry.parameters.wallCollision !== undefined) parameters.wallCollision = entry.parameters.wallCollision;
-      if (controls.has("chargePercent") && entry.parameters.chargePercent !== undefined) parameters.chargePercent = entry.parameters.chargePercent;
+      for (const control of controls) {
+        if (entry.parameters[control] !== undefined) parameters[control] = entry.parameters[control];
+      }
 
       return {
         ...entry,

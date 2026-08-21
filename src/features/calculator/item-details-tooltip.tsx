@@ -7,11 +7,24 @@ type TooltipSide = "top" | "right" | "bottom" | "left";
 
 const coverageCopy: Record<ItemDefinition["classification"], string> = {
   modeled: "Stats and the combat effect are included in the simulation.",
+  partial: "The listed combat effect is only partially modeled. Omitted behavior is reported in results.",
+  "out-of-scope": "The effect does not change the supported one-on-one damage result.",
   estimated: "The combat effect uses a documented calculation assumption.",
   "non-damaging": "The item does not create a damage packet.",
   unsupported: "Stats are applied. The active or passive is visible but not simulated yet.",
   "stat-only": "Structured stats are applied. No separate duel effect is required.",
   irrelevant: "This effect does not change the supported duel calculation.",
+};
+
+const coverageLabel: Record<ItemDefinition["classification"], string> = {
+  modeled: "Modeled",
+  partial: "Partially Modeled",
+  "out-of-scope": "Out Of Scope",
+  estimated: "Partially Modeled",
+  "non-damaging": "No Direct Damage",
+  unsupported: "Unsupported",
+  "stat-only": "Stat-Only",
+  irrelevant: "Out Of Scope",
 };
 
 const structuredStatLabels: Array<[keyof ItemDefinition["stats"], string, string]> = [
@@ -62,7 +75,7 @@ export function ItemDetailsTooltipContent({
           </span>
         </span>
         <span className="rounded-full border border-primary/25 bg-primary/8 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.1em] text-primary">
-          {item.classification}
+          {coverageLabel[item.classification]}
         </span>
       </div>
 
@@ -90,7 +103,7 @@ export function ItemDetailsTooltipContent({
         </section>
 
         <p className="border-t border-border/70 pt-2 text-[10px] leading-4 text-muted-foreground">
-          {coverageCopy[item.classification]}
+          {coverageCopy[item.classification]} {item.coverageNote}
         </p>
       </div>
     </TooltipContent>

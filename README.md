@@ -9,7 +9,7 @@ The application is a free fan project. It is not endorsed by Riot Games. League 
 - Every live Summoner's Rift champion can be selected as attacker or target.
 - Champion stats follow the nonlinear level growth curve.
 - Builds support six version-matched Summoner's Rift items.
-- Rune effects are visibly classified as modeled, stat-only, irrelevant, or unsupported.
+- Rune effects are visibly classified as modeled, partially modeled, stat-only, out of scope, or unsupported.
 - Absolute overrides are applied after champion, item, and rune-derived stats.
 - Combo actions support attacks, Q, W, E, R, waits, delays, deterministic crits, selected hit counts, terrain collisions, and charge percentages.
 - The engine separates physical, magic, and true damage before and after mitigation.
@@ -24,11 +24,11 @@ Run the data sync with Node.js 22 or later:
 npm run data:sync
 ```
 
-`scripts/sync-game-data.ts` resolves the numbered live patch from CommunityDragon, downloads champion summaries, champion details, champion BIN records, items, perks, perk styles, and version-matched Riot static indexes. It writes normalized immutable data to `public/data/<patch>/` and records source URLs plus SHA-256 hashes in the patch manifest.
+`scripts/sync-game-data.ts` resolves the numbered live patch from CommunityDragon, then pins every champion, item, perk, localized string, and asset request to that numbered patch. It downloads champion BIN records, the item BIN, the perk BIN, and version-matched Riot static indexes. It writes normalized immutable schema-version-2 data to `public/data/<patch>/` and records source URLs, SHA-256 hashes, BIN inspection counts, unresolved non-primary structures, and validation gates in the patch manifest.
 
 The browser loads the champion index, item index, and rune index once. Full champion definitions are stored in separate files and loaded only for the selected attacker and target. Raw BIN files do not ship to the browser.
 
-Standard spells are resolved from CommunityDragon base values and primary coefficients. Poppy and Taric have explicit override formulas for their relevant multi-part mechanics. Imported spells that need deeper champion-specific interpretation remain visibly marked as estimated. No effect is silently presented as fully modeled.
+Standard spell calculations are preserved as formula trees with complete rank arrays and base, bonus, or total stat scope. Abilities that still need deeper champion-specific interpretation are visibly marked as partially modeled or unsupported. Vayne, Olaf, Poppy, Taric, Dr. Mundo, Garen, and Ornn have reviewed effect modules for their listed reference mechanics. No effect is silently presented as fully modeled.
 
 ## Domain engine
 
@@ -38,8 +38,9 @@ The pure modules under `src/domain` provide:
 - Nonlinear champion stat growth and item aggregation.
 - Manual override precedence with total AD and bonus AD consistency.
 - Flat and percentage resistance reduction, percentage penetration, flat penetration, lethality, and positive or negative resistance formulas.
-- Stateful simulation for delays, shields, health, crit modes, lethal stopping, spellblade, common on-hit items, and common damage runes.
-- Versioned scenario serialization for autosave and share links.
+- A stable-ID effect module registry for champion spells, items, and perks.
+- Stateful simulation for timed buffs, per-target stacks, cooldowns, delayed packets, shields, health, crit modes, lethal stopping, spellblade, common on-hit items, and common damage runes.
+- Versioned scenario schema 1 serialization for existing autosave and share links, independent of snapshot schema version 2.
 
 ## Development
 

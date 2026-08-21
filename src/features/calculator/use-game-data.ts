@@ -16,6 +16,10 @@ export type SnapshotManifest = {
   unsupportedSpells: Array<{ champion: string; key: string; name: string; note: string }>;
   itemCoverage: Record<string, number>;
   runeCoverage: Record<string, number>;
+  unknownCalculationParts: Record<string, number>;
+  unknownPrimaryCalculationParts: Record<string, number>;
+  binInspection: { itemEntryCount: number; perkEntryCount: number; localizedStringCount: number };
+  validation: { finiteNumbers: boolean; rankArraysPreserved: boolean; legacyEstimatedStates: number; reviewedCoverageReasons: boolean; unknownRequiredCalculationParts: number };
 };
 
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;

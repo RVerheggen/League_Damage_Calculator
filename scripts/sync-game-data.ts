@@ -4,9 +4,9 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const CDRAGON = "https://raw.communitydragon.org";
-const CDRAGON_GAME_DATA =
+let cdragonGameData =
   `${CDRAGON}/latest/plugins/rcp-be-lol-game-data/global/default/v1`;
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
 let resolvedAssetPatch = "latest";
 
 type Json = Record<string, unknown> | unknown[];
@@ -74,12 +74,61 @@ function damageType(description: string) {
 
 type ResolvedBinFormula = {
   baseDamage: number[];
-  ratioAD: number;
-  ratioAP: number;
-  ratioArmor: number;
-  ratioMagicResist: number;
+  attackDamage: ScopedRankedValues;
+  abilityPower: ScopedRankedValues;
+  armor: ScopedRankedValues;
+  magicResist: ScopedRankedValues;
   unsupportedParts: string[];
 };
+
+type ScopedRankedValues = {
+  base: number[];
+  bonus: number[];
+  total: number[];
+};
+
+type SerializedFormulaNode =
+  | { type: "literal"; value: number }
+  | { type: "ranked"; values: number[] }
+  | { type: "level-interpolation"; start: number; end: number }
+  | { type: "ranked-level-interpolation"; starts: number[]; ends: number[] }
+  | { type: "level-table"; values: number[] }
+  | { type: "level-breakpoints"; base: number; initialPerLevel: number; breakpoints: Array<{ level: number; perLevel: number }> }
+  | { type: "stat"; key: string; coefficient?: number }
+  | { type: "counter"; key: string; coefficient?: number }
+  | { type: "sum" | "product" | "min" | "max"; nodes: SerializedFormulaNode[] }
+  | { type: "clamp"; node: SerializedFormulaNode; min: number; max: number }
+  | { type: "conditional"; condition: string; whenTrue: SerializedFormulaNode; whenFalse: SerializedFormulaNode };
+
+type ParsedBinCalculation = {
+  formula: SerializedFormulaNode;
+  displayAsPercent: boolean;
+  unresolvedParts: string[];
+};
+
+const unknownCalculationExamples = new Map<string, unknown>();
+
+const five = (value = 0) => Array(5).fill(value) as number[];
+
+function addRanked(left: number[], right: number[]) {
+  return Array.from({ length: 5 }, (_, index) =>
+    (left[index] ?? left.at(-1) ?? 0) + (right[index] ?? right.at(-1) ?? 0));
+}
+
+const scoped = (): ScopedRankedValues => ({ base: five(), bonus: five(), total: five() });
+
+function addScoped(left: ScopedRankedValues, right: ScopedRankedValues): ScopedRankedValues {
+  return {
+    base: addRanked(left.base, right.base),
+    bonus: addRanked(left.bonus, right.bonus),
+    total: addRanked(left.total, right.total),
+  };
+}
+
+function multiplyScoped(values: ScopedRankedValues, multiplier: number[]): ScopedRankedValues {
+  const multiply = (ranked: number[]) => ranked.map((value, index) => value * (multiplier[index] ?? multiplier.at(-1) ?? 1));
+  return { base: multiply(values.base), bonus: multiply(values.bonus), total: multiply(values.total) };
+}
 
 function rankedBinValues(values: unknown): number[] {
   if (!Array.isArray(values)) return [0, 0, 0, 0, 0];
@@ -91,22 +140,21 @@ function rankedBinValues(values: unknown): number[] {
 function addFormula(left: ResolvedBinFormula, right: ResolvedBinFormula): ResolvedBinFormula {
   return {
     baseDamage: Array.from({ length: 5 }, (_, index) => (left.baseDamage[index] ?? left.baseDamage.at(-1) ?? 0) + (right.baseDamage[index] ?? right.baseDamage.at(-1) ?? 0)),
-    ratioAD: left.ratioAD + right.ratioAD,
-    ratioAP: left.ratioAP + right.ratioAP,
-    ratioArmor: left.ratioArmor + right.ratioArmor,
-    ratioMagicResist: left.ratioMagicResist + right.ratioMagicResist,
+    attackDamage: addScoped(left.attackDamage, right.attackDamage),
+    abilityPower: addScoped(left.abilityPower, right.abilityPower),
+    armor: addScoped(left.armor, right.armor),
+    magicResist: addScoped(left.magicResist, right.magicResist),
     unsupportedParts: [...left.unsupportedParts, ...right.unsupportedParts],
   };
 }
 
 function multiplyFormula(formula: ResolvedBinFormula, multiplier: number[]): ResolvedBinFormula {
-  const scalar = multiplier[0] ?? 1;
   return {
-    baseDamage: formula.baseDamage.map((value, index) => value * (multiplier[index] ?? multiplier.at(-1) ?? scalar)),
-    ratioAD: formula.ratioAD * scalar,
-    ratioAP: formula.ratioAP * scalar,
-    ratioArmor: formula.ratioArmor * scalar,
-    ratioMagicResist: formula.ratioMagicResist * scalar,
+    baseDamage: formula.baseDamage.map((value, index) => value * (multiplier[index] ?? multiplier.at(-1) ?? 1)),
+    attackDamage: multiplyScoped(formula.attackDamage, multiplier),
+    abilityPower: multiplyScoped(formula.abilityPower, multiplier),
+    armor: multiplyScoped(formula.armor, multiplier),
+    magicResist: multiplyScoped(formula.magicResist, multiplier),
     unsupportedParts: formula.unsupportedParts,
   };
 }
@@ -119,14 +167,17 @@ function resolveBinCalculation(name: string, spellData: any, seen = new Set<stri
   const calculation = entry[1];
   const dataValues = new Map<string, number[]>((spellData?.DataValues ?? []).map((value: any) => [String(value.name).toLowerCase(), rankedBinValues(value.values)]));
   const effects = (spellData?.mEffectAmount ?? []).map((effect: any) => rankedBinValues(effect.value));
-  const zero = (): ResolvedBinFormula => ({ baseDamage: [0, 0, 0, 0, 0], ratioAD: 0, ratioAP: 0, ratioArmor: 0, ratioMagicResist: 0, unsupportedParts: [] });
+  const zero = (): ResolvedBinFormula => ({ baseDamage: five(), attackDamage: scoped(), abilityPower: scoped(), armor: scoped(), magicResist: scoped(), unsupportedParts: [] });
 
-  const statRatio = (part: any, coefficient: number): ResolvedBinFormula => {
+  const statRatio = (part: any, coefficient: number[]): ResolvedBinFormula => {
     const stat = Number(part.mStat ?? 0);
-    if (stat === 2) return { ...zero(), ratioAD: coefficient };
-    if (stat === 1) return { ...zero(), ratioArmor: coefficient };
-    if (stat === 6) return { ...zero(), ratioMagicResist: coefficient };
-    if (stat === 0) return { ...zero(), ratioAP: coefficient };
+    const formula = Number(part.mStatFormula ?? 2);
+    const scope = formula === 0 ? "base" : formula === 1 ? "bonus" : formula === 2 ? "total" : null;
+    if (!scope) return { ...zero(), unsupportedParts: [`StatFormula:${formula}`] };
+    if (stat === 2) return { ...zero(), attackDamage: { ...scoped(), [scope]: coefficient } };
+    if (stat === 1) return { ...zero(), armor: { ...scoped(), [scope]: coefficient } };
+    if (stat === 6) return { ...zero(), magicResist: { ...scoped(), [scope]: coefficient } };
+    if (stat === 0) return { ...zero(), abilityPower: { ...scoped(), [scope]: coefficient } };
     return { ...zero(), unsupportedParts: [`ChampionStat:${stat}`] };
   };
 
@@ -137,11 +188,11 @@ function resolveBinCalculation(name: string, spellData: any, seen = new Set<stri
     if (type === "NamedDataValueCalculationPart") return { ...zero(), baseDamage: dataValues.get(String(part.mDataValue).toLowerCase()) ?? [0, 0, 0, 0, 0] };
     if (type === "EffectValueCalculationPart") return { ...zero(), baseDamage: effects[Math.max(0, Number(part.mEffectIndex ?? 1) - 1)] ?? [0, 0, 0, 0, 0] };
     if (type === "StatByCoefficientCalculationPart") {
-      const coefficient = Number(part.mCoefficient ?? 0);
+      const coefficient = five(Number(part.mCoefficient ?? 0));
       return statRatio(part, coefficient);
     }
     if (type === "StatByNamedDataValueCalculationPart") {
-      const coefficient = dataValues.get(String(part.mDataValue).toLowerCase())?.[0] ?? 0;
+      const coefficient = dataValues.get(String(part.mDataValue).toLowerCase()) ?? five();
       return statRatio(part, coefficient);
     }
     return { ...zero(), unsupportedParts: [type] };
@@ -169,6 +220,119 @@ function resolveBinCalculation(name: string, spellData: any, seen = new Set<stri
   return resolved;
 }
 
+function parseBinCalculation(name: string, spellData: any, seen = new Set<string>()): ParsedBinCalculation | null {
+  const calculations = spellData?.mSpellCalculations ?? {};
+  const entry = Object.entries<any>(calculations).find(([key]) => key.toLowerCase() === name.toLowerCase());
+  if (!entry || seen.has(entry[0])) return null;
+  seen.add(entry[0]);
+  const calculation = entry[1];
+  const dataValues = new Map<string, number[]>((spellData?.DataValues ?? []).map((value: any) => [String(value.name).toLowerCase(), rankedBinValues(value.values)]));
+  const effects = (spellData?.mEffectAmount ?? []).map((effect: any) => rankedBinValues(effect.value));
+  const unresolvedParts: string[] = [];
+  const statKey = (part: any) => {
+    const stat = Number(part.mStat ?? 0);
+    const statName = stat === 2 ? "attackDamage" : stat === 1 ? "armor" : stat === 6 ? "magicResist" : stat === 0 ? "abilityPower" : `unknownStat${stat}`;
+    const rawFormula = Number(part.mStatFormula ?? 2);
+    const scope = rawFormula === 0 ? "base" : rawFormula === 1 ? "bonus" : rawFormula === 2 ? "total" : `unknownFormula${rawFormula}`;
+    if (scope.startsWith("unknown")) unresolvedParts.push(`StatFormula:${rawFormula}`);
+    return `${scope}${statName.charAt(0).toUpperCase()}${statName.slice(1)}`;
+  };
+  const parsePart = (part: any): SerializedFormulaNode => {
+    if (!part || typeof part !== "object") return { type: "literal", value: 0 };
+    const type = String(part.__type ?? "UnknownCalculationPart");
+    if (type === "NumberCalculationPart") return { type: "literal", value: Number(part.mNumber ?? 0) };
+    if (type === "NamedDataValueCalculationPart") return { type: "ranked", values: dataValues.get(String(part.mDataValue).toLowerCase()) ?? five() };
+    if (type === "EffectValueCalculationPart") return { type: "ranked", values: effects[Math.max(0, Number(part.mEffectIndex ?? 1) - 1)] ?? five() };
+    if (type === "StatByCoefficientCalculationPart") return { type: "stat", key: statKey(part), coefficient: Number(part.mCoefficient ?? 0) };
+    if (type === "StatByNamedDataValueCalculationPart") {
+      return { type: "product", nodes: [
+        { type: "stat", key: statKey(part) },
+        { type: "ranked", values: dataValues.get(String(part.mDataValue).toLowerCase()) ?? five() },
+      ] };
+    }
+    if (type === "BuffCounterByCoefficientCalculationPart") return { type: "counter", key: String(part.mBuffName ?? part.mBuffHash ?? "buff"), coefficient: Number(part.mCoefficient ?? 0) };
+    if (type === "BuffCounterByNamedDataValueCalculationPart") return { type: "product", nodes: [
+      { type: "counter", key: String(part.mBuffName ?? part.mBuffHash ?? "buff") },
+      { type: "ranked", values: dataValues.get(String(part.mDataValue).toLowerCase()) ?? five() },
+    ] };
+    if (type === "ByCharLevelInterpolationCalculationPart") return { type: "level-interpolation", start: Number(part.mStartValue ?? 0), end: Number(part.mEndValue ?? 0) };
+    if (type === "ByCharLevelFormulaCalculationPart") return { type: "level-table", values: Array.isArray(part.mValues) ? part.mValues.map(Number) : [] };
+    if (type === "ByCharLevelBreakpointsCalculationPart") {
+      const initialEntry = Object.entries(part).find(([key, value]) => !["mLevel1Value", "mBreakpoints", "__type"].includes(key) && typeof value === "number");
+      const breakpoints = (Array.isArray(part.mBreakpoints) ? part.mBreakpoints : []).flatMap((breakpoint: any) => {
+        const perLevelEntry = Object.entries(breakpoint).find(([key, value]) => !["mLevel", "__type"].includes(key) && typeof value === "number");
+        return typeof breakpoint.mLevel === "number" && perLevelEntry ? [{ level: Number(breakpoint.mLevel), perLevel: Number(perLevelEntry[1]) }] : [];
+      });
+      return { type: "level-breakpoints", base: Number(part.mLevel1Value ?? 0), initialPerLevel: Number(initialEntry?.[1] ?? 0), breakpoints };
+    }
+    if (type === "AbilityResourceByCoefficientCalculationPart") {
+      const resource = Number(part.mAbilityResource ?? 0);
+      const formula = Number(part.mStatFormula ?? 2);
+      return { type: "stat", key: `resource${resource}Formula${formula}`, coefficient: Number(part.mCoefficient ?? 0) };
+    }
+    if (type === "CooldownMultiplierCalculationPart") return { type: "stat", key: "cooldownMultiplier" };
+    if (type === "ClampSubPartsCalculationPart") {
+      const nodes = (Array.isArray(part.mSubparts) ? part.mSubparts : []).map(parsePart);
+      const node: SerializedFormulaNode = nodes.length === 0 ? { type: "literal", value: 0 } : nodes.length === 1 ? nodes[0] : { type: "sum", nodes };
+      return { type: "clamp", node, min: Number(part.mFloor ?? Number.MIN_SAFE_INTEGER), max: Number(part.mCeiling ?? Number.MAX_SAFE_INTEGER) };
+    }
+    if (type === "PercentageOfBuffNameElapsed") return { type: "counter", key: `buffElapsed:${String(part.buffName ?? "buff")}`, coefficient: Number(part.Coefficient ?? 1) };
+    if (type === "{f3cbe7b2}" && part.mSpellCalculationKey) {
+      const referenced = parseBinCalculation(String(part.mSpellCalculationKey), spellData, new Set(seen));
+      if (referenced) {
+        unresolvedParts.push(...referenced.unresolvedParts);
+        return referenced.formula;
+      }
+    }
+    if (type === "{ee18a47b}") {
+      const names = Object.values(part).filter((value): value is string => typeof value === "string" && value !== type);
+      const starts = dataValues.get(String(names[0] ?? "").toLowerCase());
+      const ends = dataValues.get(String(names[1] ?? "").toLowerCase());
+      if (starts && ends) return { type: "ranked-level-interpolation", starts, ends };
+    }
+    const children = part.mSubparts ?? part.mSubParts ?? part.mFormulaParts;
+    if (type === "ProductOfSubPartsCalculationPart") {
+      const nodes = [part.mPart1, part.mPart2].filter(Boolean).map(parsePart);
+      return nodes.length ? { type: "product", nodes } : { type: "literal", value: 0 };
+    }
+    if (type === "SumOfSubPartsCalculationPart" && Array.isArray(children)) return { type: "sum", nodes: children.map(parsePart) };
+    if (type === "StatBySubPartCalculationPart") return { type: "product", nodes: [{ type: "stat", key: statKey(part) }, parsePart(part.mSubpart ?? part.mSubPart)] };
+    if (type === "ClampBySubpartCalculationPart") return {
+      type: "clamp",
+      node: parsePart(part.mSubpart ?? part.mSubPart),
+      min: Number(part.mFloor ?? part.mMin ?? Number.MIN_SAFE_INTEGER),
+      max: Number(part.mCeiling ?? part.mMax ?? Number.MAX_SAFE_INTEGER),
+    };
+    unresolvedParts.push(type);
+    if (!unknownCalculationExamples.has(type)) unknownCalculationExamples.set(type, part);
+    return { type: "literal", value: 0 };
+  };
+
+  if (calculation.__type === "GameCalculationModified" && calculation.mModifiedGameCalculation) {
+    const base = parseBinCalculation(String(calculation.mModifiedGameCalculation), spellData, seen);
+    if (!base) return null;
+    const multiplier = parsePart(calculation.mMultiplier);
+    return { formula: { type: "product", nodes: [base.formula, multiplier] }, displayAsPercent: Boolean(calculation.mDisplayAsPercent), unresolvedParts: [...base.unresolvedParts, ...unresolvedParts] };
+  }
+  if (calculation.__type === "GameCalculationConditional") {
+    const whenTrueName = calculation.mConditionalGameCalculation ?? calculation.mDefaultGameCalculation;
+    const whenFalseName = calculation.mDefaultGameCalculation ?? calculation.mConditionalGameCalculation;
+    const whenTrue = whenTrueName ? parseBinCalculation(String(whenTrueName), spellData, new Set(seen)) : null;
+    const whenFalse = whenFalseName ? parseBinCalculation(String(whenFalseName), spellData, new Set(seen)) : null;
+    if (!whenTrue || !whenFalse) return null;
+    return {
+      formula: { type: "conditional", condition: String(calculation.mConditionalGameCalculation ?? name), whenTrue: whenTrue.formula, whenFalse: whenFalse.formula },
+      displayAsPercent: Boolean(calculation.mDisplayAsPercent),
+      unresolvedParts: [...whenTrue.unresolvedParts, ...whenFalse.unresolvedParts, ...unresolvedParts],
+    };
+  }
+  return {
+    formula: { type: "sum", nodes: (calculation.mFormulaParts ?? []).map(parsePart) },
+    displayAsPercent: Boolean(calculation.mDisplayAsPercent),
+    unresolvedParts,
+  };
+}
+
 function findDamageCalculationName(spell: any, spellData: any) {
   const calculations = Object.keys(spellData?.mSpellCalculations ?? {});
   const taggedDamage = [...String(spell.dynamicDescription ?? "").matchAll(/<(?:physicalDamage|magicDamage|trueDamage)>(.*?)<\//gi)]
@@ -186,14 +350,29 @@ function normalizeSpell(spell: any, binSpellData?: any) {
   const resolved = calculationName ? resolveBinCalculation(calculationName, binSpellData) : null;
   const fallbackCoefficient = Number(spell.coefficients?.coefficient1 ?? 0);
   const fallbackValues = rankValues(spell);
+  const parsedPrimaryCalculation = calculationName ? parseBinCalculation(calculationName, binSpellData) : null;
   const values = resolved?.baseDamage.some((value) => value > 0) ? resolved.baseDamage : fallbackValues;
-  const ratioAD = resolved ? resolved.ratioAD : type === "physical" ? fallbackCoefficient : 0;
-  const ratioAP = resolved ? resolved.ratioAP : type === "magic" ? fallbackCoefficient : 0;
-  const ratioArmor = resolved?.ratioArmor ?? 0;
-  const ratioMagicResist = resolved?.ratioMagicResist ?? 0;
-  const resolvedDamage = Boolean(type) && (values.some((value) => value > 0) || ratioAD > 0 || ratioAP > 0 || ratioArmor > 0 || ratioMagicResist > 0);
+  const attackDamage = resolved?.attackDamage ?? { ...scoped(), total: five(type === "physical" ? fallbackCoefficient : 0) };
+  const abilityPower = resolved?.abilityPower ?? { ...scoped(), total: five(type === "magic" ? fallbackCoefficient : 0) };
+  const armor = resolved?.armor ?? scoped();
+  const magicResist = resolved?.magicResist ?? scoped();
+  const ratioAD = attackDamage.total[0] ?? 0;
+  const ratioAP = abilityPower.total[0] ?? 0;
+  const ratioArmor = armor.total[0] ?? 0;
+  const ratioMagicResist = magicResist.total[0] ?? 0;
+  const allRatios = [attackDamage, abilityPower, armor, magicResist].flatMap((stat) => [stat.base, stat.bonus, stat.total]);
+  const structuredDamage = Boolean(parsedPrimaryCalculation && parsedPrimaryCalculation.unresolvedParts.length === 0);
+  const resolvedDamage = Boolean(type) && (values.some((value) => value > 0) || allRatios.some((ranked) => ranked.some((value) => value > 0)) || structuredDamage);
   const hasDamageTag = Boolean(type);
   const unsupported = hasDamageTag && !resolvedDamage;
+  const calculationEntries = Object.keys(binSpellData?.mSpellCalculations ?? {})
+    .map((name) => [name, parseBinCalculation(name, binSpellData)] as const)
+    .filter((entry): entry is readonly [string, ParsedBinCalculation] => Boolean(entry[1]));
+  const combatRelevantNonDamage = /attack damage|ability power|armor|magic resist|shield|damage reduction|increased damage|takes? .*damage|cooldown/i.test(cleanHtml(spell.dynamicDescription ?? spell.description));
+  const scalings = (Object.entries({ attackDamage, abilityPower, armor, magicResist }) as Array<["attackDamage" | "abilityPower" | "armor" | "magicResist", ScopedRankedValues]>)
+    .flatMap(([stat, scopes]) => (Object.entries(scopes) as Array<["base" | "bonus" | "total", number[]]>)
+      .filter(([, ranked]) => ranked.some(Boolean))
+      .map(([scope, ranked]) => ({ stat, scope, values: ranked })));
   return {
     key: String(spell.spellKey ?? "?").toUpperCase(),
     name: String(spell.name ?? "Unknown ability"),
@@ -208,13 +387,123 @@ function normalizeSpell(spell: any, binSpellData?: any) {
     cooldown: Array.isArray(spell.cooldownCoefficients)
       ? spell.cooldownCoefficients.slice(0, 5).map(Number)
       : [],
-    classification: resolvedDamage ? "estimated" : unsupported ? "unsupported" : "non-damaging",
+    classification: resolvedDamage ? "partial" : unsupported || combatRelevantNonDamage ? "unsupported" : "out-of-scope",
     coverageNote: resolvedDamage
-      ? `CommunityDragon calculation ${calculationName ?? "fallback effect values"} was normalized. ${resolved?.unsupportedParts.length ? `Unresolved parts: ${[...new Set(resolved.unsupportedParts)].join(", ")}.` : "Complex subcasts remain selectable assumptions."}`
+      ? `CommunityDragon calculation ${calculationName ?? "fallback effect values"} was preserved. ${parsedPrimaryCalculation?.unresolvedParts.length ? `Unresolved parts: ${[...new Set(parsedPrimaryCalculation.unresolvedParts)].join(", ")}.` : "Stateful and alternate effects require an explicit module."}`
       : unsupported
         ? "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
-        : "No champion damage packet is present for this cast.",
+        : combatRelevantNonDamage
+          ? "This cast changes combat state, but no complete state module is registered yet."
+          : "This cast has no damage-calculation effect in the current one-on-one scope.",
+    castable: true,
+    scalings,
+    calculations: Object.fromEntries(calculationEntries),
+    primaryCalculation: calculationName ?? undefined,
+    effects: resolvedDamage ? [{
+      id: `${String(spell.spellKey ?? "spell").toLowerCase()}-primary`,
+      label: "Primary Damage",
+      kind: "direct-damage",
+      coverage: "partial",
+      description: "The primary CommunityDragon calculation is available. Additional stateful behavior may still require a module.",
+      damageType: type,
+      formula: parsedPrimaryCalculation?.formula,
+    }] : [],
   };
+}
+
+function applyChampionSpellModule(alias: string, spell: any) {
+  const key = `${alias}:${spell.key}`;
+  const modeled = (effects: any[], actionParameters: any[] = []) => {
+    spell.classification = "modeled";
+    spell.coverageNote = "A live-patch state module resolves every damage-relevant effect listed below.";
+    spell.effects = effects;
+    spell.actionParameters = actionParameters;
+  };
+
+  if (key === "Vayne:Q") {
+    spell.baseDamage = five();
+    spell.ratioAD = 0.75;
+    spell.ratioAP = 0.5;
+    spell.scalings = [
+      { stat: "attackDamage", scope: "total", values: [0.75, 0.85, 0.95, 1.05, 1.15] },
+      { stat: "abilityPower", scope: "total", values: five(0.5) },
+    ];
+    modeled([{
+      id: "vayne-q-tumble",
+      label: "Empowered Next Attack",
+      kind: "next-attack",
+      coverage: "modeled",
+      description: "For 3 seconds, the next basic attack adds physical damage and consumes the buff.",
+      damageType: "physical",
+      formulaLabel: "75 / 85 / 95 / 105 / 115% total AD + 50% AP",
+      formula: { type: "sum", nodes: [
+        { type: "product", nodes: [{ type: "ranked", values: [0.75, 0.85, 0.95, 1.05, 1.15] }, { type: "stat", key: "totalAttackDamage" }] },
+        { type: "product", nodes: [{ type: "ranked", values: five(0.5) }, { type: "stat", key: "totalAbilityPower" }] },
+      ] },
+    }]);
+  } else if (key === "Vayne:W") {
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    spell.castable = false;
+    modeled([{
+      id: "vayne-w-silver-bolts",
+      label: "Silver Bolts Third Hit",
+      kind: "passive-proc",
+      coverage: "modeled",
+      description: "Basic attacks and Condemn add a 3.5 second stack. The third stack deals maximum-health true damage with a rank-based minimum.",
+      damageType: "true",
+      formulaLabel: "max(6 / 7 / 8 / 9 / 10% target max health, 50 / 65 / 80 / 95 / 110)",
+      formula: { type: "max", nodes: [
+        { type: "product", nodes: [{ type: "ranked", values: [0.06, 0.07, 0.08, 0.09, 0.1] }, { type: "target-stat", key: "maxHealth" }] },
+        { type: "ranked", values: [50, 65, 80, 95, 110] },
+      ] },
+    }]);
+  } else if (key === "Vayne:E") {
+    spell.ratioAD = 0.5;
+    spell.scalings = [{ stat: "attackDamage", scope: "bonus", values: five(0.5) }];
+    modeled([{
+      id: "vayne-e-condemn",
+      label: "Condemn",
+      kind: "direct-damage",
+      coverage: "modeled",
+      description: "Deals physical damage and applies one Silver Bolts stack. Terrain collision adds a separate 150% bonus packet.",
+      damageType: "physical",
+      formulaLabel: "50 / 85 / 120 / 155 / 190 + 50% bonus AD, multiplied by 2.5 on terrain collision",
+    }], [{ id: "wallCollision", type: "boolean", label: "Hits Terrain", defaultValue: false }]);
+  } else if (key === "Vayne:R") {
+    spell.damageType = null;
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    modeled([
+      { id: "vayne-r-final-hour", label: "Final Hour", kind: "stat-buff", coverage: "modeled", description: "Grants 35 / 50 / 65 bonus attack damage for 8 / 10 / 12 seconds.", formulaLabel: "+35 / 50 / 65 attack damage" },
+      { id: "vayne-r-tumble-cooldown", label: "Tumble Cooldown", kind: "cooldown-modifier", coverage: "modeled", description: "Reduces Tumble cooldown by 30 / 40 / 50% while Final Hour is active.", formulaLabel: "30 / 40 / 50% cooldown reduction" },
+      { id: "vayne-r-utility", label: "Movement And Invisibility", kind: "utility", coverage: "out-of-scope", description: "Movement speed and invisibility do not change the supported damage result." },
+    ]);
+  } else if (key === "Olaf:R") {
+    spell.damageType = null;
+    spell.baseDamage = five();
+    spell.ratioAD = 0;
+    spell.ratioAP = 0;
+    spell.scalings = [];
+    modeled([
+      { id: "olaf-r-passive", label: "Ragnarok Passive", kind: "stat-buff", coverage: "modeled", description: "Always grants 10 / 15 / 20 armor and magic resistance.", formulaLabel: "+10 / 15 / 20 armor and magic resistance" },
+      { id: "olaf-r-active", label: "Ragnarok Active", kind: "stat-buff", coverage: "modeled", description: "For 3 seconds, grants 10 / 20 / 30 plus 25% total attack damage. Basic attacks and Reckless Swing extend the duration by 2.5 seconds.", formulaLabel: "+10 / 20 / 30 + 25% total AD" },
+      { id: "olaf-r-utility", label: "Crowd Control And Movement", kind: "utility", coverage: "out-of-scope", description: "Crowd-control immunity and movement speed do not change the supported damage result." },
+    ]);
+  } else if (key === "Poppy:Q") {
+    modeled(spell.effects ?? [], [{ id: "hitCount", type: "number", label: "Hits", defaultValue: 1, min: 1, max: 2, step: 1 }]);
+  } else if (key === "Poppy:E") {
+    modeled(spell.effects ?? [], [{ id: "wallCollision", type: "boolean", label: "Hits Terrain", defaultValue: false }]);
+  } else if (key === "Poppy:R") {
+    modeled(spell.effects ?? [], [{ id: "chargePercent", type: "number", label: "Charge", defaultValue: 0, min: 0, max: 100, step: 5 }]);
+  } else if (["Taric:E", "DrMundo:Q", "Garen:R", "Ornn:W"].includes(key)) {
+    modeled(spell.effects ?? []);
+  }
+  return spell;
 }
 
 function normalizeStats(stats: any) {
@@ -292,7 +581,7 @@ function itemStats(stats: any, description: string) {
 }
 
 function runeClassification(name: string) {
-  const modeled = new Set(["Press the Attack", "Electrocute", "Scorch", "Coup de Grace"]);
+  const modeled = new Set(["Press the Attack", "Electrocute", "Scorch", "Coup de Grace", "Conqueror"]);
   const statOnly = new Set(["Adaptive Force", "Health", "Health Scaling"]);
   const irrelevant = new Set([
     "Taste of Blood", "Deep Ward", "Grisly Mementos", "Sixth Sense", "Relentless Hunter", "Treasure Hunter",
@@ -303,14 +592,56 @@ function runeClassification(name: string) {
   ]);
   if (modeled.has(name)) return "modeled";
   if (statOnly.has(name)) return "stat-only";
-  if (irrelevant.has(name)) return "irrelevant";
+  if (irrelevant.has(name)) return "out-of-scope";
   return "unsupported";
 }
 
+function runeCoverageNote(name: string, classification: string) {
+  if (name === "Conqueror") return "Melee and ranged stacks, five-second expiry, the 12-stack cap, and adaptive AD or AP are modeled. Full-stack healing is outside the current healing scope.";
+  if (classification === "modeled") return "A reviewed engine hook applies this perk's damage-affecting behavior.";
+  if (classification === "stat-only") return "The structured stat is applied during combatant stat setup and requires no separate proc.";
+  if (classification === "out-of-scope") return "The reviewed effect changes healing, movement, economy, vision, resources, or crowd control without changing the supported damage result.";
+  return "The perk can change a supported combat result, but a complete reviewed effect module is not registered yet.";
+}
+
 function itemClassification(name: string, description: string) {
-  if (/Sheen|Trinity Force|Lich Bane|Iceborn Gauntlet|Blade of The Ruined King|Nashor's Tooth/i.test(name)) return "modeled";
+  if (/Sheen|Trinity Force|Lich Bane|Iceborn Gauntlet|Blade of The Ruined King|Nashor's Tooth|Abyssal Mask/i.test(name)) return "modeled";
   if (/\bdeal(?:s|ing)?\b|on-hit|spellblade|burn|wound|shield|detonat|explode|immolate|lifeline|stasis|invulnerab|reduce incoming|damage reduction|take(?:s)?\s+\d+(?:\.\d+)?%\s+more\s+(?:physical|magic|true|adaptive)?\s*damage|amplif(?:y|ies)|increased?\s+(?:physical|magic|true|adaptive)?\s*damage/i.test(description)) return "unsupported";
   return "stat-only";
+}
+
+function itemCoverageNote(name: string, classification: string) {
+  if (name === "Abyssal Mask") return "Unmake applies 12% increased incoming magic damage when the Within 700 Range condition is enabled.";
+  if (classification === "modeled") return "A reviewed engine hook applies this item's one-on-one damage effect in addition to its structured stats.";
+  if (classification === "stat-only") return "Only the structured item stats affect the current one-on-one damage result.";
+  return "The description contains a damage, mitigation, shield, or proc effect that still needs a complete reviewed module.";
+}
+
+function assertFiniteNumbers(value: unknown, location = "snapshot") {
+  if (typeof value === "number" && !Number.isFinite(value)) throw new Error(`${location} contains a non-finite number.`);
+  if (Array.isArray(value)) value.forEach((entry, index) => assertFiniteNumbers(entry, `${location}[${index}]`));
+  else if (value && typeof value === "object") {
+    for (const [key, entry] of Object.entries(value)) assertFiniteNumbers(entry, `${location}.${key}`);
+  }
+}
+
+function validateSnapshot(champions: any[], items: any[], runes: any[]) {
+  const spells = champions.flatMap((champion) => champion.spells.map((spell: any) => ({ champion: champion.name, ...spell })));
+  const legacy = spells.filter((spell) => spell.classification === "estimated" || spell.classification === "non-damaging");
+  if (legacy.length) throw new Error(`Legacy ability coverage states remain: ${legacy.map((spell) => `${spell.champion} ${spell.key}`).join(", ")}`);
+  const missingSpellReasons = spells.filter((spell) => !spell.coverageNote);
+  if (missingSpellReasons.length) throw new Error(`Ability coverage reasons are missing for ${missingSpellReasons.length} spells.`);
+  if (items.some((item) => !item.coverageNote) || runes.some((rune) => !rune.coverageNote)) throw new Error("Every item and rune classification must include a reviewed reason.");
+  const malformedScalings = spells.flatMap((spell) => spell.scalings ?? []).filter((scaling: any) => !Array.isArray(scaling.values) || scaling.values.length < 5 || scaling.values.some((value: number) => !Number.isFinite(value)));
+  if (malformedScalings.length) throw new Error("A spell scaling was flattened or contains a non-finite rank value.");
+  const vayne = champions.find((champion) => champion.alias === "Vayne");
+  const vayneQ = vayne?.spells.find((spell: any) => spell.key === "Q");
+  const vayneW = vayne?.spells.find((spell: any) => spell.key === "W");
+  if (vayneQ?.scalings?.find((scaling: any) => scaling.stat === "attackDamage")?.values?.[4] !== 1.15) throw new Error("Vayne Tumble rank-five scaling was not preserved.");
+  if (vayneQ?.baseDamage?.some(Boolean) || vayneW?.castable !== false) throw new Error("A stateful Vayne effect was represented as immediate cast damage.");
+  if (items.find((item) => item.name === "Abyssal Mask")?.classification !== "modeled") throw new Error("Abyssal Mask must remain modeled.");
+  if (runes.find((rune) => rune.name === "Conqueror")?.classification !== "modeled") throw new Error("Conqueror must remain modeled.");
+  assertFiniteNumbers({ champions, items, runes });
 }
 
 async function main() {
@@ -319,6 +650,7 @@ async function main() {
   if (!patchMatch) throw new Error(`Unable to resolve a numbered patch from ${metadataResult.data.version}`);
   const patch = `${Number(patchMatch[1])}.${Number(patchMatch[2])}`;
   resolvedAssetPatch = patch;
+  cdragonGameData = `${CDRAGON}/${patch}/plugins/rcp-be-lol-game-data/global/default/v1`;
   const versionsResult = await getJson<string[]>("https://ddragon.leagueoflegends.com/api/versions.json");
   const ddragonPatch = versionsResult.data.find((version) => version.startsWith(`${patch}.`)) ?? versionsResult.data[0];
   const outputDir = path.join(process.cwd(), "public", "data", patch);
@@ -326,13 +658,16 @@ async function main() {
   await rm(outputDir, { recursive: true, force: true });
   await mkdir(championDir, { recursive: true });
 
-  const [summaryResult, itemsResult, perksResult, stylesResult, ddragonChampions, ddragonItems] = await Promise.all([
-    getJson<any[]>(`${CDRAGON_GAME_DATA}/champion-summary.json`),
-    getJson<any[]>(`${CDRAGON_GAME_DATA}/items.json`),
-    getJson<any[]>(`${CDRAGON_GAME_DATA}/perks.json`),
-    getJson<any[]>(`${CDRAGON_GAME_DATA}/perkstyles.json`),
+  const [summaryResult, itemsResult, perksResult, stylesResult, ddragonChampions, ddragonItems, itemBinResult, perkBinResult, stringsResult] = await Promise.all([
+    getJson<any[]>(`${cdragonGameData}/champion-summary.json`),
+    getJson<any[]>(`${cdragonGameData}/items.json`),
+    getJson<any[]>(`${cdragonGameData}/perks.json`),
+    getJson<any[]>(`${cdragonGameData}/perkstyles.json`),
     getJson<any>(`https://ddragon.leagueoflegends.com/cdn/${ddragonPatch}/data/en_US/champion.json`),
     getJson<any>(`https://ddragon.leagueoflegends.com/cdn/${ddragonPatch}/data/en_US/item.json`),
+    getJson<any>(`${CDRAGON}/${patch}/game/items.cdtb.bin.json`),
+    getJson<any>(`${CDRAGON}/${patch}/game/perks.cdtb.bin.json`),
+    getJson<any>(`${CDRAGON}/${patch}/game/en_us/data/menu/en_us/lol.stringtable.json`),
   ]);
 
   const summaries = summaryResult.data.filter((champion) => champion.id > 0 && champion.id < 1000 && champion.name);
@@ -341,9 +676,9 @@ async function main() {
   const binSources: SourceRecord[] = [];
   for (let index = 0; index < summaries.length; index += 10) {
     const batch = summaries.slice(index, index + 10);
-    const details = await Promise.all(batch.map((champion) => getJson<any>(`${CDRAGON_GAME_DATA}/champions/${champion.id}.json`)));
+    const details = await Promise.all(batch.map((champion) => getJson<any>(`${cdragonGameData}/champions/${champion.id}.json`)));
     const bins = await Promise.all(batch.map((champion) =>
-      getJson<any>(`${CDRAGON}/latest/game/data/characters/${String(champion.alias).toLowerCase()}/${String(champion.alias).toLowerCase()}.bin.json`)
+      getJson<any>(`${CDRAGON}/${patch}/game/data/characters/${String(champion.alias).toLowerCase()}/${String(champion.alias).toLowerCase()}.bin.json`)
     ));
     for (let batchIndex = 0; batchIndex < batch.length; batchIndex += 1) {
       const summary = batch[batchIndex];
@@ -368,14 +703,8 @@ async function main() {
       const resolvedStats = binStats && riotStats
         ? { ...binStats, mana: riotStats.mana, manaPerLevel: riotStats.manaPerLevel, magicResistPerLevel: riotStats.magicResistPerLevel }
         : binStats ?? riotStats;
-      const normalizedSpells = (detail.spells ?? []).map((spell: any, spellIndex: number) => normalizeSpell(spell, binSpells[spellIndex]));
-      const explicitOverrides = new Set(["Poppy:Q", "Poppy:E", "Poppy:R", "Taric:E", "DrMundo:Q", "Garen:R", "Ornn:W"]);
-      for (const spell of normalizedSpells) {
-        if (explicitOverrides.has(`${summary.alias}:${spell.key}`)) {
-          spell.classification = "modeled";
-          spell.coverageNote = "An explicit live-patch duel module resolves this champion-specific damage packet.";
-        }
-      }
+      const normalizedSpells = (detail.spells ?? []).map((spell: any, spellIndex: number) =>
+        applyChampionSpellModule(String(summary.alias), normalizeSpell(spell, binSpells[spellIndex])));
       const champion = {
         id: summary.id,
         alias: summary.alias,
@@ -401,15 +730,19 @@ async function main() {
     .map(([id, item]) => {
       const cdragon = cdragonItems.get(id) as any;
       const description = cdragon?.description ?? item.description ?? "";
+      const name = cdragon?.name ?? item.name;
+      const cleanedDescription = cleanHtml(description);
+      const classification = itemClassification(name, cleanedDescription);
       return {
         id: Number(id),
-        name: cdragon?.name ?? item.name,
-        description: cleanHtml(description),
+        name,
+        description: cleanedDescription,
         ...itemTextSections(description),
         icon: cdragon ? assetUrl(cdragon.iconPath) : `${CDRAGON}/${resolvedAssetPatch}/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/${id}.png`,
         price: Number(item.gold.total),
         stats: itemStats(item.stats, description),
-        classification: itemClassification(cdragon?.name ?? item.name, cleanHtml(description)),
+        classification,
+        coverageNote: itemCoverageNote(name, classification),
       };
     });
   const items = [...new Map(
@@ -451,12 +784,14 @@ async function main() {
     .filter((perk) => perk.id > 0 && perk.name && perkSlots.has(perk.id))
     .map((perk) => {
       const slot = perkSlots.get(perk.id);
+      const classification = runeClassification(perk.name);
       return {
         id: perk.id,
         name: perk.name,
         description: cleanHtml(perk.longDesc ?? perk.shortDesc),
         icon: assetUrl(perk.iconPath),
-        classification: runeClassification(perk.name),
+        classification,
+        coverageNote: runeCoverageNote(perk.name, classification),
         styleId: slot?.styleId ?? -1,
         styleName: slot?.styleName ?? "Unassigned",
         slot: slot?.slot ?? -1,
@@ -464,6 +799,8 @@ async function main() {
       };
     })
     .sort((a, b) => a.name.localeCompare(b.name));
+
+  validateSnapshot(champions, items, runes);
 
   const sources = [
     metadataResult.source,
@@ -474,6 +811,9 @@ async function main() {
     stylesResult.source,
     ddragonChampions.source,
     ddragonItems.source,
+    itemBinResult.source,
+    perkBinResult.source,
+    stringsResult.source,
     ...detailSources,
     ...binSources,
   ];
@@ -493,6 +833,22 @@ async function main() {
     counts[rune.classification] = (counts[rune.classification] ?? 0) + 1;
     return counts;
   }, {} as Record<string, number>);
+  const unknownCalculationParts = allSpells
+    .flatMap((spell) => Object.values<any>(spell.calculations ?? {}).flatMap((calculation) => calculation.unresolvedParts ?? []))
+    .reduce((counts, part) => {
+      counts[part] = (counts[part] ?? 0) + 1;
+      return counts;
+    }, {} as Record<string, number>);
+  const unknownPrimaryCalculationParts = allSpells
+    .flatMap((spell) => spell.primaryCalculation ? (spell.calculations?.[spell.primaryCalculation]?.unresolvedParts ?? []) : [])
+    .reduce((counts, part) => {
+      counts[part] = (counts[part] ?? 0) + 1;
+      return counts;
+    }, {} as Record<string, number>);
+  if (Object.keys(unknownPrimaryCalculationParts).length) {
+    throw new Error(`Unknown calculation structures affect primary combat results: ${Object.keys(unknownPrimaryCalculationParts).join(", ")}`);
+  }
+  const localizedStringData = (stringsResult.data as any).entries ?? (stringsResult.data as any).strings ?? stringsResult.data;
   const manifest = {
     schemaVersion: SCHEMA_VERSION,
     patch,
@@ -506,6 +862,21 @@ async function main() {
     unsupportedSpells,
     itemCoverage,
     runeCoverage,
+    unknownCalculationParts,
+    unknownPrimaryCalculationParts,
+    unknownCalculationExamples: Object.fromEntries(unknownCalculationExamples),
+    binInspection: {
+      itemEntryCount: Object.keys(itemBinResult.data).length,
+      perkEntryCount: Object.keys(perkBinResult.data).length,
+      localizedStringCount: Object.keys(localizedStringData ?? {}).length,
+    },
+    validation: {
+      finiteNumbers: true,
+      rankArraysPreserved: true,
+      legacyEstimatedStates: 0,
+      reviewedCoverageReasons: true,
+      unknownRequiredCalculationParts: 0,
+    },
     sources,
   };
 

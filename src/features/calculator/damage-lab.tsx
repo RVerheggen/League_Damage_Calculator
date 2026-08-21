@@ -158,14 +158,14 @@ export function DamageLab() {
                   ) : null}
                   <div className="space-y-3 text-sm text-muted-foreground">
                     <p><Badge className="mr-2 bg-primary/10 text-primary">Modeled</Badge> The engine has an explicit packet or state hook.</p>
-                    <p><Badge variant="secondary" className="mr-2">Estimated</Badge> CommunityDragon exposes a primary ratio and base values, but a complex subcast may need a selected assumption.</p>
+                    <p><Badge variant="secondary" className="mr-2">Partially Modeled</Badge> The primary formula is preserved, but at least one combat-relevant behavior still needs an explicit state module.</p>
                     <p><Badge variant="outline" className="mr-2">Stat-Only</Badge> Stats are applied, but no separate combat proc exists.</p>
-                    <p><Badge variant="outline" className="mr-2">Irrelevant</Badge> The effect has no direct duel damage, shield, or mitigation impact.</p>
+                    <p><Badge variant="outline" className="mr-2">Out Of Scope</Badge> The reviewed effect does not change the supported one-on-one damage result.</p>
                     <p><Badge variant="outline" className="mr-2 border-[#f2bc55]/40 text-[#f2bc55]">Unsupported</Badge> The effect matters to the duel, but is not simulated yet. Its tooltip remains visible and the result shows a warning.</p>
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-center text-xs">
-                    <div className="rounded-lg border border-border bg-background/25 p-3"><strong className="block font-mono text-lg text-[#f2bc55]">{data.manifest?.itemCoverage.unsupported ?? 0}</strong>item effects visibly unsupported</div>
-                    <div className="rounded-lg border border-border bg-background/25 p-3"><strong className="block font-mono text-lg text-[#f2bc55]">{data.manifest?.runeCoverage.unsupported ?? 0}</strong>rune effects visibly unsupported</div>
+                    <div className="rounded-lg border border-border bg-background/25 p-3"><strong className="block font-mono text-lg text-[#f2bc55]">{(data.manifest?.itemCoverage.unsupported ?? 0) + (data.manifest?.itemCoverage.partial ?? 0)}</strong>item effects need more modeling</div>
+                    <div className="rounded-lg border border-border bg-background/25 p-3"><strong className="block font-mono text-lg text-[#f2bc55]">{(data.manifest?.runeCoverage.unsupported ?? 0) + (data.manifest?.runeCoverage.partial ?? 0)}</strong>rune effects need more modeling</div>
                   </div>
                 </div>
               </SheetContent>

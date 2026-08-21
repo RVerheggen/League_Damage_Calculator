@@ -23,6 +23,28 @@ const styleAccents: Record<number, string> = {
   8400: "#42d2b9",
 };
 
+const coverageLabel: Record<RuneDefinition["classification"], string> = {
+  modeled: "Modeled",
+  partial: "Partially Modeled",
+  "out-of-scope": "Out Of Scope",
+  estimated: "Partially Modeled",
+  "non-damaging": "No Direct Damage",
+  unsupported: "Unsupported",
+  "stat-only": "Stat-Only",
+  irrelevant: "Out Of Scope",
+};
+
+const coverageCopy: Record<RuneDefinition["classification"], string> = {
+  modeled: "The damage-affecting state from this rune is included in the simulation.",
+  partial: "At least one damage-affecting part still needs a complete state module.",
+  "out-of-scope": "This reviewed effect does not change the supported one-on-one damage result.",
+  estimated: "The primary effect is available, but a complex part still needs a complete state module.",
+  "non-damaging": "This perk does not create a direct damage packet.",
+  unsupported: "This effect can change the result but is not simulated yet.",
+  "stat-only": "Its structured stats are included without a separate proc.",
+  irrelevant: "This reviewed effect does not change the supported one-on-one damage result.",
+};
+
 function RuneOption({
   rune,
   selected,
@@ -61,9 +83,12 @@ function RuneOption({
             <strong className="block truncate text-sm text-foreground">{rune.name}</strong>
             <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.13em] text-muted-foreground">{rune.styleName}</span>
           </span>
-          <span className="rounded-full border border-primary/25 bg-primary/8 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.1em] text-primary">{rune.classification}</span>
+          <span className="rounded-full border border-primary/25 bg-primary/8 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.1em] text-primary">{coverageLabel[rune.classification]}</span>
         </div>
-        <p className="p-3 text-left text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere]">{rune.description}</p>
+        <div className="space-y-2 p-3 text-left">
+          <p className="text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere]">{rune.description}</p>
+          <p className="border-t border-border/70 pt-2 text-[10px] leading-4 text-muted-foreground">{coverageCopy[rune.classification]} {rune.coverageNote}</p>
+        </div>
       </TooltipContent>
     </Tooltip>
   );

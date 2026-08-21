@@ -12,6 +12,7 @@ export function defaultCombatant(championId: number): CombatantConfig {
     startingShield: 0,
     stacks: {},
     resources: {},
+    conditions: {},
     overrides: {},
   };
 }

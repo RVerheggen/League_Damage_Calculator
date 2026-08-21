@@ -50,7 +50,7 @@ function PickerOption({
         <span className="block truncate font-medium">{entity.name}</span>
         {entity.subtitle && <span className="block truncate text-xs text-muted-foreground">{entity.subtitle}</span>}
       </span>
-      {entity.badge && <Badge variant="outline" className="mr-6 text-[10px] uppercase">{entity.badge}</Badge>}
+      {entity.badge && <Badge variant="outline" className="mr-6 text-[10px] uppercase">{entity.badge.split("-").map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`).join(" ")}</Badge>}
     </CommandItem>
   );
 

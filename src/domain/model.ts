@@ -1,5 +1,52 @@
+import type { FormulaNode } from "./formula";
+
 export type DamageType = "physical" | "magic" | "true";
-export type Coverage = "modeled" | "estimated" | "non-damaging" | "unsupported";
+export type Coverage =
+  | "modeled"
+  | "partial"
+  | "out-of-scope"
+  | "unsupported"
+  | "estimated"
+  | "non-damaging";
+
+export type EffectKind =
+  | "direct-damage"
+  | "passive-proc"
+  | "next-attack"
+  | "stat-buff"
+  | "debuff"
+  | "shield"
+  | "cooldown-modifier"
+  | "utility"
+  | "healing";
+
+export type ActionParameterDefinition = {
+  id: string;
+  type: "boolean" | "number" | "select";
+  label: string;
+  defaultValue: boolean | number | string;
+  min?: number;
+  max?: number;
+  step?: number;
+  options?: Array<{ value: string; label: string }>;
+};
+
+export type RankedScaling = {
+  stat: "attackDamage" | "abilityPower" | "armor" | "magicResist";
+  scope: "base" | "bonus" | "total";
+  values: number[];
+};
+
+export type SpellEffectDefinition = {
+  id: string;
+  label: string;
+  kind: EffectKind;
+  coverage: Exclude<Coverage, "estimated" | "non-damaging">;
+  description: string;
+  damageType?: DamageType;
+  formula?: FormulaNode;
+  formulaLabel?: string;
+};
 
 export type DamageVector = {
   physical: number;
@@ -39,6 +86,12 @@ export type SpellDefinition = {
   cooldown: number[];
   classification: Coverage;
   coverageNote: string;
+  castable?: boolean;
+  actionParameters?: ActionParameterDefinition[];
+  scalings?: RankedScaling[];
+  calculations?: Record<string, { formula: FormulaNode; displayAsPercent: boolean; unresolvedParts: string[] }>;
+  primaryCalculation?: string;
+  effects?: SpellEffectDefinition[];
 };
 
 export type ChampionDefinition = {
@@ -77,6 +130,7 @@ export type ItemDefinition = {
   price: number;
   stats: ItemStats;
   classification: Coverage | "stat-only" | "irrelevant";
+  coverageNote?: string;
 };
 
 export type RuneDefinition = {
@@ -84,7 +138,8 @@ export type RuneDefinition = {
   name: string;
   description: string;
   icon: string;
-  classification: "modeled" | "stat-only" | "irrelevant" | "unsupported";
+  classification: Coverage | "stat-only" | "irrelevant";
+  coverageNote?: string;
   styleId: number;
   styleName: string;
   slot: number;
@@ -127,6 +182,7 @@ export type CombatantConfig = {
   startingShield: number;
   stacks: Record<string, number>;
   resources: Record<string, number>;
+  conditions?: Record<string, boolean | number | string>;
   overrides: StatOverrides;
 };
 
@@ -139,10 +195,7 @@ export type ComboAction = {
   enabled: boolean;
   outcome: "hit" | "miss" | "crit" | "normal";
   parameters: {
-    wallCollision?: boolean;
-    empowered?: boolean;
-    hitCount?: number;
-    chargePercent?: number;
+    [key: string]: boolean | number | string | undefined;
   };
 };
 
@@ -166,7 +219,11 @@ export type ResolvedStats = {
   bonusAttackDamage: number;
   attackDamage: number;
   abilityPower: number;
+  baseArmor?: number;
+  bonusArmor?: number;
   armor: number;
+  baseMagicResist?: number;
+  bonusMagicResist?: number;
   magicResist: number;
   lethality: number;
   percentArmorPen: number;
@@ -182,6 +239,7 @@ export type StepTrigger = {
   preMitigation: DamageVector;
   postMitigation: DamageVector;
   note?: string;
+  kind?: "damage" | "state";
 };
 
 export type SimulationStep = {

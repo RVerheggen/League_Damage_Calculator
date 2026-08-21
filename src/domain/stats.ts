@@ -44,12 +44,18 @@ export function resolveStats(
   }
 
   const maxHealthDerived = champion.stats.health + champion.stats.healthPerLevel * growth + itemHealth + flatHealthShards + scalingHealthShards;
-  const armorDerived = champion.stats.armor + champion.stats.armorPerLevel * growth + itemArmor;
-  const magicResistDerived = champion.stats.magicResist + champion.stats.magicResistPerLevel * growth + itemMagicResist;
+  const ultimateRank = Math.max(0, Math.min(3, config.abilityRanks.R ?? 0));
+  const olafRPassive = champion.id === 2 && ultimateRank > 0 ? [10, 15, 20][ultimateRank - 1] : 0;
+  const armorDerived = champion.stats.armor + champion.stats.armorPerLevel * growth + itemArmor + olafRPassive;
+  const magicResistDerived = champion.stats.magicResist + champion.stats.magicResistPerLevel * growth + itemMagicResist + olafRPassive;
   const attackDamageDerived = baseAttackDamage + itemAttackDamage;
   const overrides = config.overrides;
   const attackDamage = overrides.attackDamage ?? attackDamageDerived;
   const maxHealth = overrides.maxHealth ?? maxHealthDerived;
+  const armor = overrides.armor ?? armorDerived;
+  const magicResist = overrides.magicResist ?? magicResistDerived;
+  const baseArmor = champion.stats.armor + champion.stats.armorPerLevel * growth;
+  const baseMagicResist = champion.stats.magicResist + champion.stats.magicResistPerLevel * growth;
 
   return {
     maxHealth,
@@ -58,8 +64,12 @@ export function resolveStats(
     bonusAttackDamage: attackDamage - baseAttackDamage,
     attackDamage,
     abilityPower: overrides.abilityPower ?? abilityPower,
-    armor: overrides.armor ?? armorDerived,
-    magicResist: overrides.magicResist ?? magicResistDerived,
+    baseArmor,
+    bonusArmor: armor - baseArmor,
+    armor,
+    baseMagicResist,
+    bonusMagicResist: magicResist - baseMagicResist,
+    magicResist,
     lethality: overrides.lethality ?? lethality,
     percentArmorPen: overrides.percentArmorPen ?? 0,
     flatMagicPen: overrides.flatMagicPen ?? 0,

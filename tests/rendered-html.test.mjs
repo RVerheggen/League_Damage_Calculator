@@ -56,12 +56,40 @@ test("combat-relevant effects are never mislabeled as irrelevant", async () => {
     readFile(new URL("../public/data/16.16/items.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/runes.json", import.meta.url), "utf8").then(JSON.parse),
   ]);
-  assert.equal(items.find((item) => item.name === "Abyssal Mask")?.classification, "unsupported");
-  assert.equal(runes.find((rune) => rune.name === "Conqueror")?.classification, "unsupported");
+  assert.equal(items.find((item) => item.name === "Abyssal Mask")?.classification, "modeled");
+  assert.equal(runes.find((rune) => rune.name === "Conqueror")?.classification, "modeled");
   assert.equal(runes.find((rune) => rune.name === "Hail of Blades")?.classification, "unsupported");
   assert.equal(runes.find((rune) => rune.name === "Last Stand")?.classification, "unsupported");
   assert.equal(runes.find((rune) => rune.name === "Bone Plating")?.classification, "unsupported");
   assert.equal(runes.find((rune) => rune.name === "Axiom Arcanist")?.classification, "unsupported");
+  assert.ok(items.every((item) => item.coverageNote));
+  assert.ok(runes.every((rune) => rune.coverageNote));
+});
+
+test("schema two snapshot preserves stateful reference modules and pinned sources", async () => {
+  const [current, manifest, vayne, olaf] = await Promise.all([
+    readFile(new URL("../public/data/current.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/manifest.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/67.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/2.json", import.meta.url), "utf8").then(JSON.parse),
+  ]);
+  assert.equal(current.schemaVersion, 2);
+  assert.equal(manifest.schemaVersion, 2);
+  assert.equal(manifest.validation.legacyEstimatedStates, 0);
+  assert.equal(manifest.validation.unknownRequiredCalculationParts, 0);
+  assert.ok(manifest.binInspection.itemEntryCount > 0);
+  assert.ok(manifest.binInspection.perkEntryCount > 0);
+  assert.equal(manifest.sources.filter((source) => source.url.includes("raw.communitydragon.org/latest/")).length, 1);
+
+  const tumble = vayne.spells.find((spell) => spell.key === "Q");
+  const silverBolts = vayne.spells.find((spell) => spell.key === "W");
+  const condemn = vayne.spells.find((spell) => spell.key === "E");
+  const finalHour = vayne.spells.find((spell) => spell.key === "R");
+  assert.equal(tumble.scalings.find((scaling) => scaling.stat === "attackDamage").values[4], 1.15);
+  assert.equal(silverBolts.castable, false);
+  assert.ok(condemn.actionParameters.some((parameter) => parameter.id === "wallCollision"));
+  assert.ok(finalHour.effects.some((effect) => effect.kind === "stat-buff"));
+  assert.ok(olaf.spells.find((spell) => spell.key === "R").effects.some((effect) => effect.id === "olaf-r-active"));
 });
 
 test("item details are available in equipped builds and the item picker", async () => {

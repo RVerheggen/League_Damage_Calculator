@@ -86,7 +86,7 @@ export function ResultsPanel({ result, error }: { result: SimulationResult | nul
                   <div className="rounded-lg border border-border/60 bg-background/25 p-3"><p className="mb-1 font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground">Formula Inputs</p><p className="text-xs leading-5">{step.formula}</p></div>
                   {step.triggers.map((trigger, triggerIndex) => (
                     <div key={`${trigger.label}-${triggerIndex}`} className="ml-3 border-l border-primary/40 pl-3 text-xs">
-                      <div className="flex justify-between gap-3"><span><Badge variant="outline" className="mr-2 text-[9px] uppercase">{trigger.source}</Badge>{trigger.label}</span><strong className="font-mono">{rounded(trigger.postMitigation.total)}</strong></div>
+                      <div className="flex justify-between gap-3"><span><Badge variant="outline" className="mr-2 text-[9px] uppercase">{trigger.source}</Badge>{trigger.label}</span><strong className="font-mono">{trigger.kind === "state" ? "State" : rounded(trigger.postMitigation.total)}</strong></div>
                       {trigger.note && <p className="mt-1 text-muted-foreground">{trigger.note}</p>}
                     </div>
                   ))}

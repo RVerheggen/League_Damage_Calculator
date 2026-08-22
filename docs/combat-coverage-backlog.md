@@ -19,12 +19,12 @@ Schema 3 contains review records for all 865 primary champion sources:
 - 692 Q, W, E, and R sources
 - 865 reviewed sources
 - 0 unreviewed sources
-- 21 Modeled sources
-- 541 Partially Modeled sources
+- 24 Modeled sources
+- 538 Partially Modeled sources
 - 183 Unsupported sources
 - 120 Out Of Scope sources
 
-Ability-only coverage is 19 Modeled, 541 Partially Modeled, 61 Unsupported, and 71 Out Of Scope.
+Ability-only coverage is 22 Modeled, 538 Partially Modeled, 61 Unsupported, and 71 Out Of Scope.
 
 Each generated record includes stable source IDs, attacker and defender relevance, template, custom, or out-of-scope disposition, exact retained behavior text, exclusions, a specific coverage reason, patch and source signatures, validation notes, and formula or value bindings where reviewed. A conservative record retains the full remaining behavior as Unsupported when it has not yet been split into executable components. Complete review coverage does not imply complete modeling coverage.
 
@@ -49,7 +49,7 @@ Implemented instruction families:
 - scheduled-damage
 - multi-hit-action
 
-The runtime supports counters, refresh, consumption, expiry, buffs, debuffs, shields, lockouts, dynamic stats, damage amplification, resistance changes, cooldown changes, delayed packets, and nested state and damage results. Attacker and defender programs execute at supported event boundaries.
+The runtime supports counters, refresh, consumption, expiry, buffs, debuffs, shields, lockouts, dynamic stats, damage amplification, resistance changes, cooldown changes, delayed packets, refreshable multi-tick schedules, and nested state and damage results. Attacker and defender programs execute at supported event boundaries.
 
 ## Migrated reference behavior
 
@@ -77,20 +77,28 @@ Custom handlers are keyed by stable source IDs and return generic damage operati
 
 Varus W remains Partially Modeled because its active missing-health Q empowerment and Chain of Corruption's delayed non-damage stack applications are still unsupported.
 
+## Timed on-hit family delivered
+
+- Kog'Maw Bio-Arcane Barrage: eight-second activation, repeated successful-hit application, complete rank scaling, AP scaling, maximum-health magic damage, misses, expiry, and mitigation.
+- Gwen Skip 'n Slash: four-second magic on-hit and attack-speed buffs, first-successful-hit cooldown refund, one-use consumption, misses, expiry, and dynamic later-action stats.
+- Fizz Seastone Trident: refreshable six-tick bleed scheduling, four-second armed attack, consumption, five-second follow-up on-hit state, expiry, timing, and mitigation.
+
+Kog'Maw's bonus range and monster cap, Gwen's dash, range, and attack reset, and Fizz's attack reset and kill-only mana and cooldown branch are visibly Out Of Scope for manually timed champion-target damage. Fizz's passive reapplication replaces only unresolved ticks, while already resolved ticks remain in the result history.
+
 ## Generated family inventory
 
 The catalog currently assigns reviewed components to these reusable families:
 
-- direct-damage: 799
+- direct-damage: 796
 - conditional-amplifier: 73
 - stacking-proc: 73
 - shield-with-lockout: 65
 - timed-on-hit: 62
-- timed-stat-modifier: 61
-- scheduled-damage: 57
-- cooldown-modifier: 49
+- timed-stat-modifier: 62
+- scheduled-damage: 58
+- cooldown-modifier: 50
 - resistance-modifier: 38
-- arm-next-hit: 6
+- arm-next-hit: 7
 - mark-and-consume: 2
 - multi-hit-action: 2
 - custom handlers: 7
@@ -101,7 +109,6 @@ These are component assignments, not counts of fully modeled sources.
 
 ### P0: champion buffs and on-hit passives
 
-- Timed on-hit buffs: Kog'Maw Bio-Arcane Barrage, Gwen Skip 'n Slash, and Fizz Seastone Trident.
 - Multi-attack states: Shen Twilight Assault, Kled Violent Tendencies, Draven Spinning Axe, and Malphite Thunderclap.
 - Conditional empowered attacks: Camille Precision Protocol, Renekton Ruthless Predator, Nasus Siphoning Strike, Trundle Chomp, and Wukong Crushing Blow.
 
@@ -147,7 +154,7 @@ These are component assignments, not counts of fully modeled sources.
 - Every champion source must have review metadata, source hashes, validation notes, and at least one component.
 - Every Modeled template component must compile.
 - Duplicate action, program, trigger, and action-parameter IDs fail validation.
-- Unknown source references, empty rank arrays, non-finite formula values, and malformed interpolation arrays fail validation.
+- Unknown source references, empty rank arrays, non-finite formula values, malformed interpolation arrays, and incomplete or invalid multi-tick schedules fail validation.
 - Raw BIN data and wiki content never ship to browser assets.
 
 ## Release checks

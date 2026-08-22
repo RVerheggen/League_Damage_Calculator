@@ -60,7 +60,7 @@ Passive: Kog'Maw gains % Attack Speed. Active: Kog'Maw vomits a corrosive projec
 
 ## W - Bio-Arcane Barrage
 
-Coverage: partial
+Coverage: modeled
 
 Description signature: 7154fedf5c30eec190ea9a226390f333c7c1f021477afb02bec363435078b52a
 
@@ -69,27 +69,41 @@ Description signature: 7154fedf5c30eec190ea9a226390f333c7c1f021477afb02bec363435
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalHealthDamage was preserved. Stateful and alternate effects require an explicit module.
+Bio-Arcane Barrage applies its patch-ranked maximum-health magic damage to each successful basic attack for eight seconds. Bonus range and the monster cap are outside the champion-target calculation.
 
-### Bio-Arcane Barrage Primary Damage
+### Bio-Arcane Barrage On-Hit
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
-
-### Bio-Arcane Barrage Remaining Combat Behavior
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: unsupported
 - Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Reason: Compiled by the reusable timed-on-hit template.
 
-Kog'Maw gains Attack Range and his Attacks deal an additional max Health magic damage %i:OnHit% On-Hit for seconds.
+Casting W empowers every successful basic attack for eight seconds with maximum-health magic damage.
+
+Formula bindings: KogMawW.TotalHealthDamage
+
+Value bindings: KogMawW.Duration
+
+### Bonus Attack Range
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: Range does not change a manually selected successful hit.
+
+W grants rank-based attack range while active.
+
+### Monster Damage Cap
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: The supported target is a champion.
+
+The on-hit damage is capped against monsters.
 
 ## E - Void Ooze
 

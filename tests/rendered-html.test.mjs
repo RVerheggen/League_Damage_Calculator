@@ -67,7 +67,7 @@ test("combat-relevant effects are never mislabeled as irrelevant", async () => {
 });
 
 test("schema three snapshot preserves reviewed programs, metadata, actions, and pinned sources", async () => {
-  const [current, manifest, vayne, olaf, jax, darius, garen, blitzcrank, leona, akshan, diana, varus] = await Promise.all([
+  const [current, manifest, vayne, olaf, jax, darius, garen, blitzcrank, leona, akshan, diana, varus, kogmaw, gwen, fizz] = await Promise.all([
     readFile(new URL("../public/data/current.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/manifest.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/67.json", import.meta.url), "utf8").then(JSON.parse),
@@ -80,6 +80,9 @@ test("schema three snapshot preserves reviewed programs, metadata, actions, and 
     readFile(new URL("../public/data/16.16/champions/166.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/131.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/110.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/96.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/887.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/105.json", import.meta.url), "utf8").then(JSON.parse),
   ]);
   assert.equal(current.schemaVersion, 3);
   assert.equal(manifest.schemaVersion, 3);
@@ -90,8 +93,8 @@ test("schema three snapshot preserves reviewed programs, metadata, actions, and 
   assert.equal(manifest.sources.filter((source) => source.url.includes("raw.communitydragon.org/latest/")).length, 1);
   assert.equal(manifest.validation.reviewedChampionSources, 865);
   assert.equal(manifest.validation.unreviewedChampionSources, 0);
-  assert.equal(manifest.championSourceCoverage.modeled, 21);
-  assert.equal(manifest.championSourceCoverage.partial, 541);
+  assert.equal(manifest.championSourceCoverage.modeled, 24);
+  assert.equal(manifest.championSourceCoverage.partial, 538);
   assert.equal(manifest.championSourceCoverage.unsupported, 183);
 
   const tumble = vayne.spells.find((spell) => spell.key === "Q");
@@ -119,10 +122,13 @@ test("schema three snapshot preserves reviewed programs, metadata, actions, and 
   assert.ok(akshan.effectPrograms.some((program) => program.id === "champion:166:P:dirty-fighting"));
   assert.ok(diana.effectPrograms.some((program) => program.template === "stacking-proc"));
   assert.ok(varus.effectPrograms.some((program) => program.template === "mark-and-consume"));
+  assert.ok(kogmaw.effectPrograms.some((program) => program.id === "champion:96:W:timed-on-hit"));
+  assert.ok(gwen.effectPrograms.some((program) => program.id === "champion:887:E:timed-on-hit"));
+  assert.ok(fizz.effectPrograms.some((program) => program.triggers.some((trigger) => trigger.operations.some((operation) => operation.type === "schedule-damage" && operation.tickCount.value === 6))));
   assert.ok(akshan.actions.find((entry) => entry.key === "AA").parameters.some((parameter) => parameter.id === "secondShot"));
   assert.ok(varus.actions.find((entry) => entry.key === "Q").parameters.some((parameter) => parameter.id === "chargePercent"));
-  assert.equal(manifest.spellCoverage.modeled, 19);
-  assert.equal(manifest.spellCoverage.partial, 541);
+  assert.equal(manifest.spellCoverage.modeled, 22);
+  assert.equal(manifest.spellCoverage.partial, 538);
 });
 
 test("item details are available in equipped builds and the item picker", async () => {

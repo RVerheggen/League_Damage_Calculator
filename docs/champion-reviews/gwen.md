@@ -83,7 +83,7 @@ Gwen summons the Hallowed Mist, making her Untargetable to all enemies (except t
 
 ## E - Skip 'n Slash
 
-Coverage: partial
+Coverage: modeled
 
 Description signature: ae74346634f9440cb03c1cb67976a0d49e5d8329d359a59c77de210626467e6a
 
@@ -92,27 +92,55 @@ Description signature: ae74346634f9440cb03c1cb67976a0d49e5d8329d359a59c77de21062
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation OnHitDamage was preserved. Stateful and alternate effects require an explicit module.
+Skip 'n Slash applies its four-second attack-speed and magic on-hit buffs, and the first successful attack refunds the patch-ranked share of E's total cooldown. Dash, range, and attack-timer reset behavior are outside manually timed damage.
 
-### Skip 'n Slash Primary Damage
+### Skip 'n Slash On-Hit
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
+- Template or handler: timed-on-hit
+- Reason: Compiled by the reusable timed-on-hit template.
 
-The structured primary CommunityDragon calculation is executable.
+Successful basic attacks during the four-second buff add 15 plus 20% AP magic damage.
 
-### Skip 'n Slash Remaining Combat Behavior
+Formula bindings: GwenE.OnHitDamage
+
+Value bindings: GwenE.BuffDuration
+
+### Skip 'n Slash Attack Speed
 
 - Relevance: attacker
 - Disposition: template
-- Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Coverage: modeled
+- Template or handler: timed-stat-modifier
+- Reason: Compiled as a dynamic timed stat modifier.
 
-Gwen dashes and empowers her Attacks for seconds. Empowered Attacks gain Attack Speed, magic damage %i:OnHit% On-Hit, range, and the first one to hit an enemy refunds % of this Ability's Cooldown.
+Casting E grants rank-based attack speed for four seconds.
+
+Formula bindings: GwenE.BonusAttackSpeed
+
+### Skip 'n Slash Cooldown Refund
+
+- Relevance: attacker
+- Disposition: template
+- Coverage: modeled
+- Template or handler: cooldown-modifier
+- Reason: Compiled as a one-use cooldown operation.
+
+The first successful basic attack during the buff reduces E's remaining cooldown by a rank-based share of its total cooldown.
+
+Value bindings: GwenE.CDRefund
+
+### Dash, Range, And Attack Reset
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: Movement, range, and attack-timer automation do not change a manually timed successful hit.
+
+E dashes, resets the basic-attack timer, and grants attack range.
 
 ## R - Needlework
 

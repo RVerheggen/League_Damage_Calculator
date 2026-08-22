@@ -144,6 +144,40 @@ function armNextHit(
   return program(`${source}:arm-next-hit`, label, "champion", source, "arm-next-hit", key, triggers);
 }
 
+function timedOnHit(
+  championId: number,
+  key: string,
+  label: string,
+  duration: number,
+  damageType: "physical" | "magic",
+  formula: FormulaNode,
+  formulaLabel: string,
+  options: {
+    stateKey?: string;
+    castOperations?: EffectProgramDefinition["triggers"][number]["operations"];
+    additionalTriggers?: EffectProgramDefinition["triggers"];
+  } = {},
+) {
+  const source = sourceId(championId, key);
+  const stateKey = options.stateKey ?? `${source}:active`;
+  return program(`${source}:timed-on-hit`, label, "champion", source, "timed-on-hit", key, [
+    {
+      id: `${source}:activate`, event: "cast", priority: 10,
+      conditions: [{ type: "source-id", value: source }, { type: "rank-at-least", sourceId: key, value: 1 }],
+      operations: [
+        { type: "set-state", key: stateKey, scope: "participant", value: literal(1), duration: literal(duration), label: `${label} Active` },
+        ...(options.castOperations ?? []),
+      ],
+    },
+    {
+      id: `${source}:on-hit`, event: "basic-attack-hit", priority: 10,
+      conditions: [{ type: "state-active", key: stateKey, scope: "participant" }, { type: "hit", value: true }],
+      operations: [{ type: "damage", label: `${label} On-Hit`, damageType, formula, formulaLabel }],
+    },
+    ...(options.additionalTriggers ?? []),
+  ]);
+}
+
 function knownSources(): Map<string, KnownSource> {
   const sources = new Map<string, KnownSource>();
   const set = (championId: number, key: string, value: KnownSource) => sources.set(sourceId(championId, key), value);
@@ -257,6 +291,87 @@ function knownSources(): Map<string, KnownSource> {
       spellPatch: { damageType, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
     });
   }
+
+  set(96, "W", {
+    coverage: "modeled",
+    coverageNote: "Bio-Arcane Barrage applies its patch-ranked maximum-health magic damage to each successful basic attack for eight seconds. Bonus range and the monster cap are outside the champion-target calculation.",
+    effects: [{
+      id: "kogmaw-w-on-hit", label: "Bio-Arcane Barrage On-Hit", kind: "passive-proc", coverage: "modeled",
+      description: "For eight seconds, successful basic attacks add magic damage based on the target's maximum health.",
+      damageType: "magic", formulaLabel: "3 / 3.75 / 4.5 / 5.25 / 6% target max health + 1.5% per 100 AP",
+      formula: product({ type: "target-stat", key: "maxHealth" }, sum(ranked([0.03, 0.0375, 0.045, 0.0525, 0.06]), stat("totalAbilityPower", 0.00015))),
+    }],
+    components: [
+      component("kogmaw-w-on-hit", "Bio-Arcane Barrage On-Hit", "Casting W empowers every successful basic attack for eight seconds with maximum-health magic damage.", "modeled", "timed-on-hit", "Compiled by the reusable timed-on-hit template.", { formulaBindings: ["KogMawW.TotalHealthDamage"], valueBindings: ["KogMawW.Duration"] }),
+      component("kogmaw-w-range", "Bonus Attack Range", "W grants rank-based attack range while active.", "out-of-scope", null, "Range does not change a manually selected successful hit."),
+      component("kogmaw-w-monster-cap", "Monster Damage Cap", "The on-hit damage is capped against monsters.", "out-of-scope", null, "The supported target is a champion."),
+    ],
+    programs: [timedOnHit(96, "W", "Bio-Arcane Barrage", 8, "magic", product({ type: "target-stat", key: "maxHealth" }, sum(ranked([0.03, 0.0375, 0.045, 0.0525, 0.06]), stat("totalAbilityPower", 0.00015))), "3 / 3.75 / 4.5 / 5.25 / 6% target max health + 1.5% per 100 AP")],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
+
+  set(887, "E", {
+    coverage: "modeled",
+    coverageNote: "Skip 'n Slash applies its four-second attack-speed and magic on-hit buffs, and the first successful attack refunds the patch-ranked share of E's total cooldown. Dash, range, and attack-timer reset behavior are outside manually timed damage.",
+    effects: [
+      { id: "gwen-e-on-hit", label: "Skip 'n Slash On-Hit", kind: "stat-buff", coverage: "modeled", description: "For four seconds, successful basic attacks add magic damage.", damageType: "magic", formulaLabel: "15 + 20% AP", formula: sum(literal(15), stat("totalAbilityPower", 0.2)) },
+      { id: "gwen-e-attack-speed", label: "Skip 'n Slash Attack Speed", kind: "stat-buff", coverage: "modeled", description: "Grants 30 / 42.5 / 55 / 67.5 / 80% attack speed for four seconds.", formulaLabel: "30 / 42.5 / 55 / 67.5 / 80% attack speed" },
+      { id: "gwen-e-cooldown", label: "Skip 'n Slash Cooldown Refund", kind: "cooldown-modifier", coverage: "modeled", description: "The first successful basic attack refunds 25 / 35 / 45 / 55 / 65% of E's total cooldown.", formulaLabel: "25 / 35 / 45 / 55 / 65% of total cooldown" },
+    ],
+    components: [
+      component("gwen-e-on-hit", "Skip 'n Slash On-Hit", "Successful basic attacks during the four-second buff add 15 plus 20% AP magic damage.", "modeled", "timed-on-hit", "Compiled by the reusable timed-on-hit template.", { formulaBindings: ["GwenE.OnHitDamage"], valueBindings: ["GwenE.BuffDuration"] }),
+      component("gwen-e-attack-speed", "Skip 'n Slash Attack Speed", "Casting E grants rank-based attack speed for four seconds.", "modeled", "timed-stat-modifier", "Compiled as a dynamic timed stat modifier.", { formulaBindings: ["GwenE.BonusAttackSpeed"] }),
+      component("gwen-e-cooldown", "Skip 'n Slash Cooldown Refund", "The first successful basic attack during the buff reduces E's remaining cooldown by a rank-based share of its total cooldown.", "modeled", "cooldown-modifier", "Compiled as a one-use cooldown operation.", { valueBindings: ["GwenE.CDRefund"] }),
+      component("gwen-e-mobility", "Dash, Range, And Attack Reset", "E dashes, resets the basic-attack timer, and grants attack range.", "out-of-scope", null, "Movement, range, and attack-timer automation do not change a manually timed successful hit."),
+    ],
+    programs: [timedOnHit(887, "E", "Skip 'n Slash", 4, "magic", sum(literal(15), stat("totalAbilityPower", 0.2)), "15 + 20% AP", {
+      stateKey: "skip-n-slash",
+      castOperations: [
+        { type: "set-state", key: "skip-n-slash-refund", scope: "participant", value: literal(1), duration: literal(4), label: "Skip 'n Slash Refund Ready" },
+        { type: "stat-modifier", key: "skip-n-slash-as", stat: "attackSpeed", mode: "percent", formula: ranked([0.3, 0.425, 0.55, 0.675, 0.8]), activeWhileState: "skip-n-slash", label: "Skip 'n Slash Attack Speed" },
+      ],
+      additionalTriggers: [{
+        id: "champion:887:E:cooldown-refund", event: "basic-attack-hit", priority: 20,
+        conditions: [{ type: "state-active", key: "skip-n-slash-refund", scope: "participant" }, { type: "hit", value: true }],
+        operations: [
+          { type: "cooldown-modifier", sourceId: sourceId(887, "E"), mode: "remaining-flat", formula: product(event("cooldown:E"), ranked([0.25, 0.35, 0.45, 0.55, 0.65])), label: "Skip 'n Slash Cooldown Refund" },
+          { type: "consume-state", key: "skip-n-slash-refund", scope: "participant", label: "Skip 'n Slash Refund Consumed" },
+        ],
+      }],
+    })],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
+
+  set(105, "W", {
+    coverage: "modeled",
+    coverageNote: "Seastone Trident applies a refreshable six-tick bleed, arms the next attack for four seconds, and empowers later attacks for five seconds after the armed hit. Kill-only mana and cooldown behavior is outside the supported same-target continuation.",
+    effects: [
+      { id: "fizz-w-bleed", label: "Seastone Trident Bleed", kind: "passive-proc", coverage: "modeled", description: "Each successful basic attack applies six magic-damage ticks over three seconds. A later hit refreshes and replaces the remaining ticks.", damageType: "magic", formulaLabel: "30 / 45 / 60 / 75 / 90 + 25% AP total over six ticks", formula: sum(ranked([30, 45, 60, 75, 90]), stat("totalAbilityPower", 0.25)) },
+      { id: "fizz-w-active", label: "Seastone Trident Active Attack", kind: "next-attack", coverage: "modeled", description: "Casting W arms the next successful basic attack within four seconds for bonus magic damage.", damageType: "magic", formulaLabel: "50 / 75 / 100 / 125 / 150 + 45% AP", formula: sum(ranked([50, 75, 100, 125, 150]), stat("totalAbilityPower", 0.45)) },
+      { id: "fizz-w-follow-up", label: "Seastone Trident Follow-Up On-Hit", kind: "stat-buff", coverage: "modeled", description: "After the armed attack, later attacks add magic damage for five seconds.", damageType: "magic", formulaLabel: "20 / 25 / 30 / 35 / 40 + 30% AP", formula: sum(ranked([20, 25, 30, 35, 40]), stat("totalAbilityPower", 0.3)) },
+    ],
+    components: [
+      component("fizz-w-bleed", "Seastone Trident Bleed", "Basic attacks apply six half-second magic-damage ticks over three seconds. Reapplication refreshes the effect and replaces ticks that have not resolved.", "modeled", "scheduled-damage", "Compiled as refreshable source-target scheduled damage.", { formulaBindings: ["FizzW.DoTDamage"], valueBindings: ["FizzW.BleedDuration", "FizzW.DoTTicksPerSecond"] }),
+      component("fizz-w-active", "Seastone Trident Active Attack", "Casting W arms one successful basic attack for four seconds. The attack consumes the armed state and adds patch-ranked magic damage.", "modeled", "arm-next-hit", "Compiled as participant state and a consuming damage operation.", { formulaBindings: ["FizzW.ActiveDamage"], valueBindings: ["FizzW.ActiveDuration"] }),
+      component("fizz-w-follow-up", "Seastone Trident Follow-Up On-Hit", "After the armed attack, later successful attacks add patch-ranked magic damage for five seconds.", "modeled", "timed-on-hit", "Compiled as a timed participant state.", { formulaBindings: ["FizzW.OnHitBuffDamage"], valueBindings: ["FizzW.OnHitBuffDuration"] }),
+      component("fizz-w-kill", "Kill Refund", "If the armed attack kills, W refunds mana, sets its cooldown to one second, and does not grant the follow-up buff.", "out-of-scope", null, "Mana and target-death continuation do not change the supported damage result. Simulation stops on lethal damage unless the sandbox override is enabled."),
+      component("fizz-w-reset", "Basic Attack Reset", "Casting W resets Fizz's basic-attack timer.", "out-of-scope", null, "Combo delays are selected manually."),
+    ],
+    programs: [program("champion:105:W:seastone-trident", "Seastone Trident", "champion", sourceId(105, "W"), "timed-on-hit", "W", [
+      { id: "fizz-w-follow-up-hit", event: "basic-attack-hit", priority: 5, conditions: [{ type: "state-active", key: "seastone-follow-up", scope: "participant" }, { type: "hit", value: true }], operations: [{ type: "damage", label: "Seastone Trident Follow-Up On-Hit", damageType: "magic", formula: sum(ranked([20, 25, 30, 35, 40]), stat("totalAbilityPower", 0.3)), formulaLabel: "20 / 25 / 30 / 35 / 40 + 30% AP" }] },
+      { id: "fizz-w-bleed", event: "basic-attack-hit", priority: 10, conditions: [{ type: "rank-at-least", sourceId: "W", value: 1 }, { type: "hit", value: true }], operations: [{ type: "schedule-damage", label: "Seastone Trident Bleed", damageType: "magic", formula: sum(ranked([30, 45, 60, 75, 90]), stat("totalAbilityPower", 0.25)), delay: literal(0), tickCount: literal(6), tickInterval: literal(0.5), replaceKey: "seastone-bleed", scope: "source-target", formulaLabel: "30 / 45 / 60 / 75 / 90 + 25% AP total over six ticks" }] },
+      { id: "fizz-w-arm", event: "cast", priority: 10, conditions: [{ type: "source-id", value: sourceId(105, "W") }, { type: "rank-at-least", sourceId: "W", value: 1 }], operations: [{ type: "set-state", key: "seastone-armed", scope: "participant", value: literal(1), duration: literal(4), label: "Seastone Trident Armed" }] },
+      { id: "fizz-w-active-hit", event: "basic-attack-hit", priority: 20, conditions: [{ type: "state-active", key: "seastone-armed", scope: "participant" }, { type: "hit", value: true }], operations: [
+        { type: "damage", label: "Seastone Trident Active Attack", damageType: "magic", formula: sum(ranked([50, 75, 100, 125, 150]), stat("totalAbilityPower", 0.45)), formulaLabel: "50 / 75 / 100 / 125 / 150 + 45% AP" },
+        { type: "consume-state", key: "seastone-armed", scope: "participant", label: "Seastone Trident Armed State Consumed" },
+        { type: "set-state", key: "seastone-follow-up", scope: "participant", value: literal(1), duration: literal(5), label: "Seastone Trident Follow-Up Active" },
+      ] },
+    ])],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
 
   const customSources: Array<[number, string, string, string]> = [
     [78, "Q", "Poppy Hammer Shock", "Two-stage maximum-health damage needs explicit initial and detonation action semantics."],
@@ -494,6 +609,13 @@ function dataValue(spell: any, name: string) {
   return Number(value);
 }
 
+function rankedDataValues(spell: any, name: string, count = 5) {
+  const values = spell?.DataValues?.find((entry: any) => entry.name === name)?.values;
+  const ranks = Array.isArray(values) ? values.slice(1, count + 1).map(Number) : [];
+  if (ranks.length !== count || ranks.some((value) => !Number.isFinite(value))) throw new Error(`CommunityDragon ranked data binding ${name} is missing or changed structure.`);
+  return ranks;
+}
+
 function calculationFormula(champion: ChampionLike, key: string, name: string) {
   const formula = champion.spells.find((spell) => spell.key === key)?.calculations?.[name]?.formula;
   if (!formula) throw new Error(`CommunityDragon formula binding champion:${champion.id}:${key}:${name} is missing.`);
@@ -601,6 +723,54 @@ function bindCompiledProgramData(champion: ChampionLike, binObject: Record<strin
           }
         }
       }
+    }
+  }
+
+  if (champion.id === 96) {
+    const w = findBinSpell(binObject, ["MaxHealthDamage", "APRatio", "Duration"]);
+    if (!w) throw new Error("Kog'Maw Bio-Arcane Barrage CommunityDragon binding record is missing.");
+    const onHit = product({ type: "target-stat", key: "maxHealth" }, calculationFormula(champion, "W", "TotalHealthDamage"), literal(0.01));
+    for (const operation of operations) {
+      if (operation.type === "set-state" && operation.key === `${sourceId(96, "W")}:active`) operation.duration = literal(dataValue(w, "Duration"));
+      else if (operation.type === "damage" && operation.label === "Bio-Arcane Barrage On-Hit") operation.formula = structuredClone(onHit);
+    }
+  }
+
+  if (champion.id === 887) {
+    const e = findBinSpell(binObject, ["BuffDuration", "BaseAttackSpeed", "CDRefund", "BonusAttackRange"]);
+    if (!e) throw new Error("Gwen Skip 'n Slash CommunityDragon binding record is missing.");
+    const duration = dataValue(e, "BuffDuration");
+    const onHit = calculationFormula(champion, "E", "OnHitDamage");
+    const attackSpeed = product(calculationFormula(champion, "E", "BonusAttackSpeed"), literal(0.01));
+    const refund = ranked(rankedDataValues(e, "CDRefund"));
+    for (const operation of operations) {
+      if (operation.type === "set-state" && (operation.key === "skip-n-slash" || operation.key === "skip-n-slash-refund")) operation.duration = literal(duration);
+      else if (operation.type === "damage" && operation.label === "Skip 'n Slash On-Hit") operation.formula = structuredClone(onHit);
+      else if (operation.type === "stat-modifier" && operation.key === "skip-n-slash-as") operation.formula = structuredClone(attackSpeed);
+      else if (operation.type === "cooldown-modifier" && operation.label === "Skip 'n Slash Cooldown Refund") operation.formula = product(event("cooldown:E"), structuredClone(refund));
+    }
+  }
+
+  if (champion.id === 105) {
+    const w = findBinSpell(binObject, ["BleedDuration", "DoTTicksPerSecond", "ActiveDuration", "OnHitBuffDuration", "OnKillNewCooldown"]);
+    if (!w) throw new Error("Fizz Seastone Trident CommunityDragon binding record is missing.");
+    const bleedDuration = dataValue(w, "BleedDuration");
+    const tickRate = dataValue(w, "DoTTicksPerSecond");
+    const tickCount = bleedDuration * tickRate;
+    if (!Number.isInteger(tickCount) || tickCount < 1) throw new Error("Fizz Seastone Trident tick bindings do not produce a positive whole tick count.");
+    const bleed = calculationFormula(champion, "W", "DoTDamage");
+    const active = calculationFormula(champion, "W", "ActiveDamage");
+    const followUp = calculationFormula(champion, "W", "OnHitBuffDamage");
+    for (const operation of operations) {
+      if (operation.type === "schedule-damage" && operation.label === "Seastone Trident Bleed") {
+        operation.formula = structuredClone(bleed);
+        operation.delay = literal(0);
+        operation.tickCount = literal(tickCount);
+        operation.tickInterval = literal(1 / tickRate);
+      } else if (operation.type === "set-state" && operation.key === "seastone-armed") operation.duration = literal(dataValue(w, "ActiveDuration"));
+      else if (operation.type === "set-state" && operation.key === "seastone-follow-up") operation.duration = literal(dataValue(w, "OnHitBuffDuration"));
+      else if (operation.type === "damage" && operation.label === "Seastone Trident Active Attack") operation.formula = structuredClone(active);
+      else if (operation.type === "damage" && operation.label === "Seastone Trident Follow-Up On-Hit") operation.formula = structuredClone(followUp);
     }
   }
 

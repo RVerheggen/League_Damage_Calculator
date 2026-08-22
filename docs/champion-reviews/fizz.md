@@ -60,7 +60,7 @@ Fizz dashes through an enemy, dealing physical damage plus magic damage.
 
 ## W - Seastone Trident
 
-Coverage: partial
+Coverage: modeled
 
 Description signature: 8ac282fe4f436b0ce0277dd63314cb7438fdf2ece9aa03eac0eb64a5158f04ec
 
@@ -69,27 +69,69 @@ Description signature: 8ac282fe4f436b0ce0277dd63314cb7438fdf2ece9aa03eac0eb64a51
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DoTDamage was preserved. Stateful and alternate effects require an explicit module.
+Seastone Trident applies a refreshable six-tick bleed, arms the next attack for four seconds, and empowers later attacks for five seconds after the armed hit. Kill-only mana and cooldown behavior is outside the supported same-target continuation.
 
-### Seastone Trident Primary Damage
+### Seastone Trident Bleed
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
+- Template or handler: scheduled-damage
+- Reason: Compiled as refreshable source-target scheduled damage.
 
-The structured primary CommunityDragon calculation is executable.
+Basic attacks apply six half-second magic-damage ticks over three seconds. Reapplication refreshes the effect and replaces ticks that have not resolved.
 
-### Seastone Trident Remaining Combat Behavior
+Formula bindings: FizzW.DoTDamage
+
+Value bindings: FizzW.BleedDuration, FizzW.DoTTicksPerSecond
+
+### Seastone Trident Active Attack
 
 - Relevance: attacker
 - Disposition: template
-- Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Coverage: modeled
+- Template or handler: arm-next-hit
+- Reason: Compiled as participant state and a consuming damage operation.
 
-Passive: Fizz's Attacks cause his enemies to bleed, dealing magic damage over seconds. Active: Fizz's next Attack deals an additional magic damage. If this Attack kills its target, Fizz refunds Mana and reduces the cooldown of this Ability to second. If it does not kill, Fizz's Attacks deal an additional magic damage for seconds.
+Casting W arms one successful basic attack for four seconds. The attack consumes the armed state and adds patch-ranked magic damage.
+
+Formula bindings: FizzW.ActiveDamage
+
+Value bindings: FizzW.ActiveDuration
+
+### Seastone Trident Follow-Up On-Hit
+
+- Relevance: attacker
+- Disposition: template
+- Coverage: modeled
+- Template or handler: timed-on-hit
+- Reason: Compiled as a timed participant state.
+
+After the armed attack, later successful attacks add patch-ranked magic damage for five seconds.
+
+Formula bindings: FizzW.OnHitBuffDamage
+
+Value bindings: FizzW.OnHitBuffDuration
+
+### Kill Refund
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: Mana and target-death continuation do not change the supported damage result. Simulation stops on lethal damage unless the sandbox override is enabled.
+
+If the armed attack kills, W refunds mana, sets its cooldown to one second, and does not grant the follow-up buff.
+
+### Basic Attack Reset
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: Combo delays are selected manually.
+
+Casting W resets Fizz's basic-attack timer.
 
 ## E - Playful / Trickster
 

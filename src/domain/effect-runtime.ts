@@ -63,6 +63,7 @@ type RuntimeResistanceModifier = {
 
 export type ScheduledRuntimePacket = {
   id: string;
+  replaceKey?: string;
   executeAt: number;
   label: string;
   raw: DamageVector;
@@ -392,16 +393,27 @@ function executeOperation(
   }
   if (operation.type === "schedule-damage") {
     const delay = Math.max(0, evaluate(operation.delay, state, program, context));
-    const raw = packet(operation.damageType, Math.max(0, evaluate(operation.formula, state, program, context)));
-    state.scheduledPackets.push({
-      id: `${context.action?.id ?? program.id}:${operation.label}:${context.timestamp}`,
-      executeAt: context.timestamp + delay,
-      label: operation.label,
-      raw,
-      source,
-      note: operation.formulaLabel,
-    });
-    nodes.push(stateNode(source, `${operation.label} Scheduled`, `The packet will resolve in ${delay.toFixed(2)} seconds.`));
+    const tickCount = Math.max(1, Math.floor(operation.tickCount ? evaluate(operation.tickCount, state, program, context) : 1));
+    const tickInterval = Math.max(0, operation.tickInterval ? evaluate(operation.tickInterval, state, program, context) : 0);
+    const amountPerTick = Math.max(0, evaluate(operation.formula, state, program, context)) / tickCount;
+    const replacementKey = operation.replaceKey
+      ? scopedKey(program, context.side, operation.scope ?? "source-target", operation.replaceKey, context.targetId)
+      : undefined;
+    if (replacementKey) state.scheduledPackets = state.scheduledPackets.filter((scheduled) => scheduled.replaceKey !== replacementKey);
+    for (let tick = 1; tick <= tickCount; tick += 1) {
+      const executeAt = context.timestamp + delay + tickInterval * (tick - 1);
+      state.scheduledPackets.push({
+        id: `${context.action?.id ?? program.id}:${operation.label}:${context.timestamp}:${tick}`,
+        replaceKey: replacementKey,
+        executeAt,
+        label: tickCount === 1 ? operation.label : `${operation.label} ${tick}/${tickCount}`,
+        raw: packet(operation.damageType, amountPerTick),
+        source,
+        note: operation.formulaLabel,
+      });
+    }
+    const duration = delay + tickInterval * (tickCount - 1);
+    nodes.push(stateNode(source, `${operation.label} Scheduled`, `${tickCount} packet${tickCount === 1 ? "" : "s"} will resolve over ${duration.toFixed(2)} seconds.`));
     return emptyDamage();
   }
   nodes.push(stateNode(source, operation.label, operation.description));

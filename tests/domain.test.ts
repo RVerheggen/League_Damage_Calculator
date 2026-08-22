@@ -701,6 +701,93 @@ test("Varus Blighted Quiver applies on-hit damage, consumes isolated marks, scal
   assert.ok(nestedTriggers(expiredResult.steps[3].triggers).some((trigger) => trigger.label === "Blight Expired"));
 });
 
+test("Kog'Maw Bio-Arcane Barrage applies ranked maximum-health on-hit damage, survives misses, mitigates, and expires", () => {
+  const kogmaw = snapshotChampion(96);
+  const target = champion(900, "Target");
+  const champions = new Map([[96, kogmaw], [900, target]]);
+  const scenario = duel(96, 900);
+  scenario.attacker.abilityRanks.W = 1;
+  scenario.attacker.overrides.abilityPower = 100;
+  scenario.defender.overrides.magicResist = 100;
+  scenario.combo = [
+    action("w", "ability", "W"),
+    { ...action("miss", "attack", "AA", 0.1), outcome: "miss" as const },
+    action("hit", "attack", "AA", 0.1),
+    action("wait", "wait", "WAIT", 8),
+    action("expired", "attack", "AA"),
+  ];
+  const result = simulate(scenario, champions, new Map(), new Map());
+  assert.equal(result.steps.find((step) => step.id === "w")?.preMitigation.total, 0);
+  assert.equal(result.steps.find((step) => step.id === "miss")?.preMitigation.total, 0);
+  closeTo(result.steps.find((step) => step.id === "hit")?.preMitigation.magic ?? 0, 225);
+  closeTo(result.steps.find((step) => step.id === "hit")?.postMitigation.magic ?? 0, 112.5);
+  assert.equal(result.steps.find((step) => step.id === "expired")?.preMitigation.magic, 0);
+  assert.ok(nestedTriggers(result.steps.find((step) => step.id === "wait")?.triggers ?? []).some((trigger) => trigger.label === "Bio-Arcane Barrage Expired"));
+});
+
+test("Gwen Skip 'n Slash applies timed stats and on-hit damage, refunds E once, and expires", () => {
+  const gwen = snapshotChampion(887);
+  const target = champion(900, "Target");
+  const champions = new Map([[887, gwen], [900, target]]);
+  const scenario = duel(887, 900);
+  scenario.attacker.abilityRanks.E = 5;
+  scenario.attacker.overrides.abilityPower = 100;
+  scenario.combo = [
+    action("e", "ability", "E"),
+    { ...action("miss", "attack", "AA", 0.1), outcome: "miss" as const },
+    action("first", "attack", "AA", 0.1),
+    action("second", "attack", "AA", 0.1),
+    action("early-e", "ability", "E"),
+  ];
+  const result = simulate(scenario, champions, new Map(), new Map());
+  closeTo(result.steps.find((step) => step.id === "first")?.preMitigation.magic ?? 0, 35);
+  closeTo(result.steps.find((step) => step.id === "second")?.preMitigation.magic ?? 0, 35);
+  assert.ok(nestedTriggers(result.steps.find((step) => step.id === "first")?.triggers ?? []).some((trigger) => trigger.label === "Skip 'n Slash Refund Consumed"));
+  assert.equal(nestedTriggers(result.steps.find((step) => step.id === "second")?.triggers ?? []).some((trigger) => trigger.label === "Skip 'n Slash Cooldown Refund"), false);
+  assert.ok(result.steps.find((step) => step.id === "early-e")?.warnings.some((warning) => warning.includes("before its modeled cooldown")));
+  closeTo(result.attackerStats.attackSpeed ?? 0, gwen.stats.attackSpeed * 1.8);
+
+  const expired = duel(887, 900);
+  expired.attacker.abilityRanks.E = 1;
+  expired.combo = [action("e", "ability", "E"), action("wait", "wait", "WAIT", 4), action("attack", "attack", "AA")];
+  const expiredResult = simulate(expired, champions, new Map(), new Map());
+  assert.equal(expiredResult.steps.find((step) => step.id === "attack")?.preMitigation.magic, 0);
+  assert.ok(nestedTriggers(expiredResult.steps.find((step) => step.id === "wait")?.triggers ?? []).some((trigger) => trigger.label === "Skip 'n Slash Expired"));
+});
+
+test("Fizz Seastone Trident schedules refreshable bleed ticks and separates active and follow-up attacks", () => {
+  const fizz = snapshotChampion(105);
+  const target = champion(900, "Target");
+  const champions = new Map([[105, fizz], [900, target]]);
+  const bleed = duel(105, 900);
+  bleed.attacker.abilityRanks.W = 1;
+  bleed.attacker.overrides.abilityPower = 0;
+  bleed.defender.overrides.magicResist = 100;
+  bleed.combo = [action("first", "attack", "AA"), action("second", "attack", "AA", 0.75)];
+  const bleedResult = simulate(bleed, champions, new Map(), new Map());
+  const bleedSteps = bleedResult.steps.filter((step) => step.label.startsWith("Seastone Trident Bleed"));
+  assert.equal(bleedSteps.length, 8);
+  closeTo(bleedSteps.reduce((total, step) => total + step.preMitigation.magic, 0), 40);
+  closeTo(bleedSteps.reduce((total, step) => total + step.postMitigation.magic, 0), 20);
+  assert.deepEqual(bleedSteps.map((step) => step.timestamp), [0, 0.5, 0.75, 1.25, 1.75, 2.25, 2.75, 3.25]);
+
+  const active = duel(105, 900);
+  active.attacker.abilityRanks.W = 1;
+  active.attacker.overrides.abilityPower = 100;
+  active.combo = [action("w", "ability", "W"), action("active", "attack", "AA", 0.1), action("follow-up", "attack", "AA", 0.1)];
+  const activeResult = simulate(active, champions, new Map(), new Map());
+  closeTo(activeResult.steps.find((step) => step.id === "active")?.preMitigation.magic ?? 0, 95);
+  closeTo(activeResult.steps.find((step) => step.id === "follow-up")?.preMitigation.magic ?? 0, 50);
+  assert.ok(nestedTriggers(activeResult.steps.find((step) => step.id === "active")?.triggers ?? []).some((trigger) => trigger.label === "Seastone Trident Armed State Consumed"));
+
+  const expired = duel(105, 900);
+  expired.attacker.abilityRanks.W = 1;
+  expired.combo = [action("w", "ability", "W"), action("wait", "wait", "WAIT", 4), action("attack", "attack", "AA")];
+  const expiredResult = simulate(expired, champions, new Map(), new Map());
+  assert.equal(expiredResult.steps.find((step) => step.id === "attack")?.preMitigation.magic, 0);
+  assert.ok(nestedTriggers(expiredResult.steps.find((step) => step.id === "wait")?.triggers ?? []).some((trigger) => trigger.label === "Seastone Trident Expired"));
+});
+
 test("defender-side programs can create expiring shields before incoming damage", () => {
   const attacker = champion(1, "Attacker");
   const defender = champion(2, "Defender");
@@ -756,6 +843,21 @@ test("source-target state is isolated and effect program validation rejects malf
   assert.ok(errors.some((error) => error.includes("unknown source ID")));
   assert.ok(errors.some((error) => error.includes("priority must be finite")));
   assert.ok(errors.some((error) => error.includes("values must not be empty")));
+  const malformedSchedule = structuredClone(stacking);
+  malformedSchedule.triggers[0].operations = [{
+    type: "schedule-damage",
+    label: "Invalid Schedule",
+    damageType: "magic",
+    formula: { type: "literal", value: 10 },
+    delay: { type: "literal", value: 0 },
+    tickCount: { type: "literal", value: 0 },
+    replaceKey: "",
+    formulaLabel: "invalid",
+  }];
+  const scheduleErrors = validateEffectPrograms([malformedSchedule], new Set(["champion:1:P"]));
+  assert.ok(scheduleErrors.some((error) => error.includes("tickCount and tickInterval together")));
+  assert.ok(scheduleErrors.some((error) => error.includes("tickCount must be a positive integer")));
+  assert.ok(scheduleErrors.some((error) => error.includes("replaceKey must not be empty")));
   assert.ok(validateActionDefinitions([{ id: "duplicate", sourceId: "one", kind: "attack", key: "AA", label: "One", defaultDelay: 0, parameters: [] }, { id: "duplicate", sourceId: "two", kind: "attack", key: "AA", label: "Two", defaultDelay: 0, parameters: [] }]).some((error) => error.includes("Duplicate")));
 });
 

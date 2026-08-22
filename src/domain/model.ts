@@ -59,7 +59,18 @@ export type EffectOperation =
   | { type: "damage-amplifier"; key: string; damageType?: DamageType; formula: FormulaNode; duration?: FormulaNode; label: string }
   | { type: "resistance-modifier"; key: string; stat: "armor" | "magicResist"; mode: "flat-reduction" | "percent-reduction"; formula: FormulaNode; duration?: FormulaNode; label: string }
   | { type: "cooldown-modifier"; sourceId: string; mode: "remaining-flat" | "remaining-percent" | "total-percent" | "set-total"; formula: FormulaNode; label: string }
-  | { type: "schedule-damage"; label: string; damageType: DamageType; formula: FormulaNode; delay: FormulaNode; formulaLabel: string }
+  | {
+      type: "schedule-damage";
+      label: string;
+      damageType: DamageType;
+      formula: FormulaNode;
+      delay: FormulaNode;
+      formulaLabel: string;
+      tickCount?: FormulaNode;
+      tickInterval?: FormulaNode;
+      replaceKey?: string;
+      scope?: StateScope;
+    }
   | { type: "trace"; label: string; description: string };
 
 export type EffectTriggerDefinition = {

@@ -61,7 +61,12 @@ function operationFormulas(operation: EffectOperation) {
   else if (operation.type === "shield") formulas.push(["formula", operation.formula], ["duration", operation.duration], ["lockoutDuration", operation.lockoutDuration]);
   else if (operation.type === "stat-modifier" || operation.type === "damage-amplifier" || operation.type === "resistance-modifier") formulas.push(["formula", operation.formula], ["duration", operation.duration]);
   else if (operation.type === "cooldown-modifier") formulas.push(["formula", operation.formula]);
-  else if (operation.type === "schedule-damage") formulas.push(["formula", operation.formula], ["delay", operation.delay]);
+  else if (operation.type === "schedule-damage") formulas.push(
+    ["formula", operation.formula],
+    ["delay", operation.delay],
+    ["tickCount", operation.tickCount],
+    ["tickInterval", operation.tickInterval],
+  );
   return formulas.filter((entry): entry is [string, FormulaNode] => Boolean(entry[1]));
 }
 
@@ -82,6 +87,13 @@ export function validateEffectPrograms(programs: EffectProgramDefinition[], know
       }
       trigger.operations.forEach((operation, operationIndex) => {
         if (operation.type === "cooldown-modifier" && knownSourceIds && !knownSourceIds.has(operation.sourceId)) errors.push(`Effect trigger ${trigger.id} references unknown cooldown source ID ${operation.sourceId}.`);
+        if (operation.type === "schedule-damage") {
+          const location = `${program.id}.${trigger.id}.operations[${operationIndex}]`;
+          if (Boolean(operation.tickCount) !== Boolean(operation.tickInterval)) errors.push(`${location} must declare tickCount and tickInterval together.`);
+          if (operation.tickCount?.type === "literal" && (!Number.isInteger(operation.tickCount.value) || operation.tickCount.value < 1)) errors.push(`${location}.tickCount must be a positive integer.`);
+          if (operation.tickInterval?.type === "literal" && operation.tickInterval.value < 0) errors.push(`${location}.tickInterval must not be negative.`);
+          if (operation.replaceKey !== undefined && !operation.replaceKey.trim()) errors.push(`${location}.replaceKey must not be empty.`);
+        }
         for (const [field, formula] of operationFormulas(operation)) errors.push(...formulaErrors(formula, `${program.id}.${trigger.id}.operations[${operationIndex}].${field}`));
       });
     }

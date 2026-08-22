@@ -4,23 +4,23 @@ Generated from the machine-readable patch 16.16 review catalog. The catalog cont
 
 ## Coverage
 
-- modeled: 21
+- modeled: 24
 - out-of-scope: 120
-- partial: 541
+- partial: 538
 - unsupported: 183
 
 ## Effect families
 
-- direct-damage: 799
+- direct-damage: 796
 - conditional-amplifier: 73
 - stacking-proc: 73
 - shield-with-lockout: 65
+- timed-stat-modifier: 62
 - timed-on-hit: 62
-- timed-stat-modifier: 61
-- scheduled-damage: 57
-- cooldown-modifier: 49
+- scheduled-damage: 58
+- cooldown-modifier: 50
 - resistance-modifier: 38
-- arm-next-hit: 6
+- arm-next-hit: 7
 - mark-and-consume: 2
 - multi-hit-action: 2
 

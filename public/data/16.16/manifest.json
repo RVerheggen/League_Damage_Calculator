@@ -2,15 +2,15 @@
   "schemaVersion": 3,
   "patch": "16.16",
   "gameVersion": "16.16.8049184+branch.releases-16-16.content.release",
-  "generatedAt": "2026-08-22T14:36:16.259Z",
+  "generatedAt": "2026-08-22T15:27:58.545Z",
   "locale": "en_US",
   "championCount": 173,
   "itemCount": 222,
   "runeCount": 69,
   "spellCoverage": {
-    "partial": 541,
+    "partial": 538,
     "unsupported": 61,
-    "modeled": 19,
+    "modeled": 22,
     "out-of-scope": 71
   },
   "unsupportedSpells": [
@@ -394,28 +394,28 @@
   },
   "championSourceCoverage": {
     "out-of-scope": 120,
-    "partial": 541,
+    "partial": 538,
     "unsupported": 183,
-    "modeled": 21
+    "modeled": 24
   },
   "reviewedChampionSourceCount": 865,
   "unreviewedChampionSourceCount": 0,
   "reviewDisposition": {
-    "out-of-scope": 128,
-    "template": 1287,
+    "out-of-scope": 133,
+    "template": 1288,
     "custom": 7
   },
   "effectFamilies": {
-    "direct-damage": 799,
-    "cooldown-modifier": 49,
+    "direct-damage": 796,
+    "cooldown-modifier": 50,
     "shield-with-lockout": 65,
-    "timed-stat-modifier": 61,
+    "timed-stat-modifier": 62,
     "resistance-modifier": 38,
     "timed-on-hit": 62,
-    "scheduled-damage": 57,
+    "scheduled-damage": 58,
     "conditional-amplifier": 73,
     "stacking-proc": 73,
-    "arm-next-hit": 6,
+    "arm-next-hit": 7,
     "mark-and-consume": 2,
     "multi-hit-action": 2
   },

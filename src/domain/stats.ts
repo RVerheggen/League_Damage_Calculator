@@ -35,19 +35,23 @@ export function resolveStats(
   const selectedRunes = [...config.runeIds, ...(config.shardIds ?? []).filter((id): id is number => typeof id === "number")]
     .map((id) => runeIndex.get(id))
     .filter(Boolean) as RuneDefinition[];
-  const flatHealthShards = selectedRunes.filter((rune) => rune.name === "Health").length * 65;
-  const scalingHealthShards = selectedRunes.filter((rune) => rune.name === "Health Scaling").length * (10 + (170 * Math.max(0, config.level - 1)) / 17);
-  const adaptiveShards = selectedRunes.filter((rune) => rune.name === "Adaptive Force").length;
-  if (adaptiveShards > 0) {
-    if (abilityPower > itemAttackDamage * 1.67) abilityPower += adaptiveShards * 9;
-    else itemAttackDamage += adaptiveShards * 5.4;
+  let runeHealth = 0;
+  for (const rune of selectedRunes) {
+    for (const modifier of rune.staticModifiers ?? []) {
+      if (modifier.stat === "health") {
+        runeHealth += modifier.mode === "level-linear"
+          ? (modifier.values[0] ?? 0) + ((modifier.values[1] ?? modifier.values[0] ?? 0) - (modifier.values[0] ?? 0)) * (Math.max(1, config.level) - 1) / 17
+          : modifier.values[0] ?? 0;
+      } else if (modifier.mode === "adaptive") {
+        if (abilityPower > itemAttackDamage * 1.67) abilityPower += modifier.values[1] ?? 0;
+        else itemAttackDamage += modifier.values[0] ?? 0;
+      }
+    }
   }
 
-  const maxHealthDerived = champion.stats.health + champion.stats.healthPerLevel * growth + itemHealth + flatHealthShards + scalingHealthShards;
-  const ultimateRank = Math.max(0, Math.min(3, config.abilityRanks.R ?? 0));
-  const olafRPassive = champion.id === 2 && ultimateRank > 0 ? [10, 15, 20][ultimateRank - 1] : 0;
-  const armorDerived = champion.stats.armor + champion.stats.armorPerLevel * growth + itemArmor + olafRPassive;
-  const magicResistDerived = champion.stats.magicResist + champion.stats.magicResistPerLevel * growth + itemMagicResist + olafRPassive;
+  const maxHealthDerived = champion.stats.health + champion.stats.healthPerLevel * growth + itemHealth + runeHealth;
+  const armorDerived = champion.stats.armor + champion.stats.armorPerLevel * growth + itemArmor;
+  const magicResistDerived = champion.stats.magicResist + champion.stats.magicResistPerLevel * growth + itemMagicResist;
   const attackDamageDerived = baseAttackDamage + itemAttackDamage;
   const overrides = config.overrides;
   const attackDamage = overrides.attackDamage ?? attackDamageDerived;
@@ -76,5 +80,6 @@ export function resolveStats(
     percentMagicPen: overrides.percentMagicPen ?? 0,
     critChance: overrides.critChance ?? critChance,
     critDamage: overrides.critDamage ?? 175,
+    attackSpeed: champion.stats.attackSpeed * (1 + champion.stats.attackSpeedPerLevel * growth / 100),
   };
 }

@@ -11,8 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { ChampionDefinition, ScenarioV1, SimulationResult } from "@/src/domain/model";
-import { decodeScenario, encodeScenario } from "@/src/domain/scenario";
+import type { ChampionDefinition, ScenarioV2, SimulationResult } from "@/src/domain/model";
+import { decodeScenario, encodeScenario, hasIncompatibleScenario } from "@/src/domain/scenario";
 import { simulate } from "@/src/domain/simulate";
 import { resolveStats } from "@/src/domain/stats";
 import { CombatantPanel } from "./combatant-panel";
@@ -22,7 +22,7 @@ import { defaultScenario } from "./defaults";
 import { ResultsPanel } from "./results-panel";
 import { useGameData } from "./use-game-data";
 
-const STORAGE_KEY = "damage-lab:scenario-v1";
+const STORAGE_KEY = "damage-lab:scenario-v2";
 
 function restoredScenario() {
   if (typeof window === "undefined") return null;
@@ -30,14 +30,15 @@ function restoredScenario() {
   if (shared) return shared;
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) as ScenarioV1 : null;
+    const parsed = saved ? JSON.parse(saved) as ScenarioV2 : null;
+    return parsed?.schemaVersion === 2 ? parsed : null;
   } catch {
     return null;
   }
 }
 
 export function DamageLab() {
-  const [scenario, setScenario] = useState<ScenarioV1>(() => defaultScenario(""));
+  const [scenario, setScenario] = useState<ScenarioV2>(() => defaultScenario(""));
   const [requestedPatch, setRequestedPatch] = useState<string>();
   const [restorationComplete, setRestorationComplete] = useState(false);
   const data = useGameData(requestedPatch);
@@ -47,10 +48,12 @@ export function DamageLab() {
   const [defenderChampion, setDefenderChampion] = useState<ChampionDefinition | null>(null);
   const [championError, setChampionError] = useState<string | null>(null);
   const [shared, setShared] = useState(false);
+  const [incompatibleScenario, setIncompatibleScenario] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const restored = restoredScenario();
+      setIncompatibleScenario(hasIncompatibleScenario(window.location.hash));
       if (restored) {
         setScenario(restored);
         setRequestedPatch(restored.patch || undefined);
@@ -184,7 +187,7 @@ export function DamageLab() {
           </div>
           <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border/70 bg-card/60 px-4 py-3 text-xs text-muted-foreground">
             <ShieldCheck className="size-4 text-primary" /><span>Validated Snapshot</span><Separator orientation="vertical" className="h-4" />
-            <Select value={scenario.randomnessMode} onValueChange={(randomnessMode) => setScenario((current) => ({ ...current, randomnessMode: randomnessMode as ScenarioV1["randomnessMode"] }))}>
+            <Select value={scenario.randomnessMode} onValueChange={(randomnessMode) => setScenario((current) => ({ ...current, randomnessMode: randomnessMode as ScenarioV2["randomnessMode"] }))}>
               <SelectTrigger size="sm" className="w-36">
                 <SelectValue>{(value) => value === "expected" ? "Expected Value" : "Deterministic"}</SelectValue>
               </SelectTrigger>
@@ -195,6 +198,7 @@ export function DamageLab() {
         </section>
 
         {data.loading && <Alert className="mb-5"><Database /><AlertTitle>Loading Patch Snapshot</AlertTitle><AlertDescription>Preparing champion, item, and rune indexes.</AlertDescription></Alert>}
+        {incompatibleScenario && <Alert className="mb-5"><Link2 /><AlertTitle>Incompatible Shared Scenario</AlertTitle><AlertDescription>This link uses an older scenario schema and was not imported. A new schema 2 scenario has been opened instead.</AlertDescription></Alert>}
 
         <div className="hidden grid-cols-[minmax(270px,0.78fr)_minmax(540px,1.5fr)_minmax(270px,0.78fr)] items-start gap-5 xl:grid">
           {attackerPanel}

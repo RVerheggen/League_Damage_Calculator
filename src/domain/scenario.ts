@@ -1,4 +1,4 @@
-import type { ScenarioV1 } from "./model";
+import type { ScenarioV2 } from "./model";
 
 const PREFIX = "dl=";
 
@@ -14,23 +14,34 @@ function base64ToBytes(value: string) {
   return Uint8Array.from(binary, (character) => character.charCodeAt(0));
 }
 
-export function encodeScenario(scenario: ScenarioV1) {
+export function encodeScenario(scenario: ScenarioV2) {
   return `${PREFIX}${bytesToBase64(new TextEncoder().encode(JSON.stringify(scenario)))}`;
 }
 
-export function decodeScenario(fragment: string): ScenarioV1 | null {
+export function decodeScenario(fragment: string): ScenarioV2 | null {
   try {
     const encoded = fragment.replace(/^#/, "");
     if (!encoded.startsWith(PREFIX)) return null;
     const parsed = JSON.parse(new TextDecoder().decode(base64ToBytes(encoded.slice(PREFIX.length))));
-    if (parsed?.schemaVersion !== 1 || typeof parsed.patch !== "string") return null;
-    return parsed as ScenarioV1;
+    if (parsed?.schemaVersion !== 2 || typeof parsed.patch !== "string") return null;
+    return parsed as ScenarioV2;
   } catch {
     return null;
   }
 }
 
-export function validateScenario(scenario: ScenarioV1) {
+export function hasIncompatibleScenario(fragment: string) {
+  try {
+    const encoded = fragment.replace(/^#/, "");
+    if (!encoded.startsWith(PREFIX)) return false;
+    const parsed = JSON.parse(new TextDecoder().decode(base64ToBytes(encoded.slice(PREFIX.length))));
+    return parsed?.schemaVersion !== 2;
+  } catch {
+    return false;
+  }
+}
+
+export function validateScenario(scenario: ScenarioV2) {
   const warnings: string[] = [];
   for (const [label, combatant] of [["Attacker", scenario.attacker], ["Target", scenario.defender]] as const) {
     if (combatant.level < 1 || combatant.level > 18) warnings.push(`${label} level must be between 1 and 18.`);

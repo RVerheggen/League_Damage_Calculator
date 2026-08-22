@@ -1,68 +1,159 @@
 # Combat coverage backlog
 
-This file is the durable source for combat effects that still need an engine module. Patch snapshots keep the current classification, a reviewed reason, and user-facing tooltips. An effect must never be labeled `out-of-scope` merely because it has not been implemented.
+The machine-readable champion review catalog is the source of truth for champion combat coverage. This file summarizes the generated patch 16.16 report and records the next reusable effect families. An effect must never be labeled Out Of Scope merely because it has not been implemented.
 
 ## Classification contract
 
-- `modeled`: the complete duel-relevant effect is executed by the simulator.
-- `partial`: a primary formula or effect is executed, but another combat-relevant part still needs a state module.
-- `stat-only`: the effect is a static stat and that stat is applied by the engine.
-- `out-of-scope`: a reviewed effect cannot change damage, mitigation, shields, or supported combat state in the current one-on-one scope.
-- `unsupported`: the effect can change the result but does not have a complete engine module yet. The app must show a warning.
-- Unknown runes default to `unsupported`. A rune can become `out-of-scope` only through an explicit reviewed entry.
+- Modeled: every reviewed duel-relevant component for the source is executed.
+- Partially Modeled: at least one reviewed component is executed, but another duel-relevant component remains incomplete.
+- Unsupported: the source can change a supported result but has no executable reviewed component yet.
+- Out Of Scope: review confirmed that the component cannot change damage, mitigation, shields, offensive stats, defenses, cooldown state, or another supported one-on-one result.
 
-## Completed patch 16.16 reference modules
+Estimated and Non-Damaging are not valid generated coverage states. Every incomplete state requires a visible, specific reason. Static item and rune stats may still use their separate stat-only presentation because they do not represent champion review coverage.
 
-- Vayne Tumble: timed next-attack state, rank-specific total AD, AP scaling, consumption, and expiry.
-- Vayne Silver Bolts: per-target stacks, third-hit true damage, repeated procs, minimum damage, maximum-health scaling, Condemn stacks, and expiry.
-- Vayne Condemn: bonus AD scaling, terrain collision input and packet, and Silver Bolts interaction.
-- Vayne Final Hour: timed bonus AD, Tumble cooldown modifier, and visible utility exclusions.
-- Olaf Ragnarok: passive defenses, dynamic active AD, timed expiry, and Attack or Reckless Swing extensions.
-- Abyssal Mask Unmake: contextual range input and magic-only incoming damage amplification.
-- Conqueror: melee and ranged stack rules, adaptive force, cap, later-action stat recalculation, and expiry. Healing remains visibly outside healing-analysis scope.
-- Single-use empowered attacks: Jax Empower, Darius Crippling Strike, Garen Decisive Strike, Blitzcrank Power Fist, and Leona Shield of Daybreak now arm timed state, survive misses, consume on a successful hit, expire, and emit nested damage and state traces. Jax Empower also consumes on Leap Strike, and Crippling Strike applies the attack's critical modifier to its bonus damage.
+## Patch 16.16 review audit
 
-The generated spell report now contains 17 Modeled, 544 Partially Modeled, 60 Unsupported, and 71 Out Of Scope abilities. Item and rune gaps remain tracked separately in the manifest.
+Schema 3 contains review records for all 865 primary champion sources:
 
-## Priority work
+- 173 passives
+- 692 Q, W, E, and R sources
+- 865 reviewed sources
+- 0 unreviewed sources
+- 21 Modeled sources
+- 541 Partially Modeled sources
+- 183 Unsupported sources
+- 120 Out Of Scope sources
 
-### P0: remaining champion buffs and on-hit passives
+Ability-only coverage is 19 Modeled, 541 Partially Modeled, 61 Unsupported, and 71 Out Of Scope.
+
+Each generated record includes stable source IDs, attacker and defender relevance, template, custom, or out-of-scope disposition, exact retained behavior text, exclusions, a specific coverage reason, patch and source signatures, validation notes, and formula or value bindings where reviewed. A conservative record retains the full remaining behavior as Unsupported when it has not yet been split into executable components. Complete review coverage does not imply complete modeling coverage.
+
+Generated review pages and the current family index are in [champion-reviews/README.md](./champion-reviews/README.md).
+
+## Declarative runtime delivered
+
+The simulator now executes compiled EffectProgram instructions instead of named champion state fields. Generic state is scoped to a participant, source, target, or source-target pair. Programs are ordered by phase, priority, and declaration order.
+
+Implemented instruction families:
+
+- direct-damage
+- arm-next-hit
+- timed-on-hit
+- stacking-proc
+- mark-and-consume
+- timed-stat-modifier
+- conditional-amplifier
+- resistance-modifier
+- cooldown-modifier
+- shield-with-lockout
+- scheduled-damage
+- multi-hit-action
+
+The runtime supports counters, refresh, consumption, expiry, buffs, debuffs, shields, lockouts, dynamic stats, damage amplification, resistance changes, cooldown changes, delayed packets, and nested state and damage results. Attacker and defender programs execute at supported event boundaries.
+
+## Migrated reference behavior
+
+- Vayne Tumble, Silver Bolts, Condemn, and Final Hour
+- Olaf Ragnarok passive defenses, active attack damage, expiry, and extensions
+- Jax Empower
+- Darius Crippling Strike
+- Garen Decisive Strike
+- Blitzcrank Power Fist
+- Leona Shield of Daybreak
+- Abyssal Mask Unmake
+- Conqueror
+- Scorch
+- Existing reviewed custom handlers for Poppy, Taric, Dr. Mundo, Garen, and Ornn
+
+Custom handlers are keyed by stable source IDs and return generic damage operations. They do not mutate runtime state.
+
+## New representative stacking families
+
+- Akshan Dirty Fighting: ordered basic-attack bullets, typed second-shot control, per-target stacks, ability applications, third-hit magic damage, shield duration, shield lockout, consumption, leftover stacks, and expiry.
+- Akshan Avengerang: typed one-hit or two-hit action with ordered passive applications.
+- Diana Moonsilver Blade: permanent level-scaled attack speed, after-cast timed attack speed, attack stacks, third-attack cleave, consumption, and expiry.
+- Varus Blighted Quiver: magic on-hit packet, per-target Blight marks, Q, E, and R consumption, Q charge amplification, cooldown reduction, consumption, and expiry.
+- Varus Piercing Arrow: typed charge input with minimum and maximum CommunityDragon damage bindings.
+
+Varus W remains Partially Modeled because its active missing-health Q empowerment and Chain of Corruption's delayed non-damage stack applications are still unsupported.
+
+## Generated family inventory
+
+The catalog currently assigns reviewed components to these reusable families:
+
+- direct-damage: 799
+- conditional-amplifier: 73
+- stacking-proc: 73
+- shield-with-lockout: 65
+- timed-on-hit: 62
+- timed-stat-modifier: 61
+- scheduled-damage: 57
+- cooldown-modifier: 49
+- resistance-modifier: 38
+- arm-next-hit: 6
+- mark-and-consume: 2
+- multi-hit-action: 2
+- custom handlers: 7
+
+These are component assignments, not counts of fully modeled sources.
+
+## Next family priorities
+
+### P0: champion buffs and on-hit passives
 
 - Timed on-hit buffs: Kog'Maw Bio-Arcane Barrage, Gwen Skip 'n Slash, and Fizz Seastone Trident.
 - Multi-attack states: Shen Twilight Assault, Kled Violent Tendencies, Draven Spinning Axe, and Malphite Thunderclap.
 - Conditional empowered attacks: Camille Precision Protocol, Renekton Ruthless Predator, Nasus Siphoning Strike, Trundle Chomp, and Wukong Crushing Blow.
 
-### P0: remaining stacking offensive stats
+### P0: offensive stat stacking
 
-- Lethal Tempo and Hail of Blades: track attack stacks, attack speed, on-attack damage, duration, and champion range rules.
-- Legend: Alacrity, Gathering Storm, Jack Of All Trades, Waterwalking, and Triple Tonic: expose the required pre-combat inputs and apply their conditional stats.
+- Lethal Tempo and Hail of Blades
+- Legend: Alacrity
+- Gathering Storm
+- Jack Of All Trades
+- Waterwalking
+- Triple Tonic
 
-### P0: remaining outgoing and incoming modifiers
+### P0: damage amplifiers
 
-- First Strike, Cut Down, Last Stand, Axiom Arcanist, Press the Attack exposure, and Deathfire Touch: model activation windows, target or attacker health checks, damage classes, and duration.
-- Bone Plating: reduce the next three qualifying incoming attacks or spells with its duration and cooldown.
+- First Strike
+- Cut Down
+- Last Stand
+- Axiom Arcanist
+- Press the Attack exposure
+- Deathfire Touch
 
-### P0: item classification audit
+### P0: resistance reduction and shred
 
-- Replace the conservative item description classifier with a manually reviewed per-item coverage table generated for each patch.
-- Review every item currently labeled `stat-only` that has non-empty passive or active text. Promote result-changing effects to `unsupported` until a complete module exists.
-- Keep Abyssal Mask as a regression check so Unmake cannot silently return to `stat-only`.
+- Champion armor and magic-resistance reductions should be grouped by application, stacking, refresh, expiry, and per-target scope before selecting isolated abilities.
 
-### P1: damage procs and defensive triggers
+### P1: on-hit items and spell-triggered procs
 
-- Dark Harvest, Arcane Comet, Summon Aery, Cheap Shot, Sudden Impact, Shield Bash, Grasp of the Undying, and Aftershock.
-- Conditioning, Overgrowth, Revitalize, Unflinching, Absolute Focus, and Manaflow Band.
-- Biscuit Delivery and Legend: Bloodline where permanent maximum health changes the target state.
+- Replace conservative item text classification with reviewed stable-ID item catalog entries.
+- Add generic on-hit item packet ordering, source lockouts, and trigger-policy tags.
+- Add Dark Harvest, Arcane Comet, Summon Aery, Cheap Shot, Sudden Impact, Shield Bash, and Grasp of the Undying.
 
-### P1: timing and cooldown state
+### P1: delayed and defensive effects
 
-- Ultimate Hunter, Cosmic Insight, Transcendence, Ability Haste, Attack Speed, and Legend: Haste.
-- Electrocute needs its three-second hit window and cooldown verified.
-- Scorch needs a scheduled one-second delayed packet rather than an immediate child packet.
+- Chain of Corruption delayed Blight application requires scheduled non-damage operations.
+- Bone Plating requires defender-side packet reduction with charge count, duration, and cooldown.
+- Conditioning, Overgrowth, Revitalize, Unflinching, Absolute Focus, and Manaflow Band need typed pre-combat or timed state.
+
+## Patch update gates
+
+- Only patch resolution may request CommunityDragon latest. Every stored source URL is pinned to the numbered patch.
+- Runtime formulas and values are compiled from named CommunityDragon calculation and data bindings. Required bindings fail when missing, non-numeric, or structurally changed.
+- The patch 16.16 roster review signature covers all 865 retained source descriptions. A changed signature requires renewed catalog review.
+- Every champion source must have review metadata, source hashes, validation notes, and at least one component.
+- Every Modeled template component must compile.
+- Duplicate action, program, trigger, and action-parameter IDs fail validation.
+- Unknown source references, empty rank arrays, non-finite formula values, and malformed interpolation arrays fail validation.
+- Raw BIN data and wiki content never ship to browser assets.
 
 ## Release checks
 
-- Regenerate the snapshot and inspect every rune classified as `out-of-scope` after every patch update.
-- Inspect every item with passive or active text that is classified as `stat-only` after every patch update.
-- Fail tests if Conqueror, Abyssal Mask, or the representative combat effects in the audit become `out-of-scope` or `stat-only`.
-- Do not promote an effect to `modeled` until its state transitions and ordering have golden tests.
+- Run TypeScript checking, ESLint, the complete domain suite, the GitHub Pages production build, and static output tests.
+- Run git diff --check.
+- Scan changed application code and documentation for the em dash character.
+- Inspect generated Modeled, Partially Modeled, Unsupported, and Out Of Scope totals after every sync.
+- Do not promote a component to Modeled until its application, ordering, stacking, consumption, expiry, mitigation, timing, and relevant edge cases have golden tests.

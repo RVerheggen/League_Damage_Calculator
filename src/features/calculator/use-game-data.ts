@@ -16,10 +16,15 @@ export type SnapshotManifest = {
   unsupportedSpells: Array<{ champion: string; key: string; name: string; note: string }>;
   itemCoverage: Record<string, number>;
   runeCoverage: Record<string, number>;
+  championSourceCoverage: Record<string, number>;
+  reviewedChampionSourceCount: number;
+  unreviewedChampionSourceCount: number;
+  reviewDisposition: Record<string, number>;
+  effectFamilies: Record<string, number>;
   unknownCalculationParts: Record<string, number>;
   unknownPrimaryCalculationParts: Record<string, number>;
   binInspection: { itemEntryCount: number; perkEntryCount: number; localizedStringCount: number };
-  validation: { finiteNumbers: boolean; rankArraysPreserved: boolean; legacyEstimatedStates: number; reviewedCoverageReasons: boolean; unknownRequiredCalculationParts: number };
+  validation: { finiteNumbers: boolean; rankArraysPreserved: boolean; legacyEstimatedStates: number; reviewedCoverageReasons: boolean; reviewedChampionSources: number; unreviewedChampionSources: number; unknownRequiredCalculationParts: number };
 };
 
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
@@ -53,6 +58,7 @@ export function useGameData(initialPatch?: string) {
           fetch(`${base}/runes.json`).then((response) => response.json()),
           fetch(`${base}/rune-styles.json`).then((response) => response.json()),
         ]);
+        if (manifestData.schemaVersion !== 3) throw new Error(`Patch ${requestedPatch} uses unsupported snapshot schema ${manifestData.schemaVersion}.`);
         if (cancelled) return;
         setPatch(requestedPatch);
         setManifest(manifestData);

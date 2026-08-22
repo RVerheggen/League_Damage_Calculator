@@ -20,9 +20,9 @@ import type {
   RuneStyleDefinition,
   StatOverrides,
 } from "@/src/domain/model";
-import { itemEffectModule } from "@/src/domain/effect-modules";
 import type { ChampionSummary } from "./use-game-data";
 import { AbilityDetailsTooltipContent } from "./ability-details-tooltip";
+import { PassiveDetailsTooltipContent } from "./passive-details-tooltip";
 import { PickerDialog } from "./picker-dialog";
 import { ItemDetailsTooltipContent } from "./item-details-tooltip";
 import { RunePageDialog } from "./rune-page-dialog";
@@ -65,6 +65,10 @@ export function CombatantPanel({
   const [itemSlot, setItemSlot] = useState(0);
   const itemSlots = useMemo(() => Array.from({ length: 6 }, (_, index) => items.find((item) => item.id === config.itemIds[index])), [config.itemIds, items]);
   const selectedItems = useMemo(() => itemSlots.filter(Boolean) as ItemDefinition[], [itemSlots]);
+  const inputDefinitions = useMemo(() => [
+    ...(champion?.inputs ?? []),
+    ...selectedItems.flatMap((item) => item.inputs ?? []),
+  ], [champion, selectedItems]);
   const runeIndex = useMemo(() => new Map(runes.map((rune) => [rune.id, rune])), [runes]);
   const treeRuneIds = useMemo(() => config.runeIds.filter((id) => (runeIndex.get(id)?.styleId ?? 1) > 0), [config.runeIds, runeIndex]);
   const legacyShardIds = useMemo(() => config.runeIds.filter((id) => runeIndex.get(id)?.styleId === 0), [config.runeIds, runeIndex]);
@@ -154,6 +158,15 @@ export function CombatantPanel({
             <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
               <span>ABILITY RANKS</span><span>Sandbox Editable</span>
             </div>
+            {champion.passive && (
+              <Tooltip>
+                <TooltipTrigger render={<button type="button" className="mb-2 flex w-full items-center gap-2 border border-border/70 bg-background/25 p-2 text-left text-xs hover:border-primary/40" aria-label={`View ${champion.passive.name} Details`} />}>
+                  <img src={champion.passive.icon} alt="" className="size-7" />
+                  <span className="min-w-0 flex-1"><strong className="block truncate text-foreground">P - {champion.passive.name}</strong><span className="text-muted-foreground">{champion.passive.classification}</span></span>
+                </TooltipTrigger>
+                <PassiveDetailsTooltipContent passive={champion.passive} />
+              </Tooltip>
+            )}
             <div className="grid grid-cols-4 gap-2">
               {champion.spells.slice(0, 4).map((spell) => (
                 <div key={spell.key} className="ability-rank-control">
@@ -221,20 +234,33 @@ export function CombatantPanel({
           {selectedItems.length > 0 && (
             <div className="mt-2 flex justify-end"><Button variant="ghost" size="xs" onClick={() => onChange({ ...config, itemIds: [] })}><RotateCcw /> Clear Build</Button></div>
           )}
-          {selectedItems.some((item) => itemEffectModule(item.id) === "abyssal-mask-unmake") && (
-            <div className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-primary/20 bg-primary/5 px-3 py-2 text-xs">
+          {inputDefinitions.map((definition) => (
+            <div key={definition.id} className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-primary/20 bg-primary/5 px-3 py-2 text-xs">
               <span>
-                <strong className="block text-foreground">Unmake Aura</strong>
-                <span className="text-muted-foreground">Opponent Within 700 Range</span>
+                <strong className="block text-foreground">{definition.label}</strong>
+                <span className="text-muted-foreground">{definition.description}</span>
               </span>
-              <Switch
-                size="sm"
-                aria-label="Opponent Within 700 Range"
-                checked={Boolean(config.conditions?.abyssalMaskInRange)}
-                onCheckedChange={(abyssalMaskInRange) => onChange({ ...config, conditions: { ...config.conditions, abyssalMaskInRange } })}
-              />
+              {definition.type === "boolean" ? (
+                <Switch
+                  size="sm"
+                  aria-label={definition.label}
+                  checked={Boolean(config.inputs[definition.id] ?? definition.defaultValue)}
+                  onCheckedChange={(value) => onChange({ ...config, inputs: { ...config.inputs, [definition.id]: value } })}
+                />
+              ) : (
+                <Input
+                  aria-label={definition.label}
+                  type="number"
+                  min={definition.min}
+                  max={definition.max}
+                  step={definition.step}
+                  value={Number(config.inputs[definition.id] ?? definition.defaultValue)}
+                  onChange={(event) => onChange({ ...config, inputs: { ...config.inputs, [definition.id]: Number(event.target.value) } })}
+                  className="h-7 w-20"
+                />
+              )}
             </div>
-          )}
+          ))}
         </div>
 
         <div>

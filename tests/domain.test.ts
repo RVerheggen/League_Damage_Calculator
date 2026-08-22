@@ -2,13 +2,16 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { evaluateFormula } from "../src/domain/formula";
-import { damageVector, type ChampionDefinition, type ItemDefinition, type RuneDefinition } from "../src/domain/model";
+import { damageVector, type ChampionDefinition, type EffectProgramDefinition, type ItemDefinition, type ResolvedStats, type RuneDefinition, type StepTrigger } from "../src/domain/model";
+import { createEffectRuntimeState, executeEffectEvent } from "../src/domain/effect-runtime";
+import { validateActionDefinitions, validateEffectPrograms } from "../src/domain/effect-program-validation";
 import { effectiveResistance, mitigateDamage, resistanceMultiplier } from "../src/domain/mitigation";
-import { decodeScenario, encodeScenario } from "../src/domain/scenario";
+import { decodeScenario, encodeScenario, hasIncompatibleScenario } from "../src/domain/scenario";
 import { simulate } from "../src/domain/simulate";
 import { growthMultiplier, resolveStats } from "../src/domain/stats";
 import { defaultScenario } from "../src/features/calculator/defaults";
 import { getActionControls, sanitizeComboForChampion } from "../src/features/calculator/action-controls";
+import { reviewRosterSignature, validateReviewCatalog } from "../scripts/catalog-validation";
 
 const champion = (id: number, alias: string): ChampionDefinition => ({
   id,
@@ -35,11 +38,20 @@ const champion = (id: number, alias: string): ChampionDefinition => ({
   },
   passive: null,
   spells: [{ key: "Q", name: "Fixture Q", description: "", icon: "", damageType: "magic", baseDamage: [100, 120, 140, 160, 180], ratioAD: 0, ratioAP: 0.6, ratioArmor: 0, ratioMagicResist: 0, cooldown: [], classification: "modeled", coverageNote: "" }],
+  actions: [
+    { id: `champion:${id}:AA:attack`, sourceId: `champion:${id}:AA`, kind: "attack", key: "AA", label: "Basic Attack", defaultDelay: 0.15, parameters: [] },
+    { id: `champion:${id}:Q:cast`, sourceId: `champion:${id}:Q`, kind: "ability", key: "Q", label: "Fixture Q", defaultDelay: 0.15, parameters: [] },
+  ],
+  inputs: [],
+  effectPrograms: [],
 });
 
 const snapshotChampion = (id: number) => JSON.parse(
   readFileSync(new URL(`../public/data/16.16/champions/${id}.json`, import.meta.url), "utf8"),
 ) as ChampionDefinition;
+
+const snapshotItems = () => JSON.parse(readFileSync(new URL("../public/data/16.16/items.json", import.meta.url), "utf8")) as ItemDefinition[];
+const snapshotRunes = () => JSON.parse(readFileSync(new URL("../public/data/16.16/runes.json", import.meta.url), "utf8")) as RuneDefinition[];
 
 function duel(attackerId: number, defenderId: number) {
   const scenario = defaultScenario("16.16");
@@ -65,7 +77,16 @@ const action = (
   key: string,
   delay = 0,
   parameters: Record<string, boolean | number | string | undefined> = {},
-) => ({ id, kind, key, delay, enabled: true, outcome: "normal" as const, parameters });
+) => ({ id, actionId: `unresolved:${key}`, kind, key, delay, enabled: true, outcome: "normal" as const, parameters });
+
+const nestedTriggers = (triggers: StepTrigger[]): StepTrigger[] => triggers.flatMap((trigger) => [trigger, ...nestedTriggers(trigger.children ?? [])]);
+const closeTo = (actual: number, expected: number, tolerance = 0.001) => assert.ok(Math.abs(actual - expected) < tolerance, `${actual} is not within ${tolerance} of ${expected}`);
+const damageCloseTo = (actual: ReturnType<typeof damageVector>, expected: ReturnType<typeof damageVector>) => {
+  closeTo(actual.physical, expected.physical);
+  closeTo(actual.magic, expected.magic);
+  closeTo(actual.true, expected.true);
+  closeTo(actual.total, expected.total);
+};
 
 test("formula interpreter handles sums, products, clamps, ranks, and conditionals", () => {
   const value = evaluateFormula({
@@ -97,7 +118,7 @@ test("formula interpreter preserves selected-rank and target-stat expressions", 
 
 test("formula interpreter handles live champion-level interpolation and breakpoints", () => {
   const context = { spellRank: 1, championLevel: 6, effects: {}, named: {}, stats: {}, conditions: {} };
-  assert.equal(evaluateFormula({ type: "level-interpolation", start: 0, end: 180 }, context), 60);
+  assert.ok(Math.abs(evaluateFormula({ type: "level-interpolation", start: 0, end: 180 }, context) - 900 / 17) < 0.00001);
   assert.equal(evaluateFormula({
     type: "level-breakpoints",
     base: 10,
@@ -138,6 +159,7 @@ test("duplicate adaptive shards remain distinct row selections", () => {
     styleName: "Stat shard",
     slot: 1,
     slotType: "kStatMod",
+    staticModifiers: [{ stat: "attackDamage", mode: "adaptive", values: [5.4, 9] }],
   };
   config.level = 1;
   config.shardIds = [5008, 5008, null];
@@ -184,9 +206,9 @@ test("simulation separates mitigation, shields, health loss, and lethal stopping
   scenario.defender.overrides = { maxHealth: 250, armor: 0, magicResist: 0 };
   scenario.defender.startingShield = 50;
   scenario.combo = [
-    { id: "one", kind: "attack", key: "AA", delay: 0, enabled: true, outcome: "normal", parameters: {} },
-    { id: "two", kind: "ability", key: "Q", delay: 0.1, enabled: true, outcome: "normal", parameters: {} },
-    { id: "three", kind: "attack", key: "AA", delay: 0.1, enabled: true, outcome: "normal", parameters: {} },
+    { id: "one", actionId: "unresolved:AA", kind: "attack", key: "AA", delay: 0, enabled: true, outcome: "normal", parameters: {} },
+    { id: "two", actionId: "unresolved:Q", kind: "ability", key: "Q", delay: 0.1, enabled: true, outcome: "normal", parameters: {} },
+    { id: "three", actionId: "unresolved:AA", kind: "attack", key: "AA", delay: 0.1, enabled: true, outcome: "normal", parameters: {} },
   ];
   const result = simulate(scenario, new Map([[1, attacker], [2, target]]), new Map<number, ItemDefinition>(), new Map<number, RuneDefinition>());
   assert.equal(result.steps[0].shieldAbsorbed, 50);
@@ -201,7 +223,7 @@ test("deterministic misses do not advance attack triggers or deal damage", () =>
   const scenario = defaultScenario("test");
   scenario.attacker.championId = 1;
   scenario.defender.championId = 2;
-  scenario.combo = [{ id: "miss", kind: "attack", key: "AA", delay: 0, enabled: true, outcome: "miss", parameters: {} }];
+  scenario.combo = [{ id: "miss", actionId: "unresolved:AA", kind: "attack", key: "AA", delay: 0, enabled: true, outcome: "miss", parameters: {} }];
   const result = simulate(scenario, new Map([[1, attacker], [2, target]]), new Map<number, ItemDefinition>(), new Map<number, RuneDefinition>());
   assert.equal(result.steps[0].preMitigation.total, 0);
   assert.equal(result.steps[0].healthDamage, 0);
@@ -220,14 +242,9 @@ test("expected critical strikes are analytically weighted while deterministic ou
   assert.equal(simulate(scenario, new Map([[1, attacker], [2, target]]), new Map(), new Map()).steps[0].preMitigation.physical, 200);
 });
 
-test("combo controls and parameters follow the selected champion", () => {
-  const poppy = champion(78, "Poppy");
-  poppy.spells = [
-    poppy.spells[0],
-    { ...poppy.spells[0], key: "E", name: "Heroic Charge" },
-    { ...poppy.spells[0], key: "R", name: "Keeper's Verdict" },
-  ];
-  const olaf = { ...poppy, id: 2, alias: "Olaf", name: "Olaf" };
+test("combo controls and parameters follow generated action definitions", () => {
+  const poppy = snapshotChampion(78);
+  const olaf = snapshotChampion(2);
   const combo = defaultScenario("test").combo;
   const poppyE = combo.find((entry) => entry.key === "E")!;
   const olafE = { ...poppyE, parameters: { wallCollision: true } };
@@ -259,16 +276,16 @@ test("reviewed empowered attacks arm on cast and preserve every rank", () => {
     scenario.combo = [action("cast", "ability", fixture.key), action("attack", "attack", "AA", 0.1)];
     const rankOne = simulate(scenario, champions, new Map(), new Map());
     assert.equal(rankOne.steps[0].preMitigation.total, 0, `${attacker.name} cast damage`);
-    assert.deepEqual(rankOne.steps[1].preMitigation, fixture.rankOne, `${attacker.name} rank one`);
-    assert.ok(rankOne.steps[0].triggers.some((trigger) => trigger.kind === "state" && trigger.label.endsWith("Armed")));
-    assert.ok(rankOne.steps[1].triggers.some((trigger) => trigger.kind === "damage" && trigger.label.endsWith("Bonus Damage")));
-    assert.ok(rankOne.steps[1].triggers.some((trigger) => trigger.kind === "state" && trigger.label.endsWith("Consumed")));
+    damageCloseTo(rankOne.steps[1].preMitigation, fixture.rankOne);
+    assert.ok(nestedTriggers(rankOne.steps[0].triggers).some((trigger) => trigger.kind === "state" && trigger.label.endsWith("Armed")));
+    assert.ok(nestedTriggers(rankOne.steps[1].triggers).some((trigger) => trigger.kind === "damage" && trigger.label.endsWith("Bonus Damage")));
+    assert.ok(nestedTriggers(rankOne.steps[1].triggers).some((trigger) => trigger.kind === "state" && trigger.label.endsWith("Consumed")));
 
     const rankFiveScenario = structuredClone(scenario);
     rankFiveScenario.attacker.abilityRanks[fixture.key] = 5;
     rankFiveScenario.attacker.overrides.abilityPower = 100;
     const rankFive = simulate(rankFiveScenario, champions, new Map(), new Map());
-    assert.deepEqual(rankFive.steps[1].preMitigation, fixture.rankFive, `${attacker.name} rank five`);
+    damageCloseTo(rankFive.steps[1].preMitigation, fixture.rankFive);
   }
 });
 
@@ -287,21 +304,21 @@ test("empowered attacks survive misses, expire on time, and replace instead of s
   const missedResult = simulate(missed, champions, new Map(), new Map());
   assert.equal(missedResult.steps[1].preMitigation.total, 0);
   assert.equal(missedResult.steps[2].preMitigation.physical, 180);
-  assert.equal(missedResult.steps[1].triggers.some((trigger) => trigger.label.endsWith("Consumed")), false);
+  assert.equal(nestedTriggers(missedResult.steps[1].triggers).some((trigger) => trigger.label.endsWith("Consumed")), false);
 
   const expired = duel(86, 900);
   expired.attacker.abilityRanks.Q = 1;
   expired.combo = [action("q", "ability", "Q"), action("wait", "wait", "WAIT", 4.5), action("hit", "attack", "AA", 0.1)];
   const expiredResult = simulate(expired, champions, new Map(), new Map());
   assert.equal(expiredResult.steps[2].preMitigation.physical, 100);
-  assert.ok(expiredResult.steps[1].triggers.some((trigger) => trigger.label === "Decisive Strike Expired"));
+  assert.ok(nestedTriggers(expiredResult.steps[1].triggers).some((trigger) => trigger.label === "Decisive Strike Expired"));
 
   const replaced = duel(86, 900);
   replaced.attacker.abilityRanks.Q = 1;
   replaced.combo = [action("q-one", "ability", "Q"), action("q-two", "ability", "Q", 0.1), action("hit", "attack", "AA", 0.1)];
   const replacedResult = simulate(replaced, champions, new Map(), new Map());
   assert.equal(replacedResult.steps[2].preMitigation.physical, 180);
-  assert.equal(replacedResult.steps[2].triggers.filter((trigger) => trigger.label === "Decisive Strike - Bonus Damage").length, 1);
+  assert.equal(nestedTriggers(replacedResult.steps[2].triggers).filter((trigger) => trigger.label === "Decisive Strike - Bonus Damage").length, 1);
 });
 
 test("Jax Empower consumes on Leap Strike and only on a connected hit", () => {
@@ -335,23 +352,23 @@ test("Crippling Strike shares the attack critical modifier while other bonus pac
   criticalDarius.attacker.abilityRanks.W = 1;
   criticalDarius.attacker.overrides.critDamage = 200;
   criticalDarius.combo = [action("w", "ability", "W"), { ...action("attack", "attack", "AA", 0.1), outcome: "crit" }];
-  assert.equal(simulate(criticalDarius, champions, new Map(), new Map()).steps[1].preMitigation.physical, 280);
+  closeTo(simulate(criticalDarius, champions, new Map(), new Map()).steps[1].preMitigation.physical, 280);
 
   criticalDarius.randomnessMode = "expected";
   criticalDarius.attacker.overrides.critChance = 50;
-  assert.equal(simulate(criticalDarius, champions, new Map(), new Map()).steps[1].preMitigation.physical, 210);
+  closeTo(simulate(criticalDarius, champions, new Map(), new Map()).steps[1].preMitigation.physical, 210);
 
   const criticalGaren = duel(86, 900);
   criticalGaren.attacker.abilityRanks.Q = 1;
   criticalGaren.attacker.overrides.critDamage = 200;
   criticalGaren.combo = [action("q", "ability", "Q"), { ...action("attack", "attack", "AA", 0.1), outcome: "crit" }];
-  assert.equal(simulate(criticalGaren, champions, new Map(), new Map()).steps[1].preMitigation.physical, 280);
+  closeTo(simulate(criticalGaren, champions, new Map(), new Map()).steps[1].preMitigation.physical, 280);
 
   const criticalBlitzcrank = duel(53, 900);
   criticalBlitzcrank.attacker.abilityRanks.E = 1;
   criticalBlitzcrank.attacker.overrides.critDamage = 200;
   criticalBlitzcrank.combo = [action("e", "ability", "E"), { ...action("attack", "attack", "AA", 0.1), outcome: "crit" }];
-  assert.equal(simulate(criticalBlitzcrank, champions, new Map(), new Map()).steps[1].preMitigation.physical, 300);
+  closeTo(simulate(criticalBlitzcrank, champions, new Map(), new Map()).steps[1].preMitigation.physical, 300);
 });
 
 test("Power Fist cooldown begins when its armed state resolves", () => {
@@ -379,7 +396,7 @@ test("Power Fist cooldown begins when its armed state resolves", () => {
   expired.attacker.abilityRanks.E = 1;
   expired.combo = [action("e", "ability", "E"), action("expire", "wait", "WAIT", 5), action("cooldown", "wait", "WAIT", 7), action("e-ready", "ability", "E")];
   const expiredResult = simulate(expired, champions, new Map(), new Map());
-  assert.ok(expiredResult.steps[1].triggers.some((trigger) => trigger.label === "Power Fist Expired"));
+  assert.ok(nestedTriggers(expiredResult.steps[1].triggers).some((trigger) => trigger.label === "Power Fist Expired"));
   assert.equal(expiredResult.steps[3].warnings.some((warning) => warning.includes("before its modeled cooldown")), false);
 });
 
@@ -394,7 +411,7 @@ test("empowered attack child packets expose their own mitigated damage", () => {
   const result = simulate(scenario, new Map([[89, leona], [900, target]]), new Map(), new Map());
   assert.equal(result.steps[1].postMitigation.physical, 50);
   assert.equal(result.steps[1].postMitigation.magic, 5);
-  const child = result.steps[1].triggers.find((trigger) => trigger.label === "Shield of Daybreak - Bonus Damage");
+  const child = nestedTriggers(result.steps[1].triggers).find((trigger) => trigger.label === "Shield of Daybreak - Bonus Damage");
   assert.equal(child?.preMitigation.magic, 10);
   assert.equal(child?.postMitigation.magic, 5);
 });
@@ -413,13 +430,13 @@ test("Vayne Tumble uses the selected rank, arms the next attack, and expires", (
   const rankFive = structuredClone(rankOne);
   rankFive.attacker.abilityRanks.Q = 5;
   const fifth = simulate(rankFive, champions, new Map(), new Map());
-  assert.equal(fifth.steps[1].preMitigation.physical, 215);
+  closeTo(fifth.steps[1].preMitigation.physical, 215);
 
   const expired = structuredClone(rankFive);
   expired.combo[1].delay = 3;
   const afterExpiry = simulate(expired, champions, new Map(), new Map());
   assert.equal(afterExpiry.steps[1].preMitigation.physical, 100);
-  assert.ok(afterExpiry.steps[1].triggers.some((trigger) => trigger.label === "Tumble Expired"));
+  assert.ok(nestedTriggers(afterExpiry.steps[1].triggers).some((trigger) => trigger.label === "Tumble Expired"));
 });
 
 test("Silver Bolts procs every third uninterrupted hit and respects minimum damage", () => {
@@ -446,7 +463,7 @@ test("Silver Bolts procs every third uninterrupted hit and respects minimum dama
   expired.combo = [action("one", "attack", "AA"), action("two", "attack", "AA", 0.1), action("wait", "wait", "WAIT", 3.5), action("three", "attack", "AA", 0.1)];
   const expiredResult = simulate(expired, champions, new Map(), new Map());
   assert.equal(expiredResult.steps[3].preMitigation.true, 0);
-  assert.ok(expiredResult.steps[2].triggers.some((trigger) => trigger.label === "Silver Bolts Expired"));
+  assert.ok(nestedTriggers(expiredResult.steps[2].triggers).some((trigger) => trigger.label === "Silver Bolts Expired"));
 });
 
 test("Condemn applies bonus AD scaling, terrain damage, and a Silver Bolts stack", () => {
@@ -464,7 +481,7 @@ test("Condemn applies bonus AD scaling, terrain damage, and a Silver Bolts stack
   terrain.combo[0].parameters.wallCollision = true;
   const terrainResult = simulate(terrain, champions, new Map(), new Map());
   assert.ok(Math.abs(terrainResult.steps[0].preMitigation.physical - normalResult.steps[0].preMitigation.physical * 2.5) < 0.00001);
-  assert.ok(normalResult.steps[0].triggers.some((trigger) => trigger.label === "Silver Bolts"));
+  assert.ok(nestedTriggers(normalResult.steps[0].triggers).some((trigger) => trigger.label === "Silver Bolts Stack"));
 
   const proc = structuredClone(normal);
   proc.combo = [action("aa-one", "attack", "AA"), action("aa-two", "attack", "AA", 0.1), action("e", "ability", "E", 0.1, { wallCollision: false })];
@@ -505,33 +522,25 @@ test("Olaf Ragnarok supplies passive defenses, dynamic AD, and hit extensions", 
   assert.equal(result.attackerStats.magicResist, olaf.stats.magicResist + 10);
   assert.equal(result.steps[1].preMitigation.physical, 135);
   assert.equal(result.steps[3].preMitigation.physical, 135);
-  assert.ok(result.steps[1].triggers.some((trigger) => trigger.label === "Ragnarok Extended"));
+  assert.ok(nestedTriggers(result.steps[1].triggers).some((trigger) => trigger.label === "Ragnarok Extended"));
 });
 
 test("Abyssal Mask amplifies only magic damage while its range condition is enabled", () => {
   const caster = champion(1, "Caster");
   const target = champion(900, "Target");
   const champions = new Map([[1, caster], [900, target]]);
-  const mask: ItemDefinition = {
-    id: 8020,
-    name: "Abyssal Mask",
-    description: "Unmake",
-    icon: "",
-    price: 2650,
-    classification: "modeled",
-    stats: { health: 0, mana: 0, attackDamage: 0, abilityPower: 0, armor: 0, magicResist: 0, attackSpeedPercent: 0, critChancePercent: 0, moveSpeedPercent: 0, lethality: 0, flatMagicPen: 0 },
-  };
+  const mask = snapshotItems().find((item) => item.id === 8020)!;
   const scenario = duel(1, 900);
   scenario.attacker.itemIds = [8020];
   scenario.attacker.abilityRanks.Q = 1;
-  scenario.attacker.conditions = { abyssalMaskInRange: true };
+  scenario.attacker.inputs = { "item:8020:within-700": true };
   scenario.combo = [action("q", "ability", "Q")];
   const inRange = simulate(scenario, champions, new Map([[8020, mask]]), new Map());
   assert.ok(Math.abs(inRange.steps[0].preMitigation.magic - 112) < 0.00001);
 
-  scenario.attacker.conditions.abyssalMaskInRange = false;
+  scenario.attacker.inputs["item:8020:within-700"] = false;
   assert.equal(simulate(scenario, champions, new Map([[8020, mask]]), new Map()).steps[0].preMitigation.magic, 100);
-  scenario.attacker.conditions.abyssalMaskInRange = true;
+  scenario.attacker.inputs["item:8020:within-700"] = true;
   caster.spells[0].damageType = "physical";
   assert.equal(simulate(scenario, champions, new Map([[8020, mask]]), new Map()).steps[0].preMitigation.physical, 100);
   caster.spells[0].damageType = "true";
@@ -542,17 +551,7 @@ test("Conqueror applies melee and ranged stacks only to later actions and expire
   const vayne = snapshotChampion(67);
   const olaf = snapshotChampion(2);
   const target = champion(900, "Target");
-  const conqueror: RuneDefinition = {
-    id: 8010,
-    name: "Conqueror",
-    description: "Adaptive force",
-    icon: "",
-    classification: "modeled",
-    styleId: 8000,
-    styleName: "Precision",
-    slot: 0,
-    slotType: "kKeyStone",
-  };
+  const conqueror = snapshotRunes().find((rune) => rune.id === 8010)!;
   const runes = new Map([[8010, conqueror]]);
   const champions = new Map([[67, vayne], [2, olaf], [900, target]]);
   const ranged = duel(67, 900);
@@ -574,7 +573,7 @@ test("Conqueror applies melee and ranged stacks only to later actions and expire
   const meleeResult = simulate(melee, champions, new Map(), runes);
   assert.ok(Math.abs(meleeResult.steps[1].preMitigation.physical - 102.16) < 0.00001);
   assert.equal(meleeResult.steps[3].preMitigation.physical, 100);
-  assert.ok(meleeResult.steps[2].triggers.some((trigger) => trigger.label === "Conqueror Expired"));
+  assert.ok(nestedTriggers(meleeResult.steps[2].triggers).some((trigger) => trigger.label === "Conqueror Expired"));
 
   const caster = champion(1, "Caster");
   champions.set(1, caster);
@@ -590,17 +589,7 @@ test("Conqueror applies melee and ranged stacks only to later actions and expire
 test("scheduled rune packets resolve after their delay and respect the burst window", () => {
   const caster = champion(1, "Caster");
   const target = champion(900, "Target");
-  const scorch: RuneDefinition = {
-    id: 8237,
-    name: "Scorch",
-    description: "Delayed magic damage",
-    icon: "",
-    classification: "modeled",
-    styleId: 8200,
-    styleName: "Sorcery",
-    slot: 3,
-    slotType: "kSlot",
-  };
+  const scorch = snapshotRunes().find((rune) => rune.id === 8237)!;
   const scenario = duel(1, 900);
   scenario.attacker.abilityRanks.Q = 1;
   scenario.attacker.runeIds = [8237];
@@ -615,4 +604,175 @@ test("scheduled rune packets resolve after their delay and respect the burst win
 
   scenario.settings.resolvePendingDamage = false;
   assert.equal(simulate(scenario, indexes, new Map(), new Map([[8237, scorch]])).steps.length, 1);
+});
+
+test("Akshan ordered hits preserve leftover stacks, shield lockout, expiry, and typed double-hit abilities", () => {
+  const akshan = snapshotChampion(166);
+  const target = champion(900, "Target");
+  const champions = new Map([[166, akshan], [900, target]]);
+  const attacks = duel(166, 900);
+  attacks.combo = [
+    action("one", "attack", "AA", 0, { secondShot: true }),
+    action("two", "attack", "AA", 0.1, { secondShot: true }),
+    action("three", "attack", "AA", 0.1, { secondShot: true }),
+  ];
+  const result = simulate(attacks, champions, new Map(), new Map());
+  assert.equal(result.steps[0].preMitigation.physical, 150);
+  assert.equal(result.steps[0].preMitigation.magic, 0);
+  assert.equal(result.steps[1].preMitigation.magic, 15);
+  assert.equal(result.steps[2].preMitigation.magic, 15);
+  assert.equal(nestedTriggers(result.steps[1].triggers).filter((trigger) => trigger.label === "Dirty Fighting Shield").length, 1);
+  assert.equal(nestedTriggers(result.steps[2].triggers).filter((trigger) => trigger.label === "Dirty Fighting Shield").length, 0);
+
+  const doubleHit = duel(166, 900);
+  doubleHit.attacker.abilityRanks.Q = 1;
+  doubleHit.combo = [
+    action("q", "ability", "Q", 0, { hitCount: 2 }),
+    action("attack", "attack", "AA", 0.1, { secondShot: false }),
+  ];
+  const doubleHitResult = simulate(doubleHit, champions, new Map(), new Map());
+  assert.ok(Math.abs(doubleHitResult.steps[0].preMitigation.physical - 230) < 0.001);
+  assert.equal(doubleHitResult.steps[1].preMitigation.magic, 15);
+
+  const expired = duel(166, 900);
+  expired.combo = [
+    action("attack", "attack", "AA", 0, { secondShot: false }),
+    action("wait", "wait", "WAIT", 4.5),
+    action("after", "attack", "AA", 0, { secondShot: false }),
+  ];
+  const expiredResult = simulate(expired, champions, new Map(), new Map());
+  assert.equal(expiredResult.steps[2].preMitigation.magic, 0);
+  assert.ok(nestedTriggers(expiredResult.steps[1].triggers).some((trigger) => trigger.label === "Dirty Fighting Expired"));
+});
+
+test("Diana Moonsilver Blade stacks, consumes, expires, and triples the level-scaled attack speed bonus after casting", () => {
+  const diana = snapshotChampion(131);
+  const target = champion(900, "Target");
+  const champions = new Map([[131, diana], [900, target]]);
+  const proc = duel(131, 900);
+  proc.attacker.overrides.abilityPower = 100;
+  proc.combo = [action("one", "attack", "AA"), action("two", "attack", "AA", 0.1), action("three", "attack", "AA", 0.1)];
+  const procResult = simulate(proc, champions, new Map(), new Map());
+  assert.equal(procResult.steps[2].preMitigation.magic, 70);
+  assert.ok(nestedTriggers(procResult.steps[2].triggers).some((trigger) => trigger.label === "Moonsilver Blade Consumed"));
+  assert.ok(Math.abs((procResult.attackerStats.attackSpeed ?? 0) - diana.stats.attackSpeed * 1.15) < 0.00001);
+
+  const cast = duel(131, 900);
+  cast.attacker.abilityRanks.Q = 1;
+  cast.combo = [action("q", "ability", "Q")];
+  const castResult = simulate(cast, champions, new Map(), new Map());
+  assert.ok(Math.abs((castResult.attackerStats.attackSpeed ?? 0) - diana.stats.attackSpeed * 1.45) < 0.00001);
+
+  const expired = duel(131, 900);
+  expired.combo = [action("one", "attack", "AA"), action("two", "attack", "AA", 0.1), action("wait", "wait", "WAIT", 5), action("three", "attack", "AA")];
+  const expiredResult = simulate(expired, champions, new Map(), new Map());
+  assert.equal(expiredResult.steps[3].preMitigation.magic, 0);
+  assert.ok(nestedTriggers(expiredResult.steps[2].triggers).some((trigger) => trigger.label === "Moonsilver Blade Expired"));
+});
+
+test("Varus Blighted Quiver applies on-hit damage, consumes isolated marks, scales Q charge, and reduces cooldown", () => {
+  const varus = snapshotChampion(110);
+  const target = champion(900, "Target");
+  const champions = new Map([[110, varus], [900, target]]);
+  const scenario = duel(110, 900);
+  scenario.attacker.abilityRanks.W = 1;
+  scenario.attacker.abilityRanks.Q = 1;
+  scenario.combo = [
+    action("one", "attack", "AA"),
+    action("two", "attack", "AA", 0.1),
+    action("three", "attack", "AA", 0.1),
+    action("q", "ability", "Q", 0.1, { chargePercent: 100 }),
+    action("cooldown", "wait", "WAIT", 6.65),
+    action("q-ready", "ability", "Q", 0, { chargePercent: 0 }),
+  ];
+  const result = simulate(scenario, champions, new Map(), new Map());
+  closeTo(result.steps[0].preMitigation.magic, 19);
+  assert.ok(Math.abs(result.steps[3].preMitigation.physical - 200.0004) < 0.01);
+  closeTo(result.steps[3].preMitigation.magic, 675);
+  assert.ok(nestedTriggers(result.steps[3].triggers).some((trigger) => trigger.label === "Blight Consumed"));
+  assert.equal(result.steps[5].warnings.some((warning) => warning.includes("before its modeled cooldown")), false);
+
+  const expired = duel(110, 900);
+  expired.attacker.abilityRanks.W = 1;
+  expired.attacker.abilityRanks.Q = 1;
+  expired.combo = [action("one", "attack", "AA"), action("two", "attack", "AA", 0.1), action("three", "attack", "AA", 0.1), action("wait", "wait", "WAIT", 6), action("q", "ability", "Q", 0, { chargePercent: 0 })];
+  const expiredResult = simulate(expired, champions, new Map(), new Map());
+  assert.equal(expiredResult.steps[4].preMitigation.magic, 0);
+  assert.ok(nestedTriggers(expiredResult.steps[3].triggers).some((trigger) => trigger.label === "Blight Expired"));
+});
+
+test("defender-side programs can create expiring shields before incoming damage", () => {
+  const attacker = champion(1, "Attacker");
+  const defender = champion(2, "Defender");
+  defender.effectPrograms = [{
+    id: "champion:2:P:defense",
+    label: "Defensive Trigger",
+    owner: "champion",
+    sourceId: "champion:2:P",
+    template: "shield-with-lockout",
+    triggers: [{
+      id: "champion:2:P:before-damage",
+      event: "before-damage",
+      priority: 10,
+      conditions: [{ type: "hit", value: true }],
+      operations: [{ type: "shield", label: "Defensive Shield", formula: { type: "literal", value: 50 }, duration: { type: "literal", value: 2 } }],
+    }],
+  }];
+  const scenario = duel(1, 2);
+  scenario.attacker.overrides.attackDamage = 20;
+  scenario.combo = [action("attack", "attack", "AA"), action("wait", "wait", "WAIT", 2)];
+  const result = simulate(scenario, new Map([[1, attacker], [2, defender]]), new Map(), new Map());
+  assert.equal(result.steps[0].shieldAbsorbed, 20);
+  assert.equal(result.steps[0].healthDamage, 0);
+  assert.ok(nestedTriggers(result.steps[0].triggers).some((trigger) => trigger.label === "Defensive Shield"));
+  assert.ok(nestedTriggers(result.steps[1].triggers).some((trigger) => trigger.label === "Defensive Shield Expired"));
+});
+
+test("source-target state is isolated and effect program validation rejects malformed programs", () => {
+  const stats: ResolvedStats = { maxHealth: 1000, currentHealth: 1000, baseAttackDamage: 60, bonusAttackDamage: 0, attackDamage: 60, abilityPower: 0, armor: 30, magicResist: 30, lethality: 0, percentArmorPen: 0, flatMagicPen: 0, percentMagicPen: 0, critChance: 0, critDamage: 175 };
+  const stacking: EffectProgramDefinition = {
+    id: "champion:1:P:stacking",
+    label: "Fixture Stacking",
+    owner: "champion",
+    sourceId: "champion:1:P",
+    template: "stacking-proc",
+    triggers: [
+      { id: "fixture-stack", event: "basic-attack-hit", priority: 10, conditions: [], operations: [{ type: "increment-state", key: "fixture", amount: { type: "literal", value: 1 }, maximum: { type: "literal", value: 2 }, label: "Fixture Stack" }] },
+      { id: "fixture-proc", event: "basic-attack-hit", priority: 20, conditions: [{ type: "state-value", key: "fixture", operator: "gte", value: 2 }], operations: [{ type: "damage", label: "Fixture Proc", damageType: "true", formula: { type: "literal", value: 10 }, formulaLabel: "10" }, { type: "consume-state", key: "fixture", label: "Fixture Consumed" }] },
+    ],
+  };
+  const runtime = createEffectRuntimeState();
+  const context = (targetId: string) => ({ event: "basic-attack-hit" as const, timestamp: 0, side: "attacker" as const, sourceId: "champion:1:AA", hit: true, attacker: stats, defender: stats, targetCurrentHealth: 1000, targetId, ranks: {}, level: 1, inputs: {}, eventValues: {} });
+  assert.equal(executeEffectEvent([stacking], runtime, context("one")).damage.total, 0);
+  assert.equal(executeEffectEvent([stacking], runtime, context("two")).damage.total, 0);
+  assert.equal(executeEffectEvent([stacking], runtime, context("one")).damage.true, 10);
+
+  const malformed = structuredClone(stacking);
+  malformed.id = "";
+  malformed.sourceId = "champion:404:P";
+  malformed.triggers[0].priority = Number.NaN;
+  malformed.triggers[1].operations[0] = { type: "damage", label: "Invalid", damageType: "true", formula: { type: "ranked", values: [] }, formulaLabel: "invalid" };
+  const errors = validateEffectPrograms([malformed], new Set(["champion:1:P"]));
+  assert.ok(errors.some((error) => error.includes("unknown source ID")));
+  assert.ok(errors.some((error) => error.includes("priority must be finite")));
+  assert.ok(errors.some((error) => error.includes("values must not be empty")));
+  assert.ok(validateActionDefinitions([{ id: "duplicate", sourceId: "one", kind: "attack", key: "AA", label: "One", defaultDelay: 0, parameters: [] }, { id: "duplicate", sourceId: "two", kind: "attack", key: "AA", label: "Two", defaultDelay: 0, parameters: [] }]).some((error) => error.includes("Duplicate")));
+});
+
+test("schema 1 scenario fragments are rejected with an incompatibility signal", () => {
+  const encoded = Buffer.from(JSON.stringify({ schemaVersion: 1, patch: "16.16" })).toString("base64url");
+  const fragment = `#dl=${encoded}`;
+  assert.equal(decodeScenario(fragment), null);
+  assert.equal(hasIncompatibleScenario(fragment), true);
+});
+
+test("review catalog validation rejects missing, duplicate, and stale source records", () => {
+  const reviewed = (sourceId: string) => ({ review: { sourceId, sourceHash: `${sourceId}-hash`, sourceHashes: { championBin: "bin" }, reviewedPatch: "16.16", validationNotes: ["reviewed"], components: [{}] } });
+  const valid = [reviewed("champion:1:P"), reviewed("champion:1:Q")];
+  assert.deepEqual(validateReviewCatalog(valid, "16.16", 2, reviewRosterSignature(valid)).errors, []);
+  const missing = [{ review: { sourceId: "champion:1:P" } }];
+  assert.ok(validateReviewCatalog(missing, "16.16", 1, reviewRosterSignature(missing)).errors.some((error) => error.includes("lacks complete")));
+  const duplicate = [reviewed("champion:1:P"), reviewed("champion:1:P")];
+  assert.ok(validateReviewCatalog(duplicate, "16.16", 2, reviewRosterSignature(duplicate)).errors.some((error) => error.includes("Duplicate")));
+  assert.ok(validateReviewCatalog(valid, "16.16", 2, "stale").errors.some((error) => error.includes("stale")));
 });

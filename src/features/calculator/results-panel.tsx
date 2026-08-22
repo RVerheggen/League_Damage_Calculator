@@ -6,7 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { DamageVector, SimulationResult } from "@/src/domain/model";
+import type { DamageVector, SimulationResult, StepTrigger } from "@/src/domain/model";
 
 const rounded = (value: number) => Math.round(value).toLocaleString();
 
@@ -29,6 +29,23 @@ function BreakdownTable({ title, damage }: { title: string; damage: DamageVector
         <TableHeader><TableRow><TableHead>Physical</TableHead><TableHead>Magic</TableHead><TableHead>True</TableHead><TableHead>Total</TableHead></TableRow></TableHeader>
         <TableBody><TableRow><DamageCells damage={damage} /></TableRow></TableBody>
       </Table>
+    </div>
+  );
+}
+
+function TriggerNode({ trigger, depth = 0 }: { trigger: StepTrigger; depth?: number }) {
+  return (
+    <div className="border-l border-primary/40 pl-3 text-xs" style={{ marginLeft: `${Math.min(depth, 4) * 0.75}rem` }}>
+      <div className="flex justify-between gap-3">
+        <span><Badge variant="outline" className="mr-2 text-[9px] uppercase">{trigger.source}</Badge>{trigger.label}</span>
+        <strong className="font-mono">{trigger.kind === "state" ? "State" : rounded(trigger.postMitigation.total)}</strong>
+      </div>
+      {trigger.note && <p className="mt-1 text-muted-foreground">{trigger.note}</p>}
+      {trigger.children?.length ? (
+        <div className="mt-2 space-y-2">
+          {trigger.children.map((child, index) => <TriggerNode key={`${child.label}-${index}`} trigger={child} depth={depth + 1} />)}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -84,12 +101,7 @@ export function ResultsPanel({ result, error }: { result: SimulationResult | nul
                     <span>Overkill <strong className="block font-mono text-sm">{rounded(step.overkill)}</strong></span>
                   </div>
                   <div className="rounded-lg border border-border/60 bg-background/25 p-3"><p className="mb-1 font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground">Formula Inputs</p><p className="text-xs leading-5">{step.formula}</p></div>
-                  {step.triggers.map((trigger, triggerIndex) => (
-                    <div key={`${trigger.label}-${triggerIndex}`} className="ml-3 border-l border-primary/40 pl-3 text-xs">
-                      <div className="flex justify-between gap-3"><span><Badge variant="outline" className="mr-2 text-[9px] uppercase">{trigger.source}</Badge>{trigger.label}</span><strong className="font-mono">{trigger.kind === "state" ? "State" : rounded(trigger.postMitigation.total)}</strong></div>
-                      {trigger.note && <p className="mt-1 text-muted-foreground">{trigger.note}</p>}
-                    </div>
-                  ))}
+                  {step.triggers.map((trigger, triggerIndex) => <TriggerNode key={`${trigger.label}-${triggerIndex}`} trigger={trigger} />)}
                   {step.warnings.map((warning) => <p key={warning} className="text-xs text-[#f2bc55]">{warning}</p>)}
                 </AccordionContent>
               </AccordionItem>

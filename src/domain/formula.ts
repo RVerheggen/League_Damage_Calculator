@@ -6,6 +6,9 @@ export type FormulaContext = {
   stats: Record<string, number>;
   targetStats?: Record<string, number>;
   counters?: Record<string, number>;
+  state?: Record<string, number>;
+  inputs?: Record<string, boolean | number | string>;
+  event?: Record<string, boolean | number | string>;
   conditions: Record<string, boolean>;
 };
 
@@ -16,6 +19,9 @@ export type FormulaNode =
   | { type: "stat"; key: string; coefficient?: number }
   | { type: "target-stat"; key: string; coefficient?: number }
   | { type: "counter"; key: string; coefficient?: number }
+  | { type: "state"; key: string; coefficient?: number }
+  | { type: "input"; key: string; coefficient?: number; fallback?: number }
+  | { type: "event"; key: string; coefficient?: number; fallback?: number }
   | { type: "ranked"; values: number[] }
   | { type: "level"; values: number[] }
   | { type: "level-interpolation"; start: number; end: number }
@@ -44,6 +50,15 @@ export function evaluateFormula(node: FormulaNode, context: FormulaContext): num
     case "stat": return (context.stats[node.key] ?? 0) * (node.coefficient ?? 1);
     case "target-stat": return (context.targetStats?.[node.key] ?? 0) * (node.coefficient ?? 1);
     case "counter": return (context.counters?.[node.key] ?? 0) * (node.coefficient ?? 1);
+    case "state": return (context.state?.[node.key] ?? 0) * (node.coefficient ?? 1);
+    case "input": {
+      const value = context.inputs?.[node.key];
+      return (typeof value === "number" ? value : node.fallback ?? 0) * (node.coefficient ?? 1);
+    }
+    case "event": {
+      const value = context.event?.[node.key];
+      return (typeof value === "number" ? value : node.fallback ?? 0) * (node.coefficient ?? 1);
+    }
     case "ranked": return ranked(node.values, context.spellRank);
     case "level": {
       if (!node.values.length) return 0;
@@ -55,13 +70,13 @@ export function evaluateFormula(node: FormulaNode, context: FormulaContext): num
     }
     case "level-interpolation": {
       const level = Math.max(1, Math.min(18, context.championLevel));
-      return node.start + (node.end - node.start) * (level / 18);
+      return node.start + (node.end - node.start) * ((level - 1) / 17);
     }
     case "ranked-level-interpolation": {
       const level = Math.max(1, Math.min(18, context.championLevel));
       const start = ranked(node.starts, context.spellRank);
       const end = ranked(node.ends, context.spellRank);
-      return start + (end - start) * (level / 18);
+      return start + (end - start) * ((level - 1) / 17);
     }
     case "level-table": {
       const level = Math.max(1, context.championLevel);

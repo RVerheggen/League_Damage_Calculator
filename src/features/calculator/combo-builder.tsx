@@ -8,15 +8,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import type { ActionParameterDefinition, ChampionDefinition, ComboAction } from "@/src/domain/model";
-import { getActionControls } from "./action-controls";
+import type { ActionDefinition, ActionParameterDefinition, ChampionDefinition, ComboAction } from "@/src/domain/model";
+import { getActionControls, getActionDefinition } from "./action-controls";
 import { action as createAction } from "./defaults";
 
 function actionName(action: ComboAction, champion: ChampionDefinition | null) {
   if (action.label) return action.label;
   if (action.kind === "attack") return "Basic Attack";
   if (action.kind === "wait") return "Wait";
-  return champion?.spells.find((spell) => spell.key === action.key)?.name ?? action.key;
+  return getActionDefinition(champion, action)?.label ?? action.key;
 }
 
 const fallbackParameterDefinitions: Record<string, ActionParameterDefinition> = {
@@ -43,7 +43,12 @@ export function ComboBuilder({
     [next[index], next[target]] = [next[target], next[index]];
     onChange(next);
   };
-  const add = (kind: ComboAction["kind"], key: string) => onChange([...combo, createAction(kind, key, kind === "wait" ? 1 : 0.15)]);
+  const add = (kind: ComboAction["kind"], key: string, definition?: ActionDefinition) => onChange([...combo, {
+    ...createAction(kind, key, definition?.defaultDelay ?? (kind === "wait" ? 1 : 0.15)),
+    actionId: definition?.id ?? (kind === "wait" ? "system:wait" : `unresolved:${key}`),
+    label: definition?.label,
+    parameters: Object.fromEntries(definition?.parameters.map((parameter) => [parameter.id, parameter.defaultValue]) ?? []),
+  }]);
   const duplicate = (entry: ComboAction, index: number) => {
     const next = [...combo];
     next.splice(index + 1, 0, { ...entry, id: crypto.randomUUID(), parameters: { ...entry.parameters } });
@@ -67,11 +72,9 @@ export function ComboBuilder({
             <CardDescription className="mt-1">Drag actions or use the arrow controls. Delays advance buffs and cooldowns.</CardDescription>
           </div>
           <div className="flex flex-wrap gap-1.5">
-            <Button size="sm" variant="outline" onClick={() => add("attack", "AA")}><Plus /> AA</Button>
-            {champion?.spells.slice(0, 4).filter((spell) => spell.castable !== false).map((spell) => (
-              <Button key={spell.key} size="sm" variant="outline" onClick={() => add("ability", spell.key)}><Plus /> {spell.key}</Button>
-            ))}
-            {champion?.alias === "Poppy" && <Button size="sm" variant="outline" onClick={() => onChange([...combo, { ...createAction("ability", "Q2", 1), label: "Hammer Shock Detonation" }])}><Plus /> Q2</Button>}
+            {champion?.actions.map((definition) => (
+              <Button key={definition.id} size="sm" variant="outline" onClick={() => add(definition.kind, definition.key, definition)}><Plus /> {definition.key}</Button>
+            )) ?? <Button size="sm" variant="outline" onClick={() => add("attack", "AA")}><Plus /> AA</Button>}
             <Button size="sm" onClick={() => add("wait", "WAIT")}><Clock3 /> Wait</Button>
           </div>
         </div>
@@ -81,10 +84,9 @@ export function ComboBuilder({
           {combo.length === 0 && <div className="p-10 text-center text-sm text-muted-foreground">Add an attack, ability, or wait action to begin the trace.</div>}
           {combo.map((entry, index) => {
             const controls = new Set(getActionControls(champion, entry));
-            const spellKey = entry.key === "Q2" ? "Q" : entry.key;
-            const spellParameters = champion?.spells.find((spell) => spell.key === spellKey)?.actionParameters;
-            const parameterDefinitions = spellParameters?.length
-              ? spellParameters.filter((parameter) => controls.has(parameter.id))
+            const declaredParameters = getActionDefinition(champion, entry)?.parameters;
+            const parameterDefinitions = declaredParameters?.length
+              ? declaredParameters.filter((parameter) => controls.has(parameter.id))
               : [...controls].map((control) => fallbackParameterDefinitions[control]).filter(Boolean);
             return (
             <div

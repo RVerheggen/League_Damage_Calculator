@@ -1,16 +1,16 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "patch": "16.16",
   "gameVersion": "16.16.8049184+branch.releases-16-16.content.release",
-  "generatedAt": "2026-08-21T21:56:30.059Z",
+  "generatedAt": "2026-08-22T14:36:16.259Z",
   "locale": "en_US",
   "championCount": 173,
   "itemCount": 222,
   "runeCount": 69,
   "spellCoverage": {
-    "partial": 544,
-    "unsupported": 60,
-    "modeled": 17,
+    "partial": 541,
+    "unsupported": 61,
+    "modeled": 19,
     "out-of-scope": 71
   },
   "unsupportedSpells": [
@@ -129,6 +129,12 @@
       "note": "This cast changes combat state, but no complete state module is registered yet."
     },
     {
+      "champion": "Gangplank",
+      "key": "E",
+      "name": "Powder Keg",
+      "note": "CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module."
+    },
+    {
       "champion": "Karma",
       "key": "E",
       "name": "Inspire",
@@ -156,12 +162,6 @@
       "champion": "Rumble",
       "key": "W",
       "name": "Scrap Shield",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
-    },
-    {
-      "champion": "Nidalee",
-      "key": "R",
-      "name": "Aspect Of The Cougar",
       "note": "This cast changes combat state, but no complete state module is registered yet."
     },
     {
@@ -214,6 +214,12 @@
     },
     {
       "champion": "Fiora",
+      "key": "E",
+      "name": "Bladework",
+      "note": "CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module."
+    },
+    {
+      "champion": "Fiora",
       "key": "R",
       "name": "Grand Challenge",
       "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
@@ -234,12 +240,6 @@
       "champion": "Darius",
       "key": "E",
       "name": "Apprehend",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
-    },
-    {
-      "champion": "Jayce",
-      "key": "R",
-      "name": "Mercury Cannon / Mercury Hammer",
       "note": "This cast changes combat state, but no complete state module is registered yet."
     },
     {
@@ -327,6 +327,12 @@
       "note": "This cast changes combat state, but no complete state module is registered yet."
     },
     {
+      "champion": "Kalista",
+      "key": "W",
+      "name": "Sentinel",
+      "note": "CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module."
+    },
+    {
       "champion": "Rakan",
       "key": "E",
       "name": "Battle Dance",
@@ -386,6 +392,33 @@
     "stat-only": 3,
     "modeled": 5
   },
+  "championSourceCoverage": {
+    "out-of-scope": 120,
+    "partial": 541,
+    "unsupported": 183,
+    "modeled": 21
+  },
+  "reviewedChampionSourceCount": 865,
+  "unreviewedChampionSourceCount": 0,
+  "reviewDisposition": {
+    "out-of-scope": 128,
+    "template": 1287,
+    "custom": 7
+  },
+  "effectFamilies": {
+    "direct-damage": 799,
+    "cooldown-modifier": 49,
+    "shield-with-lockout": 65,
+    "timed-stat-modifier": 61,
+    "resistance-modifier": 38,
+    "timed-on-hit": 62,
+    "scheduled-damage": 57,
+    "conditional-amplifier": 73,
+    "stacking-proc": 73,
+    "arm-next-hit": 6,
+    "mark-and-consume": 2,
+    "multi-hit-action": 2
+  },
   "unknownCalculationParts": {
     "{9e9e2e5c}": 4
   },
@@ -407,6 +440,8 @@
     "rankArraysPreserved": true,
     "legacyEstimatedStates": 0,
     "reviewedCoverageReasons": true,
+    "reviewedChampionSources": 865,
+    "unreviewedChampionSources": 0,
     "unknownRequiredCalculationParts": 0
   },
   "sources": [

@@ -1,13 +1,108 @@
 import type { FormulaNode } from "./formula";
 
 export type DamageType = "physical" | "magic" | "true";
-export type Coverage =
-  | "modeled"
-  | "partial"
-  | "out-of-scope"
-  | "unsupported"
-  | "estimated"
-  | "non-damaging";
+export type Coverage = "modeled" | "partial" | "out-of-scope" | "unsupported";
+
+export type CombatRole = "attacker" | "defender" | "both" | "neither";
+export type ReviewDisposition = "template" | "custom" | "out-of-scope";
+export type EffectTemplateId =
+  | "direct-damage"
+  | "arm-next-hit"
+  | "timed-on-hit"
+  | "stacking-proc"
+  | "mark-and-consume"
+  | "timed-stat-modifier"
+  | "conditional-amplifier"
+  | "resistance-modifier"
+  | "cooldown-modifier"
+  | "shield-with-lockout"
+  | "scheduled-damage"
+  | "multi-hit-action";
+
+export type EffectEvent =
+  | "scenario-start"
+  | "action-start"
+  | "cast"
+  | "basic-attack-hit"
+  | "ability-hit"
+  | "before-damage"
+  | "after-damage"
+  | "action-complete"
+  | "time-advanced"
+  | "expiry"
+  | "target-death";
+
+export type StateScope = "participant" | "source" | "target" | "source-target";
+export type RuntimeStat = "attackDamage" | "abilityPower" | "armor" | "magicResist" | "attackSpeed" | "adaptiveForce";
+
+export type EffectCondition =
+  | { type: "action-kind"; value: ComboAction["kind"] }
+  | { type: "action-id"; value: string }
+  | { type: "source-id"; value: string }
+  | { type: "rank-at-least"; sourceId: string; value: number }
+  | { type: "hit"; value: boolean }
+  | { type: "state-active"; key: string; scope?: StateScope }
+  | { type: "state-inactive"; key: string; scope?: StateScope }
+  | { type: "state-value"; key: string; operator: "eq" | "gte" | "lt"; value: number; scope?: StateScope }
+  | { type: "parameter"; key: string; operator: "eq" | "gte" | "lt"; value: boolean | number | string }
+  | { type: "target-champion"; value: boolean }
+  | { type: "damage-type"; value: DamageType };
+
+export type EffectOperation =
+  | { type: "set-state"; key: string; scope?: StateScope; value: FormulaNode; duration?: FormulaNode; label: string }
+  | { type: "increment-state"; key: string; scope?: StateScope; amount: FormulaNode; maximum?: FormulaNode; duration?: FormulaNode; label: string }
+  | { type: "consume-state"; key: string; scope?: StateScope; label: string }
+  | { type: "extend-state"; key: string; scope?: StateScope; duration: FormulaNode; label: string }
+  | { type: "damage"; label: string; damageType: DamageType; formula: FormulaNode; formulaLabel: string; critical?: "never" | "attack" }
+  | { type: "shield"; label: string; formula: FormulaNode; duration: FormulaNode; lockoutKey?: string; lockoutDuration?: FormulaNode }
+  | { type: "stat-modifier"; key: string; stat: RuntimeStat; mode: "flat" | "percent"; formula: FormulaNode; duration?: FormulaNode; activeWhileState?: string; label: string }
+  | { type: "damage-amplifier"; key: string; damageType?: DamageType; formula: FormulaNode; duration?: FormulaNode; label: string }
+  | { type: "resistance-modifier"; key: string; stat: "armor" | "magicResist"; mode: "flat-reduction" | "percent-reduction"; formula: FormulaNode; duration?: FormulaNode; label: string }
+  | { type: "cooldown-modifier"; sourceId: string; mode: "remaining-flat" | "remaining-percent" | "total-percent" | "set-total"; formula: FormulaNode; label: string }
+  | { type: "schedule-damage"; label: string; damageType: DamageType; formula: FormulaNode; delay: FormulaNode; formulaLabel: string }
+  | { type: "trace"; label: string; description: string };
+
+export type EffectTriggerDefinition = {
+  id: string;
+  event: EffectEvent;
+  priority: number;
+  conditions: EffectCondition[];
+  operations: EffectOperation[];
+};
+
+export type EffectProgramDefinition = {
+  id: string;
+  label: string;
+  owner: "champion" | "item" | "rune";
+  sourceId: string;
+  rankSource?: string;
+  template: EffectTemplateId;
+  triggers: EffectTriggerDefinition[];
+};
+
+export type ReviewedEffectComponent = {
+  id: string;
+  label: string;
+  description: string;
+  relevance: CombatRole;
+  disposition: ReviewDisposition;
+  coverage: Coverage;
+  reason: string;
+  template?: EffectTemplateId;
+  customHandlerId?: string;
+  omissions?: string[];
+  formulaBindings?: string[];
+  valueBindings?: string[];
+};
+
+export type CombatSourceReview = {
+  sourceId: string;
+  sourceHash: string;
+  sourceHashes: Record<string, string>;
+  reviewedPatch: string;
+  validationNotes: string[];
+  components: ReviewedEffectComponent[];
+};
 
 export type EffectKind =
   | "direct-damage"
@@ -31,6 +126,21 @@ export type ActionParameterDefinition = {
   options?: Array<{ value: string; label: string }>;
 };
 
+export type ScenarioInputDefinition = ActionParameterDefinition & {
+  description: string;
+};
+
+export type ActionDefinition = {
+  id: string;
+  sourceId: string;
+  kind: "attack" | "ability";
+  key: string;
+  label: string;
+  defaultDelay: number;
+  parameters: ActionParameterDefinition[];
+  cooldownPolicy?: "cast" | "consume-or-expire";
+};
+
 export type RankedScaling = {
   stat: "attackDamage" | "abilityPower" | "armor" | "magicResist";
   scope: "base" | "bonus" | "total";
@@ -41,7 +151,7 @@ export type SpellEffectDefinition = {
   id: string;
   label: string;
   kind: EffectKind;
-  coverage: Exclude<Coverage, "estimated" | "non-damaging">;
+  coverage: Coverage;
   description: string;
   damageType?: DamageType;
   formula?: FormulaNode;
@@ -92,6 +202,19 @@ export type SpellDefinition = {
   calculations?: Record<string, { formula: FormulaNode; displayAsPercent: boolean; unresolvedParts: string[] }>;
   primaryCalculation?: string;
   effects?: SpellEffectDefinition[];
+  review?: CombatSourceReview;
+  actions?: ActionDefinition[];
+};
+
+export type PassiveDefinition = {
+  key: "P";
+  name: string;
+  description: string;
+  icon: string;
+  classification: Coverage;
+  coverageNote: string;
+  effects: SpellEffectDefinition[];
+  review: CombatSourceReview;
 };
 
 export type ChampionDefinition = {
@@ -102,8 +225,11 @@ export type ChampionDefinition = {
   roles: string[];
   icon: string;
   stats: ChampionStats;
-  passive: { name: string; description: string; icon: string } | null;
+  passive: PassiveDefinition | null;
   spells: SpellDefinition[];
+  actions: ActionDefinition[];
+  inputs: ScenarioInputDefinition[];
+  effectPrograms: EffectProgramDefinition[];
 };
 
 export type ItemStats = {
@@ -131,6 +257,8 @@ export type ItemDefinition = {
   stats: ItemStats;
   classification: Coverage | "stat-only" | "irrelevant";
   coverageNote?: string;
+  inputs?: ScenarioInputDefinition[];
+  effectPrograms?: EffectProgramDefinition[];
 };
 
 export type RuneDefinition = {
@@ -144,6 +272,8 @@ export type RuneDefinition = {
   styleName: string;
   slot: number;
   slotType: string;
+  effectPrograms?: EffectProgramDefinition[];
+  staticModifiers?: Array<{ stat: "health" | "attackDamage" | "abilityPower"; mode: "flat" | "level-linear" | "adaptive"; values: number[] }>;
 };
 
 export type RuneStyleDefinition = {
@@ -180,15 +310,14 @@ export type CombatantConfig = {
   shardIds?: Array<number | null>;
   currentHealth: number | null;
   startingShield: number;
-  stacks: Record<string, number>;
-  resources: Record<string, number>;
-  conditions?: Record<string, boolean | number | string>;
+  inputs: Record<string, boolean | number | string>;
   overrides: StatOverrides;
 };
 
 export type ComboAction = {
   id: string;
   kind: "attack" | "ability" | "wait" | "item";
+  actionId: string;
   key: string;
   label?: string;
   delay: number;
@@ -199,8 +328,8 @@ export type ComboAction = {
   };
 };
 
-export type ScenarioV1 = {
-  schemaVersion: 1;
+export type ScenarioV2 = {
+  schemaVersion: 2;
   patch: string;
   randomnessMode: "deterministic" | "expected";
   attacker: CombatantConfig;
@@ -231,6 +360,7 @@ export type ResolvedStats = {
   percentMagicPen: number;
   critChance: number;
   critDamage: number;
+  attackSpeed?: number;
 };
 
 export type StepTrigger = {
@@ -240,7 +370,10 @@ export type StepTrigger = {
   postMitigation: DamageVector;
   note?: string;
   kind?: "damage" | "state";
+  children?: StepTrigger[];
 };
+
+export type SimulationResultNode = StepTrigger;
 
 export type SimulationStep = {
   id: string;

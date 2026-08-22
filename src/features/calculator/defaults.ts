@@ -1,4 +1,4 @@
-import type { CombatantConfig, ComboAction, ScenarioV1 } from "@/src/domain/model";
+import type { CombatantConfig, ComboAction, ScenarioV2 } from "@/src/domain/model";
 
 export function defaultCombatant(championId: number): CombatantConfig {
   return {
@@ -10,9 +10,7 @@ export function defaultCombatant(championId: number): CombatantConfig {
     shardIds: [],
     currentHealth: null,
     startingShield: 0,
-    stacks: {},
-    resources: {},
-    conditions: {},
+    inputs: {},
     overrides: {},
   };
 }
@@ -21,6 +19,7 @@ export function action(kind: ComboAction["kind"], key: string, delay = 0.15, par
   return {
     id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`,
     kind,
+    actionId: kind === "attack" ? "unresolved:AA" : kind === "wait" ? "system:wait" : `unresolved:${key}`,
     key,
     delay,
     enabled: true,
@@ -29,9 +28,9 @@ export function action(kind: ComboAction["kind"], key: string, delay = 0.15, par
   };
 }
 
-export function defaultScenario(patch: string): ScenarioV1 {
+export function defaultScenario(patch: string): ScenarioV2 {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     patch,
     randomnessMode: "deterministic",
     attacker: defaultCombatant(78),

@@ -2,11 +2,15 @@
 import { createHash } from "node:crypto";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { applyChampionCatalog, reviewedRosterSignatureByPatch } from "./champion-effect-catalog.ts";
+import { applyItemEffectCatalog, applyRuneEffectCatalog } from "./global-effect-catalog.ts";
+import { validateReviewCatalog } from "./catalog-validation.ts";
+import { validateActionDefinitions, validateEffectPrograms } from "../src/domain/effect-program-validation.ts";
 
 const CDRAGON = "https://raw.communitydragon.org";
 let cdragonGameData =
   `${CDRAGON}/latest/plugins/rcp-be-lol-game-data/global/default/v1`;
-const SCHEMA_VERSION = 2;
+const SCHEMA_VERSION = 3;
 let resolvedAssetPatch = "latest";
 
 type Json = Record<string, unknown> | unknown[];
@@ -411,212 +415,6 @@ function normalizeSpell(spell: any, binSpellData?: any) {
   };
 }
 
-function applyChampionSpellModule(alias: string, spell: any) {
-  const key = `${alias}:${spell.key}`;
-  const modeled = (effects: any[], actionParameters: any[] = []) => {
-    spell.classification = "modeled";
-    spell.coverageNote = "A live-patch state module resolves every damage-relevant effect listed below.";
-    spell.effects = effects;
-    spell.actionParameters = actionParameters;
-  };
-
-  if (key === "Vayne:Q") {
-    spell.baseDamage = five();
-    spell.ratioAD = 0.75;
-    spell.ratioAP = 0.5;
-    spell.scalings = [
-      { stat: "attackDamage", scope: "total", values: [0.75, 0.85, 0.95, 1.05, 1.15] },
-      { stat: "abilityPower", scope: "total", values: five(0.5) },
-    ];
-    modeled([{
-      id: "vayne-q-tumble",
-      label: "Empowered Next Attack",
-      kind: "next-attack",
-      coverage: "modeled",
-      description: "For 3 seconds, the next basic attack adds physical damage and consumes the buff.",
-      damageType: "physical",
-      formulaLabel: "75 / 85 / 95 / 105 / 115% total AD + 50% AP",
-      formula: { type: "sum", nodes: [
-        { type: "product", nodes: [{ type: "ranked", values: [0.75, 0.85, 0.95, 1.05, 1.15] }, { type: "stat", key: "totalAttackDamage" }] },
-        { type: "product", nodes: [{ type: "ranked", values: five(0.5) }, { type: "stat", key: "totalAbilityPower" }] },
-      ] },
-    }]);
-  } else if (key === "Vayne:W") {
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    spell.castable = false;
-    modeled([{
-      id: "vayne-w-silver-bolts",
-      label: "Silver Bolts Third Hit",
-      kind: "passive-proc",
-      coverage: "modeled",
-      description: "Basic attacks and Condemn add a 3.5 second stack. The third stack deals maximum-health true damage with a rank-based minimum.",
-      damageType: "true",
-      formulaLabel: "max(6 / 7 / 8 / 9 / 10% target max health, 50 / 65 / 80 / 95 / 110)",
-      formula: { type: "max", nodes: [
-        { type: "product", nodes: [{ type: "ranked", values: [0.06, 0.07, 0.08, 0.09, 0.1] }, { type: "target-stat", key: "maxHealth" }] },
-        { type: "ranked", values: [50, 65, 80, 95, 110] },
-      ] },
-    }]);
-  } else if (key === "Vayne:E") {
-    spell.ratioAD = 0.5;
-    spell.scalings = [{ stat: "attackDamage", scope: "bonus", values: five(0.5) }];
-    modeled([{
-      id: "vayne-e-condemn",
-      label: "Condemn",
-      kind: "direct-damage",
-      coverage: "modeled",
-      description: "Deals physical damage and applies one Silver Bolts stack. Terrain collision adds a separate 150% bonus packet.",
-      damageType: "physical",
-      formulaLabel: "50 / 85 / 120 / 155 / 190 + 50% bonus AD, multiplied by 2.5 on terrain collision",
-    }], [{ id: "wallCollision", type: "boolean", label: "Hits Terrain", defaultValue: false }]);
-  } else if (key === "Vayne:R") {
-    spell.damageType = null;
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    modeled([
-      { id: "vayne-r-final-hour", label: "Final Hour", kind: "stat-buff", coverage: "modeled", description: "Grants 35 / 50 / 65 bonus attack damage for 8 / 10 / 12 seconds.", formulaLabel: "+35 / 50 / 65 attack damage" },
-      { id: "vayne-r-tumble-cooldown", label: "Tumble Cooldown", kind: "cooldown-modifier", coverage: "modeled", description: "Reduces Tumble cooldown by 30 / 40 / 50% while Final Hour is active.", formulaLabel: "30 / 40 / 50% cooldown reduction" },
-      { id: "vayne-r-utility", label: "Movement And Invisibility", kind: "utility", coverage: "out-of-scope", description: "Movement speed and invisibility do not change the supported damage result." },
-    ]);
-  } else if (key === "Olaf:R") {
-    spell.damageType = null;
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    modeled([
-      { id: "olaf-r-passive", label: "Ragnarok Passive", kind: "stat-buff", coverage: "modeled", description: "Always grants 10 / 15 / 20 armor and magic resistance.", formulaLabel: "+10 / 15 / 20 armor and magic resistance" },
-      { id: "olaf-r-active", label: "Ragnarok Active", kind: "stat-buff", coverage: "modeled", description: "For 3 seconds, grants 10 / 20 / 30 plus 25% total attack damage. Basic attacks and Reckless Swing extend the duration by 2.5 seconds.", formulaLabel: "+10 / 20 / 30 + 25% total AD" },
-      { id: "olaf-r-utility", label: "Crowd Control And Movement", kind: "utility", coverage: "out-of-scope", description: "Crowd-control immunity and movement speed do not change the supported damage result." },
-    ]);
-  } else if (key === "Jax:W") {
-    spell.damageType = "magic";
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    modeled([
-      {
-        id: "jax-w-empower",
-        label: "Empowered Attack",
-        kind: "next-attack",
-        coverage: "modeled",
-        description: "For 10 seconds, the next successful basic attack or Leap Strike adds magic damage and consumes the buff.",
-        damageType: "magic",
-        formulaLabel: "50 / 85 / 120 / 155 / 190 + 60% AP",
-        formula: { type: "sum", nodes: [
-          { type: "ranked", values: [50, 85, 120, 155, 190] },
-          { type: "stat", key: "totalAbilityPower", coefficient: 0.6 },
-        ] },
-      },
-      { id: "jax-w-utility", label: "Attack Reset And Range", kind: "utility", coverage: "out-of-scope", description: "The attack reset and bonus range do not change a manually timed damage result." },
-    ]);
-  } else if (key === "Darius:W") {
-    spell.damageType = "physical";
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    modeled([
-      {
-        id: "darius-w-crippling-strike",
-        label: "Crippling Strike",
-        kind: "next-attack",
-        coverage: "modeled",
-        description: "For 4 seconds, the next successful basic attack deals rank-scaled total attack damage. Its bonus damage uses the attack's critical modifier.",
-        damageType: "physical",
-        formulaLabel: "+40 / 45 / 50 / 55 / 60% total AD, for 140 / 145 / 150 / 155 / 160% total AD before critical modifiers",
-        formula: { type: "product", nodes: [
-          { type: "ranked", values: [0.4, 0.45, 0.5, 0.55, 0.6] },
-          { type: "stat", key: "totalAttackDamage" },
-        ] },
-      },
-      { id: "darius-w-utility", label: "Slow And Kill Refund", kind: "utility", coverage: "out-of-scope", description: "The slow and post-kill mana and cooldown refund do not change the supported damage result against the same target." },
-    ]);
-  } else if (key === "Garen:Q") {
-    spell.damageType = "physical";
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    modeled([
-      {
-        id: "garen-q-decisive-strike",
-        label: "Decisive Strike",
-        kind: "next-attack",
-        coverage: "modeled",
-        description: "For 4.5 seconds, the next successful basic attack adds physical damage and consumes the buff. The bonus packet does not critically strike.",
-        damageType: "physical",
-        formulaLabel: "30 / 60 / 90 / 120 / 150 + 50% total AD",
-        formula: { type: "sum", nodes: [
-          { type: "ranked", values: [30, 60, 90, 120, 150] },
-          { type: "stat", key: "totalAttackDamage", coefficient: 0.5 },
-        ] },
-      },
-      { id: "garen-q-utility", label: "Movement And Silence", kind: "utility", coverage: "out-of-scope", description: "Slow cleansing, movement speed, the attack reset, and silence do not change a manually timed damage result." },
-    ]);
-  } else if (key === "Blitzcrank:E") {
-    spell.damageType = "physical";
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    modeled([
-      {
-        id: "blitzcrank-e-power-fist",
-        label: "Power Fist",
-        kind: "next-attack",
-        coverage: "modeled",
-        description: "For 5 seconds, the next successful basic attack adds physical damage and consumes the buff.",
-        damageType: "physical",
-        formulaLabel: "+100% total AD + 25% AP; the basic attack's separate 100% total AD can critically strike",
-        formula: { type: "sum", nodes: [
-          { type: "stat", key: "totalAttackDamage" },
-          { type: "stat", key: "totalAbilityPower", coefficient: 0.25 },
-        ] },
-      },
-      { id: "blitzcrank-e-cooldown", label: "Cooldown Timing", kind: "cooldown-modifier", coverage: "modeled", description: "The cooldown begins when Power Fist is consumed or when its 5-second armed state expires." },
-      { id: "blitzcrank-e-utility", label: "Knockup And Attack Reset", kind: "utility", coverage: "out-of-scope", description: "The knockup and attack reset do not change a manually timed damage result." },
-    ]);
-  } else if (key === "Leona:Q") {
-    spell.damageType = "magic";
-    spell.baseDamage = five();
-    spell.ratioAD = 0;
-    spell.ratioAP = 0;
-    spell.scalings = [];
-    modeled([
-      {
-        id: "leona-q-shield-of-daybreak",
-        label: "Shield Of Daybreak",
-        kind: "next-attack",
-        coverage: "modeled",
-        description: "For 6 seconds, the next successful basic attack adds magic damage and consumes the buff. The bonus packet does not critically strike.",
-        damageType: "magic",
-        formulaLabel: "10 / 35 / 60 / 85 / 110 + 30% AP",
-        formula: { type: "sum", nodes: [
-          { type: "ranked", values: [10, 35, 60, 85, 110] },
-          { type: "stat", key: "totalAbilityPower", coefficient: 0.3 },
-        ] },
-      },
-      { id: "leona-q-utility", label: "Stun And Attack Reset", kind: "utility", coverage: "out-of-scope", description: "The stun, bonus range, and attack reset do not change a manually timed damage result. Sunlight needs an ally to detonate and is outside one-on-one scope." },
-    ]);
-  } else if (key === "Poppy:Q") {
-    modeled(spell.effects ?? [], [{ id: "hitCount", type: "number", label: "Hits", defaultValue: 1, min: 1, max: 2, step: 1 }]);
-  } else if (key === "Poppy:E") {
-    modeled(spell.effects ?? [], [{ id: "wallCollision", type: "boolean", label: "Hits Terrain", defaultValue: false }]);
-  } else if (key === "Poppy:R") {
-    modeled(spell.effects ?? [], [{ id: "chargePercent", type: "number", label: "Charge", defaultValue: 0, min: 0, max: 100, step: 5 }]);
-  } else if (["Taric:E", "DrMundo:Q", "Garen:R", "Ornn:W"].includes(key)) {
-    modeled(spell.effects ?? []);
-  }
-  return spell;
-}
-
 function normalizeStats(stats: any) {
   return {
     health: Number(stats.hp ?? 600),
@@ -736,28 +534,47 @@ function assertFiniteNumbers(value: unknown, location = "snapshot") {
   }
 }
 
-function validateSnapshot(champions: any[], items: any[], runes: any[]) {
+function validateSnapshot(champions: any[], items: any[], runes: any[], patch: string) {
   const spells = champions.flatMap((champion) => champion.spells.map((spell: any) => ({ champion: champion.name, ...spell })));
-  const legacy = spells.filter((spell) => spell.classification === "estimated" || spell.classification === "non-damaging");
-  if (legacy.length) throw new Error(`Legacy ability coverage states remain: ${legacy.map((spell) => `${spell.champion} ${spell.key}`).join(", ")}`);
   const missingSpellReasons = spells.filter((spell) => !spell.coverageNote);
   if (missingSpellReasons.length) throw new Error(`Ability coverage reasons are missing for ${missingSpellReasons.length} spells.`);
   if (items.some((item) => !item.coverageNote) || runes.some((rune) => !rune.coverageNote)) throw new Error("Every item and rune classification must include a reviewed reason.");
+  const sources = champions.flatMap((champion) => [champion.passive, ...champion.spells].filter(Boolean));
+  const expectedSources = champions.length + spells.length;
+  const reviewValidation = validateReviewCatalog(sources, patch, expectedSources, reviewedRosterSignatureByPatch[patch]);
+  if (reviewValidation.errors.length) throw new Error(`Champion review validation failed:\n${reviewValidation.errors.join("\n")}`);
+  const duplicateProgramIds = champions.flatMap((champion) => champion.effectPrograms ?? [])
+    .map((program) => program.id)
+    .filter((id, index, ids) => ids.indexOf(id) !== index);
+  if (duplicateProgramIds.length) throw new Error(`Duplicate effect program IDs: ${[...new Set(duplicateProgramIds)].join(", ")}`);
+  const sourceIds = new Set<string>([
+    ...champions.flatMap((champion) => [`champion:${champion.id}:AA`, ...[champion.passive, ...champion.spells].filter(Boolean).map((source: any) => source.review.sourceId)]),
+    ...items.map((item) => `item:${item.id}`),
+    ...runes.map((rune) => `rune:${rune.id}`),
+  ]);
+  const programErrors = validateEffectPrograms([
+    ...champions.flatMap((champion) => champion.effectPrograms ?? []),
+    ...items.flatMap((item) => item.effectPrograms ?? []),
+    ...runes.flatMap((rune) => rune.effectPrograms ?? []),
+  ], sourceIds);
+  if (programErrors.length) throw new Error(`Effect program validation failed:\n${programErrors.join("\n")}`);
+  const actionErrors = champions.flatMap((champion) => validateActionDefinitions(champion.actions ?? []));
+  if (actionErrors.length) throw new Error(`Action definition validation failed:\n${actionErrors.join("\n")}`);
+  const invalidModeledComponents = sources.flatMap((source) => source.review.components)
+    .filter((component) => component.coverage === "modeled" && component.disposition === "template" && !component.template);
+  if (invalidModeledComponents.length) throw new Error("A modeled template component is missing its template ID.");
   const malformedScalings = spells.flatMap((spell) => spell.scalings ?? []).filter((scaling: any) => !Array.isArray(scaling.values) || scaling.values.length < 5 || scaling.values.some((value: number) => !Number.isFinite(value)));
   if (malformedScalings.length) throw new Error("A spell scaling was flattened or contains a non-finite rank value.");
-  const vayne = champions.find((champion) => champion.alias === "Vayne");
-  const vayneQ = vayne?.spells.find((spell: any) => spell.key === "Q");
-  const vayneW = vayne?.spells.find((spell: any) => spell.key === "W");
-  if (vayneQ?.scalings?.find((scaling: any) => scaling.stat === "attackDamage")?.values?.[4] !== 1.15) throw new Error("Vayne Tumble rank-five scaling was not preserved.");
-  if (vayneQ?.baseDamage?.some(Boolean) || vayneW?.castable !== false) throw new Error("A stateful Vayne effect was represented as immediate cast damage.");
-  const empoweredAttackKeys = ["Jax:W", "Darius:W", "Garen:Q", "Blitzcrank:E", "Leona:Q"];
+  const armedSourceIds = new Set(champions.flatMap((champion) => champion.effectPrograms ?? [])
+    .filter((program: any) => program.template === "arm-next-hit")
+    .map((program: any) => program.sourceId));
   const malformedEmpoweredAttacks = champions.flatMap((champion) => champion.spells
-    .filter((spell: any) => empoweredAttackKeys.includes(`${champion.alias}:${spell.key}`))
+    .filter((spell: any) => armedSourceIds.has(`champion:${champion.id}:${spell.key}`))
     .filter((spell: any) => spell.classification !== "modeled" || spell.baseDamage.some(Boolean) || !spell.effects.some((effect: any) => effect.kind === "next-attack" && effect.formula))
-    .map((spell: any) => `${champion.alias}:${spell.key}`));
+    .map((spell: any) => `champion:${champion.id}:${spell.key}`));
   if (malformedEmpoweredAttacks.length) throw new Error(`Empowered attacks must be modeled as structured next-attack state: ${malformedEmpoweredAttacks.join(", ")}`);
-  if (items.find((item) => item.name === "Abyssal Mask")?.classification !== "modeled") throw new Error("Abyssal Mask must remain modeled.");
-  if (runes.find((rune) => rune.name === "Conqueror")?.classification !== "modeled") throw new Error("Conqueror must remain modeled.");
+  if (items.find((item) => item.id === 8020)?.classification !== "modeled") throw new Error("Abyssal Mask must remain modeled.");
+  if (runes.find((rune) => rune.id === 8010)?.classification !== "modeled") throw new Error("Conqueror must remain modeled.");
   assertFiniteNumbers({ champions, items, runes });
 }
 
@@ -820,9 +637,10 @@ async function main() {
       const resolvedStats = binStats && riotStats
         ? { ...binStats, mana: riotStats.mana, manaPerLevel: riotStats.manaPerLevel, magicResistPerLevel: riotStats.magicResistPerLevel }
         : binStats ?? riotStats;
+      if (!resolvedStats) throw new Error(`No resolved base stats found for ${summary.name}.`);
       const normalizedSpells = (detail.spells ?? []).map((spell: any, spellIndex: number) =>
-        applyChampionSpellModule(String(summary.alias), normalizeSpell(spell, binSpells[spellIndex])));
-      const champion = {
+        normalizeSpell(spell, binSpells[spellIndex]));
+      const champion = applyChampionCatalog({
         id: summary.id,
         alias: summary.alias,
         name: summary.name,
@@ -834,7 +652,10 @@ async function main() {
           ? { name: detail.passive.name, description: cleanHtml(detail.passive.description), icon: assetUrl(detail.passive.abilityIconPath) }
           : null,
         spells: normalizedSpells,
-      };
+      }, patch, {
+        championDetail: details[batchIndex].source.sha256,
+        championBin: bins[batchIndex].source.sha256,
+      }, binObject);
       if (!champion.spells.length) throw new Error(`No ability definitions found for ${champion.name}`);
       champions.push(champion);
       await writeFile(path.join(championDir, `${champion.id}.json`), JSON.stringify(champion));
@@ -850,7 +671,7 @@ async function main() {
       const name = cdragon?.name ?? item.name;
       const cleanedDescription = cleanHtml(description);
       const classification = itemClassification(name, cleanedDescription);
-      return {
+      return applyItemEffectCatalog({
         id: Number(id),
         name,
         description: cleanedDescription,
@@ -860,7 +681,7 @@ async function main() {
         stats: itemStats(item.stats, description),
         classification,
         coverageNote: itemCoverageNote(name, classification),
-      };
+      });
     });
   const items = [...new Map(
     itemCandidates
@@ -902,7 +723,7 @@ async function main() {
     .map((perk) => {
       const slot = perkSlots.get(perk.id);
       const classification = runeClassification(perk.name);
-      return {
+      return applyRuneEffectCatalog({
         id: perk.id,
         name: perk.name,
         description: cleanHtml(perk.longDesc ?? perk.shortDesc),
@@ -913,11 +734,18 @@ async function main() {
         styleName: slot?.styleName ?? "Unassigned",
         slot: slot?.slot ?? -1,
         slotType: slot?.slotType ?? "unknown",
-      };
+        staticModifiers: perk.id === 5011
+          ? [{ stat: "health", mode: "flat", values: [65] }]
+          : perk.id === 5001
+            ? [{ stat: "health", mode: "level-linear", values: [10, 180] }]
+            : perk.id === 5008
+              ? [{ stat: "attackDamage", mode: "adaptive", values: [5.4, 9] }]
+              : [],
+      });
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  validateSnapshot(champions, items, runes);
+  validateSnapshot(champions, items, runes, patch);
 
   const sources = [
     metadataResult.source,
@@ -935,6 +763,10 @@ async function main() {
     ...binSources,
   ];
   const allSpells = champions.flatMap((champion) => champion.spells.map((spell: any) => ({ champion: champion.name, ...spell })));
+  const allChampionSources = champions.flatMap((champion) => [
+    ...(champion.passive ? [{ champion: champion.name, key: "P", ...champion.passive }] : []),
+    ...champion.spells.map((spell: any) => ({ champion: champion.name, ...spell })),
+  ]);
   const spellCoverage = allSpells.reduce((counts, spell) => {
     counts[spell.classification] = (counts[spell.classification] ?? 0) + 1;
     return counts;
@@ -948,6 +780,18 @@ async function main() {
   }, {} as Record<string, number>);
   const runeCoverage = runes.reduce((counts, rune) => {
     counts[rune.classification] = (counts[rune.classification] ?? 0) + 1;
+    return counts;
+  }, {} as Record<string, number>);
+  const championSourceCoverage = allChampionSources.reduce((counts, source) => {
+    counts[source.classification] = (counts[source.classification] ?? 0) + 1;
+    return counts;
+  }, {} as Record<string, number>);
+  const reviewDisposition = allChampionSources.flatMap((source) => source.review.components).reduce((counts, component) => {
+    counts[component.disposition] = (counts[component.disposition] ?? 0) + 1;
+    return counts;
+  }, {} as Record<string, number>);
+  const effectFamilies = allChampionSources.flatMap((source) => source.review.components).reduce((counts, component) => {
+    if (component.template) counts[component.template] = (counts[component.template] ?? 0) + 1;
     return counts;
   }, {} as Record<string, number>);
   const unknownCalculationParts = allSpells
@@ -979,6 +823,11 @@ async function main() {
     unsupportedSpells,
     itemCoverage,
     runeCoverage,
+    championSourceCoverage,
+    reviewedChampionSourceCount: allChampionSources.length,
+    unreviewedChampionSourceCount: 0,
+    reviewDisposition,
+    effectFamilies,
     unknownCalculationParts,
     unknownPrimaryCalculationParts,
     unknownCalculationExamples: Object.fromEntries(unknownCalculationExamples),
@@ -992,6 +841,8 @@ async function main() {
       rankArraysPreserved: true,
       legacyEstimatedStates: 0,
       reviewedCoverageReasons: true,
+      reviewedChampionSources: allChampionSources.length,
+      unreviewedChampionSources: 0,
       unknownRequiredCalculationParts: 0,
     },
     sources,
@@ -1006,7 +857,60 @@ async function main() {
     writeFile(path.join(outputDir, "perk-styles.json"), JSON.stringify(stylesResult.data)),
     writeFile(path.join(process.cwd(), "public", "data", "current.json"), JSON.stringify({ schemaVersion: SCHEMA_VERSION, patch })),
   ]);
+  await writeChampionReviewDocs(champions, patch, championSourceCoverage, effectFamilies);
   console.log(`Damage Lab snapshot ${patch}: ${champions.length} champions, ${items.length} items, ${runes.length} runes`);
+}
+
+async function writeChampionReviewDocs(champions: any[], patch: string, coverage: Record<string, number>, families: Record<string, number>) {
+  const root = path.join(process.cwd(), "docs", "champion-reviews");
+  await rm(root, { recursive: true, force: true });
+  await mkdir(root, { recursive: true });
+  const indexLines = [
+    "# Champion combat reviews",
+    "",
+    `Generated from the machine-readable patch ${patch} review catalog. The catalog contains ${champions.length} champions and ${champions.length * 5} primary passive and ability sources.`,
+    "",
+    "## Coverage",
+    "",
+    ...Object.entries(coverage).sort().map(([key, value]) => `- ${key}: ${value}`),
+    "",
+    "## Effect families",
+    "",
+    ...Object.entries(families).sort((left, right) => right[1] - left[1]).map(([key, value]) => `- ${key}: ${value}`),
+    "",
+    "## Champions",
+    "",
+    ...champions.sort((left, right) => left.name.localeCompare(right.name)).map((champion) => `- [${champion.name}](./${String(champion.alias).toLowerCase()}.md)`),
+    "",
+  ];
+  await writeFile(path.join(root, "README.md"), indexLines.join("\n"));
+  await Promise.all(champions.map(async (champion) => {
+    const sources = [champion.passive, ...champion.spells].filter(Boolean);
+    const lines = [`# ${champion.name} combat review`, "", `Patch: ${patch}`, ""];
+    for (const source of sources) {
+      lines.push(
+        `## ${source.key} - ${source.name}`,
+        "",
+        `Coverage: ${source.classification}`,
+        "",
+        `Description signature: ${source.review.sourceHash}`,
+        "",
+        ...Object.entries(source.review.sourceHashes).map(([label, hash]) => `- ${label}: ${hash}`),
+        "",
+        ...source.review.validationNotes.map((note: string) => `Validation: ${note}`),
+        "",
+        source.coverageNote,
+        "",
+      );
+      for (const reviewed of source.review.components) {
+        lines.push(`### ${reviewed.label}`, "", `- Relevance: ${reviewed.relevance}`, `- Disposition: ${reviewed.disposition}`, `- Coverage: ${reviewed.coverage}`, `- Template or handler: ${reviewed.template ?? reviewed.customHandlerId ?? "none"}`, `- Reason: ${reviewed.reason}`, "", reviewed.description, "");
+        if (reviewed.omissions?.length) lines.push(`Omissions: ${reviewed.omissions.join("; ")}`, "");
+        if (reviewed.formulaBindings?.length) lines.push(`Formula bindings: ${reviewed.formulaBindings.join(", ")}`, "");
+        if (reviewed.valueBindings?.length) lines.push(`Value bindings: ${reviewed.valueBindings.join(", ")}`, "");
+      }
+    }
+    await writeFile(path.join(root, `${String(champion.alias).toLowerCase()}.md`), lines.join("\n"));
+  }));
 }
 
 main().catch((error) => {

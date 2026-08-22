@@ -56,18 +56,18 @@ test("combat-relevant effects are never mislabeled as irrelevant", async () => {
     readFile(new URL("../public/data/16.16/items.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/runes.json", import.meta.url), "utf8").then(JSON.parse),
   ]);
-  assert.equal(items.find((item) => item.name === "Abyssal Mask")?.classification, "modeled");
-  assert.equal(runes.find((rune) => rune.name === "Conqueror")?.classification, "modeled");
-  assert.equal(runes.find((rune) => rune.name === "Hail of Blades")?.classification, "unsupported");
-  assert.equal(runes.find((rune) => rune.name === "Last Stand")?.classification, "unsupported");
-  assert.equal(runes.find((rune) => rune.name === "Bone Plating")?.classification, "unsupported");
-  assert.equal(runes.find((rune) => rune.name === "Axiom Arcanist")?.classification, "unsupported");
+  assert.equal(items.find((item) => item.id === 8020)?.classification, "modeled");
+  assert.equal(runes.find((rune) => rune.id === 8010)?.classification, "modeled");
+  assert.equal(runes.find((rune) => rune.id === 9923)?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.id === 8299)?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.id === 8473)?.classification, "unsupported");
+  assert.equal(runes.find((rune) => rune.id === 8224)?.classification, "unsupported");
   assert.ok(items.every((item) => item.coverageNote));
   assert.ok(runes.every((rune) => rune.coverageNote));
 });
 
-test("schema two snapshot preserves stateful reference modules and pinned sources", async () => {
-  const [current, manifest, vayne, olaf, jax, darius, garen, blitzcrank, leona] = await Promise.all([
+test("schema three snapshot preserves reviewed programs, metadata, actions, and pinned sources", async () => {
+  const [current, manifest, vayne, olaf, jax, darius, garen, blitzcrank, leona, akshan, diana, varus] = await Promise.all([
     readFile(new URL("../public/data/current.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/manifest.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/67.json", import.meta.url), "utf8").then(JSON.parse),
@@ -77,14 +77,22 @@ test("schema two snapshot preserves stateful reference modules and pinned source
     readFile(new URL("../public/data/16.16/champions/86.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/53.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../public/data/16.16/champions/89.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/166.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/131.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../public/data/16.16/champions/110.json", import.meta.url), "utf8").then(JSON.parse),
   ]);
-  assert.equal(current.schemaVersion, 2);
-  assert.equal(manifest.schemaVersion, 2);
+  assert.equal(current.schemaVersion, 3);
+  assert.equal(manifest.schemaVersion, 3);
   assert.equal(manifest.validation.legacyEstimatedStates, 0);
   assert.equal(manifest.validation.unknownRequiredCalculationParts, 0);
   assert.ok(manifest.binInspection.itemEntryCount > 0);
   assert.ok(manifest.binInspection.perkEntryCount > 0);
   assert.equal(manifest.sources.filter((source) => source.url.includes("raw.communitydragon.org/latest/")).length, 1);
+  assert.equal(manifest.validation.reviewedChampionSources, 865);
+  assert.equal(manifest.validation.unreviewedChampionSources, 0);
+  assert.equal(manifest.championSourceCoverage.modeled, 21);
+  assert.equal(manifest.championSourceCoverage.partial, 541);
+  assert.equal(manifest.championSourceCoverage.unsupported, 183);
 
   const tumble = vayne.spells.find((spell) => spell.key === "Q");
   const silverBolts = vayne.spells.find((spell) => spell.key === "W");
@@ -101,8 +109,20 @@ test("schema two snapshot preserves stateful reference modules and pinned source
     assert.deepEqual(spell.baseDamage, [0, 0, 0, 0, 0]);
     assert.ok(spell.effects.some((effect) => effect.kind === "next-attack" && effect.formula));
   }
-  assert.equal(manifest.spellCoverage.modeled, 17);
-  assert.equal(manifest.spellCoverage.partial, 544);
+  for (const source of [akshan.passive, ...akshan.spells, diana.passive, ...diana.spells, varus.passive, ...varus.spells]) {
+    assert.equal(source.review.reviewedPatch, "16.16");
+    assert.ok(source.review.sourceHash);
+    assert.ok(source.review.sourceHashes.championDetail);
+    assert.ok(source.review.sourceHashes.championBin);
+    assert.ok(source.review.validationNotes.length);
+  }
+  assert.ok(akshan.effectPrograms.some((program) => program.id === "champion:166:P:dirty-fighting"));
+  assert.ok(diana.effectPrograms.some((program) => program.template === "stacking-proc"));
+  assert.ok(varus.effectPrograms.some((program) => program.template === "mark-and-consume"));
+  assert.ok(akshan.actions.find((entry) => entry.key === "AA").parameters.some((parameter) => parameter.id === "secondShot"));
+  assert.ok(varus.actions.find((entry) => entry.key === "Q").parameters.some((parameter) => parameter.id === "chargePercent"));
+  assert.equal(manifest.spellCoverage.modeled, 19);
+  assert.equal(manifest.spellCoverage.partial, 541);
 });
 
 test("item details are available in equipped builds and the item picker", async () => {
@@ -143,6 +163,8 @@ test("restores saved and shared scenarios in the client application", async () =
   assert.match(damageLab, /decodeScenario\(window\.location\.hash\)/);
   assert.match(damageLab, /localStorage\.getItem\(STORAGE_KEY\)/);
   assert.match(damageLab, /localStorage\.setItem\(STORAGE_KEY/);
+  assert.match(damageLab, /damage-lab:scenario-v2/);
+  assert.match(damageLab, /hasIncompatibleScenario/);
 });
 
 test("uses the Damage Lab favicon and handle-only combo dragging", async () => {
@@ -155,5 +177,19 @@ test("uses the Damage Lab favicon and handle-only combo dragging", async () => {
   assert.match(favicon, /M37\.3 13v14\.2/);
   assert.equal((comboBuilder.match(/\bdraggable\b/g) ?? []).length, 1);
   assert.match(comboBuilder, /getActionControls\(champion, entry\)/);
-  assert.match(actionControls, /Poppy:[\s\S]*wallCollision[\s\S]*chargePercent/);
+  assert.match(actionControls, /definition\.parameters/);
+  assert.doesNotMatch(actionControls, /Poppy|champion\.id|champion\.alias/);
+});
+
+test("runtime and UI code contain no champion-name or champion-ID behavior branches", async () => {
+  const files = [
+    "../src/domain/simulate.ts",
+    "../src/domain/effect-runtime.ts",
+    "../src/features/calculator/action-controls.ts",
+    "../src/features/calculator/combo-builder.tsx",
+    "../scripts/sync-game-data.ts",
+  ];
+  const source = (await Promise.all(files.map((file) => readFile(new URL(file, import.meta.url), "utf8")))).join("\n");
+  assert.doesNotMatch(source, /champion\.(?:id|alias|name)\s*===/);
+  assert.doesNotMatch(source, /(?:Vayne|Akshan|Diana|Varus|Olaf|Poppy|Jax|Darius|Garen|Blitzcrank|Leona)\s*:/);
 });

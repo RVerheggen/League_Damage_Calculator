@@ -9,8 +9,6 @@ const coverageCopy: Record<SpellDefinition["classification"], string> = {
   modeled: "This ability has an explicit simulation module for its supported damage and combat state.",
   partial: "The listed primary effect is available, but at least one combat-relevant behavior still needs a state module.",
   "out-of-scope": "This ability has no effect on the supported one-on-one damage result.",
-  estimated: "The primary values are modeled, while complex subcasts may use a visible assumption.",
-  "non-damaging": "This cast does not create a champion damage packet.",
   unsupported: "This ability matters to combat, but its damage structure is not simulated yet.",
 };
 
@@ -18,8 +16,6 @@ const coverageLabel: Record<SpellDefinition["classification"], string> = {
   modeled: "Modeled",
   partial: "Partially Modeled",
   "out-of-scope": "Out Of Scope",
-  estimated: "Partially Modeled",
-  "non-damaging": "No Direct Damage",
   unsupported: "Unsupported",
 };
 

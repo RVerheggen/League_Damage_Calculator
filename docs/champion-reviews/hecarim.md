@@ -36,7 +36,7 @@ Description signature: 3d8c4ce7486f6e56ce9759bec0625df288c14b82d254302a57f252303
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Rampage Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b6ab8e62bcbbc0e17f5f796fcef7e3682dbfb9f550cfe91b6ee2d1a25
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Spirit of Dread Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 1c9b918c32b5acc65444f0aa0b0b6675b989e323355c0599b04e5af83
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Devastating Charge Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 852f7df401bd54ded0abc642d609ffef46de6a8266c4331b013bd60b8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageDone was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Onslaught of Shadows Primary Damage
 

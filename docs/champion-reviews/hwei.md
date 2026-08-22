@@ -36,7 +36,7 @@ Description signature: dd1ceceab6258b1638f666bdf2ec54eb2ad4eabaf734e48c69e3a7f73
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Tooltip_QQDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Subject: Disaster Primary Damage
 
@@ -60,7 +60,7 @@ Hwei paints visions of disaster that deal large damage to enemies. Devastating F
 
 ## W - Subject: Serenity
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: ddf7014936d885fd8be518075f0e6b642ddf29aab2286ac805a6ac78227a6212
 
@@ -69,25 +69,15 @@ Description signature: ddf7014936d885fd8be518075f0e6b642ddf29aab2286ac805a6ac782
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Tooltip_WEOnHitDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Subject: Serenity Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Stirring Lights grants three charges consumed by later attacks or abilities. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Subject: Serenity Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: shield-with-lockout
-- Reason: The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: Stirring Lights grants three charges consumed by later attacks or abilities. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Hwei paints visions of serenity that provide utility for himself and allied champions. Fleeting Current Hwei launches a current of swift waters in a line that grants allies Move Speed. Pool of Reflection Hwei forms a protective pool that grants Shields over time to allied champions inside reduced by % for allies. Stirring Lights Hwei creates three swirling lights that empower his next three Abilities or Attacks to deal an additional magic damage and restore Mana each.
 
@@ -102,7 +92,7 @@ Description signature: c017b365d5536c9707dbae89797f3120f7de8150b4e7bcb19f0b9ef06
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Tooltip_EQDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Subject: Torment Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: 31fc36c2834e22a1018eefe3574d9b176b245147b0d93ee1114409967
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageOverTime was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Spiraling Despair Primary Damage
 

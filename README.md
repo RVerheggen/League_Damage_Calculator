@@ -28,11 +28,11 @@ npm run data:sync
 
 The browser loads the champion index, item index, and rune index once. Full champion definitions are stored in separate files and loaded only for the selected attacker and target. Raw BIN files do not ship to the browser.
 
-Standard spell calculations are preserved as formula trees with complete rank arrays and base, bonus, or total stat scope. The compiler resolves reviewed formula and value bindings from the pinned patch data and fails when a required binding changes structure. Raw BIN records and wiki content never ship to the browser.
+Standard spell calculations are preserved as formula trees with complete rank arrays, top-level calculation multipliers, and base, bonus, or total stat scope. The compiler resolves reviewed formula and value bindings from the pinned patch data and fails when a required binding changes structure. Raw BIN records and wiki content never ship to the browser.
 
 The champion catalog contains one review record for each of the 173 passives and 692 Q, W, E, and R sources in patch 16.16. Each record retains relevance, disposition, coverage, a specific reason, source signatures, and formula or value bindings. Generated review pages and the family index live under `docs/champion-reviews/`. Complete review coverage does not mean complete simulation coverage. The generated manifest remains the authority for Modeled, Partially Modeled, Unsupported, and Out Of Scope totals.
 
-Reference programs include Vayne, Olaf, reusable empowered attacks, Akshan Dirty Fighting, Diana Moonsilver Blade, Varus Blighted Quiver, Kog'Maw Bio-Arcane Barrage, Gwen Skip 'n Slash, and Fizz Seastone Trident. Abyssal Mask, Conqueror, and Scorch use the same source-agnostic runtime as regression fixtures. Rare handlers for Poppy, Taric, Dr. Mundo, Garen, and Ornn return generic damage operations instead of mutating simulator state.
+Reference programs include Vayne, Olaf, reusable empowered attacks, Akshan Dirty Fighting, Diana Moonsilver Blade, Varus Blighted Quiver, Kog'Maw Bio-Arcane Barrage, Gwen Skip 'n Slash, Fizz Seastone Trident, Master Yi Wuju Style, Cho'Gath Vorpal Spikes, Sett Knuckle Down, Shen Twilight Assault, and Malphite Thunderclap. Abyssal Mask, Conqueror, and Scorch use the same source-agnostic runtime as regression fixtures. Rare handlers for Poppy, Taric, Dr. Mundo, Garen, and Ornn return generic damage operations instead of mutating simulator state. The reviewed [repeated-attack taxonomy](./docs/repeated-attack-family-audit.md) records the remaining candidates.
 
 ## Domain engine
 
@@ -44,7 +44,7 @@ The pure modules under `src/domain` provide:
 - Flat and percentage resistance reduction, percentage penetration, flat penetration, lethality, and positive or negative resistance formulas.
 - A reviewed stable-ID catalog compiled into source-agnostic effect programs.
 - Deterministic event phases for scenario start, action start, casts, attack and ability hits, damage processing, action completion, time advancement, expiry, and target death.
-- Generic participant, source, target, and source-target state for counters, buffs, debuffs, shields, lockouts, stat modifiers, amplifiers, resistance changes, cooldowns, delayed packets, and refreshable multi-tick schedules.
+- Generic participant, source, target, and source-target state for counters, bounded attack charges, buffs, debuffs, shields, lockouts, stat modifiers, amplifiers, resistance changes, cooldowns, delayed packets, and refreshable multi-tick schedules.
 - Nested result nodes for program execution, state transitions, child damage, mitigation, shields, cooldown changes, and expiry.
 - Versioned scenario schema 2 serialization using stable action IDs and typed effect inputs.
 

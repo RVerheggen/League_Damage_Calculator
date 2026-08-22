@@ -36,7 +36,7 @@ Description signature: 48fa069dbec1ac8c7043654039f8c1ef56ca605f3b12c7f23ce11f226
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ice Shard Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: ffa026e56ad5851cd49df2bddfc8b84b16b77678e1e394e5b0f11646a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ring of Frost Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 878882448d98da2ebe8023f35c334a2762d8a6ef998cdfe8afad0ac0e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Glacial Path Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: c20ecc5a4ec61db0dc6dbfb27f0564bdafedcc8588fe82ede34f48246
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation CalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Frozen Tomb Primary Damage
 

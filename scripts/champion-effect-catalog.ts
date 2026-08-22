@@ -45,6 +45,7 @@ type KnownSource = {
   extraActions?: ActionDefinition[];
   primaryCalculation?: string | null;
   cooldownPolicy?: ActionDefinition["cooldownPolicy"];
+  inputs?: ScenarioInputDefinition[];
   spellPatch?: Partial<Pick<SpellDefinition, "damageType" | "baseDamage" | "ratioAD" | "ratioAP" | "scalings">>;
 };
 
@@ -95,7 +96,7 @@ function armNextHit(
   key: string,
   label: string,
   duration: number,
-  damageType: "physical" | "magic",
+  damageType: "physical" | "magic" | "true",
   formula: FormulaNode,
   formulaLabel: string,
   options: { consumeOnSourceIds?: string[]; critical?: "never" | "attack"; cooldownOnConsume?: number[] } = {},
@@ -149,7 +150,7 @@ function timedOnHit(
   key: string,
   label: string,
   duration: number,
-  damageType: "physical" | "magic",
+  damageType: "physical" | "magic" | "true",
   formula: FormulaNode,
   formulaLabel: string,
   options: {
@@ -175,6 +176,52 @@ function timedOnHit(
       operations: [{ type: "damage", label: `${label} On-Hit`, damageType, formula, formulaLabel }],
     },
     ...(options.additionalTriggers ?? []),
+  ]);
+}
+
+function limitedAttackState(
+  championId: number,
+  key: string,
+  label: string,
+  attackCount: number,
+  duration: number,
+  damageType: "physical" | "magic" | "true",
+  formula: FormulaNode,
+  formulaLabel: string,
+  options: {
+    stateKey?: string;
+    castOperations?: EffectProgramDefinition["triggers"][number]["operations"];
+    hitOperations?: EffectProgramDefinition["triggers"][number]["operations"];
+    refreshDurationOnHit?: boolean;
+  } = {},
+) {
+  const source = sourceId(championId, key);
+  const stateKey = options.stateKey ?? `${source}:attacks`;
+  return program(`${source}:limited-attacks`, label, "champion", source, "limited-attack-state", key, [
+    {
+      id: `${source}:activate`, event: "cast", priority: 10,
+      conditions: [{ type: "source-id", value: source }, { type: "rank-at-least", sourceId: key, value: 1 }],
+      operations: [
+        { type: "set-state", key: stateKey, scope: "participant", value: literal(attackCount), duration: literal(duration), label: `${label} Attacks` },
+        ...(options.castOperations ?? []),
+      ],
+    },
+    {
+      id: `${source}:attack`, event: "basic-attack-hit", priority: 10,
+      conditions: [{ type: "state-active", key: stateKey, scope: "participant" }, { type: "hit", value: true }],
+      operations: [
+        { type: "damage", label: `${label} On-Hit`, damageType, formula, formulaLabel },
+        ...(options.hitOperations ?? []),
+        {
+          type: "decrement-state",
+          key: stateKey,
+          scope: "participant",
+          amount: literal(1),
+          ...(options.refreshDurationOnHit ? { refreshDuration: literal(duration) } : {}),
+          label: `${label} Attack Consumed`,
+        },
+      ],
+    },
   ]);
 }
 
@@ -373,6 +420,186 @@ function knownSources(): Map<string, KnownSource> {
     spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
   });
 
+  set(11, "E", {
+    coverage: "modeled",
+    coverageNote: "Wuju Style applies its patch-ranked true damage to every successful basic attack for five seconds. Missed attacks do not create a packet, and the timed state expires explicitly.",
+    effects: [{
+      id: "masteryi-e-on-hit", label: "Wuju Style On-Hit", kind: "passive-proc", coverage: "modeled",
+      description: "For five seconds, every successful basic attack adds true damage.",
+      damageType: "true", formulaLabel: "20 / 25 / 30 / 35 / 40 + 35% total AD",
+      formula: sum(ranked([20, 25, 30, 35, 40]), stat("totalAttackDamage", 0.35)),
+    }],
+    components: [component("masteryi-e-on-hit", "Wuju Style On-Hit", "Casting E empowers every successful basic attack for five seconds with patch-ranked true damage.", "modeled", "timed-on-hit", "Compiled by the reusable timed-on-hit template.", { formulaBindings: ["WujuStyle.TotalDamage"], valueBindings: ["WujuStyle.BaseDamage", "WujuStyle.ADRatio", "WujuStyle.Duration"] })],
+    programs: [timedOnHit(11, "E", "Wuju Style", 5, "true", sum(ranked([20, 25, 30, 35, 40]), stat("totalAttackDamage", 0.35)), "20 / 25 / 30 / 35 / 40 + 35% total AD")],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
+
+  set(31, "E", {
+    coverage: "modeled",
+    coverageNote: "Vorpal Spikes empowers the next three successful basic attacks for six seconds. Each hit uses the selected Feast stack input in its patch-ranked maximum-health magic damage. Slow, range, and monster-only behavior do not change champion-target damage.",
+    inputs: [{ id: "feastStacks", type: "number", label: "Feast Stacks", description: "Permanent Feast stacks used by Vorpal Spikes.", defaultValue: 0, min: 0, step: 1 }],
+    effects: [{
+      id: "chogath-e-attacks", label: "Vorpal Spikes", kind: "passive-proc", coverage: "modeled",
+      description: "The next three successful basic attacks add flat and maximum-health magic damage.",
+      damageType: "magic", formulaLabel: "20 / 40 / 60 / 80 / 100 + 30% AP + (2.5 / 2.85 / 3.2 / 3.55 / 3.9% + 0.5% per Feast stack) target max health",
+      formula: sum(
+        ranked([20, 40, 60, 80, 100]),
+        stat("totalAbilityPower", 0.3),
+        product({ type: "target-stat", key: "maxHealth" }, sum(ranked([2.5, 2.85, 3.2, 3.55, 3.9]), input("feastStacks", 0.5, 0)), literal(0.01)),
+      ),
+    }],
+    components: [
+      component("chogath-e-attacks", "Vorpal Spikes Attacks", "Casting E empowers the next three successful basic attacks for six seconds with flat and maximum-health magic damage. Feast stacks are a typed pre-combat input.", "modeled", "limited-attack-state", "Compiled by the reusable limited-attack-state template.", { formulaBindings: ["VorpalSpikes.FlatDamageCalc", "VorpalSpikes.MaxHealthPercentCalc"], valueBindings: ["VorpalSpikes.MaximumAttacks", "VorpalSpikes.BuffDuration", "VorpalSpikes.FeastStackMultiplier"] }),
+      component("chogath-e-slow", "Vorpal Spikes Slow", "Each spike slows its target.", "out-of-scope", null, "Movement and crowd control do not change a manually selected successful hit."),
+      component("chogath-e-range", "Vorpal Spikes Range", "E grants attack range while attacks remain.", "out-of-scope", null, "Attack range does not change a manually selected successful hit."),
+      component("chogath-e-monsters", "Vorpal Spikes Monster Cap", "The maximum-health packet is capped against monsters.", "out-of-scope", null, "The supported target is a champion."),
+    ],
+    programs: [limitedAttackState(31, "E", "Vorpal Spikes", 3, 6, "magic", sum(
+      ranked([20, 40, 60, 80, 100]),
+      stat("totalAbilityPower", 0.3),
+      product({ type: "target-stat", key: "maxHealth" }, sum(ranked([2.5, 2.85, 3.2, 3.55, 3.9]), input("feastStacks", 0.5, 0)), literal(0.01)),
+    ), "Flat damage plus Feast-scaled target maximum-health damage")],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
+
+  set(875, "Q", {
+    coverage: "modeled",
+    coverageNote: "Knuckle Down empowers the next two successful basic attacks for four seconds with patch-ranked flat and maximum-health physical damage. Movement speed does not change manually timed damage.",
+    effects: [{
+      id: "sett-q-attacks", label: "Knuckle Down", kind: "passive-proc", coverage: "modeled",
+      description: "The next two successful basic attacks add flat and target maximum-health physical damage.",
+      damageType: "physical", formulaLabel: "10 / 20 / 30 / 40 / 50 + (1% target max health + 1 / 1.5 / 2 / 2.5 / 3% per 100 total AD)",
+      formula: sum(ranked([10, 20, 30, 40, 50]), product({ type: "target-stat", key: "maxHealth" }, sum(ranked(five(0.01)), product(stat("totalAttackDamage"), ranked([0.0001, 0.00015, 0.0002, 0.00025, 0.0003]))))),
+    }],
+    components: [
+      component("sett-q-attacks", "Knuckle Down Attacks", "Casting Q empowers the next two successful basic attacks for four seconds with flat and maximum-health physical damage.", "modeled", "limited-attack-state", "Compiled by the reusable limited-attack-state template. The two retained Sett Q attack records validate the attack count.", { formulaBindings: ["SettQ.MaxHealthDamageCalc"], valueBindings: ["SettQ.BaseDamage", "SettQ.Duration", "SettQAttack", "SettQAttack2"] }),
+      component("sett-q-movement", "Knuckle Down Movement Speed", "Casting Q grants movement speed toward enemy champions.", "out-of-scope", null, "Movement does not change manually selected hit timing or damage."),
+    ],
+    programs: [limitedAttackState(875, "Q", "Knuckle Down", 2, 4, "physical", sum(ranked([10, 20, 30, 40, 50]), product({ type: "target-stat", key: "maxHealth" }, sum(ranked(five(0.01)), product(stat("totalAttackDamage"), ranked([0.0001, 0.00015, 0.0002, 0.00025, 0.0003]))))), "Flat damage plus total-AD-scaled target maximum-health damage")],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
+
+  set(98, "Q", {
+    coverage: "modeled",
+    coverageNote: "Twilight Assault grants three attacks for eight seconds. The typed Spirit Blade collision control selects the normal or champion-collision damage and the champion-collision attack-speed buff. Pull slow and attack range are outside manually selected damage.",
+    parameters: [{ id: "bladeHitChampion", type: "boolean", label: "Blade Hits Champion", defaultValue: false }],
+    effects: [
+      { id: "shen-q-normal", label: "Twilight Assault", kind: "passive-proc", coverage: "modeled", description: "Three attacks add flat and target maximum-health magic damage.", damageType: "magic", formulaLabel: "Level-scaled flat damage + 2 / 2.5 / 3 / 3.5 / 4% target max health + 1.5% per 100 AP" },
+      { id: "shen-q-strong", label: "Empowered Twilight Assault", kind: "passive-proc", coverage: "modeled", description: "A champion hit by the Spirit Blade upgrades all three attacks and grants attack speed.", damageType: "magic", formulaLabel: "Level-scaled flat damage + 5 / 5.5 / 6 / 6.5 / 7% target max health + 2% per 100 AP" },
+    ],
+    components: [
+      component("shen-q-attacks", "Twilight Assault Attacks", "Casting Q grants three successful basic attacks within eight seconds. A typed cast parameter selects normal or champion-collision damage.", "modeled", "limited-attack-state", "Compiled as mutually exclusive normal and empowered limited attack states.", { formulaBindings: ["ShenQ.BaseFlatDamage", "ShenQ.BasePercentHealth", "ShenQ.EmpPercentHealth"], valueBindings: ["ShenQ.NumEnhancedAttacks", "ShenQ.AttackBuffDuration"] }),
+      component("shen-q-attack-speed", "Twilight Assault Attack Speed", "Hitting an enemy champion with the Spirit Blade grants 50% attack speed while the three empowered attacks remain.", "modeled", "timed-stat-modifier", "Compiled as a dynamic stat modifier active only while empowered attacks remain.", { valueBindings: ["ShenQ.SteroidAS"] }),
+      component("shen-q-utility", "Spirit Blade Pull Slow And Range", "The pull slows an enemy moving away and the empowered attacks have increased range.", "out-of-scope", null, "Movement, crowd control, and range do not change a manually selected successful hit."),
+    ],
+    programs: [program("champion:98:Q:limited-attacks", "Twilight Assault", "champion", sourceId(98, "Q"), "limited-attack-state", "Q", [
+      { id: "shen-q-normal-cast", event: "cast", priority: 10, conditions: [{ type: "source-id", value: sourceId(98, "Q") }], operations: [
+        { type: "consume-state", key: "shen-q-strong", scope: "participant", label: "Empowered Twilight Assault Replaced" },
+        { type: "set-state", key: "shen-q-normal", scope: "participant", value: literal(3), duration: literal(8), label: "Twilight Assault Attacks" },
+      ] },
+      { id: "shen-q-strong-cast", event: "cast", priority: 20, conditions: [{ type: "source-id", value: sourceId(98, "Q") }, { type: "parameter", key: "bladeHitChampion", operator: "eq", value: true }], operations: [
+        { type: "consume-state", key: "shen-q-normal", scope: "participant", label: "Twilight Assault Replaced" },
+        { type: "set-state", key: "shen-q-strong", scope: "participant", value: literal(3), duration: literal(8), label: "Empowered Twilight Assault Attacks" },
+        { type: "stat-modifier", key: "shen-q-attack-speed", stat: "attackSpeed", mode: "percent", formula: literal(0.5), duration: literal(8), activeWhileState: "shen-q-strong", label: "Twilight Assault Attack Speed" },
+      ] },
+      { id: "shen-q-normal-hit", event: "basic-attack-hit", priority: 10, conditions: [{ type: "state-active", key: "shen-q-normal", scope: "participant" }, { type: "hit", value: true }], operations: [
+        { type: "damage", label: "Twilight Assault On-Hit", damageType: "magic", formula: sum({ type: "breakpoints", values: [{ level: 1, value: 10 }, { level: 4, value: 16 }, { level: 7, value: 22 }, { level: 10, value: 28 }, { level: 13, value: 34 }, { level: 16, value: 40 }] }, product({ type: "target-stat", key: "maxHealth" }, sum(ranked([2, 2.5, 3, 3.5, 4]), stat("totalAbilityPower", 0.015)), literal(0.01))), formulaLabel: "Level-scaled flat and target maximum-health magic damage" },
+        { type: "decrement-state", key: "shen-q-normal", scope: "participant", amount: literal(1), label: "Twilight Assault Attack Consumed" },
+      ] },
+      { id: "shen-q-strong-hit", event: "basic-attack-hit", priority: 10, conditions: [{ type: "state-active", key: "shen-q-strong", scope: "participant" }, { type: "hit", value: true }], operations: [
+        { type: "damage", label: "Empowered Twilight Assault On-Hit", damageType: "magic", formula: sum({ type: "breakpoints", values: [{ level: 1, value: 10 }, { level: 4, value: 16 }, { level: 7, value: 22 }, { level: 10, value: 28 }, { level: 13, value: 34 }, { level: 16, value: 40 }] }, product({ type: "target-stat", key: "maxHealth" }, sum(ranked([5, 5.5, 6, 6.5, 7]), stat("totalAbilityPower", 0.02)), literal(0.01))), formulaLabel: "Empowered level-scaled flat and target maximum-health magic damage" },
+        { type: "decrement-state", key: "shen-q-strong", scope: "participant", amount: literal(1), label: "Empowered Twilight Assault Attack Consumed" },
+      ] },
+    ])],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
+
+  set(54, "W", {
+    coverage: "partial",
+    coverageNote: "Thunderclap's base armor passive, six-second armed attack, first aftershock, and five-second repeated aftershocks are modeled. Granite Shield can triple the passive armor, but live shield loss is not yet linked to this modifier, so that interaction remains visibly incomplete.",
+    effects: [
+      { id: "malphite-w-armor", label: "Thunderclap Armor", kind: "stat-buff", coverage: "modeled", description: "An invested W rank grants percent armor." },
+      { id: "malphite-w-first", label: "Thunderclap First Attack", kind: "next-attack", coverage: "modeled", description: "The next successful attack within six seconds adds the initial bonus and an aftershock." },
+      { id: "malphite-w-aftershock", label: "Thunderclap Aftershocks", kind: "passive-proc", coverage: "modeled", description: "Later successful attacks add aftershock damage for five seconds after the first attack." },
+      { id: "malphite-w-shield-armor", label: "Granite Shield Armor Multiplier", kind: "stat-buff", coverage: "unsupported", description: "Granite Shield triples the passive armor while the shield remains active." },
+    ],
+    components: [
+      component("malphite-w-armor", "Thunderclap Passive Armor", "An invested W rank grants 10 / 15 / 20 / 25 / 30% armor.", "modeled", "timed-stat-modifier", "Applied at scenario start from rank data.", { valueBindings: ["Obduracy.BonusArmorPassive"] }),
+      component("malphite-w-attacks", "Thunderclap Attack Sequence", "Casting W arms the next attack for six seconds. That attack adds the initial damage and an aftershock, then later attacks add aftershocks for five seconds.", "modeled", "timed-on-hit", "Compiled as an armed state followed by a timed repeated on-hit state.", { formulaBindings: ["Obduracy.TotalBonusDamage", "Obduracy.ThunderclapSplash"], valueBindings: ["MalphiteCleave.Effect3", "Obduracy.ThunderclapBuffDuration"] }),
+      component("malphite-w-shield-armor", "Granite Shield Armor Multiplier", "The passive armor is tripled while Granite Shield remains active.", "unsupported", "timed-stat-modifier", "The runtime does not yet link generated shield depletion and recharge to an active stat modifier. The base passive remains modeled."),
+      component("malphite-w-cone", "Aftershock Cone", "Aftershock also damages enemies in a cone.", "out-of-scope", null, "The supported target is the selected champion hit by the basic attack."),
+      component("malphite-w-monsters", "Aftershock Monster Modifier", "Aftershock has a monster-only damage modifier.", "out-of-scope", null, "The supported target is a champion."),
+    ],
+    programs: [program("champion:54:W:thunderclap", "Thunderclap", "champion", sourceId(54, "W"), "timed-on-hit", "W", [
+      { id: "malphite-w-passive", event: "scenario-start", priority: 10, conditions: [{ type: "rank-at-least", sourceId: "W", value: 1 }], operations: [
+        { type: "stat-modifier", key: "thunderclap-armor", stat: "armor", mode: "percent", formula: ranked([0.1, 0.15, 0.2, 0.25, 0.3]), label: "Thunderclap Passive Armor" },
+      ] },
+      { id: "malphite-w-follow-up", event: "basic-attack-hit", priority: 5, conditions: [{ type: "state-active", key: "thunderclap-follow-up", scope: "participant" }, { type: "hit", value: true }], operations: [
+        { type: "damage", label: "Thunderclap Aftershock", damageType: "physical", formula: sum(ranked([15, 25, 35, 45, 55]), stat("totalAbilityPower", 0.3), stat("totalArmor", 0.15)), formulaLabel: "15 / 25 / 35 / 45 / 55 + 30% AP + 15% armor" },
+      ] },
+      { id: "malphite-w-cast", event: "cast", priority: 10, conditions: [{ type: "source-id", value: sourceId(54, "W") }], operations: [
+        { type: "set-state", key: "thunderclap-armed", scope: "participant", value: literal(1), duration: literal(6), label: "Thunderclap Armed" },
+      ] },
+      { id: "malphite-w-first-hit", event: "basic-attack-hit", priority: 20, conditions: [{ type: "state-active", key: "thunderclap-armed", scope: "participant" }, { type: "hit", value: true }], operations: [
+        { type: "damage", label: "Thunderclap First Attack", damageType: "physical", formula: sum(ranked([30, 40, 50, 60, 70]), stat("totalAbilityPower", 0.2), stat("totalArmor", 0.15)), formulaLabel: "30 / 40 / 50 / 60 / 70 + 20% AP + 15% armor" },
+        { type: "damage", label: "Thunderclap First Aftershock", damageType: "physical", formula: sum(ranked([15, 25, 35, 45, 55]), stat("totalAbilityPower", 0.3), stat("totalArmor", 0.15)), formulaLabel: "15 / 25 / 35 / 45 / 55 + 30% AP + 15% armor" },
+        { type: "consume-state", key: "thunderclap-armed", scope: "participant", label: "Thunderclap Armed State Consumed" },
+        { type: "set-state", key: "thunderclap-follow-up", scope: "participant", value: literal(1), duration: literal(5), label: "Thunderclap Follow-Up Active" },
+      ] },
+    ])],
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+  });
+
+  set(240, "W", {
+    coverage: "unsupported",
+    coverageNote: "Violent Tendencies is mapped to the automatic-attack-sequence family. It activates on the first qualifying attack when off cooldown, affects four attacks or four seconds, and gives the fourth attack separate damage and cooldown behavior. That automatic activation shape is not compiled yet.",
+    castable: false,
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+    components: [
+      component("kled-w-sequence", "Violent Tendencies Sequence", "The first qualifying attack while W is ready automatically starts a four-attack or four-second attack-speed sequence. The fourth hit adds flat and maximum-health physical damage.", "unsupported", "automatic-attack-sequence", "The generic runtime still needs automatic cooldown-ready activation before this passive sequence can compile.", { formulaBindings: ["KledW.PercentDamage"], valueBindings: ["KledW.WCooldown", "KledW.AttackSpeed", "KledW.ActiveDuration", "KledW.BaseFlatDamage", "KledW.ChampCooldownRefund"] }),
+      component("kled-w-monsters", "Violent Tendencies Monster Cap", "The fourth-hit maximum-health damage is capped against monsters.", "out-of-scope", null, "The supported target is a champion."),
+    ],
+  });
+
+  set(119, "Q", {
+    coverage: "unsupported",
+    coverageNote: "Spinning Axe is mapped to the recurring-attack-state family. A cast can add an axe up to two, each attack consumes one held axe, and a typed catch result must return it after the attack. This recurring weapon state is not compiled yet.",
+    primaryCalculation: null,
+    spellPatch: { damageType: null, baseDamage: five(), ratioAD: 0, ratioAP: 0, scalings: [] },
+    components: [component("draven-q-axes", "Spinning Axe Recurrence", "Casting Q readies an axe, a successful attack consumes one held axe for bonus physical damage, and catching it readies another. Draven may hold two axes.", "unsupported", "recurring-attack-state", "The runtime needs a typed per-attack catch result and post-hit axe return timing before this can compile safely.", { formulaBindings: ["DravenQ.TotalDamage"], valueBindings: ["DravenQ.AxeDuration", "DravenQ.MaxAxes"] })],
+  });
+
+  set(11, "P", {
+    coverage: "unsupported",
+    coverageNote: "Double Strike is damage-relevant and mapped to the attack-cycle family. It must count qualifying attacks and emit a second attack packet at its threshold.",
+    components: [component("masteryi-p-double-strike", "Double Strike Cycle", "Consecutive basic attacks advance a cycle whose threshold attack strikes twice.", "unsupported", "attack-cycle", "The runtime does not yet combine a persistent attack cycle with a second basic-attack packet and its trigger policy.")],
+  });
+
+  set(875, "P", {
+    coverage: "unsupported",
+    coverageNote: "Pit Grit is damage-relevant and mapped to the attack-cycle family. Left and right punches alternate, and the right punch has separate damage and timing.",
+    components: [
+      component("sett-p-punch-cycle", "Left And Right Punch Cycle", "Basic attacks alternate between left and right punches. The right punch is faster and deals additional damage.", "unsupported", "attack-cycle", "The runtime does not yet persist an alternating attack variant while preserving the selected attack outcome."),
+      component("sett-p-regeneration", "Missing-Health Regeneration", "Sett gains health regeneration based on missing health.", "out-of-scope", null, "Healing totals are outside scope because this one-way damage simulation does not use attacker regeneration to change outgoing damage."),
+    ],
+  });
+
+  set(498, "W", {
+    coverage: "unsupported",
+    coverageNote: "Deadly Plumage is damage-relevant and mapped to timed-on-hit plus multi-hit-action behavior. Each attack during the buff fires a secondary blade and gains attack speed.",
+    components: [
+      component("xayah-w-blades", "Deadly Plumage Secondary Blades", "For the buff duration, each basic attack fires a secondary blade for a share of attack damage.", "unsupported", "timed-on-hit", "The runtime needs a repeated secondary attack packet with explicit proc policy before this can compile."),
+      component("xayah-w-attack-speed", "Deadly Plumage Attack Speed", "The cast grants timed attack speed.", "unsupported", "timed-stat-modifier", "The attack-speed value and duration still need reviewed patch bindings."),
+      component("xayah-w-movement", "Deadly Plumage Movement", "Hitting a champion grants movement speed.", "out-of-scope", null, "Movement does not change manually selected hit timing or damage."),
+    ],
+  });
+
   const customSources: Array<[number, string, string, string]> = [
     [78, "Q", "Poppy Hammer Shock", "Two-stage maximum-health damage needs explicit initial and detonation action semantics."],
     [78, "E", "Poppy Heroic Charge", "Terrain collision changes both damage and the supported action outcome."],
@@ -552,6 +779,51 @@ function knownSources(): Map<string, KnownSource> {
 
 const known = knownSources();
 
+const reviewedFamilyOverrides = new Map<string, { template: EffectTemplateId; reason: string; preserveImmediateDamage?: boolean }>([
+  [sourceId(28, "Q"), { template: "mark-and-consume", reason: "The next three attacks or abilities consume a per-target Hate Spike mark.", preserveImmediateDamage: true }],
+  [sourceId(114, "E"), { template: "limited-attack-state", reason: "The next two attacks have distinct first and second outcomes." }],
+  [sourceId(910, "W"), { template: "limited-attack-state", reason: "Stirring Lights grants three charges consumed by later attacks or abilities." }],
+  [sourceId(64, "P"), { template: "limited-attack-state", reason: "A spellcast empowers the next two attacks with attack speed and resource restoration." }],
+  [sourceId(236, "P"), { template: "limited-attack-state", reason: "The passive combines an armed double shot with a separate two-attack magic-damage state and needs split reviewed components." }],
+  [sourceId(267, "E"), { template: "limited-attack-state", reason: "A bounded set of charges can be consumed by an allied participant's attacks or abilities." }],
+  [sourceId(421, "Q"), { template: "limited-attack-state", reason: "The unburrowed form grants three attacks whose duration refreshes on each attack." }],
+  [sourceId(107, "Q"), { template: "limited-attack-state", reason: "Two attacks gain attack speed, while only the first receives Savagery damage." }],
+  [sourceId(92, "P"), { template: "limited-attack-state", reason: "Ability casts store bounded Runic Blade charges that later attacks consume." }],
+  [sourceId(72, "Q"), { template: "limited-attack-state", reason: "Three attacks are empowered and the final attack has a separate damage result." }],
+  [sourceId(517, "P"), { template: "limited-attack-state", reason: "Spellcasts store Petricite Burst charges that later attacks consume." }],
+  [sourceId(44, "P"), { template: "limited-attack-state", reason: "A spellcast empowers two attacks with damage, attack speed, and cooldown changes." }],
+  [sourceId(77, "P"), { template: "limited-attack-state", reason: "A stance cast grants attack speed to the next two attacks." }],
+  [sourceId(77, "Q"), { template: "limited-attack-state", reason: "Claw Stance has both a timed repeated on-hit and separate next-two-attacks damage." }],
+  [sourceId(77, "R"), { template: "limited-attack-state", reason: "Storm Stance grants separate damage to the next two attacks." }],
+  [sourceId(5, "Q"), { template: "limited-attack-state", reason: "Three attacks add damage and cooldown reduction, with a separate third-hit result." }],
+  [sourceId(498, "P"), { template: "limited-attack-state", reason: "Ability casts grant a bounded set of piercing attacks that leave feathers." }],
+  [sourceId(22, "Q"), { template: "timed-on-hit", reason: "The active duration changes attack speed and each attack's ordered hit structure." }],
+  [sourceId(233, "W"), { template: "timed-on-hit", reason: "Blood Frenzy grants timed attack speed and repeated surrounding attack damage." }],
+  [sourceId(427, "W"), { template: "timed-on-hit", reason: "Brush presence controls a repeated magic on-hit state." }],
+  [sourceId(145, "E"), { template: "timed-stat-modifier", reason: "The cast grants timed attack speed and attacks reduce its cooldown." }],
+  [sourceId(111, "W"), { template: "timed-on-hit", reason: "Repeated attack damage is active only while the spell's shield persists." }],
+  [sourceId(20, "P"), { template: "timed-on-hit", reason: "The temporary Call buff changes attack speed and repeated basic-attack damage." }],
+  [sourceId(246, "W"), { template: "timed-on-hit", reason: "The selected weapon enchantment controls a repeated magic on-hit state." }],
+  [sourceId(68, "P"), { template: "timed-on-hit", reason: "Overheat temporarily grants attack speed and repeated basic-attack damage." }],
+  [sourceId(15, "W"), { template: "timed-on-hit", reason: "The timed state grants attack speed and adds secondary bounce packets to attacks." }],
+  [sourceId(804, "Q"), { template: "timed-on-hit", reason: "Unleash activates timed attack speed and repeated on-hit damage." }],
+  [sourceId(350, "Q"), { template: "timed-on-hit", reason: "The Best Friend branch grants a timed on-hit effect to an allied participant.", preserveImmediateDamage: true }],
+  [sourceId(221, "E"), { template: "timed-on-hit", reason: "The post-dash state adds repeated magic damage and attack-driven cooldown reduction." }],
+  [sourceId(523, "P"), { template: "recurring-attack-state", reason: "Weapon, off-hand, ammunition, and rotation state change later attacks and abilities." }],
+  [sourceId(102, "Q"), { template: "recurring-attack-state", reason: "Human and Dragon forms expose different attack and recast sequences." }],
+  [sourceId(904, "Q"), { template: "recurring-attack-state", reason: "The first armed attack unlocks a distinct recast attack." }],
+  [sourceId(51, "P"), { template: "attack-cycle", reason: "Basic attacks advance a cycle, while trapped and netted targets create separate ready states." }],
+  [sourceId(150, "W"), { template: "stacking-proc", reason: "Attacks and abilities share a per-target third-hit threshold." }],
+  [sourceId(24, "R"), { template: "attack-cycle", reason: "Attacks advance a third-hit cycle whose threshold changes during the active state.", preserveImmediateDamage: true }],
+  [sourceId(202, "P"), { template: "attack-cycle", reason: "Ammunition and the fourth shot create a persistent ordered attack cycle." }],
+  [sourceId(145, "P"), { template: "stacking-proc", reason: "Basic attacks and allied crowd control build a per-target Plasma threshold." }],
+  [sourceId(85, "W"), { template: "attack-cycle", reason: "Basic attacks advance a fifth-attack bonus-damage cycle." }],
+  [sourceId(203, "E"), { template: "stacking-proc", reason: "The target mark counts attacks and procs on the third attack within its duration." }],
+  [sourceId(518, "W"), { template: "attack-cycle", reason: "Basic attacks advance a third-attack bonus-damage cycle." }],
+  [sourceId(4, "E"), { template: "attack-cycle", reason: "Basic attacks advance a fourth-attack bonus-damage cycle." }],
+  [sourceId(5, "P"), { template: "attack-cycle", reason: "Basic attacks advance a third-attack damage and healing cycle." }],
+]);
+
 function inferredTemplate(description: string): EffectTemplateId | null {
   if (/third (?:hit|attack)|stack(?:ing|s|ed)? up to|mark(?:s|ed)?|detonat|consume.*stack/i.test(description)) return "stacking-proc";
   if (/on-hit|basic attacks? (?:deal|are empowered)|next (?:basic )?attack/i.test(description)) return "timed-on-hit";
@@ -566,10 +838,11 @@ function inferredTemplate(description: string): EffectTemplateId | null {
 }
 
 function genericComponents(key: string, name: string, description: string, coverage: Coverage, hasFormula: boolean): ReviewedEffectComponent[] {
-  if (coverage === "out-of-scope") {
+  const reviewedFamily = reviewedFamilyOverrides.get(key);
+  if (coverage === "out-of-scope" && !reviewedFamily) {
     return [component(`${key}:scope`, name, description, "out-of-scope", null, "The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.")];
   }
-  const template = inferredTemplate(description);
+  const template = reviewedFamily?.template ?? inferredTemplate(description);
   const components: ReviewedEffectComponent[] = [];
   if (hasFormula) {
     components.push(component(`${key}:primary`, `${name} Primary Damage`, "The structured primary CommunityDragon calculation is executable.", "modeled", "direct-damage", "The generic direct-damage evaluator preserves the structured formula and complete rank arrays."));
@@ -581,7 +854,9 @@ function genericComponents(key: string, name: string, description: string, cover
     "unsupported",
     template,
     template
-      ? `The full patch description is retained and assigned to the ${template} family, but a complete reviewed binding has not been compiled yet.`
+      ? reviewedFamily
+        ? `${reviewedFamily.reason} The source is assigned to the ${template} family, but a complete reviewed binding has not been compiled yet.`
+        : `The full patch description is retained and assigned to the ${template} family, but a complete reviewed binding has not been compiled yet.`
       : "The full patch description is retained, but this behavior needs champion-specific review before it can be expressed safely.",
     template ? {} : { customHandlerId: `${key}:review-required` },
   ));
@@ -600,6 +875,19 @@ function findBinSpell(binObject: Record<string, any>, requiredValues: string[]) 
   return Object.values(binObject)
     .map((entry) => entry?.mSpell ?? entry)
     .find((entry) => Array.isArray(entry?.DataValues) && requiredValues.every((name) => entry.DataValues.some((value: any) => value.name === name)));
+}
+
+function findBinRecord(binObject: Record<string, any>, pathSuffix: string) {
+  const entry = Object.entries(binObject).find(([key]) => key.endsWith(pathSuffix));
+  if (!entry) throw new Error(`CommunityDragon BIN record ${pathSuffix} is missing.`);
+  return entry[1];
+}
+
+function rankedEffectValues(record: any, effectIndex: number, count = 5) {
+  const values = record?.mSpell?.mEffectAmount?.[effectIndex]?.value;
+  const ranks = Array.isArray(values) ? values.slice(1, count + 1).map(Number) : [];
+  if (ranks.length !== count || ranks.some((value) => !Number.isFinite(value))) throw new Error(`CommunityDragon effect binding ${effectIndex + 1} is missing or changed structure.`);
+  return ranks;
 }
 
 function dataValue(spell: any, name: string) {
@@ -729,7 +1017,7 @@ function bindCompiledProgramData(champion: ChampionLike, binObject: Record<strin
   if (champion.id === 96) {
     const w = findBinSpell(binObject, ["MaxHealthDamage", "APRatio", "Duration"]);
     if (!w) throw new Error("Kog'Maw Bio-Arcane Barrage CommunityDragon binding record is missing.");
-    const onHit = product({ type: "target-stat", key: "maxHealth" }, calculationFormula(champion, "W", "TotalHealthDamage"), literal(0.01));
+    const onHit = product({ type: "target-stat", key: "maxHealth" }, calculationFormula(champion, "W", "TotalHealthDamage"));
     for (const operation of operations) {
       if (operation.type === "set-state" && operation.key === `${sourceId(96, "W")}:active`) operation.duration = literal(dataValue(w, "Duration"));
       else if (operation.type === "damage" && operation.label === "Bio-Arcane Barrage On-Hit") operation.formula = structuredClone(onHit);
@@ -741,7 +1029,7 @@ function bindCompiledProgramData(champion: ChampionLike, binObject: Record<strin
     if (!e) throw new Error("Gwen Skip 'n Slash CommunityDragon binding record is missing.");
     const duration = dataValue(e, "BuffDuration");
     const onHit = calculationFormula(champion, "E", "OnHitDamage");
-    const attackSpeed = product(calculationFormula(champion, "E", "BonusAttackSpeed"), literal(0.01));
+    const attackSpeed = calculationFormula(champion, "E", "BonusAttackSpeed");
     const refund = ranked(rankedDataValues(e, "CDRefund"));
     for (const operation of operations) {
       if (operation.type === "set-state" && (operation.key === "skip-n-slash" || operation.key === "skip-n-slash-refund")) operation.duration = literal(duration);
@@ -771,6 +1059,91 @@ function bindCompiledProgramData(champion: ChampionLike, binObject: Record<strin
       else if (operation.type === "set-state" && operation.key === "seastone-follow-up") operation.duration = literal(dataValue(w, "OnHitBuffDuration"));
       else if (operation.type === "damage" && operation.label === "Seastone Trident Active Attack") operation.formula = structuredClone(active);
       else if (operation.type === "damage" && operation.label === "Seastone Trident Follow-Up On-Hit") operation.formula = structuredClone(followUp);
+    }
+  }
+
+  if (champion.id === 11) {
+    const e = findBinSpell(binObject, ["BaseDamage", "ADRatio", "Duration"]);
+    if (!e) throw new Error("Master Yi Wuju Style CommunityDragon binding record is missing.");
+    const damage = calculationFormula(champion, "E", "TotalDamage");
+    const duration = literal(dataValue(e, "Duration"));
+    for (const operation of operations) {
+      if (operation.type === "set-state" && operation.key === `${sourceId(11, "E")}:active`) operation.duration = structuredClone(duration);
+      else if (operation.type === "damage" && operation.label === "Wuju Style On-Hit") operation.formula = structuredClone(damage);
+    }
+  }
+
+  if (champion.id === 31) {
+    const e = findBinSpell(binObject, ["BaseDamage", "APRatio", "PercentHealthDamage", "FeastStackMultiplier", "MaximumAttacks", "BuffDuration"]);
+    if (!e) throw new Error("Cho'Gath Vorpal Spikes CommunityDragon binding record is missing.");
+    const formula = sum(
+      calculationFormula(champion, "E", "FlatDamageCalc"),
+      product(
+        { type: "target-stat", key: "maxHealth" },
+        sum(ranked(rankedDataValues(e, "PercentHealthDamage")), input("feastStacks", dataValue(e, "FeastStackMultiplier"), 0)),
+        literal(0.01),
+      ),
+    );
+    for (const operation of operations) {
+      if (operation.type === "set-state" && operation.key === `${sourceId(31, "E")}:attacks`) {
+        operation.value = ranked(rankedDataValues(e, "MaximumAttacks"));
+        operation.duration = ranked(rankedDataValues(e, "BuffDuration"));
+      } else if (operation.type === "damage" && operation.label === "Vorpal Spikes On-Hit") operation.formula = structuredClone(formula);
+    }
+  }
+
+  if (champion.id === 875) {
+    const q = findBinSpell(binObject, ["Duration", "BaseDamage", "EnemyMaxHealthDamage", "MaxHealthTADRatio"]);
+    if (!q) throw new Error("Sett Knuckle Down CommunityDragon binding record is missing.");
+    findBinRecord(binObject, "/SettQAttack");
+    findBinRecord(binObject, "/SettQAttack2");
+    const formula = sum(
+      ranked(rankedDataValues(q, "BaseDamage")),
+      product({ type: "target-stat", key: "maxHealth" }, calculationFormula(champion, "Q", "MaxHealthDamageCalc")),
+    );
+    for (const operation of operations) {
+      if (operation.type === "set-state" && operation.key === `${sourceId(875, "Q")}:attacks`) {
+        operation.value = literal(2);
+        operation.duration = ranked(rankedDataValues(q, "Duration"));
+      } else if (operation.type === "damage" && operation.label === "Knuckle Down On-Hit") operation.formula = structuredClone(formula);
+    }
+  }
+
+  if (champion.id === 98) {
+    const q = findBinSpell(binObject, ["NumEnhancedAttacks", "AttackBuffDuration", "SteroidAS", "BasePercentDamage", "EnhancedPercentDamage"]);
+    if (!q) throw new Error("Shen Twilight Assault CommunityDragon binding record is missing.");
+    const count = ranked(rankedDataValues(q, "NumEnhancedAttacks"));
+    const duration = ranked(rankedDataValues(q, "AttackBuffDuration"));
+    const base = calculationFormula(champion, "Q", "BaseFlatDamage");
+    const normal = sum(structuredClone(base), product({ type: "target-stat", key: "maxHealth" }, calculationFormula(champion, "Q", "BasePercentHealth")));
+    const strong = sum(structuredClone(base), product({ type: "target-stat", key: "maxHealth" }, calculationFormula(champion, "Q", "EmpPercentHealth")));
+    const attackSpeed = product(ranked(rankedDataValues(q, "SteroidAS")), literal(0.01));
+    for (const operation of operations) {
+      if (operation.type === "set-state" && (operation.key === "shen-q-normal" || operation.key === "shen-q-strong")) {
+        operation.value = structuredClone(count);
+        operation.duration = structuredClone(duration);
+      } else if (operation.type === "stat-modifier" && operation.key === "shen-q-attack-speed") {
+        operation.formula = structuredClone(attackSpeed);
+        operation.duration = structuredClone(duration);
+      } else if (operation.type === "damage" && operation.label === "Twilight Assault On-Hit") operation.formula = structuredClone(normal);
+      else if (operation.type === "damage" && operation.label === "Empowered Twilight Assault On-Hit") operation.formula = structuredClone(strong);
+    }
+  }
+
+  if (champion.id === 54) {
+    const w = findBinSpell(binObject, ["ThunderclapBuffDuration", "BonusArmorPassive", "ThunderclapSplashDamage"]);
+    if (!w) throw new Error("Malphite Thunderclap CommunityDragon binding record is missing.");
+    const cleave = findBinRecord(binObject, "/ObduracyAbility/MalphiteCleave");
+    const armDuration = ranked(rankedEffectValues(cleave, 2));
+    const followUpDuration = ranked(rankedDataValues(w, "ThunderclapBuffDuration"));
+    const first = calculationFormula(champion, "W", "TotalBonusDamage");
+    const splash = calculationFormula(champion, "W", "ThunderclapSplash");
+    for (const operation of operations) {
+      if (operation.type === "stat-modifier" && operation.key === "thunderclap-armor") operation.formula = ranked(rankedDataValues(w, "BonusArmorPassive"));
+      else if (operation.type === "set-state" && operation.key === "thunderclap-armed") operation.duration = structuredClone(armDuration);
+      else if (operation.type === "set-state" && operation.key === "thunderclap-follow-up") operation.duration = structuredClone(followUpDuration);
+      else if (operation.type === "damage" && operation.label === "Thunderclap First Attack") operation.formula = structuredClone(first);
+      else if (operation.type === "damage" && (operation.label === "Thunderclap First Aftershock" || operation.label === "Thunderclap Aftershock")) operation.formula = structuredClone(splash);
     }
   }
 
@@ -835,6 +1208,7 @@ export function applyChampionCatalog(champion: ChampionLike, patch: string, sour
     };
     programs.push(...(knownPassive?.programs ?? []));
     if (knownPassive?.parameters?.length) actions[0].parameters.push(...knownPassive.parameters);
+    if (knownPassive?.inputs?.length) inputs.push(...knownPassive.inputs);
   }
 
   for (const spell of champion.spells) {
@@ -847,9 +1221,23 @@ export function applyChampionCatalog(champion: ChampionLike, patch: string, sour
     if (knownSpell?.parameters) spell.actionParameters = knownSpell.parameters;
     if (knownSpell?.primaryCalculation === null) spell.primaryCalculation = undefined;
     if (knownSpell?.spellPatch) Object.assign(spell, knownSpell.spellPatch);
+    const reviewedFamily = reviewedFamilyOverrides.get(source);
+    if (!knownSpell && reviewedFamily && !reviewedFamily.preserveImmediateDamage) {
+      spell.primaryCalculation = undefined;
+      spell.damageType = null;
+      spell.baseDamage = five();
+      spell.ratioAD = 0;
+      spell.ratioAP = 0;
+      spell.ratioArmor = 0;
+      spell.ratioMagicResist = 0;
+      spell.scalings = [];
+    }
     const components = knownSpell?.components ?? genericComponents(source, spell.name, spell.description, spell.classification, Boolean(spell.primaryCalculation));
     spell.review = review(source, spell.description, patch, components, sourceHashes);
-    if (!knownSpell) spell.classification = aggregateCoverage(components);
+    if (!knownSpell) {
+      spell.classification = aggregateCoverage(components);
+      spell.coverageNote = components.map((entry) => entry.reason).join(" ");
+    }
     if (spell.castable !== false) {
       const action: ActionDefinition = {
         id: castActionId(champion.id, spell.key), sourceId: source, kind: "ability", key: spell.key, label: spell.name, defaultDelay: 0.15, parameters: spell.actionParameters ?? [],
@@ -862,6 +1250,7 @@ export function applyChampionCatalog(champion: ChampionLike, patch: string, sour
       spell.actions = [];
     }
     programs.push(...(knownSpell?.programs ?? []));
+    if (knownSpell?.inputs?.length) inputs.push(...knownSpell.inputs);
   }
 
   champion.actions = actions;

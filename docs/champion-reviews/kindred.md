@@ -36,7 +36,7 @@ Description signature: 20b06f4e1a35bf7bdab66cac9d29e1b5a111d7a9e6ef30328fd5b19a4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Dance of Arrows Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 7ce8996fa48cfcd76ccafa168b899f33ccbdc4a13812f1765523939c6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseWolfDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Wolf's Frenzy Primary Damage
 
@@ -93,7 +93,7 @@ Passive: Kindred gains stacks as they move and attack. At 100 stacks, Kindred's 
 
 ## E - Mounting Dread
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 1160d2153d5afcdc8fa36d3c36e6ef2e8130f180d1917b1a35a11686f59f3d25
 
@@ -102,17 +102,7 @@ Description signature: 1160d2153d5afcdc8fa36d3c36e6ef2e8130f180d1917b1a35a11686f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseBiteDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Mounting Dread Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+The target mark counts attacks and procs on the third attack within its duration. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Mounting Dread Remaining Combat Behavior
 
@@ -120,7 +110,7 @@ The structured primary CommunityDragon calculation is executable.
 - Disposition: template
 - Coverage: unsupported
 - Template or handler: stacking-proc
-- Reason: The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
+- Reason: The target mark counts attacks and procs on the third attack within its duration. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 Kindred weakens an enemy, Slowing them by % for second. Kindred's third Attack against the target within seconds of each other directs Wolf to pounce on the enemy, dealing an additional plus missing Health physical damage.
 
@@ -135,7 +125,7 @@ Description signature: 01330435a0059b7e973daf651ed74602dec6f8b4af15d14ca43e01678
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Lamb's Respite
 

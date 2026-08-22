@@ -36,7 +36,7 @@ Description signature: 4c02d1172227c6e2cc319ca930d02af3ab27b7923cae4c5f50c9861e5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Mortal Steel Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 7cbfb88163cea01263f4a0cae5b9de12a61bb37b4d5b6c2d7e5fe719d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation WDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Spirit Cleave Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 73700a046209bb499005d1537e0d76ae94dadd5325a9560d6d50b3b86
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Soul Unbound
 
@@ -125,7 +125,7 @@ Description signature: 63c96ed87a977735a60cd4a10388d299876c854d5ba4b70d06f3f46a0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TooltipDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Fate Sealed Primary Damage
 

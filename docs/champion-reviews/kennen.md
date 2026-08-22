@@ -36,7 +36,7 @@ Description signature: 20d4a011d44d1c3c141ad87d0e61b9a07e0aca8f12632135f0289cf0c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Thundering Shuriken Primary Damage
 
@@ -60,7 +60,7 @@ Kennen throws a shuriken, dealing magic damage to the first enemy hit.
 
 ## W - Electrical Surge
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: b4309cd71d63c91bfd56fe3385efc0e95b44bd6148c41aead8c370e92fa7232f
 
@@ -69,25 +69,15 @@ Description signature: b4309cd71d63c91bfd56fe3385efc0e95b44bd6148c41aead8c370e92
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamagePassive was preserved. Stateful and alternate effects require an explicit module.
-
-### Electrical Surge Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Basic attacks advance a fifth-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 ### Electrical Surge Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: stacking-proc
-- Reason: The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: attack-cycle
+- Reason: Basic attacks advance a fifth-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 Passive: Every 5th Attack deals an additional magic damage %i:OnHit% On-Hit. Active: Kennen sends out a blast of electricity, dealing magic damage to nearby enemies affected by Mark of the Storm.
 
@@ -102,7 +92,7 @@ Description signature: 929ee12fd1dcdafd4653cf8c90b2874035a140761a4a4d508f01d06d6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Lightning Rush Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: dd3379015bb1ab870d18a5b75144033b4d3fc8616564cb395c9293365
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PerTickDamageCalculated was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Slicing Maelstrom Primary Damage
 

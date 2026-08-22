@@ -36,7 +36,7 @@ Description signature: eec5deeb0ee16081a764301f6490d51fdd4dd994ccc96bf7226757f0a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Tongue Lash Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5bac76dc9ce0863002d1d2233141c3c002d6da94407a9eee9f30eebec
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Abyssal Dive Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 160f1b8aa2a4ed61792a7ec87f49e6109cf1ea298e3fff7b20379ce46
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Thick Skin Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: 5f63ce82183495f66893cef9695003fd1d30a7fb782e9a8e8ac44b056
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PercentHPDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Devour Primary Damage
 

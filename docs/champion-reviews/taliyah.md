@@ -36,7 +36,7 @@ Description signature: f315f1bff8dddbea449dff48061354bd4f7158870a18d6fbe3cb2b54d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RockDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Threaded Volley Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 101c0ee01a481da5fd170ad8fe9a40790eadf8f9c58da37828fb25f82
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Seismic Shove
 
@@ -92,7 +92,7 @@ Description signature: ee0e639e42e7bc814f1f2099a8aa9e155d6bedc21e65d635b69f336f8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ScatterDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Unraveled Earth Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 3bfd3f547cde2c56adbb1982b73e764cda3f4db4fa70aa870a3dab04d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Weaver's Wall
 

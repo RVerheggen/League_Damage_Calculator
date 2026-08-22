@@ -13,21 +13,21 @@ Description signature: 49e012b89760ae73217c20eb9e18753b42a106a1f4e536fa8c78317af
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
+Basic attacks advance a third-attack damage and healing cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 ### Determination Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: stacking-proc
-- Reason: The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: attack-cycle
+- Reason: Basic attacks advance a third-attack damage and healing cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 Every third attack deals bonus damage and heals Xin Zhao.
 
 ## Q - Three Talon Strike
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 9b2cfd13b8cdc6d5e652eb8e25331236b8d0cc6600d607c81c0490f1f4c129ae
 
@@ -36,25 +36,15 @@ Description signature: 9b2cfd13b8cdc6d5e652eb8e25331236b8d0cc6600d607c81c0490f1f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Three Talon Strike Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Three attacks add damage and cooldown reduction, with a separate third-hit result. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Three Talon Strike Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: stacking-proc
-- Reason: The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: Three attacks add damage and cooldown reduction, with a separate third-hit result. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Xin Zhao's next 3 Attacks deal an additional physical damage and reduces his other Ability's Cooldowns by 1 second. The third Attack also Knocks Up for seconds.
 
@@ -69,7 +59,7 @@ Description signature: 3faeccf4d8d0492f01b3438b3bba18afea232ec8c1cbc0718a9a19f11
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation SlashDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Wind Becomes Lightning Primary Damage
 
@@ -102,7 +92,7 @@ Description signature: d0ca3407aa8ddbd24387ec348b8b72be68ce0388c7e85a3580616f2ee
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ChargeDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Audacious Charge Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: b736aa02acc1d2f30f7e173598eee2e979ecb33f7e3c96517117a4ac8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Crescent Guard Primary Damage
 

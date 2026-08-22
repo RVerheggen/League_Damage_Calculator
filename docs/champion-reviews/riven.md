@@ -13,15 +13,15 @@ Description signature: 7553efc9d3f28e3aeda1f4bf0e2948e0e9b33966a05f959f61d0424db
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+Ability casts store bounded Runic Blade charges that later attacks consume. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Runic Blade Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: Ability casts store bounded Runic Blade charges that later attacks consume. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Riven's abilities charge her blade, and her basic attacks expend charges to deal an additional damage.
 
@@ -36,7 +36,7 @@ Description signature: 9748647d3ff86ff64699b28b71ea2c304d7d58a207dc8a7346ef7dc89
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FirstSlashDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Broken Wings Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: ce6fd9fd4d4d38809087ab914af518bf11f622469c6495637e3c12679
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ki Burst Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: e8e9dabb047931bff432400e28549853fcfa0c1368341b816f05f2923
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Valor Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: d7468542ee3cb23d88e52e44eddb090adee6fe3527afd50fb7f8fd209
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusAD was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Blade of the Exile Primary Damage
 

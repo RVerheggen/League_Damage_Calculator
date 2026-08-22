@@ -36,7 +36,7 @@ Description signature: 685129ccc4a1e19e63cb26b229d940a38f94efc5566a542a8e5e636a8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Command: Attack Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b2e4fc4f21a481d79ebef7d15d94941153891818358416c82fcf81a91
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Command: Dissonance Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 28ec426695994394ff90d6a1fc9c3f5bdbdebba3134812a9f63227fb0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Command: Protect Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 5731e8d4a23a3311f41e04f363b72875047c1ecf49256487c87d00b5c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Command: Shockwave Primary Damage
 

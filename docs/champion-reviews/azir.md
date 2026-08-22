@@ -36,7 +36,7 @@ Description signature: e5d7a7dd1187c25eac98a3596e2d776007d49e59ff77c8eaa80466730
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Conquering Sands Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 4165041f85d6d6b8ef07603c1ac55c91a476776fb487cd27f5b0a0819
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Arise! Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 780ee74fb390ba0b0dcdf3fd9e21358afce946605340284878530a473
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Shifting Sands Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 9cdab209d1c9e7f75f504311213d4a8704e6ae6b25eb1bd921dcaae2c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Emperor's Divide Primary Damage
 

@@ -36,7 +36,7 @@ Description signature: 06855d72426b4b66c17468e14986adf74dbd106f274107cca8aa5887e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Ambush Remaining Combat Behavior
 
@@ -59,7 +59,7 @@ Description signature: 40fa94861f6fb357984ac638a50554903cd659680ca95e683852400fa
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Venom Cask
 
@@ -82,7 +82,7 @@ Description signature: 4ecc6447efe38297a3bd4a99c908867e869004dbacbf6da6eb5e7df67
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PhysicalDamagePerStack was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Contaminate Primary Damage
 
@@ -115,7 +115,7 @@ Description signature: b0e2f001a60bb0090e9e61d75ebe47b1997cf8f13bb5c90a33fbaa102
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Spray and Pray Remaining Combat Behavior
 

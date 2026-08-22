@@ -36,7 +36,7 @@ Description signature: 2734e916ca2b25916eb74dfa61d1ad11da4ca869b7fd832ee75006173
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bouncing Blade Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: c5669d3d277251234185c3dbf64c13fe6f9861b358ae6b7609d6be8c2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Preparation
 
@@ -92,7 +92,7 @@ Description signature: b934b28fe299e3fcf556f0ca114c73e3f6dadbb3ec5e525f036407114
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Shunpo Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 0750df0ae0fb632b98c84818e121e59b876a91f4811cc0172ee5c80f5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Death Lotus Primary Damage
 

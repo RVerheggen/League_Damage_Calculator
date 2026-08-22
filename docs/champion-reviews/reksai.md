@@ -27,7 +27,7 @@ Rek'Sai generates Fury by Attacking and hitting with basic Abilities. She consum
 
 ## Q - Queen's Wrath / Prey Seeker
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 133b8cc4c0b8bcde86693522d27dae10624640a4804e21e5c9a98debd3e1c599
 
@@ -36,25 +36,15 @@ Description signature: 133b8cc4c0b8bcde86693522d27dae10624640a4804e21e5c9a98debd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
-
-### Queen's Wrath / Prey Seeker Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+The unburrowed form grants three attacks whose duration refreshes on each attack. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Queen's Wrath / Prey Seeker Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: The unburrowed form grants three attacks whose duration refreshes on each attack. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Unburrowed: Rek'Sai's next 3 Attacks within seconds gain % Attack Speed and deal an additional physical damage to nearby enemies. Attacks refresh the duration of this Ability.
 
@@ -69,7 +59,7 @@ Description signature: f06c1dfe420bb4668caa85c282b835a215ce11eddd64d8706c2cd4d5c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Burrow / Un-burrow
 
@@ -92,7 +82,7 @@ Description signature: 2104f2c6a723fa9f2e104a4e262e5304789234affb3c9cb82889a7127
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamageCalculation was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Furious Bite / Tunnel Primary Damage
 
@@ -125,7 +115,7 @@ Description signature: 0f9b381ea653050e6978feb25f61e87f0ef5232f41816902236dd341e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RBaseDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Rush Primary Damage
 

@@ -36,7 +36,7 @@ Description signature: 9999e7dd7535b1e50151d422526cf3b7b97fcfaadf8a9c369d6d692eb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Caustic Spittle Primary Damage
 
@@ -116,7 +116,7 @@ Description signature: 7b37c8c36a0cbc3b9813b3cc5ee15fb098f184ca3cf25b54288d167f1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Ooze Primary Damage
 
@@ -149,7 +149,7 @@ Description signature: d6d034dea9cafaac5523b15604d3c6c6d1b6e75501037d5d8f9d8bb9f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Living Artillery Primary Damage
 

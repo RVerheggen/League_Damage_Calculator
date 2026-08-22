@@ -36,7 +36,7 @@ Description signature: bc06d190129fd05b0c0da4e2221100c982e72753c263ae6ffa06ebef8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Pulverize Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5fba06c96948b6bdeba208f8f55b273e0f4bbde42ba9b51a7eb135f0c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Headbutt Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 1a2d92641939cab1ee168f939fb3b0ae10a2dbe3bf54f1dc79da8ca7f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Trample Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: a51c2c880626c3de9be444d94a49b1668f274a12d87c8beac0f5ccd5b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Unbreakable Will Remaining Combat Behavior
 

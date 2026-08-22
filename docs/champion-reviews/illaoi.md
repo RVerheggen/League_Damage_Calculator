@@ -36,7 +36,7 @@ Description signature: 65e259655ad35384eb49304a41f7936fe21d2981b0f5e1f6d2fe0c0a5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TentacleDamageTotal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Tentacle Smash Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b5e9f26715ffa495153fe4b7346fb79a519f9b47e359b7394831a2d2e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation HealthPercentTotal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Harsh Lesson Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 86d29563f27d036774d7cbdec231230711e1c784554d19c38e656f240
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Test of Spirit
 
@@ -125,7 +125,7 @@ Description signature: ea26b15313b66b82fb21392621db5e8724b76aa74134fbd9b798ac389
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Leap of Faith Primary Damage
 

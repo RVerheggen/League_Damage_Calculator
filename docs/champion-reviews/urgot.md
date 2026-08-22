@@ -36,7 +36,7 @@ Description signature: d830120b1150415994a66e9daf63ea87afb62b26b0fad67be435895df
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Corrosive Charge Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 14152c4f38d9179d2826577ac235228ef6a8a134c18a9ab5170b2927f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerShot was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Purge Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 238fa7910e69fec245db037c8f6be80d62f9de43657b5511152669d00
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Disdain Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: ee483a1667b72bae091205b87329484eaed19fd7067eaaa5a48ed97ad
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RCalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Fear Beyond Death Primary Damage
 

@@ -36,7 +36,7 @@ Description signature: acc94f9cee84a56ad0d3ea802e1b163c2e442af62a8ebacfeab7b9443
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Dragon Strike Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 550560ea054ef51ac1cbec98adc4e57b0bca66d343664b194f763af43
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Golden Aegis Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 450dda1fd0808f7ef8007863cadbfd9d97abd076e658c701c5870c73e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Demacian Standard Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: c87b362f173033ba03661bdb6a93d0b53802f37c770cf036b5aa8aeaf
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Cataclysm Primary Damage
 

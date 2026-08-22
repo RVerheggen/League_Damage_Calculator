@@ -36,7 +36,7 @@ Description signature: e7d4a9938bd8cbcc428fbc297fb11a1914c3b7826dd539f67ce230f53
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Mystic Shot Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: c2b5fc02c4a1754539a25dd4908bb4e1aba441e0e14ff46b9530afeae
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Essence Flux Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 1855a42f0368406ba3206a9f9c0ee85db44ca6ba6fe3ac70ec9e147ca
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Arcane Shift Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: d25caa498f98a867115b0db2b60f0e5b2b5a4f6d8b213b9febf8802be
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Trueshot Barrage Primary Damage
 

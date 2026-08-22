@@ -36,7 +36,7 @@ Description signature: 34844da4398613e42ed3c5c5d512152308498ae54017025df8a5abffd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Last Rites Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: e3165206cc4e80619288b9e016a95ee95db9eb60fe095a6a5b7b0540a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Dark Procession
 
@@ -92,7 +92,7 @@ Description signature: 64f98c8806d53c464db123e59b21b7e7668d4838ccab4363456af1be7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_HealthDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Mourning Mist Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 24cf86d230a9ef08c925b758d6577e20f8bef98f9627036b1f5ee3b62
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation YorickBigGhoulDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Eulogy of the Isles Primary Damage
 

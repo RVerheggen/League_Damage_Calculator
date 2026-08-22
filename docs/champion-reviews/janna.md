@@ -36,7 +36,7 @@ Description signature: a05ee3aa50930cc11e1a3861c2f196a2f1322afacc3e6b74d37f42174
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinimumDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Howling Gale Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 783c6091f8caed899219e95a6ac0ff778ddd372279086f6a55272ed25
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Zephyr Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 2ce60cf04623d781094959312d86f337ad2699eecac72abc281c54692
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Eye Of The Storm Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: 252a1e879a6e3d0dc598e08c1854abeb679b893648692a3f445f78bf4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Monsoon
 

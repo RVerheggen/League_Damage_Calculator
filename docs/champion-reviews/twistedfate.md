@@ -36,7 +36,7 @@ Description signature: e7a16e4a2a737f09093ac576bb542ab1b482a0536c6a8fb05c941cda5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Wild Cards Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: f779bd24c07b049ca36af33c1ad032c6869519b4ef94e9a7ac04bf322
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BlueDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Pick a Card Primary Damage
 
@@ -93,7 +93,7 @@ Twisted Fate begins shuffling his deck, allowing him to Recast to lock in one of
 
 ## E - Stacked Deck
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: f223aae7a2bbb21f62b108c4280b9bcf5432159d5f56e7bf70cbb3dd0122b17d
 
@@ -102,25 +102,15 @@ Description signature: f223aae7a2bbb21f62b108c4280b9bcf5432159d5f56e7bf70cbb3dd0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Stacked Deck Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Basic attacks advance a fourth-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 ### Stacked Deck Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: attack-cycle
+- Reason: Basic attacks advance a fourth-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 Passive: Twisted Fate gains % Attack Speed and every 4th Attack deals an additional magic damage.
 
@@ -135,7 +125,7 @@ Description signature: 849272679993110ae193a9b996d09aac31cba2716644e3ae05e0f8db9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Destiny
 

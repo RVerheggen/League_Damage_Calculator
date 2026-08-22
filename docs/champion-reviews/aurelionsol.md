@@ -36,7 +36,7 @@ Description signature: e21e4165a86cd58a0d5be46504954de24b74c1a578feee42310645bf1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Breath of Light Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 9ecdd31605ba0c7e9ba12bdf16a8c8580f8868cfc7bf3681b3a2a060e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Astral Flight Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 24fd4a0b7b73d69ee77e1ddf486a98dd84d28683840eeb4cd115d85a9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Singularity Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 960075eb623c26ce219d14284b40830ce63424cee5e64281b0ee4b526
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MaxDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Falling Star / The Skies Descend Primary Damage
 

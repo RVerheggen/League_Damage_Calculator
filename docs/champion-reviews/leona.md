@@ -59,7 +59,7 @@ Description signature: f8d43c3463bbabade1491f6803f07fc35b92ef2f0233828badfec8a8a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Eclipse Primary Damage
 
@@ -92,7 +92,7 @@ Description signature: 1c8db3c388b27f2a98c9fce07a5bfc7d6c55c6b310a9f2ae7f5fb6297
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Zenith Blade Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: b7a4ebf78d8b2cb71eed7b33fb70c6f7767d3ae01f006cd2cc4e64bb9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ExplosionCalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Solar Flare Primary Damage
 

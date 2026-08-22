@@ -93,9 +93,13 @@ test("schema three snapshot preserves reviewed programs, metadata, actions, and 
   assert.equal(manifest.sources.filter((source) => source.url.includes("raw.communitydragon.org/latest/")).length, 1);
   assert.equal(manifest.validation.reviewedChampionSources, 865);
   assert.equal(manifest.validation.unreviewedChampionSources, 0);
-  assert.equal(manifest.championSourceCoverage.modeled, 24);
-  assert.equal(manifest.championSourceCoverage.partial, 538);
-  assert.equal(manifest.championSourceCoverage.unsupported, 183);
+  assert.equal(manifest.championSourceCoverage.modeled, 28);
+  assert.equal(manifest.championSourceCoverage.partial, 509);
+  assert.equal(manifest.championSourceCoverage.unsupported, 212);
+  assert.equal(manifest.championSourceCoverage["out-of-scope"], 116);
+  assert.equal(manifest.effectFamilies["limited-attack-state"], 19);
+  assert.equal(manifest.effectFamilies["automatic-attack-sequence"], 1);
+  assert.equal(manifest.effectFamilies["recurring-attack-state"], 4);
 
   const tumble = vayne.spells.find((spell) => spell.key === "Q");
   const silverBolts = vayne.spells.find((spell) => spell.key === "W");
@@ -127,8 +131,9 @@ test("schema three snapshot preserves reviewed programs, metadata, actions, and 
   assert.ok(fizz.effectPrograms.some((program) => program.triggers.some((trigger) => trigger.operations.some((operation) => operation.type === "schedule-damage" && operation.tickCount.value === 6))));
   assert.ok(akshan.actions.find((entry) => entry.key === "AA").parameters.some((parameter) => parameter.id === "secondShot"));
   assert.ok(varus.actions.find((entry) => entry.key === "Q").parameters.some((parameter) => parameter.id === "chargePercent"));
-  assert.equal(manifest.spellCoverage.modeled, 22);
-  assert.equal(manifest.spellCoverage.partial, 538);
+  assert.equal(manifest.spellCoverage.modeled, 26);
+  assert.equal(manifest.spellCoverage.partial, 509);
+  assert.equal(manifest.spellCoverage.unsupported, 87);
 });
 
 test("item details are available in equipped builds and the item picker", async () => {

@@ -36,7 +36,7 @@ Description signature: 6bf95b13e2eed5564757865d30f866c1d062295547c255b390e486a80
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalMissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The Best Friend branch grants a timed on-hit effect to an allied participant. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Prowling Projectile Primary Damage
 
@@ -54,7 +54,7 @@ The structured primary CommunityDragon calculation is executable.
 - Disposition: template
 - Coverage: unsupported
 - Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Reason: The Best Friend branch grants a timed on-hit effect to an allied participant. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Yuumi summons an errant missile that deals magic damage to the first enemy and Slows the target for %. If cast while Attached, Yuumi can control the missile using her mouse for a short period before it accelerates in a straight line. The accelerated missile deals magic damage and Slows the target for % for seconds, instead. Best Friend Bonus: Prowling Projectile's Slow will always be enhanced and hitting an enemy champion also grants them magic damage On-Hit %i:OnHit% for seconds. The bonus On-Hit damage can be increased by % based her ally's Critical Strike Chance.
 
@@ -69,7 +69,7 @@ Description signature: d541ee3ca14f06cd3fb96fc9b5bb861744c40ef8ca392757f62dbe9d6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### You and Me! Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: ce33103957f257b8c6f9db982b45edf38d844d61b3bc0215fb8950956
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Zoomies Remaining Combat Behavior
 
@@ -115,7 +115,7 @@ Description signature: 64cf3a03b754f33b569fbbcb55644172e967ddce28bc51081a6f8d18d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalMissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Final Chapter Primary Damage
 

@@ -36,7 +36,7 @@ Description signature: d4e5819ea2b732f88ff63eb1162a9132d615a998c964ebf8e8bf16ebf
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Mistral Bolt Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 6a9e662e1721453be205c145535451a24c32075eee00577422723c839
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation WDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Personal Space Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 90c559601f438da7783e18526252773b8a52cf39ccba1414f19763da9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Looming Darkness Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: ecf1011a6aceada9ce1b4b3e6a0db89b46941af18afa38f3fea4ba70c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Shadow Surge Primary Damage
 

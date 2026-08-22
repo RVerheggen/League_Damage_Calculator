@@ -27,7 +27,7 @@ Takedowns on enemy champions, large minions, and large monsters grant Shyvana Sc
 
 ## Q - Emberstrike
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 9b149b7ea37f7cce8c034a6da559d34310b1fa08d6572819be39ffb4516d66c7
 
@@ -36,25 +36,15 @@ Description signature: 9b149b7ea37f7cce8c034a6da559d34310b1fa08d6572819be39ffb45
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_Max_Health_Damage was preserved. Stateful and alternate effects require an explicit module.
-
-### Emberstrike Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Human and Dragon forms expose different attack and recast sequences. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Emberstrike Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: recurring-attack-state
+- Reason: Human and Dragon forms expose different attack and recast sequences. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Passive: Shyvana's Attacks deal max Health magic damage %i:OnHit% On-Hit and reduce this Ability's Cooldown by seconds. Active: Shyvana's next Attack strikes the target and the surrounding area dealing physical damage. This Ability may be Recast after an Attack or short delay within the next seconds. Dragon Form: Shyvana gains an additional Recast, causing her to bite the target of her next Attack dealing true damage.
 
@@ -69,7 +59,7 @@ Description signature: a196fe9771256c2ddc8fe3aca668ba107bd4e2f581db5d217c3276213
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Inferno Aegis Primary Damage
 
@@ -102,7 +92,7 @@ Description signature: 15bfb9b89503c92ec1247313b34ce568fd2094e280c66e584577af7e1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Molten Burst Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: ee307d991ee1bcb376d715cd5d6bb5de67c3cbea7d1b458d3bce8d621
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Dragon's Descent Primary Damage
 

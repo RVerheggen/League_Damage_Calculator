@@ -36,7 +36,7 @@ Description signature: 8b6d1bd4089a46791943c6c337842b060ca273c3d87dd99f8f73505b4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Leap Strike Primary Damage
 
@@ -92,7 +92,7 @@ Description signature: 2a4ba93a3872182f966e2bba39743eab1758b80030fb3ccf7a307d4c7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Counter Strike Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 356c7cdfaf721225c1c03a5c7bc5d1b1197e51e477c903ee532163c60
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation OnHitDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. Attacks advance a third-hit cycle whose threshold changes during the active state. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 ### Grandmaster-at-Arms Primary Damage
 
@@ -142,7 +142,7 @@ The structured primary CommunityDragon calculation is executable.
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: stacking-proc
-- Reason: The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: attack-cycle
+- Reason: Attacks advance a third-hit cycle whose threshold changes during the active state. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 Passive: Every third Attack within seconds deals an additional magic damage. Active: Jax slams his lantern down, dealing magic damage to nearby enemies. If he hits a champion he gains Armor and Magic Resist plus Armor and Magic Resist per additional champion hit for seconds. During this time every second Attack deals additional magic damage instead of every third.

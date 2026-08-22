@@ -36,7 +36,7 @@ Description signature: c06ff030e15c77ec3eb016b87331c5b54ebd51d115dbfea623dfedef6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Glitterlance Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b975253c76b6399255b2089470b4c1ba593dd061f9339a3de765f0fdc
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Whimsy
 
@@ -92,7 +92,7 @@ Description signature: 352cd8a880fb354d800d3a9710961aa0ed4ede62120b3747b9c0e1855
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Help, Pix! Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 8a598f102676f3ab2a3577b6cace3813bceab2329a6a6f216c9702d64
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Wild Growth
 

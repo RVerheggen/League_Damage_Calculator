@@ -36,7 +36,7 @@ Description signature: bc45b98eefda4fc69b38b846b8e151f0fbc0eca6dd399431b3b60d51f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The next three attacks or abilities consume a per-target Hate Spike mark. The source is assigned to the mark-and-consume family, but a complete reviewed binding has not been compiled yet.
 
 ### Hate Spike Primary Damage
 
@@ -53,8 +53,8 @@ The structured primary CommunityDragon calculation is executable.
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: mark-and-consume
+- Reason: The next three attacks or abilities consume a per-target Hate Spike mark. The source is assigned to the mark-and-consume family, but a complete reviewed binding has not been compiled yet.
 
 Evelynn strikes with her Lasher, dealing magic damage to the first enemy hit and causing Evelynn's next 3 Attacks or Abilities on that unit to deal an additional magic damage. Evelynn can Recast this Ability up to times. Recast: Evelynn fires spikes through the nearest enemy, dealing magic damage to all enemies hit.
 
@@ -69,7 +69,7 @@ Description signature: 6369434463aa3fbb39670d6c134f01586b8cfa3f9eba4097da14d207c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MonsterDamageTotalTOOLTIP was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Allure Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 17130299e05067bf0b29ea19605c3eb3a65345e87421d4c6006fece6d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PercentHealthBaseTOOLTIP was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Whiplash Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 7536d4c66a2d907f11330060c3f8b73f2c2dfce5b5d5a8d9b9a734c2b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Last Caress Primary Damage
 

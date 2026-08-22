@@ -36,7 +36,7 @@ Description signature: 8023aa46cc77e0478e440f4ad8c398ebd4627f64e6bca1f2df6c1df90
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Twofold Hex Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 1ada3895057a99c44dc45828b0bbe281d88624b1ab238ad0a5b408c61
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Across the Veil Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 5a636557650c95db75384336054e89347a832ce0b0e548a51bb9774f6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### The Weirding Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 9dbbe898da0cbd97c913911bb19ef6770a4898d537ea7c6db81cf993d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Between Worlds Primary Damage
 

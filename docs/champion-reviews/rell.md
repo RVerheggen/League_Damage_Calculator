@@ -36,7 +36,7 @@ Description signature: e69222cb198647ee45f2deea8d1da5493fc2a0167f7043e45e7ebe2ee
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Shattering Strike Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: eefb4b9739c2e30c2dafc80c9cea36e6a29abc5159165b03298684e21
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DismountDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Ferromancy: Crash Down Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 02ca596d7b75d10f60269dac0abc2b4b0a3629ffcdd3708d2257fe2c0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MaxHealthDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Full Tilt Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: d2ad1427885dc7738071dc91419dd5589fbe3f36131a8119726f85b54
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Magnet Storm Primary Damage
 

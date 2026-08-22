@@ -36,7 +36,7 @@ Description signature: d928cfae09732dd34c8b8fe5420ddd9aebdce31aca61dcbab0178fe1a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Blooming Blows Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 2957cacf73d792ebcf0a09a7f01abe7f8f0f1fbca18c4f621d4dad40e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FlatDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Watch Out! Eep! Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 424f9f07a26b82b93d2bf90b3ce43604b79ef49b205ff9ea48e69f514
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ImpactDamageTotal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Swirlseed Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 548e56351d2d5296612e1a79482f2de8106b5de5a79e0009e31dd3044
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Lilting Lullaby Primary Damage
 

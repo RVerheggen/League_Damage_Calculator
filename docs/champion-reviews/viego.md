@@ -36,7 +36,7 @@ Description signature: 355e100cf3a5d316881ac743d664a2a4f370ada2e91c6fd539020a024
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalPercentHealthOnHit was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Blade of the Ruined King Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 4903e855311afe18ffb6f32c42b5b4a6fa21601d8bc87e02a1a4458b0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Spectral Maw Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 049ce0a734f35395044b05bff0f11a2e58be4b980b857302a70b5a002
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Harrowed Path
 
@@ -125,7 +125,7 @@ Description signature: 56f801fabaf9634d70a98fba6f718d29552a215fe9351dba9b2d4b2e1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Heartbreaker Primary Damage
 

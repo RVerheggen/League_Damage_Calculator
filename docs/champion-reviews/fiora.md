@@ -36,7 +36,7 @@ Description signature: 7fb476c8a0f39e1b09690de8568e946459739f21813a2edffbafc11f4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Lunge Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: da5cc844897b4442821ab1ab41210bdbf67bd30075f1e43b7ab0449c6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation StabDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Riposte Primary Damage
 
@@ -102,15 +102,15 @@ Description signature: f92dd03e511b2774fe5ac8c4c5dc673cf57c6b215cf2ce308c3cf7bc7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module.
+The next two attacks have distinct first and second outcomes. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Bladework Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: The next two attacks have distinct first and second outcomes. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Fiora gains % Attack Speed for her next two Attacks. The first Attack Slows by % for second. The second Attack always critically strikes for % damage.
 
@@ -125,7 +125,7 @@ Description signature: dd0f9d357511d7053663bdd0cf2320a44cf3f2eb331035412c02ea3af
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely.
+The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Grand Challenge Remaining Combat Behavior
 

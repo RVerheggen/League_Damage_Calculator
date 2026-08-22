@@ -56,6 +56,7 @@ function operationFormulas(operation: EffectOperation) {
   const formulas: Array<[string, FormulaNode | undefined]> = [];
   if (operation.type === "set-state") formulas.push(["value", operation.value], ["duration", operation.duration]);
   else if (operation.type === "increment-state") formulas.push(["amount", operation.amount], ["maximum", operation.maximum], ["duration", operation.duration]);
+  else if (operation.type === "decrement-state") formulas.push(["amount", operation.amount], ["refreshDuration", operation.refreshDuration]);
   else if (operation.type === "extend-state") formulas.push(["duration", operation.duration]);
   else if (operation.type === "damage") formulas.push(["formula", operation.formula]);
   else if (operation.type === "shield") formulas.push(["formula", operation.formula], ["duration", operation.duration], ["lockoutDuration", operation.lockoutDuration]);

@@ -13,15 +13,15 @@ Description signature: 94abffc61256af5d03e62ec20ea5ddd3b3b1da9f5d9b7296d4cb1c5a7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
+A spellcast empowers two attacks with damage, attack speed, and cooldown changes. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Bravado Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: cooldown-modifier
-- Reason: The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: A spellcast empowers two attacks with damage, attack speed, and cooldown changes. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Spellcasts empower Taric's next 2 basic attacks to deal bonus magic damage, reduce his spell cooldowns, and attack in quick succession.
 
@@ -36,7 +36,7 @@ Description signature: 267b1bc7b730be0c94f802b101399a924e303174d87cb314323615ec0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Starlight's Touch
 
@@ -59,7 +59,7 @@ Description signature: 86946ff7323fe94277531e3ffc9630bf08fe4ac371018e081f4c667ab
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Bastion Remaining Combat Behavior
 
@@ -105,7 +105,7 @@ Description signature: a6502437784c9d654c49c7d8dc5778778948bea4e54587ec36796847d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Cosmic Radiance
 

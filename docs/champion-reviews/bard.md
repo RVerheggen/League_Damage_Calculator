@@ -36,7 +36,7 @@ Description signature: 650e69ed3d568790c2ba365ade44d7a3cf6441d6baaee0c1b0f9e467f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Cosmic Binding Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 1467b0b31ed3cf7508bba92b66a1487a696f7a515038f51f21bd511c1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Caretaker's Shrine
 
@@ -92,7 +92,7 @@ Description signature: 26931b5c9ef3842ea00c675d6903d692d664349b2a0af025b548f19d0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Magical Journey
 
@@ -115,7 +115,7 @@ Description signature: c67f56ad6b655a6ac142904cbdac6600b6d95b97c36eddc4954a8c573
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Tempered Fate
 

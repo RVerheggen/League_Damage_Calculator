@@ -36,7 +36,7 @@ Description signature: 83820f64dc6df5ed5395c6e7ab64ccdd826916a84584b3df6dbca1469
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Rocket Grab Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: c1298c82b79496006f0d899c538ee62ad56009fdc6737e918c4a2801f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Overdrive
 
@@ -115,7 +115,7 @@ Description signature: 8a4330b67488d3a07d72418277b00071a20e52778514dac5b67192b10
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PassiveDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Static Field Primary Damage
 

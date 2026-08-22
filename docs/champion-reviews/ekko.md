@@ -36,7 +36,7 @@ Description signature: dda4bc4ade7bbe21705bd6e8d2026e09936573d1d99cffba147adf8be
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Timewinder Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 871bf911e544c189dcf9bd7f5056f857dffd1a23bc3cf0a60d9ea46bc
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MissingHealthPercent was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Parallel Convergence Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: b7c0829f013391c9c592e52b42bbc56e16e46184050516b9f27ce4a81
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Phase Dive Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 2b05e79cdace213280acafbf22c70810fa835c14a81e595910d407d5f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Chronobreak Primary Damage
 

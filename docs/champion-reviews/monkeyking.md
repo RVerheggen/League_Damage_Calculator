@@ -36,7 +36,7 @@ Description signature: 386ebf216d8e3f4d2cee100d5dc535e2391e49bb9d1a9b7f52e3d0f5d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusDamageTT was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Crushing Blow Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: f464ce76fd8d80689f218c8544ab9f2dcf4475935f108b63786e9a330
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Warrior Trickster
 
@@ -92,7 +92,7 @@ Description signature: e1685f1046e532b80f877c9af039582344ac6bc3e433678c680ea0e14
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Nimbus Strike Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 6edeb38c640e05e0748abb0d0b342b60a574fa0e0fa3e6f4b1a2d94e8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTT was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Cyclone Primary Damage
 

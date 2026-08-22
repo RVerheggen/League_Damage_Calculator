@@ -36,7 +36,7 @@ Description signature: 33658a397c9e4a4cee02c2501172f232ec8a0b9d8abd3fe4852f0134b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MiniSwipeDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Snip Snip! Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 69e7c630ed21c2ef030f92869d52f5588eb8b90104d0eb302b12d24c6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Hallowed Mist Remaining Combat Behavior
 
@@ -153,7 +153,7 @@ Description signature: 081694781294595f2aefcd578f838ccaaedb4e20cce10ba2b1964c205
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Needlework Primary Damage
 

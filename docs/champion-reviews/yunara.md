@@ -27,7 +27,7 @@ Yunara's Critical Strikes deal bonus magic damage.
 
 ## Q - Cultivation of Spirit
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: af22a04bcd29c05d00bf3a394796ec53b26a3060c82cb2e2c1a09cc353d99f89
 
@@ -36,17 +36,7 @@ Description signature: af22a04bcd29c05d00bf3a394796ec53b26a3060c82cb2e2c1a09cc35
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_Passive_Damage was preserved. Stateful and alternate effects require an explicit module.
-
-### Cultivation of Spirit Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Unleash activates timed attack speed and repeated on-hit damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Cultivation of Spirit Remaining Combat Behavior
 
@@ -54,7 +44,7 @@ The structured primary CommunityDragon calculation is executable.
 - Disposition: template
 - Coverage: unsupported
 - Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Reason: Unleash activates timed attack speed and repeated on-hit damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Passive: Yunara deal magic damage %i:OnHit% On-Hit and attacking grants Unleash ( Unleash for champions). Active: Yunara consumes Unleash and for seconds gains Attack Speed and deals an additional magic damage %i:OnHit% On-Hit. During this time, her Attacks spread to nearby enemies dealing them physical damage. Transcendent State: This Ability is instantly activated for seconds.
 
@@ -69,7 +59,7 @@ Description signature: b50b964815c5f15225aee00802368503b8c209c4854cd60c521aeb7d5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_Damage_Initial was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Arc of Judgment | Arc of Ruin Primary Damage
 
@@ -102,7 +92,7 @@ Description signature: 35cdd51335c79eb26ae65374c67af2f33a062049656421b1dde4c4221
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Kanmei's Steps | Untouchable Shadow
 
@@ -125,7 +115,7 @@ Description signature: 8b72382017cd5bad951a9b8fc0a135b6a67902495de63d3ff83058fca
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Transcend One's Self
 

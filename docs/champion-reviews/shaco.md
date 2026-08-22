@@ -36,7 +36,7 @@ Description signature: 0f4b89a02872c2921c410db00b38487bebf22036e3d5f9b8b2ff23ee9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Deceive Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 51803c65c6ad18ef2b272837929779a52cd740d31410633ded48b3c98
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation AoEDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Jack In The Box Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 20b171cafb5e856731ef9147cbb353c2203ae49912e73f32fdf6190fd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Two-Shiv Poison Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 4e61bc27256587c7bba102d21c4fbdd42842eeb0c5941341d1bda5bfe
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ExplosionTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Hallucinate Primary Damage
 

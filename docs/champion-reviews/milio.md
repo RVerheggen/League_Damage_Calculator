@@ -36,7 +36,7 @@ Description signature: d9bf4ad015f4a1e2392f17278f9491635e95e153aa2ea52ee4c2ead61
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ultra Mega Fire Kick Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 2eb289c923912ff32d3f79353f1fa61d3116f719dc15ea42bcd703093
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Cozy Campfire
 
@@ -92,7 +92,7 @@ Description signature: 39aa45c156f84173bddc127104aaec7b846633c6917f7dd4e84c8e82b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Warm Hugs Remaining Combat Behavior
 
@@ -115,7 +115,7 @@ Description signature: b9cbf94689c9c74db4d1e253e89940a57e2a0580bc8fba7c6d7d72135
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Breath of Life
 

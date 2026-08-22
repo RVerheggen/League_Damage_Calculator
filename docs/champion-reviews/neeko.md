@@ -36,7 +36,7 @@ Description signature: dd401ba3152b6040116d7f1af8b6c9fbd6b2a07fd24c38f962cba6273
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ExplosionDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Blooming Burst Primary Damage
 
@@ -60,7 +60,7 @@ Neeko throws a seed that blooms to deal magic damage. If it kills a unit or hits
 
 ## W - Shapesplitter
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 12d5682b236fe7318545bd3fb122cb68c923c8af9c51d3220453a7b47fa4df50
 
@@ -69,25 +69,15 @@ Description signature: 12d5682b236fe7318545bd3fb122cb68c923c8af9c51d3220453a7b47
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PassiveBonusDamageCalc was preserved. Stateful and alternate effects require an explicit module.
-
-### Shapesplitter Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Basic attacks advance a third-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 ### Shapesplitter Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: attack-cycle
+- Reason: Basic attacks advance a third-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 Passive: Every 3rd Attack deals an additional bonus magic damage and increases Neeko's Move Speed by % for second. Active: Neeko becomes invisible for seconds and projects a clone that lasts seconds. Neeko and the clone gain % Move Speed for seconds. The clone can be controlled using the Move Pet Click hotkey or by Recasting this Ability. The clone mirrors her spellcasts, emotes, and recall.
 
@@ -102,7 +92,7 @@ Description signature: b79619de82e14b23ab44fe42c6f91675e73037f4d09f9fa522e3c3223
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Tangle-Barbs Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: aa3415da274812bd4533f68ba9499f473fc0b63360ffff764f2955fc4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Pop Blossom Primary Damage
 

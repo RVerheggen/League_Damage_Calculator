@@ -4,7 +4,7 @@ Patch: 16.16
 
 ## P - The Hitman and the Seer
 
-Coverage: out-of-scope
+Coverage: unsupported
 
 Description signature: 4a9d59e9fce912e86b81dc6d0ff4710fb868606e161139f1f2a6c1b76ed2b3d1
 
@@ -13,15 +13,15 @@ Description signature: 4a9d59e9fce912e86b81dc6d0ff4710fb868606e161139f1f2a6c1b76
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
+Weapon, off-hand, ammunition, and rotation state change later attacks and abilities. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet.
 
-### The Hitman and the Seer
+### The Hitman and the Seer Remaining Combat Behavior
 
-- Relevance: neither
-- Disposition: out-of-scope
-- Coverage: out-of-scope
-- Template or handler: none
-- Reason: The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
+- Relevance: attacker
+- Disposition: template
+- Coverage: unsupported
+- Template or handler: recurring-attack-state
+- Reason: Weapon, off-hand, ammunition, and rotation state change later attacks and abilities. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Aphelios wields 5 Lunari Weapons made by his sister Alune. He has access to two at a time: one main-hand and one off-hand. Each weapon has a unique Basic Attack and Ability. Attacks and abilities consume a weapon's ammo. When out of ammo, Aphelios discards the weapon and Alune summons the next of the 5.
 
@@ -36,7 +36,7 @@ Description signature: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Weapon Abilites
 
@@ -59,7 +59,7 @@ Description signature: 897069b11f67783ea0fd73d4d6a50b94196d5fcfcf2d0883683916e77
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Phase
 
@@ -82,7 +82,7 @@ Description signature: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Weapon Queue System
 
@@ -105,7 +105,7 @@ Description signature: 657b0b126683a598a246825751f5a9d70e94f6dd6f7584b93f0495d27
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MaxDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Moonlight Vigil Primary Damage
 

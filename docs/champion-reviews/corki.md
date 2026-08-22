@@ -36,7 +36,7 @@ Description signature: af98d680a734d46f8b9ff181d5c19af55fcf16c78cc046027130ed9f7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Phosphorus Bomb Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 22801e871bdc706256a7a9908d800c8e49fff8beceac3974165c7a45f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MaximumDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Valkyrie Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 6f97ba0c89b499dd925f8c6f92f9c3c37485af4b3e9d41884e5e6a0bb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Gatling Gun Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: b011a14c37d2fafecd447d91d6f2478f29e6ceced697a0714d9078afb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RSmallMissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Missile Barrage Primary Damage
 

@@ -788,6 +788,166 @@ test("Fizz Seastone Trident schedules refreshable bleed ticks and separates acti
   assert.ok(nestedTriggers(expiredResult.steps.find((step) => step.id === "wait")?.triggers ?? []).some((trigger) => trigger.label === "Seastone Trident Expired"));
 });
 
+test("Master Yi Wuju Style applies repeated true damage for its full duration and expires", () => {
+  const yi = snapshotChampion(11);
+  const target = champion(900, "Target");
+  const scenario = duel(11, 900);
+  scenario.attacker.abilityRanks.E = 1;
+  scenario.defender.overrides.armor = 100;
+  scenario.combo = [
+    action("e", "ability", "E"),
+    { ...action("miss", "attack", "AA", 0.1), outcome: "miss" as const },
+    action("first", "attack", "AA", 0.1),
+    action("second", "attack", "AA", 4.7),
+    action("wait", "wait", "WAIT", 0.2),
+    action("expired", "attack", "AA"),
+  ];
+  const result = simulate(scenario, new Map([[11, yi], [900, target]]), new Map(), new Map());
+  assert.equal(result.steps.find((step) => step.id === "e")?.preMitigation.total, 0);
+  assert.equal(result.steps.find((step) => step.id === "miss")?.preMitigation.total, 0);
+  closeTo(result.steps.find((step) => step.id === "first")?.preMitigation.true ?? 0, 55);
+  closeTo(result.steps.find((step) => step.id === "second")?.preMitigation.true ?? 0, 55);
+  assert.equal(result.steps.find((step) => step.id === "expired")?.preMitigation.true, 0);
+  assert.ok(nestedTriggers(result.steps.find((step) => step.id === "wait")?.triggers ?? []).some((trigger) => trigger.label === "Wuju Style Expired"));
+});
+
+test("limited attack states preserve misses, consume one hit at a time, and expire", () => {
+  const chogath = snapshotChampion(31);
+  const sett = snapshotChampion(875);
+  const target = champion(900, "Target");
+
+  const spikes = duel(31, 900);
+  spikes.attacker.abilityRanks.E = 1;
+  spikes.attacker.overrides.abilityPower = 100;
+  spikes.attacker.inputs.feastStacks = 3;
+  spikes.defender.overrides.magicResist = 100;
+  spikes.combo = [
+    action("e", "ability", "E"),
+    { ...action("miss", "attack", "AA", 0.1), outcome: "miss" as const },
+    action("one", "attack", "AA", 0.1),
+    action("two", "attack", "AA", 0.1),
+    action("three", "attack", "AA", 0.1),
+    action("spent", "attack", "AA", 0.1),
+  ];
+  const spikeResult = simulate(spikes, new Map([[31, chogath], [900, target]]), new Map(), new Map());
+  for (const id of ["one", "two", "three"]) {
+    closeTo(spikeResult.steps.find((step) => step.id === id)?.preMitigation.magic ?? 0, 250);
+    closeTo(spikeResult.steps.find((step) => step.id === id)?.postMitigation.magic ?? 0, 125);
+  }
+  assert.equal(spikeResult.steps.find((step) => step.id === "spent")?.preMitigation.magic, 0);
+  assert.ok(nestedTriggers(spikeResult.steps.find((step) => step.id === "three")?.triggers ?? []).some((trigger) => trigger.label === "Vorpal Spikes Attack Consumed" && trigger.note?.includes("fully consumed")));
+
+  const knuckle = duel(875, 900);
+  knuckle.attacker.abilityRanks.Q = 1;
+  knuckle.combo = [action("q", "ability", "Q"), action("one", "attack", "AA", 0.1), action("two", "attack", "AA", 0.1), action("spent", "attack", "AA", 0.1)];
+  const knuckleResult = simulate(knuckle, new Map([[875, sett], [900, target]]), new Map(), new Map());
+  closeTo(knuckleResult.steps.find((step) => step.id === "one")?.preMitigation.physical ?? 0, 210);
+  closeTo(knuckleResult.steps.find((step) => step.id === "two")?.preMitigation.physical ?? 0, 210);
+  closeTo(knuckleResult.steps.find((step) => step.id === "spent")?.preMitigation.physical ?? 0, 100);
+
+  const expired = duel(875, 900);
+  expired.attacker.abilityRanks.Q = 1;
+  expired.combo = [action("q", "ability", "Q"), action("wait", "wait", "WAIT", 4), action("attack", "attack", "AA")];
+  const expiredResult = simulate(expired, new Map([[875, sett], [900, target]]), new Map(), new Map());
+  closeTo(expiredResult.steps.find((step) => step.id === "attack")?.preMitigation.physical ?? 0, 100);
+  assert.ok(nestedTriggers(expiredResult.steps.find((step) => step.id === "wait")?.triggers ?? []).some((trigger) => trigger.label === "Knuckle Down Expired"));
+
+  const preservedExpiry = duel(875, 900);
+  preservedExpiry.attacker.abilityRanks.Q = 1;
+  preservedExpiry.combo = [action("q", "ability", "Q"), action("late-first", "attack", "AA", 3.9), action("too-late", "attack", "AA", 0.1)];
+  const preservedExpiryResult = simulate(preservedExpiry, new Map([[875, sett], [900, target]]), new Map(), new Map());
+  closeTo(preservedExpiryResult.steps.find((step) => step.id === "late-first")?.preMitigation.physical ?? 0, 210);
+  closeTo(preservedExpiryResult.steps.find((step) => step.id === "too-late")?.preMitigation.physical ?? 0, 100);
+});
+
+test("Shen Twilight Assault selects normal or champion-collision attacks from typed cast data", () => {
+  const shen = snapshotChampion(98);
+  const target = champion(900, "Target");
+  const champions = new Map([[98, shen], [900, target]]);
+  const qAction = shen.actions.find((entry) => entry.key === "Q");
+  assert.ok(qAction?.parameters.some((parameter) => parameter.id === "bladeHitChampion" && parameter.type === "boolean"));
+  const percentFormula = shen.spells.find((spell) => spell.key === "Q")?.calculations?.BasePercentHealth.formula;
+  assert.ok(percentFormula);
+  closeTo(evaluateFormula(percentFormula, { spellRank: 1, championLevel: 1, effects: {}, named: {}, stats: { totalAbilityPower: 0 }, conditions: {} }), 0.02);
+
+  const normal = duel(98, 900);
+  normal.attacker.abilityRanks.Q = 1;
+  normal.attacker.overrides.abilityPower = 100;
+  normal.combo = [action("q", "ability", "Q", 0, { bladeHitChampion: false }), action("attack", "attack", "AA", 0.1)];
+  const normalResult = simulate(normal, champions, new Map(), new Map());
+  closeTo(normalResult.steps.find((step) => step.id === "attack")?.preMitigation.magic ?? 0, 185);
+
+  const strong = duel(98, 900);
+  strong.attacker.abilityRanks.Q = 1;
+  strong.attacker.overrides.abilityPower = 100;
+  strong.combo = [
+    action("q", "ability", "Q", 0, { bladeHitChampion: true }),
+    action("one", "attack", "AA", 0.1),
+    action("two", "attack", "AA", 0.1),
+    action("three", "attack", "AA", 0.1),
+    action("spent", "attack", "AA", 0.1),
+  ];
+  const strongResult = simulate(strong, champions, new Map(), new Map());
+  for (const id of ["one", "two", "three"]) closeTo(strongResult.steps.find((step) => step.id === id)?.preMitigation.magic ?? 0, 360);
+  assert.equal(strongResult.steps.find((step) => step.id === "spent")?.preMitigation.magic, 0);
+  closeTo(strongResult.attackerStats.attackSpeed ?? 0, shen.stats.attackSpeed);
+
+  const active = duel(98, 900);
+  active.attacker.abilityRanks.Q = 1;
+  active.combo = [action("q", "ability", "Q", 0, { bladeHitChampion: true })];
+  const activeResult = simulate(active, champions, new Map(), new Map());
+  closeTo(activeResult.attackerStats.attackSpeed ?? 0, shen.stats.attackSpeed * 1.5);
+});
+
+test("Malphite Thunderclap separates the armed attack from timed follow-up aftershocks", () => {
+  const malphite = snapshotChampion(54);
+  const target = champion(900, "Target");
+  const scenario = duel(54, 900);
+  scenario.attacker.abilityRanks.W = 1;
+  scenario.attacker.overrides.armor = 100;
+  scenario.combo = [
+    action("w", "ability", "W"),
+    { ...action("miss", "attack", "AA", 0.1), outcome: "miss" as const },
+    action("first", "attack", "AA", 0.1),
+    action("follow-up", "attack", "AA", 4.9),
+    action("wait", "wait", "WAIT", 0.2),
+    action("expired", "attack", "AA"),
+  ];
+  const result = simulate(scenario, new Map([[54, malphite], [900, target]]), new Map(), new Map());
+  closeTo(result.steps.find((step) => step.id === "first")?.preMitigation.physical ?? 0, 178);
+  closeTo(result.steps.find((step) => step.id === "follow-up")?.preMitigation.physical ?? 0, 131.5);
+  closeTo(result.steps.find((step) => step.id === "expired")?.preMitigation.physical ?? 0, 100);
+  const firstChildren = nestedTriggers(result.steps.find((step) => step.id === "first")?.triggers ?? []);
+  assert.ok(firstChildren.some((trigger) => trigger.label === "Thunderclap First Attack"));
+  assert.ok(firstChildren.some((trigger) => trigger.label === "Thunderclap First Aftershock"));
+  assert.ok(nestedTriggers(result.steps.find((step) => step.id === "wait")?.triggers ?? []).some((trigger) => trigger.label === "Thunderclap Follow-Up Expired"));
+});
+
+test("repeated attack audit keeps automatic, recurring, and cyclic sources visibly distinct", () => {
+  const kled = snapshotChampion(240);
+  const draven = snapshotChampion(119);
+  const yi = snapshotChampion(11);
+  const sett = snapshotChampion(875);
+  const xayah = snapshotChampion(498);
+  const xin = snapshotChampion(5);
+  assert.equal(kled.spells.find((spell) => spell.key === "W")?.castable, false);
+  assert.equal(kled.spells.find((spell) => spell.key === "W")?.review?.components[0].template, "automatic-attack-sequence");
+  assert.equal(draven.spells.find((spell) => spell.key === "Q")?.review?.components[0].template, "recurring-attack-state");
+  assert.equal(yi.passive?.review.components[0].template, "attack-cycle");
+  assert.equal(sett.passive?.review.components[0].template, "attack-cycle");
+  assert.equal(xayah.spells.find((spell) => spell.key === "W")?.classification, "unsupported");
+  const xinQ = xin.spells.find((spell) => spell.key === "Q");
+  assert.equal(xinQ?.classification, "unsupported");
+  assert.equal(xinQ?.primaryCalculation, undefined);
+  assert.equal(xinQ?.damageType, null);
+  assert.equal(xinQ?.review?.components[0].template, "limited-attack-state");
+  const xinScenario = duel(5, 900);
+  xinScenario.attacker.abilityRanks.Q = 1;
+  xinScenario.combo = [action("q", "ability", "Q")];
+  const xinResult = simulate(xinScenario, new Map([[5, xin], [900, champion(900, "Target")]]), new Map(), new Map());
+  assert.equal(xinResult.steps[0].preMitigation.total, 0);
+});
+
 test("defender-side programs can create expiring shields before incoming damage", () => {
   const attacker = champion(1, "Attacker");
   const defender = champion(2, "Defender");
@@ -858,6 +1018,9 @@ test("source-target state is isolated and effect program validation rejects malf
   assert.ok(scheduleErrors.some((error) => error.includes("tickCount and tickInterval together")));
   assert.ok(scheduleErrors.some((error) => error.includes("tickCount must be a positive integer")));
   assert.ok(scheduleErrors.some((error) => error.includes("replaceKey must not be empty")));
+  const malformedDecrement = structuredClone(stacking);
+  malformedDecrement.triggers[0].operations = [{ type: "decrement-state", key: "fixture", amount: { type: "literal", value: Number.NaN }, label: "Invalid Decrement" }];
+  assert.ok(validateEffectPrograms([malformedDecrement], new Set(["champion:1:P"])).some((error) => error.includes("amount.value must be finite")));
   assert.ok(validateActionDefinitions([{ id: "duplicate", sourceId: "one", kind: "attack", key: "AA", label: "One", defaultDelay: 0, parameters: [] }, { id: "duplicate", sourceId: "two", kind: "attack", key: "AA", label: "Two", defaultDelay: 0, parameters: [] }]).some((error) => error.includes("Duplicate")));
 });
 

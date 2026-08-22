@@ -13,15 +13,15 @@ Description signature: 2fdaf35f856cf4e6f4bf426dd61e8aad54b84d16e8ddeccc287ec5ee1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+Overheat temporarily grants attack speed and repeated basic-attack damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Junkyard Titan Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-on-hit
+- Reason: Overheat temporarily grants attack speed and repeated basic-attack damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Every spell Rumble casts gives him Heat. When he reaches 50% Heat he reaches Danger Zone, granting all his basic abilities bonus effects. When he reaches 100% Heat, he starts Overheating, gaining bonus Attack Speed and granting his basic attacks bonus damage, but making him unable to cast spells for a few seconds.
 
@@ -36,7 +36,7 @@ Description signature: 002af98a5f1a848e2bda158814b5269c980443dd06238c645a44048c0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FlatDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Flamespitter Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 0658f5a8a5756f1ea2228e9e1805f3e9b76e62f75497d61b03a8dc8e5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Scrap Shield Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 041154fe3fb6fc3e553b8e3052e05dc370b4d7f35bf2b6b778aff1a32
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Electro Harpoon Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 3d41ea7e37ee48004cdbbd9dc1e0b0eb41f35402205749d90b4612a03
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### The Equalizer Primary Damage
 

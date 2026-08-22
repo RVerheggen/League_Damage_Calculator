@@ -36,7 +36,7 @@ Description signature: 736a6871cd77405590b9d1fc88f80ae0e04d89e8229b4f951b89085a8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalMissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Siphon Power Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 2ab393e651b66726b4da1a351b8dbc935d5869b8a0349878e1f4a6edd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Gravity Field
 
@@ -92,7 +92,7 @@ Description signature: 1e24be1b07cad930126e01334ac91d4867e67ac5791fc43e372070541
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation LaserDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Hextech Ray Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: d37c1f7500669633a04d45f0e90a53223e175ea03a8496c8b96e45ee8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialBurstDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Arcane Storm Primary Damage
 

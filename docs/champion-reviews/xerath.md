@@ -36,7 +36,7 @@ Description signature: db944d45ec7ffc26dec03c11bfb3303979e6a54c3fe41f35a25370c2e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TooltipTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Arcanopulse Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 9810ba137b30568b157eacffab2fef762cd97913e0033d23684640fb5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Eye of Destruction Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: c22efc69d9ad05fb85386cc4d9a1ce50f9335984d4a3f111bf695e0da
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TooltipTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Shocking Orb Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 79d457c2e0601e7a09ffbbd4409d795c1a93e0d663444c8d5812d961a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TooltipTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Rite of the Arcane Primary Damage
 

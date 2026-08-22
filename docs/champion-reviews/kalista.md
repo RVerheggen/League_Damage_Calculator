@@ -36,7 +36,7 @@ Description signature: cd93196be62a426593cab9dfa564e21abbb157cb5e367d7457fbd8f1a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Pierce Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 2c32641407534d7a6e3a2691714c23160a29838855a08a040ffc854f5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Sentinel Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 7c7d5afd8d052200fac6bc903615dc3636862e6e48e0ab43dcf154b1c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation NormalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Rend Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 55d51c8abc769451edeae5f0abda188fe0543632db255af571d349463
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Fate's Call
 

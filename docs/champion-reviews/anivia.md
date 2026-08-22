@@ -36,7 +36,7 @@ Description signature: f8114b8428935717238c517b08e29c219359ca369c46cc216e5737854
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalPassthroughDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Flash Frost Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 4110e05974f22744fca795f1560b494cafb7fcb8c5e8c5b33f8ec1eff
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Crystallize
 
@@ -92,7 +92,7 @@ Description signature: a0d80d9560958c1639162d83a006ccac834bca103cb70e60f12616cfc
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Frostbite Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: af4662a8bc9606b9834c10f9f78bf4a1d1c941dd8142c3d5007c05ef9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Glacial Storm Primary Damage
 

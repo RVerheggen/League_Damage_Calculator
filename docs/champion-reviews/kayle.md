@@ -36,7 +36,7 @@ Description signature: 3f0ff1bb5da05c8d0a6cc8fd36c63f7c73179e1e14c8cd61ba0b2422d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Radiant Blast Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: e600da107816128fa02fc73848ceb1307d86f46e6fcf8d66cfb449ba9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Celestial Blessing
 
@@ -92,7 +92,7 @@ Description signature: ff7163baf9e5aec7467ba5600675cc510a0f19f57d7b56e092a7d4fde
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EPassiveTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Starfire Spellblade Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 6c83652342cdd13e97ae257395c2065fa8b6fec4af3b087e4cfd71000
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Divine Judgment Primary Damage
 

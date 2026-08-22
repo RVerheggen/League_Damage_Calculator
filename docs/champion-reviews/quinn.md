@@ -36,7 +36,7 @@ Description signature: d6c18d6487258b7982db8e60d8a0affe148684dcf084f29a6e7c898ec
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Blinding Assault Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5f4edf8a14cddf15816e059d5a6b707bc0ec15f379872e0b65c929426
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Heightened Senses
 
@@ -92,7 +92,7 @@ Description signature: 38a29629e4b81a29aa986003a8a641476f3dd3a4ae8b610680d17ca2f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Vault Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 6a10e66ae2a6b7a01861b30df24453b45b9e9c669587bb8beb0c27d68
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Behind Enemy Lines Primary Damage
 

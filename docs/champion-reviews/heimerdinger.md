@@ -36,7 +36,7 @@ Description signature: c70fff15e5c0c1b649aac9931e3f6f15cb20269c7ea798e5d1ce89c4f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### H-28 G Evolution Turret
 
@@ -59,7 +59,7 @@ Description signature: f648b164afc68b345f7520270c801466739e14400736eb721ca4a0ca6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Hextech Micro-Rockets Primary Damage
 
@@ -92,7 +92,7 @@ Description signature: 6c863e4b58a716245274ff1f79ad0f11eb4af46379524267ebc696456
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### CH-2 Electron Storm Grenade Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 92424804172ca64b85039d9ef5d6e6d0175c042794151aad6a8c584bd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QUltDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### UPGRADE!!! Primary Damage
 

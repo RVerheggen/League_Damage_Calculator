@@ -17,7 +17,11 @@ export type EffectTemplateId =
   | "cooldown-modifier"
   | "shield-with-lockout"
   | "scheduled-damage"
-  | "multi-hit-action";
+  | "multi-hit-action"
+  | "limited-attack-state"
+  | "automatic-attack-sequence"
+  | "recurring-attack-state"
+  | "attack-cycle";
 
 export type EffectEvent =
   | "scenario-start"
@@ -51,6 +55,7 @@ export type EffectCondition =
 export type EffectOperation =
   | { type: "set-state"; key: string; scope?: StateScope; value: FormulaNode; duration?: FormulaNode; label: string }
   | { type: "increment-state"; key: string; scope?: StateScope; amount: FormulaNode; maximum?: FormulaNode; duration?: FormulaNode; label: string }
+  | { type: "decrement-state"; key: string; scope?: StateScope; amount: FormulaNode; refreshDuration?: FormulaNode; label: string }
   | { type: "consume-state"; key: string; scope?: StateScope; label: string }
   | { type: "extend-state"; key: string; scope?: StateScope; duration: FormulaNode; label: string }
   | { type: "damage"; label: string; damageType: DamageType; formula: FormulaNode; formulaLabel: string; critical?: "never" | "attack" }

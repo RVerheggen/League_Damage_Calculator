@@ -36,7 +36,7 @@ Description signature: 8721e113c883f21fdcf505627202a556f5d2d7e63637b2c68f57b67b8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Dark Binding Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: f7faba7ecbc4c6e86f84f6069698c36930b8393949c7977d10292908f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalMinDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Tormented Shadow Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 1fabe84016aa06ca088a59cf37038a6aeb7945be0e85b71e841259812
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Black Shield Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: f292d5681663a8c7181c9942f804b552d1ee085471e01c7cdae68a964
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Soul Shackles Primary Damage
 

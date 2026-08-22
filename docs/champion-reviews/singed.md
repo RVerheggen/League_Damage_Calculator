@@ -36,7 +36,7 @@ Description signature: 7d4fcd216b0ebb630acc555c99f1306268db48b0092e3924ed4c6b941
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Poison Trail Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 81deec1356e3194d6515919be4313f49b2adfbfabf9c99ff2cf90f6b1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Mega Adhesive
 
@@ -92,7 +92,7 @@ Description signature: 423c80a3e55e5e094d19781aa8e5d7f10e75a566157400ca42ddbb909
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Fling Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 944cb98678e1f400dc11702cf4fd62bf081cda54d39e5af75a881a6d0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Insanity Potion Remaining Combat Behavior
 

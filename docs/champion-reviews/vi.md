@@ -36,7 +36,7 @@ Description signature: 6894ebea53b807f683d4789ff1ce0e97472f97af834d588c669ca498f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Vault Breaker Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b90a729efbcefc752d302f4a0783242b8d5d7d38d38af8380ff3428e4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Denting Blows Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 9e77c00844a6f7cd6f1cbe3e6a8564766ab34e6c7f9db3ea4c7da5335
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Relentless Force Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 006ec68b84472769434a57fe6480ced158c379c66690d0b961f29363b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Cease and Desist Primary Damage
 

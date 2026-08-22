@@ -36,7 +36,7 @@ Description signature: 59d77fdf47eb3df6e699d72d45d792465ed065f7ac51cb516d2249de9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Plasma Fission Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 538571b0a026a83271aefc4719ceebd5e23eb539bc6b5a695d54d8c89
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Rift Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: c2ca5e21b0ff1d6df7e3772617107c5230326eff1547d6b44dc96e504
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Tectonic Disruption Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 8ddca1877517c48ed9a8f9c9b5698c0997ec22d6b656dcb471bc36783
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Life Form Disintegration Ray Primary Damage
 

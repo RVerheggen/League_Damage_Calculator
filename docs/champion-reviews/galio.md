@@ -36,7 +36,7 @@ Description signature: a1404cf680e284b140561a20fd3adabc7ce520106d588861337e89275
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QMissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Winds of War Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: ece2f953c029ea58f6dea54f35fb323c656163e9ffa927c63d8ddee8c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Shield of Durand Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: e0aa544c8f306c129ecc8df0914cd8dfcaa2c712b6d8fcec377a1c740
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Justice Punch Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: de0bfd57f571af12d427bdfd8b4b404ce4e8360e99aa69d6988299382
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Hero's Entrance Primary Damage
 

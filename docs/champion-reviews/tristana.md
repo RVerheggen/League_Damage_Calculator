@@ -36,7 +36,7 @@ Description signature: 1502baffd4d20367c91e79bc6e5aa14370e1111442c8c0caa0537b1ef
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Rapid Fire
 
@@ -59,7 +59,7 @@ Description signature: b3bf68a8cdeee1908ee630b7a2d7c7b86cf430b7124530abf55b34436
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation LandingDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Rocket Jump Primary Damage
 
@@ -92,7 +92,7 @@ Description signature: 40119df30a83aca74370f817982a3d21214df1f0bc2674687ea6911d6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PassiveDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Explosive Charge Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 9b7087f91da975425957a9700775aa34d4c7935eb9d94f53a09075a84
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Buster Shot Primary Damage
 

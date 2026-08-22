@@ -36,7 +36,7 @@ Description signature: ca6b0274ecc81b3b7a161ab2ef2ebb9116ba149bb3ca96e7342432a02
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Winter's Bite Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: ee41362d22a81b21fa1395012a88004c9bcdab6bc03f5789925c65856
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Stand Behind Me Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: b10bc98ec082c649172a13b4b124f54a78fb8fa438912ae06cbafb098
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Unbreakable Remaining Combat Behavior
 
@@ -115,7 +115,7 @@ Description signature: d55ee381b20b1d8328fb9603781439cec139faaad9c5df4c37ee84d6f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Glacial Fissure Primary Damage
 

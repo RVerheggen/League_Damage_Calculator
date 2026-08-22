@@ -27,7 +27,7 @@ While in Brush, Rengar leaps at his target with his basic attack. Rengar generat
 
 ## Q - Savagery
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: a80a8731cd16687045f7cdc07cb855a127bdec9f27cadeb26cadc343a971e4c9
 
@@ -36,25 +36,15 @@ Description signature: a80a8731cd16687045f7cdc07cb855a127bdec9f27cadeb26cadc343a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QTotalDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Savagery Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Two attacks gain attack speed, while only the first receives Savagery damage. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Savagery Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: Two attacks gain attack speed, while only the first receives Savagery damage. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Rengar's next 2 Attacks gain % Attack Speed. The first Attack deals physical damage. Max Ferocity: The first Attack deals physical damage and grants Rengar Attack Speed for seconds.
 
@@ -69,7 +59,7 @@ Description signature: 39debe94860fa65e4e35cb326721a44292b168b8e4481b5fb5c50d306
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Battle Roar Primary Damage
 
@@ -102,7 +92,7 @@ Description signature: d7de7ae80ee47b652e7852fc7a33f6ad682ea24522d8013a07e5fe0c1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bola Strike Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: 5800ee9ef77773aa8cab7a3aa85233699dedd125d75af58ad57aeccd5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Thrill of the Hunt Primary Damage
 

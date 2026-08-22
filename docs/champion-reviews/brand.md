@@ -36,7 +36,7 @@ Description signature: b29f9064740eccb5116c5cae119ed2bd3c00c2d7b49e68cf2e657eae9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Sear Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5f1ff376566437585f8014ff14137d41003f3c09d6707d4a0804a73ff
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Pillar of Flame Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 72a72ea0e54100252d977815fd2865faac2300273153d4f06b461bcf6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Conflagration Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 49e2634ea19764c9f81a06c30bfdf3151ce407107e33b2d4c3019dedf
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Pyroclasm Primary Damage
 

@@ -27,7 +27,7 @@ Ashe's attacks slow their target, causing her to deal increased damage to these 
 
 ## Q - Ranger's Focus
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: beb9dec6e95c8bbe6b2b8d9eca527aec63a0d5fc15473b5b4724f44b168ed2cd
 
@@ -36,25 +36,15 @@ Description signature: beb9dec6e95c8bbe6b2b8d9eca527aec63a0d5fc15473b5b4724f44b1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EmpoweredDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Ranger's Focus Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+The active duration changes attack speed and each attack's ordered hit structure. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Ranger's Focus Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-on-hit
+- Reason: The active duration changes attack speed and each attack's ordered hit structure. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Passive: Ashe's Attacks grant a stack for seconds. At stacks, she may activate this Ability. Active: Ashe gains % Attack Speed and her Attacks deal damage instead for seconds.
 
@@ -69,7 +59,7 @@ Description signature: 7d374a33661f6cfacebb35f7b335e971c7c4037c4138d72666b00eebb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Volley Primary Damage
 
@@ -102,7 +92,7 @@ Description signature: 69e24e5617a25cf572e0b2b8eba6ae4f492335ff4cdfd22faed948f7a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Hawkshot
 
@@ -125,7 +115,7 @@ Description signature: 41ad9bb73f8fd9b0254759d04f7ca19584c3393b7d6b8d344b80cda75
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RMainDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Enchanted Crystal Arrow Primary Damage
 

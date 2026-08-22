@@ -36,7 +36,7 @@ Description signature: e6873b20360b414c6d9756b4ceefb70d1c3e34b4f0c628fbf7a206ecc
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TooltipTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Noxious Blast Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 2be6d2af13f91de622fed1a771afc0b5977c6cb25ac3436107f820c56
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Miasma Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 949ab82be8160f255f48deb4f7bbf1f83d351a272b606ac3fab9c4718
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BasicDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Twin Fang Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 9ad5f9936ffdf07c4fc657d8b08600a986bb6217c2ff804a6d9b64612
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Petrifying Gaze Primary Damage
 

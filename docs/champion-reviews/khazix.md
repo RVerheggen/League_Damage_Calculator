@@ -36,7 +36,7 @@ Description signature: c785eceb39329ad4740a68cec9bdfe4fe48b33d8aab14a5df732ceafd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Taste Their Fear Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5b4685e7e3dfd258cef55eeb3ed03f100909125a2ae7b4e03bdd7a694
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Spike Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 935eef7a055ff60e19ee351324cfe6ab0fc37e7633de0d60630c14684
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Leap Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 39b155125b75c458bec73c96e8345bb9c690217ffe912c3494ecebe39
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Assault Remaining Combat Behavior
 

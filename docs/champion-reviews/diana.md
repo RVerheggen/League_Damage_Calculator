@@ -60,7 +60,7 @@ Description signature: ec47b8a607c937df634b9fc5a553c0579779f8d7a3250e20af14ae87b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Crescent Strike Primary Damage
 
@@ -93,7 +93,7 @@ Description signature: 3d0ff9545bbf4b8e6ecdd466ea7d1872b10bff5780ab66fd922bf313a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Pale Cascade Primary Damage
 
@@ -126,7 +126,7 @@ Description signature: 8f168c95d5bf8b57139dfb0b1e43729c63e7e97c0b5b218f24cc4aeba
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Lunar Rush Primary Damage
 
@@ -159,7 +159,7 @@ Description signature: b25c2d2935bb58e34955d1b366d1f0e9fc0cebef43d8ca96d71f50ea6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RExplosionDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Moonfall Primary Damage
 

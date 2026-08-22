@@ -36,7 +36,7 @@ Description signature: 5607d70e561d055f4c3bd79f63e89d5dde1fcc1da23806180b98e6115
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Double Up Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: ac6e167acce9ba090cc0cbbe17bb5b4c800070989cb2f267db3bb3b7a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Strut Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 40cd7e3a70afe824b5a782b9f6efd9d38425714f75bd72c7911aeff78
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Make It Rain Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: e75867260db4985c2b3135d691206cb949a3f7f0986238cfe35a2250c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PhysicalDamagePerWave was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bullet Time Primary Damage
 

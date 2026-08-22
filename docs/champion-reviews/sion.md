@@ -36,7 +36,7 @@ Description signature: 31dcac00693640194ab7353215ff09144e0eba1886d0ffa7b4ee57b3a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamageTotal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Decimating Smash Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: c326f4e557c4ba342d4b6e61526233e0035e12e86f436eb422c6c3b94
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Soul Furnace Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 18b4e95f889633341add78089312db5bca0c31e5d13f40bcc532da296
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Roar of the Slayer Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: ab01b30cdd6f9f0421d07473831ebe0d71fd5c9e4879d6518cd24b0ea
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamageTotal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Unstoppable Onslaught Primary Damage
 

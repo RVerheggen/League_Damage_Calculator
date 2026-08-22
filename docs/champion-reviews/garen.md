@@ -59,7 +59,7 @@ Description signature: dd8320f4cf093418b2d8ef5fbf015f258ac0f46d5a0fdee4ee302922d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Courage Remaining Combat Behavior
 
@@ -82,7 +82,7 @@ Description signature: e7dd87a4eeb373c7e80cab93c49442af2960a588448e7ba3c451521cc
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Judgment Primary Damage
 

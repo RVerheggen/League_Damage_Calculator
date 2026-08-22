@@ -293,6 +293,22 @@ function executeOperation(
     nodes.push(stateNode(source, operation.label, `Consumed ${Number(consumed.toFixed(4))} from ${operation.key}.`));
     return emptyDamage();
   }
+  if (operation.type === "decrement-state") {
+    const key = scopedKey(program, context.side, scope, operation.key, context.targetId);
+    const entry = state.values.get(key);
+    if (!entry) return emptyDamage();
+    const amount = Math.max(0, evaluate(operation.amount, state, program, context));
+    const value = Math.max(0, entry.value - amount);
+    if (value <= 0) state.values.delete(key);
+    else {
+      entry.value = value;
+      if (operation.refreshDuration) entry.expiresAt = durationExpiry(operation.refreshDuration, state, program, context);
+    }
+    nodes.push(stateNode(source, operation.label, value <= 0
+      ? `${operation.key} was fully consumed.`
+      : `${operation.key} has ${Number(value.toFixed(4))} remaining.`));
+    return emptyDamage();
+  }
   if (operation.type === "extend-state") {
     const entry = getStateValue(state, program, context, operation.key, scope);
     if (entry?.expiresAt !== null && entry) entry.expiresAt += Math.max(0, evaluate(operation.duration, state, program, context));
@@ -456,7 +472,7 @@ export function expireRuntimeState(state: EffectRuntimeState, timestamp: number)
   for (const [key, entry] of state.values) {
     if (entry.expiresAt === null || timestamp < entry.expiresAt) continue;
     state.values.delete(key);
-    const label = entry.label.replace(/ (?:Armed|Stacks?|Cooldown|Active)$/, "");
+    const label = entry.label.replace(/ (?:Armed|Attacks?|Stacks?|Cooldown|Active)$/, "");
     nodes.push(stateNode(entry.sourceId.includes(":P") ? "passive" : "champion", `${label} Expired`, `${entry.key} expired.`));
   }
   for (const [key, entry] of state.statModifiers) {

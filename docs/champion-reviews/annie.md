@@ -36,7 +36,7 @@ Description signature: 28ecf4da40a6b8ed98b7d3a4b5311ad9acd6029e75bca9e01c6d6b918
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Disintegrate Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 9314a65a35e1c175ad163e8e2ed2bc9f85264568ebbb7c6b835f46e64
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Incinerate Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 0d60d4ebf55d73ddb665aef9fc937789e69e5b37f265499e464baf2f8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageReturn was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Molten Shield Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: ff05ba62089ec10bd19f367c33a0da815640a353dc83cad023f71846d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialBurstDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Summon: Tibbers Primary Damage
 

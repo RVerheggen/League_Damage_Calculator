@@ -13,15 +13,15 @@ Description signature: cf08b4a79015b878cf31683eed38674a6af5ee7d998a25e71858bc25a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+Basic attacks advance a cycle, while trapped and netted targets create separate ready states. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 ### Headshot Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: attack-cycle
+- Reason: Basic attacks advance a cycle, while trapped and netted targets create separate ready states. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 Every few basic attacks, or against a target she has trapped or netted, Caitlyn will fire a headshot dealing bonus damage that scales with her critical strike chance. On trapped or netted targets, Caitlyn's Headshot attack range is doubled.
 
@@ -36,7 +36,7 @@ Description signature: c21142aacc843c6064ed37110a5108c93a384312a64fa955f18fc15a3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Piltover Peacemaker Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b71477c1c0c477db9bf8aa8a853bfa348d87ac7a36387aac6baf8602d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation HeadShotBonusDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Yordle Snap Trap Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 538bc784ecc75e3924a633eeb3bbaea88de420cf4ba2bdea98909c2c8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation NetDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### 90 Caliber Net Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 81dda8cb7de324a4ef88736f22f3359f8e7160222e5d4fe69f129497c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Ace in the Hole Primary Damage
 

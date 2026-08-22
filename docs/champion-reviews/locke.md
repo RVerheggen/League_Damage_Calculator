@@ -36,7 +36,7 @@ Description signature: 75e897b37aaa55110a033e37d38d2c787d73cb473053a24aa2df34f3d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Ritual Nails Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5df35275e26c40b16b7981fde14173ec075fd0efcced382371d148840
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageRestoreAmount was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Soul Ignition Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: c713d7d6d24602d5a3c40f134b85579e1e9e02ed735ac3b7b61757de0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation OnHitDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Ashen Pursuit Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: e6b4f7820ad00e00f5607487a75834cee67b5aa5fb3a1509c4d8dd9c6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Purgatory Primary Damage
 

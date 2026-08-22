@@ -13,15 +13,15 @@ Description signature: 875d498245367c032f4e915d460de7d84d527d0cec40cb2100c9179f8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+The temporary Call buff changes attack speed and repeated basic-attack damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Call of the Freljord Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-on-hit
+- Reason: The temporary Call buff changes attack speed and repeated basic-attack damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Nunu increases the attack speed and Move Speed of Willump and a nearby ally, and causes Willump's basic attacks to damage enemies around the target.
 
@@ -36,7 +36,7 @@ Description signature: 122afbd17a64e02e5ea2207f90b167a169d5ed5fce91f44bcbe73dd69
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalChampionDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Consume Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: ed17c7a07dec025d346a753c2f075716cc6bd4d443dfa4b2cef13b2e4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation NoImpactSnowballDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Biggest Snowball Ever! Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 09a2c20e2382d3373a9855f13eea98bb02841fc654fb4d1a861d16199
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalSnowballDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Snowball Barrage Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 51d8e27c114a71dada5a10f92ea37ae6bfd5e83da1bcf75bd2debddc5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MaximumDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Absolute Zero Primary Damage
 

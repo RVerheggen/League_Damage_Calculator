@@ -36,7 +36,7 @@ Description signature: c06d5e1e72a3757928185f96493306c48ab4f1933d0a0f475fd28eec7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Steel Tempest Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5d474872bd29c3c711958944781e675e43d9e3ee8b8f5668c04a8bfdb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Wind Wall
 
@@ -92,7 +92,7 @@ Description signature: 3620abe77b81eacb7cb3d7017b52faa032bec5879e1a7f8358b8eb273
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Sweeping Blade Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 69438a2438bed72583d5a13e75afcebfe24e56c7abf515d9ef8810c46
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Last Breath Primary Damage
 

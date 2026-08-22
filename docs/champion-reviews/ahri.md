@@ -36,7 +36,7 @@ Description signature: 04fcaff27f1a3a675d09d45ff4af123a6790d18cd7ea39e3930322c2f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Orb of Deception Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5455bd8275a09f48d67287b648d11edef7f35a04073cf2807a6826bf6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation SingleFireDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Fox-Fire Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: e565886d91f21a61b12d9313c2131c156545f64339383338b2bc9b5a5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Charm Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: f45bd084a16208b148c7f47fda4626732a78fa3247761cff486976d91
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RCalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Spirit Rush Primary Damage
 

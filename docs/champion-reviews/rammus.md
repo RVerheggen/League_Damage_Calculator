@@ -36,7 +36,7 @@ Description signature: ed6747222029cbf632e08fc11db21162cf4d4c18afd18f547067b62f2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PowerBallDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Powerball Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 7dd60898e67d07c62ca341b8add8e564f2fe71cc60efca1f10fc2f02f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ReturnDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Defensive Ball Curl Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 17eb7129a8693416768fb80d9d8a497807e1da9a2423264f192122c72
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MonsterDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Frenzying Taunt Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 22034548cffe17f60e800afeffbe3dacf549f2b438b39c4df2d87aef4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Soaring Slam Primary Damage
 

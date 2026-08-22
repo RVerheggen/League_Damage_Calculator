@@ -36,7 +36,7 @@ Description signature: fc21366b2e951d7055088b24456d41c8cc4dc8ee245c69df75ef63c67
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Deadly Spines Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 4eb60991d86ea4af1622fd27d6c17dfdca4eddb04f1489faa09e4eff2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Rampant Growth
 
@@ -92,7 +92,7 @@ Description signature: bb1cd008caea61d3e64ca3b5efa488b96ac6d48adf290002c148c23fd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Grasping Roots Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 70a52b05883ad43e034a9d0436de64f2acc21994c7ad5bc7893aaae40
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Stranglethorns Primary Damage
 

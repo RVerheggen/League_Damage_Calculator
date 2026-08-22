@@ -36,7 +36,7 @@ Description signature: dee3264c58a9dbef36cecbd4cb6c0c0f6f6ec8001e65f3bdc6d08504b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Lay Waste Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: f6206d85ff7efb021c8ae81bfb7ba563626b1b40301b5d0a3e2ecc9a3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Wall of Pain Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: cc2f283fe0b570a16deec4d0ed27ad217e0e330daff9e833f805be4b5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDPS was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Defile Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 6a09bff23f766a9dded02e552de4f5581dbeec9c9702b4829a82239cf
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Requiem Primary Damage
 

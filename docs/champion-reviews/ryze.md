@@ -36,7 +36,7 @@ Description signature: e461135739e8d230ddde5e035585bcca706385dc3387a0e966da40e06
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Overload Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: e12baf734cbe5c00ceb4daa74ce3bd0f8e5ce7eb905849d30753151cb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation WDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Rune Prison Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 6d24921c2ff2d55b8d19fe72d94691fea3ab4edaebee186548b320574
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Spell Flux Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 3f3bfe03262d5e27c938a9e9b72a1bdbd4b956bdb6420199ae3ed1b24
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Realm Warp
 

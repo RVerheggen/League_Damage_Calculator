@@ -2,383 +2,539 @@
   "schemaVersion": 3,
   "patch": "16.16",
   "gameVersion": "16.16.8049184+branch.releases-16-16.content.release",
-  "generatedAt": "2026-08-22T15:27:58.545Z",
+  "generatedAt": "2026-08-22T16:04:25.526Z",
   "locale": "en_US",
   "championCount": 173,
   "itemCount": 222,
   "runeCount": 69,
   "spellCoverage": {
-    "partial": 538,
-    "unsupported": 61,
-    "modeled": 22,
-    "out-of-scope": 71
+    "partial": 509,
+    "unsupported": 87,
+    "modeled": 26,
+    "out-of-scope": 70
   },
   "unsupportedSpells": [
     {
       "champion": "Olaf",
       "key": "W",
       "name": "Tough It Out",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Twisted Fate",
+      "key": "E",
+      "name": "Stacked Deck",
+      "note": "Basic attacks advance a fourth-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Xin Zhao",
+      "key": "Q",
+      "name": "Three Talon Strike",
+      "note": "Three attacks add damage and cooldown reduction, with a separate third-hit result. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Master Yi",
       "key": "W",
       "name": "Meditate",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Master Yi",
       "key": "R",
       "name": "Highlander",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Alistar",
       "key": "R",
       "name": "Unbreakable Will",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Sivir",
+      "key": "W",
+      "name": "Ricochet",
+      "note": "The timed state grants attack speed and adds secondary bounce packets to attacks. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Sivir",
       "key": "R",
       "name": "On The Hunt",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Warwick",
       "key": "W",
       "name": "Blood Hunt",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Warwick",
       "key": "E",
       "name": "Primal Howl",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Miss Fortune",
       "key": "W",
       "name": "Strut",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Ashe",
+      "key": "Q",
+      "name": "Ranger's Focus",
+      "note": "The active duration changes attack speed and each attack's ordered hit structure. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Tryndamere",
       "key": "Q",
       "name": "Bloodlust",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Tryndamere",
       "key": "W",
       "name": "Mocking Shout",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Morgana",
       "key": "E",
       "name": "Black Shield",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Zilean",
       "key": "W",
       "name": "Rewind",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Singed",
       "key": "R",
       "name": "Insanity Potion",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Twitch",
       "key": "Q",
       "name": "Ambush",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Twitch",
       "key": "R",
       "name": "Spray and Pray",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Karthus",
       "key": "W",
       "name": "Wall of Pain",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Sona",
       "key": "W",
       "name": "Aria of Perseverance",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Sona",
       "key": "E",
       "name": "Song of Celerity",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Janna",
       "key": "E",
       "name": "Eye Of The Storm",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Gangplank",
       "key": "E",
       "name": "Powder Keg",
-      "note": "CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module."
+      "note": "The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Karma",
       "key": "E",
       "name": "Inspire",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Taric",
       "key": "W",
       "name": "Bastion",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Jarvan IV",
       "key": "W",
       "name": "Golden Aegis",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Lee Sin",
       "key": "W",
       "name": "Safeguard / Iron Will",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Rumble",
       "key": "W",
       "name": "Scrap Shield",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Skarner",
+      "key": "Q",
+      "name": "Shattered Earth / Upheaval",
+      "note": "Three attacks are empowered and the final attack has a separate damage result. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Udyr",
+      "key": "Q",
+      "name": "Wilding Claw",
+      "note": "Claw Stance has both a timed repeated on-hit and separate next-two-attacks damage. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Udyr",
       "key": "W",
       "name": "Iron Mantle",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Udyr",
       "key": "E",
       "name": "Blazing Stampede",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Udyr",
+      "key": "R",
+      "name": "Wingborne Storm",
+      "note": "Storm Stance grants separate damage to the next two attacks. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Mordekaiser",
       "key": "W",
       "name": "Indestructible",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Kennen",
+      "key": "W",
+      "name": "Electrical Surge",
+      "note": "Basic attacks advance a fifth-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Garen",
       "key": "W",
       "name": "Courage",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Riven",
       "key": "E",
       "name": "Valor",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Shen",
       "key": "R",
       "name": "Stand United",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Lux",
       "key": "W",
       "name": "Prismatic Barrier",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Shyvana",
+      "key": "Q",
+      "name": "Emberstrike",
+      "note": "Human and Dragon forms expose different attack and recast sequences. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Graves",
       "key": "E",
       "name": "Quickdraw",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Rengar",
+      "key": "Q",
+      "name": "Savagery",
+      "note": "Two attacks gain attack speed, while only the first receives Savagery damage. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Nautilus",
+      "key": "W",
+      "name": "Titan's Wrath",
+      "note": "Repeated attack damage is active only while the spell's shield persists. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Fiora",
       "key": "E",
       "name": "Bladework",
-      "note": "CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module."
+      "note": "The next two attacks have distinct first and second outcomes. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Fiora",
       "key": "R",
       "name": "Grand Challenge",
-      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+      "note": "The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Draven",
+      "key": "Q",
+      "name": "Spinning Axe",
+      "note": "Spinning Axe is mapped to the recurring-attack-state family. A cast can add an axe up to two, each attack consumes one held axe, and a typed catch result must return it after the attack. This recurring weapon state is not compiled yet."
     },
     {
       "champion": "Draven",
       "key": "W",
       "name": "Blood Rush",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Kha'Zix",
       "key": "R",
       "name": "Void Assault",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Darius",
       "key": "E",
       "name": "Apprehend",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Aurelion Sol",
       "key": "W",
       "name": "Astral Flight",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Kayn",
       "key": "E",
       "name": "Shadow Step",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Kai'Sa",
       "key": "E",
       "name": "Supercharge",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The cast grants timed attack speed and attacks reduce its cooldown. The source is assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Kai'Sa",
       "key": "R",
       "name": "Killer Instinct",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Seraphine",
       "key": "W",
       "name": "Surround Sound",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Gnar",
+      "key": "W",
+      "name": "Hyper / Wallop",
+      "note": "Attacks and abilities share a per-target third-hit threshold. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Camille",
       "key": "R",
       "name": "The Hextech Ultimatum",
-      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+      "note": "The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Braum",
       "key": "W",
       "name": "Stand Behind Me",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Braum",
       "key": "E",
       "name": "Unbreakable",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Kindred",
+      "key": "E",
+      "name": "Mounting Dread",
+      "note": "The target mark counts attacks and procs on the third attack within its duration. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Zeri",
+      "key": "E",
+      "name": "Spark Surge",
+      "note": "The post-dash state adds repeated magic damage and attack-driven cooldown reduction. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Tahm Kench",
       "key": "E",
       "name": "Thick Skin",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Briar",
+      "key": "W",
+      "name": "Blood Frenzy / Snack Attack",
+      "note": "Blood Frenzy grants timed attack speed and repeated surrounding attack damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Lucian",
       "key": "E",
       "name": "Relentless Pursuit",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Kled",
+      "key": "W",
+      "name": "Violent Tendencies",
+      "note": "Violent Tendencies is mapped to the automatic-attack-sequence family. It activates on the first qualifying attack when off cooldown, affects four attacks or four seconds, and gives the fourth attack separate damage and cooldown behavior. That automatic activation shape is not compiled yet."
+    },
+    {
+      "champion": "Qiyana",
+      "key": "W",
+      "name": "Terrashape",
+      "note": "The selected weapon enchantment controls a repeated magic on-hit state. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Aatrox",
       "key": "R",
       "name": "World Ender",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Nami",
+      "key": "E",
+      "name": "Tidecaller's Blessing",
+      "note": "A bounded set of charges can be consumed by an allied participant's attacks or abilities. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Yuumi",
       "key": "W",
       "name": "You and Me!",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Yuumi",
       "key": "E",
       "name": "Zoomies",
-      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Thresh",
       "key": "W",
       "name": "Dark Passage",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Rek'Sai",
+      "key": "Q",
+      "name": "Queen's Wrath / Prey Seeker",
+      "note": "The unburrowed form grants three attacks whose duration refreshes on each attack. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Ivern",
+      "key": "W",
+      "name": "Brushmaker",
+      "note": "Brush presence controls a repeated magic on-hit state. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Kalista",
       "key": "W",
       "name": "Sentinel",
-      "note": "CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Rakan",
       "key": "E",
       "name": "Battle Dance",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Xayah",
+      "key": "W",
+      "name": "Deadly Plumage",
+      "note": "Deadly Plumage is damage-relevant and mapped to timed-on-hit plus multi-hit-action behavior. Each attack during the buff fires a secondary blade and gains attack speed."
     },
     {
       "champion": "Sylas",
       "key": "R",
       "name": "Hijack",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Neeko",
+      "key": "W",
+      "name": "Shapesplitter",
+      "note": "Basic attacks advance a third-attack bonus-damage cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Yunara",
+      "key": "Q",
+      "name": "Cultivation of Spirit",
+      "note": "Unleash activates timed attack speed and repeated on-hit damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Gwen",
       "key": "W",
       "name": "Hallowed Mist",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Aurora",
       "key": "W",
       "name": "Across the Veil",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Nilah",
       "key": "W",
       "name": "Jubilant Veil",
-      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+      "note": "The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "K'Sante",
       "key": "E",
       "name": "Footwork",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Milio",
       "key": "E",
       "name": "Warm Hugs",
-      "note": "This cast changes combat state, but no complete state module is registered yet."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Zaahen",
+      "key": "Q",
+      "name": "The Darkin Glaive",
+      "note": "The first armed attack unlocks a distinct recast attack. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet."
+    },
+    {
+      "champion": "Hwei",
+      "key": "W",
+      "name": "Subject: Serenity",
+      "note": "Stirring Lights grants three charges consumed by later attacks or abilities. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet."
     },
     {
       "champion": "Naafiri",
       "key": "R",
       "name": "Hounds' Pursuit",
-      "note": "The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely."
+      "note": "The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet."
     }
   ],
   "itemCoverage": {
@@ -393,31 +549,35 @@
     "modeled": 5
   },
   "championSourceCoverage": {
-    "out-of-scope": 120,
-    "partial": 538,
-    "unsupported": 183,
-    "modeled": 24
+    "out-of-scope": 116,
+    "partial": 509,
+    "unsupported": 212,
+    "modeled": 28
   },
   "reviewedChampionSourceCount": 865,
   "unreviewedChampionSourceCount": 0,
   "reviewDisposition": {
-    "out-of-scope": 133,
-    "template": 1288,
+    "out-of-scope": 139,
+    "template": 1266,
     "custom": 7
   },
   "effectFamilies": {
-    "direct-damage": 796,
-    "cooldown-modifier": 50,
-    "shield-with-lockout": 65,
-    "timed-stat-modifier": 62,
+    "direct-damage": 757,
+    "cooldown-modifier": 49,
+    "shield-with-lockout": 63,
+    "timed-stat-modifier": 53,
     "resistance-modifier": 38,
     "timed-on-hit": 62,
-    "scheduled-damage": 58,
+    "scheduled-damage": 56,
     "conditional-amplifier": 73,
-    "stacking-proc": 73,
+    "attack-cycle": 9,
+    "limited-attack-state": 19,
+    "stacking-proc": 70,
     "arm-next-hit": 7,
-    "mark-and-consume": 2,
-    "multi-hit-action": 2
+    "mark-and-consume": 3,
+    "recurring-attack-state": 4,
+    "multi-hit-action": 2,
+    "automatic-attack-sequence": 1
   },
   "unknownCalculationParts": {
     "{9e9e2e5c}": 4

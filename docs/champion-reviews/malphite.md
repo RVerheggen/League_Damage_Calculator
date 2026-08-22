@@ -36,7 +36,7 @@ Description signature: 77353cd964fa4d13c9bb94238542bfead20c746b5e650d3b1ff186db3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Seismic Shard Primary Damage
 
@@ -69,27 +69,63 @@ Description signature: 190deff158e9dbdc618ac89172f583bf7659722bc2441641a8e009cff
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalBonusDamage was preserved. Stateful and alternate effects require an explicit module.
+Thunderclap's base armor passive, six-second armed attack, first aftershock, and five-second repeated aftershocks are modeled. Granite Shield can triple the passive armor, but live shield loss is not yet linked to this modifier, so that interaction remains visibly incomplete.
 
-### Thunderclap Primary Damage
+### Thunderclap Passive Armor
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
+- Template or handler: timed-stat-modifier
+- Reason: Applied at scenario start from rank data.
 
-The structured primary CommunityDragon calculation is executable.
+An invested W rank grants 10 / 15 / 20 / 25 / 30% armor.
 
-### Thunderclap Remaining Combat Behavior
+Value bindings: Obduracy.BonusArmorPassive
+
+### Thunderclap Attack Sequence
+
+- Relevance: attacker
+- Disposition: template
+- Coverage: modeled
+- Template or handler: timed-on-hit
+- Reason: Compiled as an armed state followed by a timed repeated on-hit state.
+
+Casting W arms the next attack for six seconds. That attack adds the initial damage and an aftershock, then later attacks add aftershocks for five seconds.
+
+Formula bindings: Obduracy.TotalBonusDamage, Obduracy.ThunderclapSplash
+
+Value bindings: MalphiteCleave.Effect3, Obduracy.ThunderclapBuffDuration
+
+### Granite Shield Armor Multiplier
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-stat-modifier
+- Reason: The runtime does not yet link generated shield depletion and recharge to an active stat modifier. The base passive remains modeled.
 
-Passive: Malphite gains % Armor (%i:scaleArmor%). This effect is increased to % (%i:scaleArmor%) while Granite Shield is active. Active: Malphite's next Attack deals an additional physical damage and creates an aftershock which deals physical damage %i:OnHit% On-Hit in their direction. His Attacks continue to create aftershocks %i:OnHit% On-Hit for the next seconds.
+The passive armor is tripled while Granite Shield remains active.
+
+### Aftershock Cone
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: The supported target is the selected champion hit by the basic attack.
+
+Aftershock also damages enemies in a cone.
+
+### Aftershock Monster Modifier
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: The supported target is a champion.
+
+Aftershock has a monster-only damage modifier.
 
 ## E - Ground Slam
 
@@ -102,7 +138,7 @@ Description signature: f5faf9a99b0a944adc84e1657056ba2630efe9aff717b1a6fdfc890ce
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Ground Slam Primary Damage
 
@@ -135,7 +171,7 @@ Description signature: 77eb4129359c2bbfff33c506b0b771343045377a64d3fa31dd36d97e4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Unstoppable Force Primary Damage
 

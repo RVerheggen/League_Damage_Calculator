@@ -36,7 +36,7 @@ Description signature: 6478f9fa80a16a16e28e7146faf520c25606a9086702852d5b57b32ef
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Siphoning Strike Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: e01b0fc2614f2ca51811089d57ce0b8bc821a60b130ace29bd4321c14
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Wither
 
@@ -92,7 +92,7 @@ Description signature: 2faf081b8647e76a17745a78e1bbc3826f83d824cf24f8b12ad8a66e5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Spirit Fire Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: fa38a2a78a0f01e997185c3c32d2e1c019590c37e47c886eeebd5cdf2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Fury of the Sands Primary Damage
 

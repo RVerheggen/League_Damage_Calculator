@@ -36,7 +36,7 @@ Description signature: bfe42e9a60d940b24a8f5922944a817a1d35e4173f151c6f3cb4abba7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### To the Skies! / Shock Blast Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: af2ae609f49f6d8a784ed04021cf62eb8994a228c1abaa0f7e4548290
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Lightning Field / Hyper Charge Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: a54a4983d8d011b534d082f65d66464191fc766dc16c6568a969c3b7a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FlatDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Thundering Blow / Acceleration Gate Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 870753385b26f5a0c4f23c81f440aa1fc8d9d155b290458ace47d03c7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Mercury Cannon / Mercury Hammer Primary Damage
 

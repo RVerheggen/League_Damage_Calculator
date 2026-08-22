@@ -36,7 +36,7 @@ Description signature: 8c1d39dc9e39adbd2063ee58094c8bef0655e3a6d841995702167f894
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Flair Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: fe227109d6bd5b36774ad19c49fb31923afaacf1fd60f7439b209b217
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Blade Whirl Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 3f1fcbba7e7171a9a0fbb6fce0ac59e2941bc3865f89f2879b0a48685
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DashDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Wild Rush Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: f5a63a78efd1400c147e7e1aba0b1b844904b48a4716ff60a36ceef1c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Inferno Trigger Primary Damage
 

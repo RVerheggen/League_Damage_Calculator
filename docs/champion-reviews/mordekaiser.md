@@ -36,7 +36,7 @@ Description signature: c49d82b9f45a72d3877b37d60ccb67d3a63b243eae3653e2c191c4d8d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Obliterate Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 54fa0a292fffe09672729b5694ed0263e9036ba73ff428e47ce9515ae
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Indestructible Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: e6dffe77114571cd4b6bf7098c08acefb4d700521b272f94382d31870
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Death's Grasp Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 7d9a5aa792fab69eeda510b6d5eb4c3a8a71da3fb290db56b7508d36c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Realm of Death
 

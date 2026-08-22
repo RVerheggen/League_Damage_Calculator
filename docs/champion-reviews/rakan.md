@@ -36,7 +36,7 @@ Description signature: 50f7ca6812b44e3c53d65844d6cc3a36afdd3b10158d61905ff2cccb7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Gleaming Quill Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 7970619378a64a3a2b0fa820a833e52895020751ce1c0ae3de3f1913d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Grand Entrance Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: e1ac3b4d11d42258b619d1332304c6d4ac96ad5f77cc702458cc7833a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Battle Dance Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: 3ca828a874400e1a4946815f87a3c5f495508b06d2b850a4c429bac51
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### The Quickness Primary Damage
 

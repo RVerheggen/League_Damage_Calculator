@@ -59,7 +59,7 @@ Description signature: 35a76b1151e4c7dae5d88506c1c91ad204715c127c799b9973fed416c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InterruptDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Steadfast Presence Primary Damage
 

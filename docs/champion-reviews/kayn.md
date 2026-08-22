@@ -36,7 +36,7 @@ Description signature: abc4a09c58ecddcdd36f2fb318f719cc555009edbb4710d29d52fb46b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Reaping Slash Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 8e42a0fedaed04b3f07c1ca3c6c6dcc7dfb9065c7ebaee8cd4d404c1a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Blade's Reach Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: e840a510d2528d6c8c493623a833c4996e77cf268c33f86de9d3357db
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Shadow Step Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: a130b784871c38723b04bd28d233d807c02fbae8bd68b2514fcede8df
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Umbral Trespass Primary Damage
 

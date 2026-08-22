@@ -36,7 +36,7 @@ Description signature: 349ad08823fe26321e6f6b6889ee171f1f418802ed663dc31170dae07
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation VanillaDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Elemental Wrath / Edge of Ixtal Primary Damage
 
@@ -60,7 +60,7 @@ If Qiyana does not have an Enchantment, she slashes, dealing physical damage to 
 
 ## W - Terrashape
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 94600730a8ac2a6652c078e522fbb83fd2b5167c4b480fa28550b64592e880b9
 
@@ -69,25 +69,15 @@ Description signature: 94600730a8ac2a6652c078e522fbb83fd2b5167c4b480fa28550b6459
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation OnHitDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Terrashape Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+The selected weapon enchantment controls a repeated magic on-hit state. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Terrashape Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-on-hit
+- Reason: The selected weapon enchantment controls a repeated magic on-hit state. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Passive: While Qiyana's weapon is Enchanted, she gains % Attack Speed and her Attacks deal an additional magic damage. She also gains % Move Speed while out of combat near the corresponding terrain type. Active: Qiyana dashes towards a nearby brush, terrain, or river and Enchants her weapon with that particular terrain type. This refreshes Elemental Wrath / Edge of Ixtal's Cooldown.
 
@@ -102,7 +92,7 @@ Description signature: 6a2aba25cbd810d789b64cf528087b95a984b429220d48121dd1a57b3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Audacity Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: c3549355862eba59331ee81c0a73c4cffc31d528a8b60c1b507729651
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Supreme Display of Talent Primary Damage
 

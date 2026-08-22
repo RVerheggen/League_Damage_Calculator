@@ -36,7 +36,7 @@ Description signature: ef03d00e958df42e0049182c7ae0b50c6f984cebb2ef3b7918f2b6414
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TapDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Comet Spear Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: dbcad7244abf6b74a357a21c222424607fa77fa1e1e3d9ed7cffd6c13
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MaxHealthDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Shield Vault Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 46ff1695fbb23200527dc64cab49e78472f8aae75320e0d5edd0b7b64
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Aegis Assault Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 0e5e90ad516c81a65000058688f5c2b131409be1dbace233a00273d4a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Grand Starfall Primary Damage
 

@@ -27,7 +27,7 @@ Draven gains his fans' Adoration when he catches a Spinning Axe or kills a minio
 
 ## Q - Spinning Axe
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 7d2b02341ac4641cd373b47c526e98ffa164cda4d8ff2ce0ba753e1c435d05b0
 
@@ -36,27 +36,21 @@ Description signature: 7d2b02341ac4641cd373b47c526e98ffa164cda4d8ff2ce0ba753e1c4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+Spinning Axe is mapped to the recurring-attack-state family. A cast can add an axe up to two, each attack consumes one held axe, and a typed catch result must return it after the attack. This recurring weapon state is not compiled yet.
 
-### Spinning Axe Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
-
-### Spinning Axe Remaining Combat Behavior
+### Spinning Axe Recurrence
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: recurring-attack-state
+- Reason: The runtime needs a typed per-attack catch result and post-hit axe return timing before this can compile safely.
 
-Draven readies a Spinning Axe, causing his next Attack to deal an additional physical damage and ricochet into the air. If Draven catches it, he readies another Spinning Axe. Draven can hold two Spinning Axes at once.
+Casting Q readies an axe, a successful attack consumes one held axe for bonus physical damage, and catching it readies another. Draven may hold two axes.
+
+Formula bindings: DravenQ.TotalDamage
+
+Value bindings: DravenQ.AxeDuration, DravenQ.MaxAxes
 
 ## W - Blood Rush
 
@@ -69,7 +63,7 @@ Description signature: f890519e262ea4e52517c3b352b19ec302c09eb9aec0f62b3b2814f79
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Blood Rush Remaining Combat Behavior
 
@@ -92,7 +86,7 @@ Description signature: 822bd543e7c4736ff641ff68028fe11de049332bdc895e836f7604a63
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Stand Aside Primary Damage
 
@@ -125,7 +119,7 @@ Description signature: 0c9449c17c4664cc709adf8e8aade5cbd78ba86bf50857d026c36f2db
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RCalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Whirling Death Primary Damage
 

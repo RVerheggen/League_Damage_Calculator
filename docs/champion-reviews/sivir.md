@@ -36,7 +36,7 @@ Description signature: dd1c1c18681dba3970e19e4ec196d0b6e9e03dca1604c51d4f0f702b5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Boomerang Blade Primary Damage
 
@@ -60,7 +60,7 @@ Sivir hurls her crossblade like a boomerang, dealing to all enemies it cuts thro
 
 ## W - Ricochet
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: a2b6e289365de9e44ee1125e89d02e19df5121a233fe62644843072a26c246af
 
@@ -69,25 +69,15 @@ Description signature: a2b6e289365de9e44ee1125e89d02e19df5121a233fe62644843072a2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BounceDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Ricochet Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+The timed state grants attack speed and adds secondary bounce packets to attacks. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Ricochet Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-on-hit
+- Reason: The timed state grants attack speed and adds secondary bounce packets to attacks. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 For the next seconds, Sivir gains % Attack Speed and her auto attacks are empowered to bounce to additional surrounding enemies dealing physical damage each bounce for up to bounces. These bounces critically strike if the attack generating them does.
 
@@ -102,7 +92,7 @@ Description signature: fdd4221362955c129698036edb8c8f2c64962a6c821dfbb60023ac299
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Spell Shield
 
@@ -125,7 +115,7 @@ Description signature: 8f5f73be31fd8d68f3f2edbac92658f53acc0d1a0ab40b020ac77845e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### On The Hunt Remaining Combat Behavior
 

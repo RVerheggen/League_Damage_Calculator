@@ -36,7 +36,7 @@ Description signature: 49fa0a9fb7e99b0b9c8499ab8eeced44c57f20bf6d6a181ba9bd2af7d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Handshake Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 0f417a74b1a49436eebdfd09366da6fb292bc675bbc6b578468f3a969
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Bailout
 
@@ -92,7 +92,7 @@ Description signature: c697322d8fd287cd003525aa018410cd0ce251d79d546a25ab202a581
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Loyalty Program Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 92b707b139d70ffff767bb933cd4b15f783ae8fd24201c40a99c95f16
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Hostile Takeover
 

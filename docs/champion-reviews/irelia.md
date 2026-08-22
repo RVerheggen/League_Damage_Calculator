@@ -36,7 +36,7 @@ Description signature: 991e342c41017ec01501860f4d42fc9207af42588cabdfcebb5e6185d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ChampionDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Bladesurge Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: a342481c65ec7a8a1d4e210df9ad6b5e097f8b7fe7504a976cb4d558e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Defiant Dance Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 828e9f3c5e28824db4ceb313cd6fdcec6200a7a3bad719aed064bfee9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Flawless Duet Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: a1a937bc72365d4168cfe28cc6ea669879d1fc24ae82ecf8ebf270acf
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Vanguard's Edge Primary Damage
 

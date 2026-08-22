@@ -160,7 +160,7 @@ Description signature: dca890e3b2e4b3a01e2c36ec85fb05c291384d661a94374edf466907a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Hail of Arrows Primary Damage
 
@@ -193,7 +193,7 @@ Description signature: b160de087eb8d2f3d324fe91e491dc0b7704caea262845942ab6b8a80
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Chain of Corruption Primary Damage
 

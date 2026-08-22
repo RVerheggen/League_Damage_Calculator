@@ -36,7 +36,7 @@ Description signature: 673875e606a5f6f8e049abc6119f6e8fe879aaafe1f5c4f3b2b3f10e1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ActiveDamageThatCanCrit was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Burst Fire Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b3846ed6c7b0d2ef89755704595b1a0327e15c3ef32fdf50e21864d4d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ultrashock Laser Primary Damage
 
@@ -93,7 +93,7 @@ Zeri fires an electric pulse that deals physical damage and Slows the first enem
 
 ## E - Spark Surge
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: fe4379b92b3791f66b3dfb05787e06abdca7495d3f729e911cc256bbe99d6fd1
 
@@ -102,17 +102,7 @@ Description signature: fe4379b92b3791f66b3dfb05787e06abdca7495d3f729e911cc256bbe
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusDamageTotal was preserved. Stateful and alternate effects require an explicit module.
-
-### Spark Surge Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+The post-dash state adds repeated magic damage and attack-driven cooldown reduction. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Spark Surge Remaining Combat Behavior
 
@@ -120,7 +110,7 @@ The structured primary CommunityDragon calculation is executable.
 - Disposition: template
 - Coverage: unsupported
 - Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Reason: The post-dash state adds repeated magic damage and attack-driven cooldown reduction. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Zeri dashes a short distance and vaults over any terrain she touches, greatly extending the dash range. For the next seconds, her shots of Burst Fire pierce dealing % damage to enemies after the first and an additional magic damage On-Hit to the first target struck. Hitting an enemy with an Attack reduces this Ability's cooldown by seconds. Critical strikes reduce the cooldown by seconds instead.
 
@@ -135,7 +125,7 @@ Description signature: 90e0ac984c609315625cb4557558b2f5bfdb69c3a98db943c2be8380d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalActiveDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Lightning Crash Primary Damage
 

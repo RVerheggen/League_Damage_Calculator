@@ -13,15 +13,15 @@ Description signature: fa9502b21a77c816909ea06f922a6673e5dd2335eefe5af88592d4051
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+The passive combines an armed double shot with a separate two-attack magic-damage state and needs split reviewed components. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Lightslinger Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: The passive combines an armed double shot with a separate two-attack magic-damage state and needs split reviewed components. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Whenever Lucian uses an ability, his next attack becomes a double-shot. When Lucian is healed or shielded by an ally, or when a nearby enemy Champion is immobilized, his next 2 basic attacks will deal bonus magic damage.
 
@@ -36,7 +36,7 @@ Description signature: ce4a23d4db4d5ef8609cfb2a4d2e15f4535d5373f701c9c4a6f8110f0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Piercing Light Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 6d6827a33dd996a5c76dbc61d640cc858da8e6c7901b146b71187e015
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Ardent Blaze Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 84a2040fc8e2edb1b4df12d38965721cfbe4df0e0764c4ad23d4ba4b3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Relentless Pursuit Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: fa3a5bfde4b2fad6a19066933f76b778537906f2171d620065c27acc7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerBullet was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### The Culling Primary Damage
 

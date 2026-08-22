@@ -36,7 +36,7 @@ Description signature: d226e0f1995f5f6e60a87906e2afabe95ede30f3516859e44c68ac18f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Precision Protocol Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 564ef919d87306c0a3e9d7d53265e82e8ed04e54e4776739f5fdb8351
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamageTotal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Tactical Sweep Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 80e241783ba08c833e8205b31089b2b96127ffe6b486295d839ff581b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Hookshot Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: cbf4d4f9667dfb19734ff810eb20685664715df8595a4c88e8e41d82f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely.
+The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### The Hextech Ultimatum Remaining Combat Behavior
 

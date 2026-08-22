@@ -36,7 +36,7 @@ Description signature: 002e3d95ac0f2c59ec786a705786406f2bdbc2df422ea99155a7ecefe
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MiniTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Boomerang Throw / Boulder Toss Primary Damage
 
@@ -60,7 +60,7 @@ Mini Gnar: Gnar throws a boomerang that deals physical damage and Slows by % for
 
 ## W - Hyper / Wallop
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 124c0f03004916c43a895cf6c10ffbdabd9ad2e83363060bff5899b528c03301
 
@@ -69,17 +69,7 @@ Description signature: 124c0f03004916c43a895cf6c10ffbdabd9ad2e83363060bff5899b52
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MiniTotalDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Hyper / Wallop Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Attacks and abilities share a per-target third-hit threshold. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Hyper / Wallop Remaining Combat Behavior
 
@@ -87,7 +77,7 @@ The structured primary CommunityDragon calculation is executable.
 - Disposition: template
 - Coverage: unsupported
 - Template or handler: stacking-proc
-- Reason: The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
+- Reason: Attacks and abilities share a per-target third-hit threshold. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 Mini Gnar Passive: Every third Attack or Ability on the same enemy deals an additional plus % max Health magic damage and grants % Move Speed decaying over seconds.
 
@@ -102,7 +92,7 @@ Description signature: 2596513a5bfc011a02e4459090e08087fb2e68ed1c83d5792c48d1632
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MiniTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Hop / Crunch Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: 96b492232f801c3ba0c98f60326c116f518eec9684fa70e50506956e4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### GNAR! Primary Damage
 

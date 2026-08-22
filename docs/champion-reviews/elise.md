@@ -36,7 +36,7 @@ Description signature: 48312da58e6526b8c42b415b8b9efc0a0fdb0261b90fcea1f8d8ad5dd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation HumanPercentHealth was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Neurotoxin / Venomous Bite Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: d2136e9b2fbda4acd4c5c5b5a0cf76fd3e01a689a9b7a3c7a54350872
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Volatile Spiderling / Skittering Frenzy Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: f0535f20e4428b0c6c2ace9c32d2cdb8354727b3039c3116d3665c235
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Cocoon / Rappel
 
@@ -125,7 +125,7 @@ Description signature: a634e76f61b532efc965c1ddfc27f37cc501ced920b1a0e52d9151e3d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Spider Form
 

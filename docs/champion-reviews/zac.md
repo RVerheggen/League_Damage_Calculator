@@ -36,7 +36,7 @@ Description signature: 0e69e4154685351d8d766e7faf8882db8e0d263491d7588b5e68aab8c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Stretching Strikes Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 7e69deea54b986382d8812af25b1820ec2692e6b86b9d6c1cd67d3bd4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DisplayPercentDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Unstable Matter Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: f5bf276416201f5e0538068e8b4f46935244ec44aa998ec8e27d1fa13
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Elastic Slingshot Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: e315a429944bfa2d8ddda0969e6a36789b3b53e868a3017cd027c0cea
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerBounce was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Let's Bounce! Primary Damage
 

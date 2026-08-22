@@ -36,7 +36,7 @@ Description signature: 4223fbf71d1794a8d7bb93a44b438ad74a95fc2cad3e8cbf08ff1d575
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Ntofo Strikes Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 604b65fa1d6e38bc70c76de63f29857e9febe035d5f888e4a153f547c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalMaxHealthDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Path Maker Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 6dd048439905c082a56690b2fcf124b1ccdbcb076c63f3857dbdb26d9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Footwork Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: 2c7d8a33d8962fee77b6438ac9a1e7903bfbfb1e3b48f1819fd584e94
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageSlamDown was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### All Out Primary Damage
 

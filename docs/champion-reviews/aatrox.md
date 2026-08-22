@@ -36,7 +36,7 @@ Description signature: 1760cca346f1e5ca6544dbd38d11853625d5395301448248dcbfd6f5e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### The Darkin Blade Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 7c18b84d8e24c6819c8054dc8cd5a81355ef0ba552d5bbec0fd534cdc
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation WDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Infernal Chains Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 5128f5cf7d6cf6c7b523e18b60070e9b2e35e79e1443097b12b6da519
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Umbral Dash
 
@@ -125,7 +125,7 @@ Description signature: 762e9f8da5181ff7a01747abab35f01fc67559f6b12b401f1765223c9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### World Ender Remaining Combat Behavior
 

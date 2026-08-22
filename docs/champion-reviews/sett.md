@@ -4,7 +4,7 @@ Patch: 16.16
 
 ## P - Pit Grit
 
-Coverage: out-of-scope
+Coverage: unsupported
 
 Description signature: dcd91c3da8dfa44ad8544f94286d942185e8e2fc66d4c60b8f70a5b4d4da22ec
 
@@ -13,21 +13,31 @@ Description signature: dcd91c3da8dfa44ad8544f94286d942185e8e2fc66d4c60b8f70a5b4d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
+Pit Grit is damage-relevant and mapped to the attack-cycle family. Left and right punches alternate, and the right punch has separate damage and timing.
 
-### Pit Grit
+### Left And Right Punch Cycle
+
+- Relevance: attacker
+- Disposition: template
+- Coverage: unsupported
+- Template or handler: attack-cycle
+- Reason: The runtime does not yet persist an alternating attack variant while preserving the selected attack outcome.
+
+Basic attacks alternate between left and right punches. The right punch is faster and deals additional damage.
+
+### Missing-Health Regeneration
 
 - Relevance: neither
 - Disposition: out-of-scope
 - Coverage: out-of-scope
 - Template or handler: none
-- Reason: The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
+- Reason: Healing totals are outside scope because this one-way damage simulation does not use attacker regeneration to change outgoing damage.
 
-Sett's basic attacks alternate between left and right punch. Right punch is slightly stronger and faster. Sett also hates losing, gaining additional health regeneration based off of his missing health.
+Sett gains health regeneration based on missing health.
 
 ## Q - Knuckle Down
 
-Coverage: partial
+Coverage: modeled
 
 Description signature: 56cf3e807aa18fc30c9bec8493fcd360d056d204ec27d0f87cba9348f06545f4
 
@@ -36,27 +46,31 @@ Description signature: 56cf3e807aa18fc30c9bec8493fcd360d056d204ec27d0f87cba9348f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MaxHealthDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+Knuckle Down empowers the next two successful basic attacks for four seconds with patch-ranked flat and maximum-health physical damage. Movement speed does not change manually timed damage.
 
-### Knuckle Down Primary Damage
+### Knuckle Down Attacks
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
+- Template or handler: limited-attack-state
+- Reason: Compiled by the reusable limited-attack-state template. The two retained Sett Q attack records validate the attack count.
 
-The structured primary CommunityDragon calculation is executable.
+Casting Q empowers the next two successful basic attacks for four seconds with flat and maximum-health physical damage.
 
-### Knuckle Down Remaining Combat Behavior
+Formula bindings: SettQ.MaxHealthDamageCalc
 
-- Relevance: attacker
-- Disposition: template
-- Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+Value bindings: SettQ.BaseDamage, SettQ.Duration, SettQAttack, SettQAttack2
 
-Sett itches for a fight, gaining % Move Speed towards enemy champions for seconds. Additionally Sett's next two Attacks deal an additional plus max Health physical damage.
+### Knuckle Down Movement Speed
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: Movement does not change manually selected hit timing or damage.
+
+Casting Q grants movement speed toward enemy champions.
 
 ## W - Haymaker
 
@@ -69,7 +83,7 @@ Description signature: a27701d388a845a3c83e686354a19b926593d5c3c96ec6e2c281c4466
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Haymaker Primary Damage
 
@@ -102,7 +116,7 @@ Description signature: 1dfffbb71c0a5de95c22ff7668ff0fe16192ed0eba3c4911b267d11d2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Facebreaker Primary Damage
 
@@ -135,7 +149,7 @@ Description signature: 0b23048ca5d4f5be674f0a592bdfc0d06583a1c6d4890faf16bb843a0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### The Show Stopper Primary Damage
 

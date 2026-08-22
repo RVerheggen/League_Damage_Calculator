@@ -13,15 +13,15 @@ Description signature: ac9d8059d54e2e267dd03ebd0d16a01f28bdcfecac5d5577d3dfd6804
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+Spellcasts store Petricite Burst charges that later attacks consume. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Petricite Burst Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: Spellcasts store Petricite Burst charges that later attacks consume. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 After casting a spell, Sylas stores a charge of Petricite Burst. Sylas's basic attacks will expend a charge and whirl his energized chains around him dealing bonus magic damage to enemies hit. While Sylas has a charge of Petricite Burst, he gains attack speed.
 
@@ -36,7 +36,7 @@ Description signature: 95f18fd9fea6a0a473ea5a1551036ca0312d919d6d1f02095c9d297c6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Chain Lash Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 174949c9b0ab4bf21da000566b44b0a295a4366b5eea7a54cfaa8aa78
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Kingslayer Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: f63e237465ac8c9d4a8bc01caa2903f432c3079d03fafe69bb56b0aba
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Abscond / Abduct Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 89917842ea4514ff5a7cdbdb7c95f8dc8910763749e0723a9fa85c461
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Hijack Remaining Combat Behavior
 

@@ -36,7 +36,7 @@ Description signature: 493958760ec391a604f4a05f6db9e501cb1978a5eca1b06cd3550fc55
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Starcall Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: eba99cfe0b28ca5f713e680d117aae4dfa988f5a218386fb8449880fe
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Astral Infusion
 
@@ -92,7 +92,7 @@ Description signature: 0932d572c1e7743f4730bab72542a7236ad13200e280ddd8ed3200fe3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Equinox Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 5d299793d0a143b69cb39b537d47e5fb52e9a38b06be6f2072dc5a7e0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Wish
 

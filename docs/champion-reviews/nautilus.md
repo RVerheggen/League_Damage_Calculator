@@ -36,7 +36,7 @@ Description signature: 422f4857c54c1a5db6376b703491ef9c80c34f144265cc83c12dfd84b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation QDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Dredge Line Primary Damage
 
@@ -60,7 +60,7 @@ Nautilus hurls his anchor forward. If it hits an enemy, Nautilus drags himself a
 
 ## W - Titan's Wrath
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 6a05a802b0f5c4b3be133bfe0278713af113a795cb2f3c43fe568b372f817d86
 
@@ -69,25 +69,15 @@ Description signature: 6a05a802b0f5c4b3be133bfe0278713af113a795cb2f3c43fe568b372
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DotDamageCalc was preserved. Stateful and alternate effects require an explicit module.
-
-### Titan's Wrath Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Repeated attack damage is active only while the spell's shield persists. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Titan's Wrath Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: shield-with-lockout
-- Reason: The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-on-hit
+- Reason: Repeated attack damage is active only while the spell's shield persists. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Nautilus gains a Shield for seconds. While the Shield persists, Nautilus' Attacks deal an additional magic damage over 2 seconds to his target and all surrounding enemies.
 
@@ -102,7 +92,7 @@ Description signature: e5bf39cbdb636e35434fbe86cc8607dc78a55ebbc528f33d94c37518a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Riptide Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: fbee5b091da8fb693745e88e8b120c0cde3a7ff6143ac02050af7102f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PrimaryTargetDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Depth Charge Primary Damage
 

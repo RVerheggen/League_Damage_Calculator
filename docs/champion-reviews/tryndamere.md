@@ -36,7 +36,7 @@ Description signature: e5d81fa70ec775d9e04952df37ca2208029bae10f8c5f5bf30286ddda
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Bloodlust Remaining Combat Behavior
 
@@ -59,7 +59,7 @@ Description signature: c1c921c3cddd2caae7d95e3404871580654a26d4414c84ef0a3c254a0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Mocking Shout Remaining Combat Behavior
 
@@ -82,7 +82,7 @@ Description signature: d336d4f9c966fad35a0f8ab05ea422c344d8c969b72a7ae2a4ebbd2d3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Spinning Slash Primary Damage
 
@@ -115,7 +115,7 @@ Description signature: 47ad53c90d020c526ecf2f268f3649023f99c121cdaa33297029bb5ca
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Undying Rage
 

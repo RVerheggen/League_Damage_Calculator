@@ -36,7 +36,7 @@ Description signature: 2715cbef804314c4b068931ecebb8abbe84f699d8df57a64e7cc7efb9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Baleful Strike Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 8164a896875f418c26d93e11c313017896b5bc72caca4f3745a7d8bdc
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Dark Matter Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 1b7f4bad39b110b6013af32ed931b95023afe0d0af288cc9fce871379
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Event Horizon
 
@@ -125,7 +125,7 @@ Description signature: f9d8c464aace5c3776eeb834a58384749e60f064719bf8c9d043225b9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Primordial Burst Primary Damage
 

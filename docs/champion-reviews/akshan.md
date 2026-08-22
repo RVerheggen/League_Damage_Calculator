@@ -107,7 +107,7 @@ Description signature: 9f50bdff3b0d6ff82ad48821cf465f55cc6008dd5c08d165bab0d8c22
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Going Rogue
 
@@ -130,7 +130,7 @@ Description signature: ab014a6cdf38436dacd58c1c0bef367d94a187fcc75c6f7961db3a99d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageToDeal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Heroic Swing Primary Damage
 
@@ -163,7 +163,7 @@ Description signature: ef0b44a2269508a49751fadf4f3c02f6a98700759a003964def8cffa7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerBulletWithCrit was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Comeuppance Primary Damage
 

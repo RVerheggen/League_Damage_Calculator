@@ -36,7 +36,7 @@ Description signature: 74275e084ff025b746b37b1491101d3c3073fb9eeb0e28bfd036f6f70
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialExplosionDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Radiant Volley Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 67b9b9531b8db714ba4231c34edbbe7a37c45e5b46a40bea848aa7857
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePercent was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Rebuttal Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: bddc781235b1e464bc5db50066c8b48d2a4e31190c78f8e7b5e8225e7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Solar Snare Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 43d8f4e33cfa1bdaf1895f861e9e85694f03938a039504fa1a8f11560
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PassiveFlatDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Golden Eclipse Primary Damage
 

@@ -36,7 +36,7 @@ Description signature: fb5d0456774ca0ab908e249ff41dee775ffa53a1fce6da001f0a413a0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Arctic Assault Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: eb2cfffcb47b5087d2dde53853e37706f9a223ed825f5d99b9442241d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FirstHitDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Winter's Wrath Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 90833880700aa57da80504f9f376ba32cf6f45defb1b3e31f97fec33a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Permafrost Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 6e45d4f79f876a1eb126bb7a4e425ed3fe0a0e0574a4470db89b8cbc6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinorDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Glacial Prison Primary Damage
 

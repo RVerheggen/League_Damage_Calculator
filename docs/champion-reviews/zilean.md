@@ -36,7 +36,7 @@ Description signature: a2162bdcb1ccd63b3a66db498f5976a9dc464429198a754a03de1de5e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Time Bomb Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: bad8b2a06c742b5136906c895c5b23947f24a68182d32401e4d478690
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Rewind Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 09461e8131d560e94392ec5d066a996c43025219d187c7e82639fee61
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Time Warp
 
@@ -115,7 +115,7 @@ Description signature: 93469a3527b96697a6b715f7f9d39370ade7ee1d1c97312030a284956
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Chronoshift
 

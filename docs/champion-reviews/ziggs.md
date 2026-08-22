@@ -36,7 +36,7 @@ Description signature: 751fe9d303569c4c6c3e0a33a2d8ed4d354c60e23257f933de9ae9652
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bouncing Bomb Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: bf1c32cf0eab04618f7c6b32f9e454a0143c0a99caa239a3ec5279a78
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Satchel Charge Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 2420e4d877a39e79b85ada00f4f1d25672819dfd16c529c927489eb72
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Hexplosive Minefield Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: c8b69f7e6969d3ca7030eb411529b5ae12970406e31755034b43e8f47
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EmpoweredDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Mega Inferno Bomb Primary Damage
 

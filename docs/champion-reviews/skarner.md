@@ -27,7 +27,7 @@ Skarner's Attacks, Shattered Earth, Upheaval, and Impale, apply Quaking. At max 
 
 ## Q - Shattered Earth / Upheaval
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 09d47651949904c38ada1c1d988b3bf0ebc834212bf777fe46cd7f35f1e9d1ca
 
@@ -36,25 +36,15 @@ Description signature: 09d47651949904c38ada1c1d988b3bf0ebc834212bf777fe46cd7f35f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation AbilityDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Shattered Earth / Upheaval Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Three attacks are empowered and the final attack has a separate damage result. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Shattered Earth / Upheaval Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: Three attacks are empowered and the final attack has a separate damage result. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Skarner rips a boulder from the ground, empowering his next 3 Attacks with % Attack Speed and dealing physical damage to surrounding enemies. His final Attack will deal an additional % max Health physical damage and Slow affected foes by % for s. Recast: Skarner ends this Ability and throws his boulder, dealing + % max Health physical damage, and additionally Slowing the first enemy hit - and any other surrounding enemies - by % for s.
 
@@ -69,7 +59,7 @@ Description signature: e420128d4cce8403ef290cabba650cc2e7f6080ccb88f0145e7356ddd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Seismic Bastion Primary Damage
 
@@ -102,7 +92,7 @@ Description signature: 4ba917e01f2c2e11b186eebb39452774dca5ccc037fa1834b2cf92afb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PinDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ixtal's Impact Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: f8bcbc238c5b77053d96152555415b9318c42e1ebaedc01358dfe6e38
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Impale Primary Damage
 

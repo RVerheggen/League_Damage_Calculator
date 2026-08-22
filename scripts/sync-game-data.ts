@@ -330,8 +330,11 @@ function parseBinCalculation(name: string, spellData: any, seen = new Set<string
       unresolvedParts: [...whenTrue.unresolvedParts, ...whenFalse.unresolvedParts, ...unresolvedParts],
     };
   }
+  const baseFormula: SerializedFormulaNode = { type: "sum", nodes: (calculation.mFormulaParts ?? []).map(parsePart) };
   return {
-    formula: { type: "sum", nodes: (calculation.mFormulaParts ?? []).map(parsePart) },
+    formula: calculation.mMultiplier
+      ? { type: "product", nodes: [baseFormula, parsePart(calculation.mMultiplier)] }
+      : baseFormula,
     displayAsPercent: Boolean(calculation.mDisplayAsPercent),
     unresolvedParts,
   };

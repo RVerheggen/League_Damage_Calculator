@@ -36,7 +36,7 @@ Description signature: 574ecb7adc58d78033154cf47249d2025d7655ba8f950999474a0cf5f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Barrel Roll Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 4b70607f31d84481e16837d5651febc9bcec8dd369124d035a1b90e43
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Drunken Rage Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 97b9f0b681c73a0e181ed1683841c27ea7b67d9feb7238e91117caf4e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Body Slam Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 5f6331f32b8438b3f2e5b97729760255debbf9eaba51849747a46124d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageDone was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Explosive Cask Primary Damage
 

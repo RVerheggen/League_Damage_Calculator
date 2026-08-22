@@ -36,7 +36,7 @@ Description signature: 4f04bf7393db4f3a97291c879419a6aacd67135d40010f6fb8c2c90f5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Volcanic Rupture Primary Damage
 
@@ -92,7 +92,7 @@ Description signature: fb49f2c1c260ed0639feff52ffb50533bdefcf82b098d1b3f99b07fb1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Searing Charge Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 904dac494ff419957b853a93bbdeb201ba953dd4e2c2be191c04ef860
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Call of the Forge God Primary Damage
 

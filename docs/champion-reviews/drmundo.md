@@ -59,7 +59,7 @@ Description signature: 57e6ea30d469413f59ce7cb5aa105b3bc3cc0e56ceae396bed6f1c6db
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Heart Zapper Primary Damage
 
@@ -92,7 +92,7 @@ Description signature: 139bca3e5a8a00a282909d610388378446bd62bf8689848fec7225f7d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PassiveBonusAD was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Blunt Force Trauma Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 0ec84dc933a4594be193d14f255e4dd15ab8beea3b9735345ec679d27
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Maximum Dosage
 

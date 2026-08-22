@@ -36,7 +36,7 @@ Description signature: 217d5c787205221fbdcc4af80d184656052b93668464706dd70240368
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation HumanMinimumDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Javelin Toss / Takedown Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 6fec5f87fda00a1d7b48b52aff091614864cbf06f3881ccd08ba87608
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bushwhack / Pounce Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 0f7016f5cfdcc824516ae9e64b5f51fcafdd7f82fc5e7aacc62487263
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Primal Surge / Swipe
 
@@ -125,7 +125,7 @@ Description signature: d66ca58be08cdf44ad5a6ecfb281fcbef6652964e5d99a8ba1cdcb0a9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Aspect Of The Cougar Primary Damage
 

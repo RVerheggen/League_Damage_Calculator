@@ -13,15 +13,15 @@ Description signature: 0655bd53018639f07046d2eff04585b563affd47ac4385fe1a9c3302d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+Ability casts grant a bounded set of piercing attacks that leave feathers. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Clean Cuts Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: Ability casts grant a bounded set of piercing attacks that leave feathers. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 After using an ability, Xayah's next basic attacks will hit all targets along their path and leave a Feather.
 
@@ -36,7 +36,7 @@ Description signature: ac5033f934e1a9d9a30d7e34f48757c482142866f8281615808fc45c7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Double Daggers Primary Damage
 
@@ -60,7 +60,7 @@ Xayah throws two daggers, dealing physical damage each and leaving two Feathers.
 
 ## W - Deadly Plumage
 
-Coverage: out-of-scope
+Coverage: unsupported
 
 Description signature: 42d6480a4fdef54cbf44e3d72576a1b4161e942f69a1410c1e9802630c0deac3
 
@@ -69,17 +69,37 @@ Description signature: 42d6480a4fdef54cbf44e3d72576a1b4161e942f69a1410c1e9802630
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+Deadly Plumage is damage-relevant and mapped to timed-on-hit plus multi-hit-action behavior. Each attack during the buff fires a secondary blade and gains attack speed.
 
-### Deadly Plumage
+### Deadly Plumage Secondary Blades
+
+- Relevance: attacker
+- Disposition: template
+- Coverage: unsupported
+- Template or handler: timed-on-hit
+- Reason: The runtime needs a repeated secondary attack packet with explicit proc policy before this can compile.
+
+For the buff duration, each basic attack fires a secondary blade for a share of attack damage.
+
+### Deadly Plumage Attack Speed
+
+- Relevance: attacker
+- Disposition: template
+- Coverage: unsupported
+- Template or handler: timed-stat-modifier
+- Reason: The attack-speed value and duration still need reviewed patch bindings.
+
+The cast grants timed attack speed.
+
+### Deadly Plumage Movement
 
 - Relevance: neither
 - Disposition: out-of-scope
 - Coverage: out-of-scope
 - Template or handler: none
-- Reason: The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
+- Reason: Movement does not change manually selected hit timing or damage.
 
-Xayah creates a storm of blades for seconds that grants her % Attack Speed and cause her Attacks to fire a secondary blade that deals % damage. When the secondary blade hits a champion, she grants herself % Move Speed for seconds. If Rakan is nearby he will also gain the effects of this Ability, except he gains Move Speed when Xayah strikes a target.
+Hitting a champion grants movement speed.
 
 ## E - Bladecaller
 
@@ -92,7 +112,7 @@ Description signature: 200f5e89c2d8ca4c6f547993a8e41daab81dac423cd4f97d1c9eb75f5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FeatherDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bladecaller Primary Damage
 
@@ -125,7 +145,7 @@ Description signature: 4e987edb3db46f84efee0b672b96595e19df9c03197e7a8d58bfdf08a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Featherstorm Primary Damage
 

@@ -19,12 +19,12 @@ Schema 3 contains review records for all 865 primary champion sources:
 - 692 Q, W, E, and R sources
 - 865 reviewed sources
 - 0 unreviewed sources
-- 24 Modeled sources
-- 538 Partially Modeled sources
-- 183 Unsupported sources
-- 120 Out Of Scope sources
+- 28 Modeled sources
+- 509 Partially Modeled sources
+- 212 Unsupported sources
+- 116 Out Of Scope sources
 
-Ability-only coverage is 22 Modeled, 538 Partially Modeled, 61 Unsupported, and 71 Out Of Scope.
+Ability-only coverage is 26 Modeled, 509 Partially Modeled, 87 Unsupported, and 70 Out Of Scope.
 
 Each generated record includes stable source IDs, attacker and defender relevance, template, custom, or out-of-scope disposition, exact retained behavior text, exclusions, a specific coverage reason, patch and source signatures, validation notes, and formula or value bindings where reviewed. A conservative record retains the full remaining behavior as Unsupported when it has not yet been split into executable components. Complete review coverage does not imply complete modeling coverage.
 
@@ -48,6 +48,7 @@ Implemented instruction families:
 - shield-with-lockout
 - scheduled-damage
 - multi-hit-action
+- limited-attack-state
 
 The runtime supports counters, refresh, consumption, expiry, buffs, debuffs, shields, lockouts, dynamic stats, damage amplification, resistance changes, cooldown changes, delayed packets, refreshable multi-tick schedules, and nested state and damage results. Attacker and defender programs execute at supported event boundaries.
 
@@ -85,22 +86,38 @@ Varus W remains Partially Modeled because its active missing-health Q empowermen
 
 Kog'Maw's bonus range and monster cap, Gwen's dash, range, and attack reset, and Fizz's attack reset and kill-only mana and cooldown branch are visibly Out Of Scope for manually timed champion-target damage. Fizz's passive reapplication replaces only unresolved ticks, while already resolved ticks remain in the result history.
 
+## Repeated attack family delivered
+
+- Master Yi Wuju Style: five-second repeated true damage with full rank and total AD bindings.
+- Cho'Gath Vorpal Spikes: three attacks, six-second expiry, typed Feast stacks, AP scaling, and maximum-health magic damage.
+- Sett Knuckle Down: two attacks, four-second expiry, flat damage, and total-AD-scaled maximum-health physical damage.
+- Shen Twilight Assault: three attacks, typed Spirit Blade champion collision, normal and empowered damage, eight-second expiry, and conditional attack speed.
+- Malphite Thunderclap: base passive armor, six-second armed attack, first aftershock, and five-second repeated aftershocks.
+
+Malphite W remains Partially Modeled because live Granite Shield loss is not yet linked to the passive armor multiplier. Kled W is now correctly non-castable and assigned to automatic-attack-sequence. Draven Q is assigned to recurring-attack-state. Master Yi P and Sett P are assigned to attack-cycle rather than Out Of Scope. Xayah W is also no longer incorrectly Out Of Scope.
+
+The full patch 16.16 candidate audit and the boundary between these shapes is in [repeated-attack-family-audit.md](./repeated-attack-family-audit.md).
+
 ## Generated family inventory
 
 The catalog currently assigns reviewed components to these reusable families:
 
-- direct-damage: 796
+- direct-damage: 757
 - conditional-amplifier: 73
-- stacking-proc: 73
-- shield-with-lockout: 65
+- stacking-proc: 70
+- shield-with-lockout: 63
 - timed-on-hit: 62
-- timed-stat-modifier: 62
-- scheduled-damage: 58
-- cooldown-modifier: 50
+- scheduled-damage: 56
+- timed-stat-modifier: 53
+- cooldown-modifier: 49
 - resistance-modifier: 38
+- limited-attack-state: 19
+- attack-cycle: 9
 - arm-next-hit: 7
-- mark-and-consume: 2
+- recurring-attack-state: 4
+- mark-and-consume: 3
 - multi-hit-action: 2
+- automatic-attack-sequence: 1
 - custom handlers: 7
 
 These are component assignments, not counts of fully modeled sources.
@@ -109,7 +126,9 @@ These are component assignments, not counts of fully modeled sources.
 
 ### P0: champion buffs and on-hit passives
 
-- Multi-attack states: Shen Twilight Assault, Kled Violent Tendencies, Draven Spinning Axe, and Malphite Thunderclap.
+- Automatic attack sequences: Kled Violent Tendencies needs passive cooldown-ready activation from a basic attack.
+- Recurring attack states: Draven Spinning Axe needs typed catch results and support for up to two held axes.
+- Fixed-count follow-ups: Xin Zhao Three Talon Strike and Taric Bravado share per-hit cooldown changes, while Rek'Sai Queen's Wrath refreshes its duration on each consumed attack.
 - Conditional empowered attacks: Camille Precision Protocol, Renekton Ruthless Predator, Nasus Siphoning Strike, Trundle Chomp, and Wukong Crushing Blow.
 
 ### P0: offensive stat stacking
@@ -150,6 +169,7 @@ These are component assignments, not counts of fully modeled sources.
 
 - Only patch resolution may request CommunityDragon latest. Every stored source URL is pinned to the numbered patch.
 - Runtime formulas and values are compiled from named CommunityDragon calculation and data bindings. Required bindings fail when missing, non-numeric, or structurally changed.
+- Structured formula import preserves top-level CommunityDragon calculation multipliers. Percentage bindings must not apply a second manual conversion.
 - The patch 16.16 roster review signature covers all 865 retained source descriptions. A changed signature requires renewed catalog review.
 - Every champion source must have review metadata, source hashes, validation notes, and at least one component.
 - Every Modeled template component must compile.

@@ -36,7 +36,7 @@ Description signature: b73611e6df893a95aa2690f8257c6608a253d8acaae04989ac476620f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation CalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Thundering Smash Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: d3320307de2a6a99bb6556b5a538463a796286a8f3a02e63989d7630b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Frenzied Maul Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: fd6ab836c2c02672f6f47a442d85184cc5ee4d5cdf89ed356ad486b44
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Sky Splitter Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: c07ec1e3a8ae45e1a77346908ea9ba7df49c266b90ca9f41a2ece36c8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TowerDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Stormbringer Primary Damage
 

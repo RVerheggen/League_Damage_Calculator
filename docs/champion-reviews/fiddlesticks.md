@@ -36,7 +36,7 @@ Description signature: 94aac5e5ca3595a79e8fa88d1483974d2afc221b3036cdb0048b8a6a1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalPercentHealthDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Terrify Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: f9150d313e33ffa3c1840b681317d51138fa331baa0936e350146999e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DrainDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Bountiful Harvest Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: bd6df2d75df05760306f89a352f049c414842220a6f9ee469e67d15e6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Reap Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 2f70e4d0a6aa2cc4be0c4b708678b349cca41816c8b2bfdb4bf6cd2b0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Crowstorm Primary Damage
 

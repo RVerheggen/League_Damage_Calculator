@@ -36,7 +36,7 @@ Description signature: ec173ce797aaacae3ddb2810e65013f9e4ddaaafffef0c2bd050003c5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Chomp Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 332ae68fb9774764e6678053385135be5489862e69691242eb1382156
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Frozen Domain
 
@@ -92,7 +92,7 @@ Description signature: 5249d6694cded407b40a4f16a94813641538eecb8dc8a85811c263340
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Pillar of Ice
 
@@ -115,7 +115,7 @@ Description signature: 16387f207c9eb87c6260bc3c63e4f7a11bb8a83fb41c36e115788b04e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalPercentHPDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Subjugate Primary Damage
 

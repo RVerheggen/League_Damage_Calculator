@@ -36,7 +36,7 @@ Description signature: 7d17ed32b6b7b1a2da7236490ce382cfde68430db1ca7d3935d9c68ec
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Paddle Star! Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 57345c8333c536fce5422ec6a2fa21ca8a71fb023f6704234cf53d8ff
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MissileDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Spell Thief Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: dfc3ec250d381be83f28a0959bdfc77134708bc5a521849412fc7a99c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Sleepy Trouble Bubble Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: d24137c3decbb3d551741d80f3839d99c9b722431a4760b4049366cde
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Portal Jump
 

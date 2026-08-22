@@ -13,15 +13,15 @@ Description signature: 30ca2a66afdc813a013017c4ea0df795c5329b24a90194f41c3683df4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+A spellcast empowers the next two attacks with attack speed and resource restoration. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Flurry Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: A spellcast empowers the next two attacks with attack speed and resource restoration. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 After Lee Sin uses an ability, his next 2 basic attacks gain Attack Speed and return Energy.
 
@@ -36,7 +36,7 @@ Description signature: 803f9b7e27f8a1cda82077f9f7f763f111d0d26e70c1ac33b97ad91c7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Sonic Wave / Resonating Strike Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 1d1f6f64f3933945b0118bb7fda102009897a29c59ffb259e869ab722
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Safeguard / Iron Will Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 3704ae4c60b744c500d2812ad4e17ec0f9b659f6e675c61691455de56
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Tempest / Cripple Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 00665c6c6fb7601f8b0d736e4da10d8c65bd1244e4e8c45337221f81b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Dragon's Rage Primary Damage
 

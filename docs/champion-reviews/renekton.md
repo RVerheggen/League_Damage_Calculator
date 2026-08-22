@@ -36,7 +36,7 @@ Description signature: 9dbf7223c576e77f38e25515f195ca206480d045d08547487f839f3f3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BasicDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Cull the Meek Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 024b297ebd82fe8742019659b25493679f92a77edca8c3cd2ceb27192
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BasicTotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Ruthless Predator Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 8bfe33a97046c5bdbeb721f86f82345c9a4ff8f9377bad1b2a51278af
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BasicDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Slice and Dice Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 57145959087adfae8ae81b063a11081e799df283b1ea25e04091b970d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamagePerSecond was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Dominus Primary Damage
 

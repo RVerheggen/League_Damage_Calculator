@@ -36,7 +36,7 @@ Description signature: 79e20c792d753b24ecef028d05785aa93f874c985e4a738d7845b416d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTT was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Light Binding Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: f824e2e14b98829487d1d37c6b35aca1a307426169698892a0533d421
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Prismatic Barrier Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 891d36c203d3e25c2d88c9bc01f7ac040b8b9b971206757c53f2c596f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTT was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Lucent Singularity Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 18aed3d39581896d323909ef7183ed4ff81b834cf1a1005a542eec753
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Final Spark Primary Damage
 

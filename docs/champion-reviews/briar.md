@@ -36,7 +36,7 @@ Description signature: ec46e993c817b516a85dab88ac16bc125c9b6b8532ace490a59377a1b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Head Rush Primary Damage
 
@@ -60,7 +60,7 @@ Briar leaps to a target, Stunning it for seconds, dealing physical damage and re
 
 ## W - Blood Frenzy / Snack Attack
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 3ff20dd1c59690c72ebf62a476e8f5088c07a2b855b3bd83ef1bb65a6ff3c1e4
 
@@ -69,17 +69,7 @@ Description signature: 3ff20dd1c59690c72ebf62a476e8f5088c07a2b855b3bd83ef1bb65a6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalAoEDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Blood Frenzy / Snack Attack Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Blood Frenzy grants timed attack speed and repeated surrounding attack damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Blood Frenzy / Snack Attack Remaining Combat Behavior
 
@@ -87,7 +77,7 @@ The structured primary CommunityDragon calculation is executable.
 - Disposition: template
 - Coverage: unsupported
 - Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Reason: Blood Frenzy grants timed attack speed and repeated surrounding attack damage. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Briar leaps and enters a Blood Frenzy, self-taunting to the nearest enemy for seconds, prioritizing Champions. While in Blood Frenzy she gains % Attack Speed and % Move Speed, and her Attacks deal physical damage to enemies surrounding her target. Briar can Recast this Ability to empower her next Attack. It deals + % missing Health physical damage and heals Briar for + % of the damage dealt.
 
@@ -102,7 +92,7 @@ Description signature: d2e22166e14328fc48b76237eba62e18b0f41f433e42bc7076561b4c1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Chilling Scream Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: 81aff8d25ae8698e882b861590030a600d429350e45f701f638614707
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Certain Death Primary Damage
 

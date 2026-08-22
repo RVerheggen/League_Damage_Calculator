@@ -36,7 +36,7 @@ Description signature: 5166e6614e564f4c24c869ce49d30c2901f8fe68c24e3a4e8f0e4974c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Rootcaller Primary Damage
 
@@ -60,7 +60,7 @@ Ivern conjures a vine dealing magic damage and Rooting the first enemy hit for s
 
 ## W - Brushmaker
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 2932bdf96ac17f7ac667f538cdfc63e6e099d8e442cfd0434cb16d9efd5e3ade
 
@@ -69,25 +69,15 @@ Description signature: 2932bdf96ac17f7ac667f538cdfc63e6e099d8e442cfd0434cb16d9ef
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Brushmaker Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+Brush presence controls a repeated magic on-hit state. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Brushmaker Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: scheduled-damage
-- Reason: The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: timed-on-hit
+- Reason: Brush presence controls a repeated magic on-hit state. The source is assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 Passive: While in brush and for seconds after leaving, Ivern's Attacks deal an additional magic damage. Nearby allies will gain this effect for seconds and deal magic damage. Active: Ivern grows a patch of Brush, revealing the area for seconds. The Brush persists until Ivern's team loses vision within it, or up to seconds.
 
@@ -102,7 +92,7 @@ Description signature: ef9ea8cf99cee962cf39290fb2ba6d64306c07080c9bcae928b132c60
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Triggerseed Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: bb00d9f8dd55a404631788434a9663feb762e7e682d19de3ebb46c34c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalShockwaveDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Daisy! Primary Damage
 

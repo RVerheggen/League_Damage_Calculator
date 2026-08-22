@@ -36,7 +36,7 @@ Description signature: 28f91e4fdb34e3a4a3b45ca9b24ce2cdcb5c4b93665a76e5223854384
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Parrrley
 
@@ -59,7 +59,7 @@ Description signature: 8e834337a4297422c31453bef60764511ef938b2fbadf63588d226c52
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Remove Scurvy
 
@@ -82,7 +82,7 @@ Description signature: 75b0c1436bc5a023ccb1a3fde88a4ba2f2ef27c64965dd0bf73e1841a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation fallback effect values was preserved. Stateful and alternate effects require an explicit module.
+The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Powder Keg Remaining Combat Behavior
 
@@ -105,7 +105,7 @@ Description signature: 9fcd00393595550b166d7f8b041e3315f0e645342aeda35b1eba3e953
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation OneWaveDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Cannon Barrage Primary Damage
 

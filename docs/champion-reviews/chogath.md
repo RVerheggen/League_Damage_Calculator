@@ -36,7 +36,7 @@ Description signature: e30f3fde38c2ed78d31fa2cd3f5501ef9adcf53f2e1c5014c50e3cc68
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Rupture Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: cdfd5f817e10b950bf0ba2c02520e5259344ce055a403f10a8ee60dfb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Feral Scream Primary Damage
 
@@ -93,7 +93,7 @@ Cho'Gath roars, Silencing enemies for seconds and dealing magic damage.
 
 ## E - Vorpal Spikes
 
-Coverage: partial
+Coverage: modeled
 
 Description signature: 478d4ac06d8efd4316ef3e902e858f0c891c7b808df0e08b435895c29e0290ca
 
@@ -102,27 +102,51 @@ Description signature: 478d4ac06d8efd4316ef3e902e858f0c891c7b808df0e08b435895c29
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FlatDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+Vorpal Spikes empowers the next three successful basic attacks for six seconds. Each hit uses the selected Feast stack input in its patch-ranked maximum-health magic damage. Slow, range, and monster-only behavior do not change champion-target damage.
 
-### Vorpal Spikes Primary Damage
+### Vorpal Spikes Attacks
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
+- Template or handler: limited-attack-state
+- Reason: Compiled by the reusable limited-attack-state template.
 
-The structured primary CommunityDragon calculation is executable.
+Casting E empowers the next three successful basic attacks for six seconds with flat and maximum-health magic damage. Feast stacks are a typed pre-combat input.
 
-### Vorpal Spikes Remaining Combat Behavior
+Formula bindings: VorpalSpikes.FlatDamageCalc, VorpalSpikes.MaxHealthPercentCalc
 
-- Relevance: attacker
-- Disposition: template
-- Coverage: unsupported
-- Template or handler: scheduled-damage
-- Reason: The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
+Value bindings: VorpalSpikes.MaximumAttacks, VorpalSpikes.BuffDuration, VorpalSpikes.FeastStackMultiplier
 
-Cho'Gath's next 3 Attacks launch spikes that deal plus of the target's max Health magic damage and Slow by %, decaying over seconds.
+### Vorpal Spikes Slow
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: Movement and crowd control do not change a manually selected successful hit.
+
+Each spike slows its target.
+
+### Vorpal Spikes Range
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: Attack range does not change a manually selected successful hit.
+
+E grants attack range while attacks remain.
+
+### Vorpal Spikes Monster Cap
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: The supported target is a champion.
+
+The maximum-health packet is capped against monsters.
 
 ## R - Feast
 
@@ -135,7 +159,7 @@ Description signature: 6a3d38a63c97b47cd6708636ac54bfa4d6b21be4009c7f08e1164c698
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Feast Primary Damage
 

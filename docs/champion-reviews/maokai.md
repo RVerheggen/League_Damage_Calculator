@@ -36,7 +36,7 @@ Description signature: ecc4c06863d919260d733beb1dcad80e9f0b22cf476e8c1d13f3487ea
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bramble Smash Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 11fec04fdfaa0accb06b13849fdafac46954a40758f242c0fb5de722a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Twisted Advance Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 7693aad0b4c0b1dec9a4cd7056550b7597079f124700c51eca5654362
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Sapling Toss Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: ff0ff2e8052fb76f06d232ec59754d7f99c54938f38abf303caedddab
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Nature's Grasp Primary Damage
 

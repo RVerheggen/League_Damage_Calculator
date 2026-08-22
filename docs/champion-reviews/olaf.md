@@ -36,7 +36,7 @@ Description signature: 6a047d5fb1707c28b87068ec203bd68994f9226afe0b1554542f9061a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Undertow Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 14bbd4b6b007cc71da30658dde3c6d68a0f019b7009ca8510088a1e3c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Tough It Out Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 7c410994b019c34c7d8c701df73d628cb0c1146593713aa84719feae1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Reckless Swing Primary Damage
 

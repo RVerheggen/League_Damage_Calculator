@@ -36,7 +36,7 @@ Description signature: a4e3759d09834ebd5ff1ec38de9d9def9e11d3e2332239c9d3ddeadd6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Urchin Strike Primary Damage
 
@@ -144,7 +144,7 @@ Description signature: 54332ff247434546933b94d7345d11de4a92ca4f3156c834914331cad
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation EDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Playful / Trickster Primary Damage
 
@@ -177,7 +177,7 @@ Description signature: cdf7f64888c5ab8a99984a912c707d8169545e007a35b36209d9c5987
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation SmallSharkDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Chum the Waters Primary Damage
 

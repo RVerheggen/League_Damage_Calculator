@@ -36,7 +36,7 @@ Description signature: 91dfc970059c3231f2bbc3486e6137fc588796ec0d218afcf784da041
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Call of the Void Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: dad143e9a7bfb72a19db48d727a64e0617e17bcf8ecb5d871a88ecec7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation VoidlingBonusDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Swarm Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 49c3673b8d3fef88967515b39793ccf86cb82a297d0e8a4b1cb6abd09
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Malefic Visions Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 7dea945292d1cf0c9537c6434b3571ae04e7d21bef7d690a5a00dd047
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Nether Grasp Primary Damage
 

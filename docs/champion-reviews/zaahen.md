@@ -27,7 +27,7 @@ Zaahen's attacks and abilities against enemy champions grant him stacks of Deter
 
 ## Q - The Darkin Glaive
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 8b91d207fc196a37a497e58a84a0248da9f0d94a0bf7befb6de3e9c101abd2cc
 
@@ -36,25 +36,15 @@ Description signature: 8b91d207fc196a37a497e58a84a0248da9f0d94a0bf7befb6de3e9c10
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### The Darkin Glaive Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+The first armed attack unlocks a distinct recast attack. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### The Darkin Glaive Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: recurring-attack-state
+- Reason: The first armed attack unlocks a distinct recast attack. The source is assigned to the recurring-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Zaahen slashes twice on his next Attack, dealing bonus physical damage and restoring % of his max Health. Recast: Zaahen's next Attack deals bonus physical damage and Knocks the target Up for seconds.
 
@@ -69,7 +59,7 @@ Description signature: c9116eb968fce7aa29097cf79f9a5f26460d9c84a2d7bf9a87911fbe5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Dreaded Return Primary Damage
 
@@ -102,7 +92,7 @@ Description signature: 794ce4613ef7b6b819a2e12d0f42ca2a0a2d016ba9f3641dbb935aff4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Aureate Rush Primary Damage
 
@@ -135,7 +125,7 @@ Description signature: 18078cfe8725324f1fcd9e8759b26700fde49bde99fc05f8143d80325
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageEndCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Grim Deliverance Primary Damage
 

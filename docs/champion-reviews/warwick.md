@@ -36,7 +36,7 @@ Description signature: c0b87a16c4fd300457714803b0870a9d54faab689386c2db5d911b637
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseBiteDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Jaws of the Beast Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 29f12d6abc019cbeb3402d0a13c31e7be6e2137b092401d3e04330830
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Blood Hunt Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: c96a9c927fa4f747ec1a8ba20289052ffabf98200b8b196025110cde9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Primal Howl Remaining Combat Behavior
 
@@ -115,7 +115,7 @@ Description signature: 29767383900ef3e9aa904d9213d82e30764b07674fc26cee702c11634
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCumulative was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Infinite Duress Primary Damage
 

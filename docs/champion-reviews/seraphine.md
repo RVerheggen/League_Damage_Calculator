@@ -36,7 +36,7 @@ Description signature: c8206610410c4d0d33ef77d36064195b496e87fcbb7abc88ba58416b5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ExplosionDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### High Note Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b33de4683d29012ca6ad49ee52c512e7f173d1090a70e1271a4ec3e18
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Surround Sound Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 2a345210daca6d11fd037d882396709e5a8f336d56bbf249da2a08dd8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FinalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Beat Drop Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 15f44832f28723082215a3a422302d99f1bcf4346fd45e35926a9d1ed
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation R1TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Encore Primary Damage
 

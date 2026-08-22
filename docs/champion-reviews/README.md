@@ -4,25 +4,29 @@ Generated from the machine-readable patch 16.16 review catalog. The catalog cont
 
 ## Coverage
 
-- modeled: 24
-- out-of-scope: 120
-- partial: 538
-- unsupported: 183
+- modeled: 28
+- out-of-scope: 116
+- partial: 509
+- unsupported: 212
 
 ## Effect families
 
-- direct-damage: 796
+- direct-damage: 757
 - conditional-amplifier: 73
-- stacking-proc: 73
-- shield-with-lockout: 65
-- timed-stat-modifier: 62
+- stacking-proc: 70
+- shield-with-lockout: 63
 - timed-on-hit: 62
-- scheduled-damage: 58
-- cooldown-modifier: 50
+- scheduled-damage: 56
+- timed-stat-modifier: 53
+- cooldown-modifier: 49
 - resistance-modifier: 38
+- limited-attack-state: 19
+- attack-cycle: 9
 - arm-next-hit: 7
-- mark-and-consume: 2
+- recurring-attack-state: 4
+- mark-and-consume: 3
 - multi-hit-action: 2
+- automatic-attack-sequence: 1
 
 ## Champions
 

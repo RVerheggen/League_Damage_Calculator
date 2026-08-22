@@ -36,7 +36,7 @@ Description signature: 926f5ed485b08fdb3c31c8ef8239e66f4ddea467c580547660e19464d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation LeapDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Noxian Diplomacy Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: cb94defe4d7f0a585317b2c6e673fa7655f7fe56c260adf16d44d9723
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalInitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Rake Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 495c095bac62813d52e8941f12fe7d43aa7f808eaec0b5d261f4ed4fb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Assassin's Path
 
@@ -125,7 +125,7 @@ Description signature: cb1da13ef17c60dc7534626d65bc8bf14a0ebd8ae3ee0058950e55149
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Shadow Assault Primary Damage
 

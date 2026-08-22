@@ -36,7 +36,7 @@ Description signature: 852cfa55330549e954d56bdf5c43f4c81557cd0205b014f54fb3150eb
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Razor Shuriken Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: e8b912a981bfd044bbfe6b51e7bc7664187ef1551814542078a02be5e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Living Shadow
 
@@ -92,7 +92,7 @@ Description signature: 1b04c971f30c9c3982b701e2944b1ef9e9ba07276ef35f7eb5fa1f370
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Shadow Slash Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: eb8b9303b1feb15d7931e68a4a3bd9971a242389b31de77fe75f7d408
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RCalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Death Mark Primary Damage
 

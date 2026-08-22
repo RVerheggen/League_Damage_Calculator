@@ -36,7 +36,7 @@ Description signature: 6986d4cb42f691410068c9c7c17938755ec246d0a1f8806957d27c16c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Sigil of Malice Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: b50dd8264b7ad7bd1bdc9a3c2eed0af0a09bfc8a7420d55da9f7517f1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Distortion Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: ab20702a29d7bfdad3a2f6a95127d4baf09ce14e84c7e63760274bc13
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ethereal Chains Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 83f18851d52690ea8766cc8da0cb7e0f9f2b09a8462347f694155b453
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RQ1Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Mimic Primary Damage
 

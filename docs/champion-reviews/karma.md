@@ -36,7 +36,7 @@ Description signature: 81aacdb4c88d43ba60ebb579dd43cb1643e7c6d425685a9b049f2978f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Inner Flame Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 0e6e6f6331c9c58253357c47ff6c850f753c76351acecc078f2d8657d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Focused Resolve Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 1047b2baf957e6c05074672bc306b8b6f975034125db6be1db88fbd91
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Inspire Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: a26acd7bd0a7b8451fa56d8cd8dd2099a403cc4c663f8a22e12817b68
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RQImpactDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Mantra Primary Damage
 

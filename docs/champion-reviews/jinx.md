@@ -36,7 +36,7 @@ Description signature: c3bc5d2b48af8e5187d015801637e80144ca18b8e52b6115595bb8ff2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation RocketDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Switcheroo! Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 13f44a50f06725b532b19dd35adcb6baa4d6deea6e1a0d4c7bd7db0c8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Zap! Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 57e97084bc44471086bfaa65d93d3e09740fc79ec20fa61024ecb9c98
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Flame Chompers! Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 13c627e518615830b1461f9fe71ab38dd52421a41110c7aa44b22d450
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageFloor was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Super Mega Death Rocket! Primary Damage
 

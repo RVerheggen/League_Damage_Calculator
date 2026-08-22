@@ -36,7 +36,7 @@ Description signature: bdbc50cf98d592b58409f7761b5bd27cd455dbdc98809f3296da1f637
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Death Sentence Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 6b49260be59406381423d61db980573bc20d1acef45c65afafabcf8a1
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Dark Passage Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 851861e81c2200f3e349830d94876cf5801bcb00e8e1ad37c725492b5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PAttackDamageMin was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Flay Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 69460fb727f6d56ada777cdfc8bb17642bc2894371f3633d596203152
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### The Box Primary Damage
 

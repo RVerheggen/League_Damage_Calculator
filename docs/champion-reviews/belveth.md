@@ -36,7 +36,7 @@ Description signature: 0552469c361dbaa08e2baf6c64fa93142a5fec720460a60855e3a2c3e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Surge Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 5345d8fd1df311425907bbccec11e1ca5f250dfbd49e14a2f4b6a9235
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Above and Below Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: b8d6429a16e252fbfa3ed51f96e6776297d7a2862fb11cbefc494c887
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerStrike was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Royal Maelstrom Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 641c51b04eb5a908d6cbd9bc83681f9484a13c16b98a92e1302766d2f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation FinalOnHitDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Endless Banquet Primary Damage
 

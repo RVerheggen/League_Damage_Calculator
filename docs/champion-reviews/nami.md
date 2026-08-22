@@ -36,7 +36,7 @@ Description signature: 0b9c07ea8615b9454af0f0b6561d9604a96c37c75af3601d57528d144
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageTT was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Aqua Prison Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 9b87f7a1357f8b8491a11a97b013b9fe670ef58c577e87b6bde31ccf9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Ebb and Flow Primary Damage
 
@@ -93,7 +93,7 @@ Nami unleashes a stream of water that bounces between allied and enemy champions
 
 ## E - Tidecaller's Blessing
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 82d86be4e15f2868a66f139ec22a23d5129d4df133364949fa8a321b38b77e7a
 
@@ -102,25 +102,15 @@ Description signature: 82d86be4e15f2868a66f139ec22a23d5129d4df133364949fa8a321b3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
-
-### Tidecaller's Blessing Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
+A bounded set of charges can be consumed by an allied participant's attacks or abilities. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 ### Tidecaller's Blessing Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: limited-attack-state
+- Reason: A bounded set of charges can be consumed by an allied participant's attacks or abilities. The source is assigned to the limited-attack-state family, but a complete reviewed binding has not been compiled yet.
 
 Nami empowers an allied champion's next Attacks and Abilities for seconds, causing them to Slow their targets by for s and deal an additional magic damage.
 
@@ -135,7 +125,7 @@ Description signature: 4f50d55b416a7676bb7266c7a9f9dd4ec66bcbb894440c43113186389
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Tidal Wave Primary Damage
 

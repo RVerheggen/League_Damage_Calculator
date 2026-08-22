@@ -36,7 +36,7 @@ Description signature: beec3f5983cd294f5af20ed84c50cd63b99fe172293f219193b13f398
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Piercing Darkness Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 3c320b8dd0724cfe1d1e35d0795e4a1271bf4387a7addd7a22fe7de2b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Last Embrace Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 39a4e2c7fcb316c5240549f5922bfa2560a24f8781933a86cb184921c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Curse of the Black Mist
 
@@ -125,7 +125,7 @@ Description signature: 36d67b4bcfce9139aa79a48519f0bdc9575385d76efae90c70e910911
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Dawning Shadow Primary Damage
 

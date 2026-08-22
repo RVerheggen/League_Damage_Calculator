@@ -36,7 +36,7 @@ Description signature: c00fc5e62ba3ba7df24c5ffdf1b97413c77070986883f9b514c274b20
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bear Trap on a Rope Primary Damage
 
@@ -60,7 +60,7 @@ Mounted: Kled throws a bear trap that deals physical damage and hooks onto the f
 
 ## W - Violent Tendencies
 
-Coverage: partial
+Coverage: unsupported
 
 Description signature: 51df318310e6b187127c3fbc775a30c9a64bab8fe1d71d415ad5a2dda14c6753
 
@@ -69,27 +69,31 @@ Description signature: 51df318310e6b187127c3fbc775a30c9a64bab8fe1d71d415ad5a2dda
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation PercentDamage was preserved. Stateful and alternate effects require an explicit module.
+Violent Tendencies is mapped to the automatic-attack-sequence family. It activates on the first qualifying attack when off cooldown, affects four attacks or four seconds, and gives the fourth attack separate damage and cooldown behavior. That automatic activation shape is not compiled yet.
 
-### Violent Tendencies Primary Damage
-
-- Relevance: attacker
-- Disposition: template
-- Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
-
-The structured primary CommunityDragon calculation is executable.
-
-### Violent Tendencies Remaining Combat Behavior
+### Violent Tendencies Sequence
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: timed-on-hit
-- Reason: The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: automatic-attack-sequence
+- Reason: The generic runtime still needs automatic cooldown-ready activation before this passive sequence can compile.
 
-Passive: Kled's next Attack grants % Attack Speed for four Attacks or seconds. The fourth hit deals an additional plus max Health physical damage.
+The first qualifying attack while W is ready automatically starts a four-attack or four-second attack-speed sequence. The fourth hit adds flat and maximum-health physical damage.
+
+Formula bindings: KledW.PercentDamage
+
+Value bindings: KledW.WCooldown, KledW.AttackSpeed, KledW.ActiveDuration, KledW.BaseFlatDamage, KledW.ChampCooldownRefund
+
+### Violent Tendencies Monster Cap
+
+- Relevance: neither
+- Disposition: out-of-scope
+- Coverage: out-of-scope
+- Template or handler: none
+- Reason: The supported target is a champion.
+
+The fourth-hit maximum-health damage is capped against monsters.
 
 ## E - Jousting
 
@@ -102,7 +106,7 @@ Description signature: c62cfd6a331b4ac0db95ce1aeb84cf940389d52645206c6077b99175e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Jousting Primary Damage
 
@@ -135,7 +139,7 @@ Description signature: 8ecc67b4f70ff22f2f2ee3ecfacdb65c57a43d3574f7d0376ef0294f9
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinimumDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Chaaaaaaaarge!!! Primary Damage
 

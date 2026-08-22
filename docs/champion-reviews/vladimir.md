@@ -36,7 +36,7 @@ Description signature: 168ad3c0cae5eaa48bfa477dcbba6bfdc25727350bba15656581e2096
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Transfusion Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: a99507feba12f6fec69c091271059ec50b014e517e41933a1e715868a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Sanguine Pool Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 3dc985f3e755a8e09870cb1d86fdc1aa4831695c96f13c7112378535a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation MinDamageTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Tides of Blood Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 025ec63332193ac9fa33d240ee4a80480b2ce64dfdc73f32e9ddfe0f4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Hemoplague Primary Damage
 

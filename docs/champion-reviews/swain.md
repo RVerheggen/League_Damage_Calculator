@@ -36,7 +36,7 @@ Description signature: e42ff5bfc850db7d8b8d74a38526638e21915ea54b056c240e801ae43
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Death's Hand Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 30dc52cbc1f06481c89e33b67b34c759646b38fdec96fa88e4d493142
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Vision of Empire Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: b501392d982b6dfc780f58b3c30b23e678461210193a6d2bf12f80090
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation SecondaryDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Nevermove Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: b63972eb4bfeed0b5c090528e4274470795c2700d42cafdaaeeaba20c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Demonic Ascension Primary Damage
 

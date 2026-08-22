@@ -36,7 +36,7 @@ Description signature: 3311f882663c3c1340b084887d0592ed0f965df0fff228907f094bb1a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BladeDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Decimate Primary Damage
 
@@ -92,7 +92,7 @@ Description signature: 7a2b8e353ab77ad98c82ce67093650beeb47ba037bb95ed66c9f77597
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Apprehend Remaining Combat Behavior
 
@@ -115,7 +115,7 @@ Description signature: d2f0a162dc9384a97619ff00256a4ba8b30c6f8e706cafeb00bbf5d5f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the cooldown-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Noxian Guillotine Primary Damage
 

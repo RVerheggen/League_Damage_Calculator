@@ -4,7 +4,7 @@ Patch: 16.16
 
 ## P - Double Strike
 
-Coverage: out-of-scope
+Coverage: unsupported
 
 Description signature: 033514ae286fee809d410bad94b23f7d2ad1a2cc94e45d67b47dd28f53dbda0a
 
@@ -13,17 +13,17 @@ Description signature: 033514ae286fee809d410bad94b23f7d2ad1a2cc94e45d67b47dd28f5
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
+Double Strike is damage-relevant and mapped to the attack-cycle family. It must count qualifying attacks and emit a second attack packet at its threshold.
 
-### Double Strike
+### Double Strike Cycle
 
-- Relevance: neither
-- Disposition: out-of-scope
-- Coverage: out-of-scope
-- Template or handler: none
-- Reason: The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
+- Relevance: attacker
+- Disposition: template
+- Coverage: unsupported
+- Template or handler: attack-cycle
+- Reason: The runtime does not yet combine a persistent attack cycle with a second basic-attack packet and its trigger policy.
 
-Every few consecutive basic attack, Master Yi strikes twice.
+Consecutive basic attacks advance a cycle whose threshold attack strikes twice.
 
 ## Q - Alpha Strike
 
@@ -36,7 +36,7 @@ Description signature: 62abacde4c15a9f819f1db2d0de1bbc69885ed0596b69b3ff4bbc6bcd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Alpha Strike Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 743f466be8b3c0d4d198201e25d80d9f0d949090ec4be94e186944fdd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Meditate Remaining Combat Behavior
 
@@ -83,7 +83,7 @@ Master Yi channels, restoring Health over seconds. This healing is increased by 
 
 ## E - Wuju Style
 
-Coverage: partial
+Coverage: modeled
 
 Description signature: 52587089498ab7a2b006c18c688f1006c42d86967ef05545c5337c1611752828
 
@@ -92,27 +92,21 @@ Description signature: 52587089498ab7a2b006c18c688f1006c42d86967ef05545c5337c161
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+Wuju Style applies its patch-ranked true damage to every successful basic attack for five seconds. Missed attacks do not create a packet, and the timed state expires explicitly.
 
-### Wuju Style Primary Damage
+### Wuju Style On-Hit
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: modeled
-- Template or handler: direct-damage
-- Reason: The generic direct-damage evaluator preserves the structured formula and complete rank arrays.
+- Template or handler: timed-on-hit
+- Reason: Compiled by the reusable timed-on-hit template.
 
-The structured primary CommunityDragon calculation is executable.
+Casting E empowers every successful basic attack for five seconds with patch-ranked true damage.
 
-### Wuju Style Remaining Combat Behavior
+Formula bindings: WujuStyle.TotalDamage
 
-- Relevance: attacker
-- Disposition: template
-- Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
-
-Master Yi's Attacks deal an additional true damage for seconds.
+Value bindings: WujuStyle.BaseDamage, WujuStyle.ADRatio, WujuStyle.Duration
 
 ## R - Highlander
 
@@ -125,7 +119,7 @@ Description signature: 1e60d40b3eaf5659f36f8d2bb4cb6263fa73975578346e36e60b4bb35
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Highlander Remaining Combat Behavior
 

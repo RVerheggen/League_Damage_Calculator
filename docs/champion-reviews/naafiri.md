@@ -36,7 +36,7 @@ Description signature: 118effa8303ce166bc202b529a646b3c80db6fa42e63078440612db6a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageFirstCast was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Darkin Daggers Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 578e83a927771e8ac11b51559bb016777c689c36874e6d4762dc9182a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BonusAD was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### The Call of the Pack Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 12a2b5cf9edbfc050b94a610261c5cd116db1bce8727b4d2e50e218ce
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamageFirstSlash was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Eviscerate Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 334b154d188918e52ceb2a6ac01537886d20284c9bb7d02c7a1eea8c3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Hounds' Pursuit Remaining Combat Behavior
 

@@ -36,7 +36,7 @@ Description signature: 31706c695abcdea5286ff701ad9d7f7b91cc8a216c0676b07ca444c53
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Bone Skewer Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 1ef603949c243533d0cd4ec86b7c3ccb92c8ec1350c3c160c7d49c81a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Ghostwater Dive
 
@@ -92,7 +92,7 @@ Description signature: a3dd99a07745c671ee79377ce7477da9359e75d8a3eacef383a5161ba
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Phantom Undertow Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 1b93f5dc74b4b68a967518e561ed3e9c7403ca6e4e395f19832b8d960
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ReducedDamageFinal was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Death From Below Primary Damage
 

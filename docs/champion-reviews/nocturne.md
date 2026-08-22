@@ -36,7 +36,7 @@ Description signature: d7fa1200d322f279acac27644738f88343e3d33aa1f57c1f3b0598558
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Duskbringer Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: a6c94bd90ae09af80a4f71687c524f2fefd77bdcf5fb2fa4fc8981705
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Shroud of Darkness
 
@@ -92,7 +92,7 @@ Description signature: c73fffd1cb5fa5b6730734ef0b9b6c73ba47b9f391e8e20723585cddf
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Unspeakable Horror Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: dd5508717c14dc7ca31bbe5cbb797ecad90a1d70fc729053825476c03
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Paranoia Primary Damage
 

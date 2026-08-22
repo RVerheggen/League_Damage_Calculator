@@ -36,7 +36,7 @@ Description signature: 08d85039e5d964e3fde1c324881e15d668f432ef59786df1366a6672c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Super Scorcher Breath Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 8b4894e2a4f1118accddbe27eaf15d91a320437f6cab19652a182b5b2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation InitialDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Achooo! Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 4a5c07787a98ce20dec3b971192e00229e34f783665d6a88c761e141c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerHit was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Flap, Flap, Flap Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 736c2f93464ba6b82cf0b174cd7c63cc523d07a04d8b25bb5cc8f6892
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### MMOOOMMMM! Primary Damage
 

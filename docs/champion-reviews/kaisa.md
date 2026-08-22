@@ -13,15 +13,15 @@ Description signature: 83e524d2fff3b9624423739c1e3742ad5a7acfbf4a81b0a4bfb068a59
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+Basic attacks and allied crowd control build a per-target Plasma threshold. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Second Skin Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: stacking-proc
+- Reason: Basic attacks and allied crowd control build a per-target Plasma threshold. The source is assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 Kai'Sa's basic attacks stack Plasma, dealing increasing bonus magic damage. Allies' immobilizing effects help stack Plasma. Additionally, Kai'Sa's item purchases upgrade her basic spells to have more powerful properties.
 
@@ -36,7 +36,7 @@ Description signature: aa2523de3542f31e14510d2fc04d38b728d0d96a09ba5a9d221d378bf
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalIndividualMissileDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Icathian Rain Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 01f13eb762171154ed17d993f356586cf9a8a3b85fec81f7dd8ae5415
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Void Seeker Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: cc9fed46a2581ce1832fafc983c2bc1b7247c95cd1fa51ea34bfb1ff8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The cast grants timed attack speed and attacks reduce its cooldown. The source is assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Supercharge Remaining Combat Behavior
 
@@ -110,7 +110,7 @@ This cast changes combat state, but no complete state module is registered yet.
 - Disposition: template
 - Coverage: unsupported
 - Template or handler: timed-stat-modifier
-- Reason: The full patch description is retained and assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
+- Reason: The cast grants timed attack speed and attacks reduce its cooldown. The source is assigned to the timed-stat-modifier family, but a complete reviewed binding has not been compiled yet.
 
 Kai'Sa supercharges her void energy, gaining Move Speed and becoming Ghosted while charging, then gaining % Attack Speed for seconds. Attacks reduce this Ability's Cooldown by seconds. Evolved: Kai'Sa also becomes Invisible for seconds. Current: %/% Bonus Attack Speed
 
@@ -125,7 +125,7 @@ Description signature: 90cfc67ec5098d6fe6b76868cfcf3617bd8f0a111441bda627ed02b0b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Killer Instinct Remaining Combat Behavior
 

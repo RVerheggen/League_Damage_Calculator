@@ -36,7 +36,7 @@ Description signature: dfa034d04a4a96e453603927a5fd6c8c7a9375ba4b8ecdc4481b0c07a
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Five Point Strike Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 322c53e1dbb329de6a902ed503fdb59d1c513b90ad3b9025f973d7c50
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Twilight Shroud
 
@@ -92,7 +92,7 @@ Description signature: b3f945263f593b04b992829250a84d1dd04d0ff19c6f8591e7eed4114
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation E1Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Shuriken Flip Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: fc46ee8458b10fa7540643c7f66045d1d191045caf1e377ed3053c44c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Cast1Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Perfect Execution Primary Damage
 

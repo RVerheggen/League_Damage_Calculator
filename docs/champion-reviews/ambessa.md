@@ -36,7 +36,7 @@ Description signature: 50354315a9ae155c9e8b676c8cd35b40e0b8cd55924bc4536b89a4c08
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_Damage_1_Max was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Cunning Sweep / Sundering Slam Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 566fdae5de846cf11645b30d9eb01c1972945b387544e1a8e7f9dc4d4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_Damage_Low was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Repudiation Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 5d33f5d67bbdc0f7cf25c4557950a4bb0c973f6a01bce1cc890c4171e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_Damage_Flat was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the scheduled-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Lacerate Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 5842dd487486868be560f3c1f10e467e45e204e7414eee6a4a8f4c4a8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Calc_Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Public Execution Primary Damage
 

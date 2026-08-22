@@ -13,15 +13,15 @@ Description signature: 624aeb0fd075d1a6dabc563cf823e7440310b5ea1669377c294aa941e
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+Ammunition and the fourth shot create a persistent ordered attack cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 ### Whisper Remaining Combat Behavior
 
 - Relevance: attacker
 - Disposition: template
 - Coverage: unsupported
-- Template or handler: direct-damage
-- Reason: The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
+- Template or handler: attack-cycle
+- Reason: Ammunition and the fourth shot create a persistent ordered attack cycle. The source is assigned to the attack-cycle family, but a complete reviewed binding has not been compiled yet.
 
 Jhin's hand cannon, Whisper, is a precise instrument designed to deal superior damage. It fires at a fixed rate and carries only four shots. Jhin imbues the final bullet with dark magics to critically strike and deal bonus execute damage. Whenever Whisper crits, it inspires Jhin with a burst of Move Speed.
 
@@ -36,7 +36,7 @@ Description signature: 422c8259b61bdb3aa1bfa295c4080abf5b87edbff6dabe3ff1c00d7b7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Dancing Grenade Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 94716d24d18f84f8eea40683a6721c4bb42cce57e11c639ec0fbdad0f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Deadly Flourish Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 89ef4373f3f9dbc334ce6c82fe766e3af7769e44839790e4aedf18692
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Captive Audience Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 08ab07bc077ff537e8c14cba3a2a2fb63a7fa11e50de255096b15aef7
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Curtain Call Primary Damage
 

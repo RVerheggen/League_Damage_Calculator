@@ -36,7 +36,7 @@ Description signature: 659c91e9bf6c47c1e88197cc42e9d32705e082c2f12f5b8d1b1692e62
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation CalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Blinding Dart Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: a23932243de76a47d5de2b34a795df627db4e93a6ece0ec002f612e4d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast has no damage-calculation effect in the current one-on-one scope.
+The reviewed patch description contains no damage, mitigation, shield, offensive stat, resistance, or cooldown behavior that changes the supported duel result.
 
 ### Move Quick
 
@@ -92,7 +92,7 @@ Description signature: e5843f4b1346cacc52f50bf9dbdd9ca041d6307cf499b646790145f48
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ImpactCalculatedDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Toxic Shot Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 1b10fa19a72764e9808ef31456f3068b87d34eb0252f0e36707bbee55
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Noxious Trap Primary Damage
 

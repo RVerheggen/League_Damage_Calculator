@@ -36,7 +36,7 @@ Description signature: d3c1a10a97d21ac3398eb04a284a897236a9d128514ae0ed84b40950c
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Hymn of Valor Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 24c144b1cacdf510e9abb1a7dfa2ac90a1f5bb146344d851a29d67f7b
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Aria of Perseverance Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 11bec0c5c6abeda57dcb6ab27ad821022b3c40b0b96c14d4a1686d0b4
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Song of Celerity Remaining Combat Behavior
 
@@ -115,7 +115,7 @@ Description signature: f2d1f320bac5fac61dbc9ac03de9c4cce3631661d9afc4e2ba4649fd6
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Crescendo Primary Damage
 

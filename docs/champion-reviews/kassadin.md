@@ -36,7 +36,7 @@ Description signature: 723d49d720762d10ba9a945eaf9bd2030ab75809249d7db62368e1bf8
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Null Sphere Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 59f269a6b96bb35331f52d943e19629dfbc361e775c2036685e7b8f77
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation OnHitDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the timed-on-hit family, but a complete reviewed binding has not been compiled yet.
 
 ### Nether Blade Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: d3af49a48675fd0cfd9b2670dc12830a75b49086d28dc72d926356a89
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the conditional-amplifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Force Pulse Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: 4d79a66c749c7c69085beaecceffb11bc9ef80d9da4134bdda28c1238
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation BaseDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### Riftwalk Primary Damage
 

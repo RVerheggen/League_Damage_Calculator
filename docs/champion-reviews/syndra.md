@@ -36,7 +36,7 @@ Description signature: 9e17ba3a19803f4f369c98f681bfa94e72a65eef6ece56f2cefb99185
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Dark Sphere Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: faccd2a10a739d5c01415efc0315a91852a0fc93e4dd13c1e2e01f440
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ThrowDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Force of Will Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: f317f661ee9eef1fd7daa26551acae2bb77e28477cc5a30cc505c27e0
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Scatter the Weak Primary Damage
 
@@ -135,7 +135,7 @@ Description signature: fa0d187fbeaad7a645fb4d47266be497c093dd71e8606c6a0c1fc18fd
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Unleashed Power Primary Damage
 

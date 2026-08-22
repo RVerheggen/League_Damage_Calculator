@@ -36,7 +36,7 @@ Description signature: 96c8e8fb507eabc37df788a88a6ea6ba512497363189455b9ed5d9afe
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation TotalDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the stacking-proc family, but a complete reviewed binding has not been compiled yet.
 
 ### End of the Line Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 129d64d0da01d5b0c1cbcdaf1b507a61f612e19be6f54dd3931ec2a72
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation ImpactDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Smoke Screen Primary Damage
 
@@ -102,7 +102,7 @@ Description signature: 4cf45a09672e02c19f9abe85a7a1b10eba01ae94ba85aa77dafe4a3d2
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-This cast changes combat state, but no complete state module is registered yet.
+The full patch description is retained and assigned to the resistance-modifier family, but a complete reviewed binding has not been compiled yet.
 
 ### Quickdraw Remaining Combat Behavior
 
@@ -125,7 +125,7 @@ Description signature: 17035425147add43d5600431f78f5c9b7a7aeb3720f25b17a6f42334f
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation Damage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Collateral Damage Primary Damage
 

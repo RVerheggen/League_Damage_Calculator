@@ -36,7 +36,7 @@ Description signature: b5cdbea6e6abae290c29e740f85098ead8bd797512cf29a18a30f79b3
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamageCalc was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Formless Blade Primary Damage
 
@@ -69,7 +69,7 @@ Description signature: 7c8c332306f2e2e97a51198f3d7a4e9004ce431e88c4d7d3e5f32bf45
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-The tooltip identifies damage, but the current BIN calculation structure could not be reduced safely.
+The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Jubilant Veil Remaining Combat Behavior
 
@@ -92,7 +92,7 @@ Description signature: 291c74793af2ebdc7bf4910f08cb1d908ea2d2cdb880af455dfe5852d
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DashDamage was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the direct-damage family, but a complete reviewed binding has not been compiled yet.
 
 ### Slipstream Primary Damage
 
@@ -125,7 +125,7 @@ Description signature: 4fea4d49eb3ead8ad5cdad0f7079f455702d6a0f03e3669b980daae44
 
 Validation: Reviewed against pinned CommunityDragon champion detail and BIN sources for patch 16.16.
 
-CommunityDragon calculation DamagePerTickCalcTooltip was preserved. Stateful and alternate effects require an explicit module.
+The generic direct-damage evaluator preserves the structured formula and complete rank arrays. The full patch description is retained and assigned to the shield-with-lockout family, but a complete reviewed binding has not been compiled yet.
 
 ### Apotheosis Primary Damage
 

@@ -86,7 +86,9 @@ export function CombatantPanel({
   };
 
   const pickerEntities = picker === "champion"
-    ? champions.map((entry) => ({ id: entry.id, name: entry.name, icon: entry.icon, subtitle: entry.title, badge: entry.roles[0] }))
+    ? [...champions]
+      .sort((left, right) => left.name.localeCompare(right.name, "en", { sensitivity: "base" }))
+      .map((entry) => ({ id: entry.id, name: entry.name, icon: entry.icon, subtitle: entry.title, badge: entry.roles[0], categories: entry.roles }))
     : picker === "item"
       ? items.map((item) => ({ id: item.id, name: item.name, icon: item.icon, subtitle: `${item.price.toLocaleString()} Gold`, badge: item.classification, item }))
       : [];

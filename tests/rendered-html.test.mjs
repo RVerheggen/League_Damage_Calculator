@@ -181,6 +181,19 @@ test("uses the Damage Lab favicon and handle-only combo dragging", async () => {
   assert.doesNotMatch(actionControls, /Poppy|champion\.id|champion\.alias/);
 });
 
+test("champion picker entries are sorted alphabetically by display name", async () => {
+  const [combatantPanel, pickerDialog] = await Promise.all([
+    readFile(new URL("../src/features/calculator/combatant-panel.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/features/calculator/picker-dialog.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(combatantPanel, /left\.name\.localeCompare\(right\.name, "en", \{ sensitivity: "base" \}\)/);
+  assert.match(combatantPanel, /categories: entry\.roles/);
+  assert.match(pickerDialog, /Filter champions by class/);
+  assert.match(pickerDialog, /entity\.categories\?\.includes\(activeCategory\)/);
+  assert.match(pickerDialog, /\["all", \.\.\.categories\]/);
+  assert.match(pickerDialog, /displayedBadges\.map\(\(badge\)/);
+});
+
 test("runtime and UI code contain no champion-name or champion-ID behavior branches", async () => {
   const files = [
     "../src/domain/simulate.ts",

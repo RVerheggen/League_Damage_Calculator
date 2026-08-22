@@ -1,6 +1,8 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -26,8 +28,13 @@ export type PickerEntity = {
   icon: string;
   subtitle?: string;
   badge?: string;
+  categories?: string[];
   item?: ItemDefinition;
 };
+
+function categoryLabel(category: string) {
+  return category.split("-").map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`).join(" ");
+}
 
 function PickerOption({
   entity,
@@ -38,9 +45,10 @@ function PickerOption({
   selected: boolean;
   onSelect: () => void;
 }) {
+  const displayedBadges = entity.categories?.length ? [...new Set(entity.categories)] : entity.badge ? [entity.badge] : [];
   const option = (
     <CommandItem
-      value={`${entity.name} ${entity.subtitle ?? ""}`}
+      value={`${entity.name} ${entity.subtitle ?? ""} ${(entity.categories ?? []).join(" ")}`}
       data-checked={selected}
       onSelect={onSelect}
       className="min-h-12 gap-3"
@@ -50,7 +58,13 @@ function PickerOption({
         <span className="block truncate font-medium">{entity.name}</span>
         {entity.subtitle && <span className="block truncate text-xs text-muted-foreground">{entity.subtitle}</span>}
       </span>
-      {entity.badge && <Badge variant="outline" className="mr-6 text-[10px] uppercase">{entity.badge.split("-").map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`).join(" ")}</Badge>}
+      {displayedBadges.length > 0 && (
+        <span className="ml-auto flex shrink-0 flex-wrap justify-end gap-1">
+          {displayedBadges.map((badge) => (
+            <Badge key={badge} variant="outline" className="text-[10px] uppercase">{categoryLabel(badge)}</Badge>
+          ))}
+        </span>
+      )}
     </CommandItem>
   );
 
@@ -81,7 +95,14 @@ export function PickerDialog({
   selectedIds?: number[];
   onSelect: (id: number) => void;
 }) {
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const searchLabel = title === "Choose Champion" ? "Champions" : title === "Choose Item" ? "Items" : "Entries";
+  const categories = useMemo(() => [...new Set(entities.flatMap((entity) => entity.categories ?? []))]
+    .sort((left, right) => left.localeCompare(right, "en", { sensitivity: "base" })), [entities]);
+  const activeCategory = categories.includes(selectedCategory) ? selectedCategory : "all";
+  const visibleEntities = activeCategory === "all"
+    ? entities
+    : entities.filter((entity) => entity.categories?.includes(activeCategory));
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[min(94vw,44rem)] max-w-[44rem] gap-0 overflow-hidden border border-border bg-popover/98 p-0 shadow-2xl shadow-black/50">
@@ -91,10 +112,27 @@ export function PickerDialog({
         </DialogHeader>
         <Command className="rounded-none bg-transparent p-2">
           <CommandInput placeholder={`Search ${searchLabel}...`} className="h-9" />
+          {categories.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 border-b border-border/60 px-2 py-2.5" aria-label="Filter champions by class">
+              {["all", ...categories].map((category) => (
+                <Button
+                  key={category}
+                  type="button"
+                  size="xs"
+                  variant={activeCategory === category ? "default" : "outline"}
+                  aria-pressed={activeCategory === category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="uppercase tracking-[0.08em]"
+                >
+                  {category === "all" ? "All" : categoryLabel(category)}
+                </Button>
+              ))}
+            </div>
+          )}
           <CommandList className="max-h-[55vh]">
             <CommandEmpty>No matching entry found.</CommandEmpty>
             <CommandGroup>
-              {entities.map((entity) => (
+              {visibleEntities.map((entity) => (
                 <PickerOption
                   key={entity.id}
                   entity={entity}
